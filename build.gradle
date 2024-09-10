@@ -36,7 +36,8 @@ dependencies {
 	// 오라클 데이터베이스 11
 	implementation 'com.oracle.database.jdbc:ojdbc6:11.2.0.4'
 
-
+	// swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 }
 
 tasks.named('test') {
