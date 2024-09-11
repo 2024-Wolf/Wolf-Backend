@@ -5,18 +5,18 @@ import lombok.Getter;
 
 @Getter
 public class UserProfileResponse {
-    private Long userId;
-    private String nickname;
-    private String name;
-    private String email;
-    private String profile_picture;
+    private final Long userId;
+    private final String nickname;
+    private final String name;
+    private final String email;
+    private final String profile_picture;
 
-    private String job_title;
-    private String organization;
-    private int experience;
-    private String interests;
-    private String refundAccount;
-    private String introduction;
+    private final String job_title;
+    private final String organization;
+    private final int experience;
+    private final String interests;
+    private final String refundAccount;
+    private final String introduction;
 
     public UserProfileResponse(UserEntity user) {
         this.userId = user.getUserId();
