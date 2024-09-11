@@ -3,9 +3,8 @@ package com.kdt.wolf.domain.user.service;
 import com.kdt.wolf.domain.user.dto.response.UserProfileResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
-import com.kdt.wolf.global.exception.ApiException;
-import com.kdt.wolf.global.message.DefaultMessage;
-import com.kdt.wolf.global.message.UserMessage;
+import com.kdt.wolf.global.exception.BusinessException;
+import com.kdt.wolf.global.exception.code.ExceptionCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class UserService {
 
     public UserProfileResponse getUserProfile(Long userId) {
         UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new ApiException(UserMessage.USER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(ExceptionCode.USER_NOT_FOUND));
         return new UserProfileResponse(userEntity);
     }
 

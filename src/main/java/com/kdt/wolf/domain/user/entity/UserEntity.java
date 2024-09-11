@@ -74,9 +74,9 @@ public class UserEntity extends BaseTimeEntity {
 
     public static UserEntity makeTestUser() {
         return new UserEntity(
+                "test12",
                 "test",
-                "test",
-                "test",
+                "test12",
                 "test",
                 "test",
                 "test",

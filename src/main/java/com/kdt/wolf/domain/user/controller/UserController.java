@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.user.controller;
 
 import com.kdt.wolf.domain.user.dto.response.UserProfileResponse;
 import com.kdt.wolf.domain.user.service.UserService;
+import com.kdt.wolf.global.base.ApiResult;
 import com.kdt.wolf.global.dto.ApiResponse;
 import com.kdt.wolf.global.message.UserMessage;
 import lombok.RequiredArgsConstructor;
@@ -18,16 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/user/{userId}")
-    public ApiResponse<UserProfileResponse> getUserProfile(@PathVariable Long userId) {
-        UserProfileResponse response = userService.getUserProfile(userId);
-        return ApiResponse.createResponseWithMessage(response, UserMessage.USER_FOUND_SUCCESS);
-    }
+//    @GetMapping("/user/{userId}")
+//    public ApiResponse<UserProfileResponse> getUserProfile(@PathVariable Long userId) {
+//        UserProfileResponse response = userService.getUserProfile(userId);
+//        return ApiResponse.createResponseWithMessage(response, UserMessage.USER_FOUND_SUCCESS);
+//    }
 
     @PostMapping("/testinsertUser")
-    public ApiResponse<UserProfileResponse> insertUser() {
+    public ApiResult<UserProfileResponse> insertUser() {
         UserProfileResponse response = userService.insertTestUser();
-        return ApiResponse.createResponseWithMessage(response, UserMessage.USER_FOUND_SUCCESS);
+        return ApiResult.created(response);
     }
 
+
+    @GetMapping("/user/{userId}")
+    public ApiResult<UserProfileResponse> getUserProfile(@PathVariable Long userId) {
+        UserProfileResponse response = userService.getUserProfile(userId);
+        return ApiResult.ok(response);
+    }
 }
