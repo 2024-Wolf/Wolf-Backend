@@ -12,10 +12,6 @@ import org.springframework.stereotype.Component;
 public class UserDao {
     private final UserRepository userRepository;
 
-    public UserEntity saveTestUser() {
-        return userRepository.save(UserEntity.makeTestUser());
-    }
-
     public UserEntity findById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ExceptionCode.USER_NOT_FOUND));

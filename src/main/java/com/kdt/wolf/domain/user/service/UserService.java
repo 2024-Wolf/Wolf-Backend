@@ -18,7 +18,4 @@ public class UserService {
         return new UserProfileResponse(userDao.findById(userId));
     }
 
-    public UserProfileResponse insertTestUser() {
-        return new UserProfileResponse(userDao.saveTestUser());
-    }
 }
