@@ -1,0 +1,33 @@
+.sidebar { 
+    position: fixed;
+    top:150px;
+    left: 0px;
+    border: 1px solid var(--black200); 
+    width: 200px; 
+}
+.sidebar-item { 
+    display: block; 
+    padding: 17px 0; 
+    text-align: center; 
+    border: 1px solid var(--black200); 
+    background-color: var(--black000); 
+    color: var(--black600); 
+    text-decoration: none; 
+    font: 400 14px Albert Sans, sans-serif; 
+    transition-duration: 0.5s;
+}
+.sidebar-item.active{ 
+    background-color: var(--violet500); 
+    color: var(--black000); 
+    border-color: var(--violet500); 
+}
+.sidebar-item:hover{
+    background-color: var(--violet200); 
+    color: var(--black800); 
+    border-color: var(--violet500);
+}
+.sidebar-item.active:hover{
+    background-color: var(--violet500); 
+    color: var(--black000); 
+    border-color: var(--violet500);
+}
