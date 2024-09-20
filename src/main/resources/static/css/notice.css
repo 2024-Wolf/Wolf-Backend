@@ -1,0 +1,23 @@
+.notice-table { 
+    width: 800px; 
+    max-height: 670px;
+    overflow: auto;
+    border-collapse: collapse; 
+    font-size: 14px; 
+    color: #666869; 
+}
+.notice-table th, .notice-table td { 
+    padding: 17px 20px; 
+    text-align: center; 
+    border: 1px solid #e2e3e3; 
+}
+.notice-table th { 
+    background-color: #e2e3e3; 
+    color: #49494a; 
+}
+.notice-table td { 
+    background-color: #fcfcfc; 
+}
+.notice-table .title-cell { 
+    text-align: left; 
+}

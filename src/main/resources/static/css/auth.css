@@ -1,0 +1,18 @@
+.auth-table { 
+    width: 800px; 
+    border-collapse: collapse; 
+    font-size: 14px; 
+    color: #666869; 
+}
+.auth-table th, .auth-table td { 
+    padding: 17px 20px; 
+    text-align: center; 
+    border: 1px solid #e2e3e3; 
+}
+.auth-table th { 
+    background-color: #e2e3e3; 
+    color: #49494a; 
+}
+.auth-table td { 
+    background-color: #fcfcfc; 
+}
