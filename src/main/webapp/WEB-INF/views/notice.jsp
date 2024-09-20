@@ -33,7 +33,7 @@
             <section class="content-area">
                 <div class="content-header">
                     <h2 class="content-title">공지사항</h2>
-                    <button class="create-btn">작성하기</button>
+                    <button class="create-btn" onclick="location.href='../jsp/noticeCreate.jsp'">작성하기</button>
                 </div>
                 <div class="content-main">
                     <table class="notice-table">
