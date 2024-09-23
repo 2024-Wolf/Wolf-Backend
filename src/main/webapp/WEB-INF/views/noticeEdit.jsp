@@ -7,11 +7,11 @@
     <title>WOLF 관리자 페이지</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/sidebar.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/form.css">
+    <link rel="stylesheet" type="text/css" href="/resource/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/resource/css/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="/resource/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/resource/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/resource/css/form.css">
 
 </head>
 <body>
@@ -32,10 +32,18 @@
         
             <section class="content-area">
                 <div class="content-header">
-                    <h2 class="content-title">공지사항 작성</h2>
+                    <h2 class="content-title">공지사항 수정</h2>
                 </div>
                 <div class="content-main">
                     <form class="form-container">
+                        <div class="form-group">
+                            <label for="notice-registrant" class="form-label">등록자</label>
+                            <input id="notice-registrant" type="text" class="form-input" value="우두머리 늑대" aria-label="공지사항 등록자" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="notice-date" class="form-label">등록일</label>
+                            <input id="notice-date" type="text" class="form-input" value="2024.09.13" aria-label="공지사항 등록일" disabled>
+                        </div>
                         <div class="form-group">
                             <label for="notice-title" class="form-label">제목</label>
                             <input id="notice-title" type="text" class="form-input" value="울프 서비스가 시작되었습니다." aria-label="공지사항 제목">
@@ -49,8 +57,8 @@
                             <input type="file" id="file-upload" class="visually-hidden" aria-label="파일 업로드">
                         </div>
                         <div class="form-actions">
-                            <button type="button" class="cancel-btn" onclick="location.href='/notice'">취소</button>
-                            <button type="submit" class="submit-btn" onclick="location.href='/notice'">완료</button>
+                            <button type="button" class="cancel-btn" onclick="location.href='/noticeDetail'">취소</button>
+                            <button type="submit" class="submit-btn" onclick="location.href='/noticeDetail'">완료</button>
                         </div>
                     </form>
                 </div>

@@ -21,8 +21,8 @@
         
         <main class="main-content">
             <nav class="sidebar">
-                <a href="/notice" class="sidebar-item active">공지사항</a>
-                <a href="/faq" class="sidebar-item">FAQ</a>
+                <a href="/notice" class="sidebar-item">공지사항</a>
+                <a href="/faq" class="sidebar-item active">FAQ</a>
                 <a href="/user" class="sidebar-item">회원</a>
                 <a href="/group" class="sidebar-item">그룹</a>
                 <a href="/challenge" class="sidebar-item">챌린지</a>
@@ -32,10 +32,18 @@
         
             <section class="content-area">
                 <div class="content-header">
-                    <h2 class="content-title">공지사항 작성</h2>
+                    <h2 class="content-title">FAQ 수정</h2>
                 </div>
                 <div class="content-main">
                     <form class="form-container">
+                        <div class="form-group">
+                            <label for="notice-registrant" class="form-label">등록자</label>
+                            <input id="notice-registrant" type="text" class="form-input" value="우두머리 늑대" aria-label="공지사항 등록자" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="notice-date" class="form-label">등록일</label>
+                            <input id="notice-date" type="text" class="form-input" value="2024.09.13" aria-label="공지사항 등록일" disabled>
+                        </div>
                         <div class="form-group">
                             <label for="notice-title" class="form-label">제목</label>
                             <input id="notice-title" type="text" class="form-input" value="울프 서비스가 시작되었습니다." aria-label="공지사항 제목">
@@ -44,13 +52,9 @@
                             <label for="notice-content" class="form-label">내용</label>
                             <textarea id="notice-content" class="form-input form-textarea" aria-label="공지사항 내용">지금 2조에서 울프 서비스 개발을 완료했습니다. 많은 관심 부탁드립니다.</textarea>
                         </div>
-                        <div class="form-group file-input-wrapper">
-                            <label for="file-upload" class="form-label">첨부파일</label>
-                            <input type="file" id="file-upload" class="visually-hidden" aria-label="파일 업로드">
-                        </div>
                         <div class="form-actions">
-                            <button type="button" class="cancel-btn" onclick="location.href='/notice'">취소</button>
-                            <button type="submit" class="submit-btn" onclick="location.href='/notice'">완료</button>
+                            <button type="button" class="cancel-btn" onclick="location.href='/faqDetail'">취소</button>
+                            <button type="submit" class="submit-btn" onclick="location.href='/faqDetail'">완료</button>
                         </div>
                     </form>
                 </div>
