@@ -16,30 +16,25 @@
     <%@ include file="header.jsp" %>
         <div class="mainContents">
             <%@ include file="sidebar.jsp" %>
-                <section class="content-area">
-                    <div class="content-header">
-                        <h2 class="content-title">FAQ 작성</h2>
-                    </div>
-                    <div class="content-main">
-                        <form class="form-container">
-                            <div class="form-group">
-                                <label for="notice-title" class="form-label">제목</label>
-                                <input id="notice-title" type="text" class="form-input" value="울프 서비스가 시작되었습니다."
-                                    aria-label="공지사항 제목">
-                            </div>
-                            <div class="form-group">
-                                <label for="notice-content" class="form-label">내용</label>
-                                <textarea id="notice-content" class="form-input form-textarea"
-                                    aria-label="공지사항 내용">지금 2조에서 울프 서비스 개발을 완료했습니다. 많은 관심 부탁드립니다.</textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="button" class="cancel-btn" onclick="window.history.back()">취소</button>
-                                <button type="submit" class="submit-btn"
-                                    onclick="alert('작성완료'); location.href='/faq'">완료</button>
-                            </div>
-                        </form>
-                    </div>
-                </section>
+                <div class="infoCard">
+                    <h2 class="title">FAQ 작성</h2>
+                    <form method="get" action="/faq" onsubmit="alert('작성완료');" class="inputSection">
+                        <div class="inputGroup">
+                            <label class="subtitle" for="title">제목</label>
+                            <input class="textContent input" type="text" name="title" id="title" required>
+                        </div>
+                        <div class="inputGroup">
+                            <label class="subtitle" for="content">내용</label>
+                            <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
+                                required></textarea>
+                        </div>
+                        <div class="buttonContainer">
+                            <button type="button" class="formButton linePurpleButton"
+                                onclick="window.history.back()">취소</button>
+                            <button type="submit" class="formButton darkBackgroundButton">완료</button>
+                        </div>
+                    </form>
+                </div>
         </div>
         <%@ include file="footer.jsp" %>
 </body>

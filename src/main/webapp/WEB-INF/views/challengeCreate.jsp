@@ -35,9 +35,9 @@
                             <input class="textContent" type="file" name="username" id="username" required>
                         </div>
                         <div class="buttonContainer">
-                            <button class="formButton linePurpleButton" onclick="window.history.back()">취소</button>
-                            <button class="formButton darkBackgroundButton"
-                                onclick="alert('작성완료'); location.href='/challenge'">완료</button>
+                            <button type="button" class="formButton linePurpleButton"
+                                onclick="window.history.back()">취소</button>
+                            <button type="submit" class="formButton darkBackgroundButton">완료</button>
                         </div>
                     </div>
                 </div>

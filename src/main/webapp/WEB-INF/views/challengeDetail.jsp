@@ -18,8 +18,12 @@
                         <div class="inputGroup">
                             <h2 class="title">챌린지 정보</h2>
                             <span class="buttonSideContainer">
-                                <button class="formButton linePurpleButton">수정</button>
-                                <button class="formButton darkBackgroundButton">삭제</button>
+                                <button class="formButton linePurpleButton"
+                                    onclick="location.href='/challengeEdit'">수정</button>
+                                <button class="formButton darkBackgroundButton"
+                                    onclick="alert('삭제완료'); location.href='/challenge'">삭제</button>
+                                <button class="formButton linePurpleButton"
+                                    onclick="location.href='/challenge'">이전</button>
                             </span>
                         </div>
                         <div class="inputSection">

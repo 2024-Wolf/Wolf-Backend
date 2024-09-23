@@ -16,40 +16,36 @@
     <%@ include file="header.jsp" %>
         <div class="mainContents">
             <%@ include file="sidebar.jsp" %>
-                <section class="content-area">
-                    <div class="content-header">
-                        <h2 class="content-title">FAQ 수정</h2>
-                    </div>
-                    <div class="content-main">
-                        <form class="form-container">
-                            <div class="form-group">
-                                <label for="notice-registrant" class="form-label">등록자</label>
-                                <input id="notice-registrant" type="text" class="form-input" value="우두머리 늑대"
-                                    aria-label="공지사항 등록자" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="notice-date" class="form-label">등록일</label>
-                                <input id="notice-date" type="text" class="form-input" value="2024.09.13"
-                                    aria-label="공지사항 등록일" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="notice-title" class="form-label">제목</label>
-                                <input id="notice-title" type="text" class="form-input" value="울프 서비스가 시작되었습니다."
-                                    aria-label="공지사항 제목">
-                            </div>
-                            <div class="form-group">
-                                <label for="notice-content" class="form-label">내용</label>
-                                <textarea id="notice-content" class="form-input form-textarea"
-                                    aria-label="공지사항 내용">지금 2조에서 울프 서비스 개발을 완료했습니다. 많은 관심 부탁드립니다.</textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button type="button" class="cancel-btn" onclick="window.history.back()">취소</button>
-                                <button type="submit" class="submit-btn"
-                                    onclick="alert('작성완료'); location.href='/faq'">완료</button>
-                            </div>
-                        </form>
-                    </div>
-                </section>
+                <div class="infoCard">
+                    <h2 class="title">FAQ 수정</h2>
+                    <form method="get" action="/faqDetail" onsubmit="alert('수정완료');" class="inputSection">
+                        <div class="inputGroup">
+                            <label class="subtitle" for="auth-date">등록일</label>
+                            <input class="textContent input" type="date" name="auth-date" id="auth-date"
+                                value="2024-09-24" disabled>
+                        </div>
+                        <div class="inputGroup">
+                            <label class="subtitle" for="username">등록자</label>
+                            <input class="textContent input" type="text" name="username" id="username" value="우두머리 늑대"
+                                disabled>
+                        </div>
+                        <div class="inputGroup">
+                            <label class="subtitle" for="challenge">제목</label>
+                            <input class="textContent input" type="text" name="challenge" id="challenge"
+                                value="회원가입은 어떻게 하나요?" required>
+                        </div>
+                        <div class="inputGroup">
+                            <label class="subtitle" for="content">내용</label>
+                            <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
+                                required>로그인 화면의 “구글로 로그인하기”를 클릭하신 후, 회원가입 절차를 진행하시면 됩니다!</textarea>
+                        </div>
+                        <div class="buttonContainer">
+                            <button type="button" class="formButton linePurpleButton"
+                                onclick="window.history.back()">취소</button>
+                            <button type="submit" class="formButton darkBackgroundButton">완료</button>
+                        </div>
+                    </form>
+                </div>
         </div>
         <%@ include file="footer.jsp" %>
 </body>
