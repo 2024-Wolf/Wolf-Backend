@@ -16,9 +16,7 @@
 </head>
 <body>
     <div class="admin-main">
-        <div class="header">
-        </div>
-    
+        <%@ include file="header.jsp" %>
         <div class="main-content">
             <div class="login-container">
                 <h2 class="main-title">WOLF</h2>
@@ -33,10 +31,7 @@
                 </form>
             </div>
         </div>
-    
-        <div class="footer">
-            
-        </div>
+        <%@ include file="footer.jsp" %>
     </div>
 </body>
 </html>
