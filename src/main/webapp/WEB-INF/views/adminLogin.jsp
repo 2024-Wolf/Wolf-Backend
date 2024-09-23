@@ -1,16 +1,17 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-widt h, initial-scale=1.0">
     <title>WOLF 관리자 페이지</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/footer.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login.css">
+    <link rel="stylesheet" href="/resources/css/admin.css">
+    <link rel="stylesheet" href="/resources/css/header.css">
+    <link rel="stylesheet" href="/resources/css/footer.css">
+    <link rel="stylesheet" href="/resources/css/login.css">
 
 </head>
 <body>
@@ -22,7 +23,7 @@
             <div class="login-container">
                 <h2 class="main-title">WOLF</h2>
                 <p class="description">WOLF 관리자 페이지 입니다.</p>
-                <form class="login-form" action="${pageContext.request.contextPath}/jsp/notice.jsp" method="post">
+                <form class="login-form" action="notice" method="get">
                     <div class="input-wrapper">
                         <input id="username" type="text" class="input-field username-input" placeholder="아이디" aria-label="아이디" name="username">
                         
