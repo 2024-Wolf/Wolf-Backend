@@ -5,25 +5,17 @@
 <head>
 <meta charset="UTF-8">    
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>authInfo</title>
-    <!-- Kavoon 폰트 -->
-    <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
-    <!-- Pretendard 폰트 -->
-    <link rel="stylesheet" as="style" crossorigin
-        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
-    <!-- 글로벌스타일.css -->
-    <link rel="stylesheet" href="globalstyle.css">
-    <!-- 사이드바.css -->
-    <link rel="stylesheet" href="sidebar.css">
-    <!-- mainContents.css -->
-    <link rel="stylesheet" href="mainContents.css">
+<title>WOLF 관리자 페이지</title>
+	<link rel="stylesheet" href="/resources/css/globalstyle.css">
+	<link rel="stylesheet" href="/resources/css/mainContents.css">
+	<link rel="stylesheet" href="/resources/css/login.css">
 
 </head>
 
 <body>
-    <header style="margin: 0 auto; width: 100%; height: 175px; background-color: var(--violet200);">
-    </header>
+<%@ include file="header.jsp" %>
     <div class="mainContents">
+		<%@ include file="sidebar.jsp" %>
         <div class="infoCard">
             <h2 class="title">인증 정보</h2>
 
@@ -60,8 +52,7 @@
             </div>
         </div>
     </div>
-    <footer style="margin: 0 auto; width: 100%; height: 175px; background-color: var(--violet200);">
-    </footer>
+<%@ include file="footer.jsp" %>
 </body>
 
 </html>

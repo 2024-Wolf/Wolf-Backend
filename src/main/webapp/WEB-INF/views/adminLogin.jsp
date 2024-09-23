@@ -19,7 +19,7 @@
                         <div class="loginCard">
                             <div>
                                 <h2 class="loginLogo">WOLF</h2>
-                                <p class="textContent">WOLF 관리자 페이지 입니다.</p>
+                                <p class="loginDescription">WOLF 관리자 페이지 입니다.</p>
                             </div>
                             <form class="loginForm" action="notice" method="get">
                                 <input id="username" type="text" class="loginInput textContent" placeholder="아이디"

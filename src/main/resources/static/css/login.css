@@ -6,6 +6,16 @@
     width: 100%;
 }
 
+.loginDescription {
+	height: 20px;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 140%;
+	display: flex;
+	align-items: center;
+	color: var(--black500);
+}
+
 .loginCard {
     display: flex;
     flex-direction: column;

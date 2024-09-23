@@ -1,3 +1,7 @@
+/* Header, Footer 폰트 _(수정본) 기존 코드 적용 안됨*/
+@import url('https://webfontworld.github.io/pretendard/Pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=Kavoon&display=swap');
+
 /* CSS 초기화 코드 시작 */
 *,
 *::before,
@@ -86,7 +90,3 @@ html * {
     font-weight: 400;
     font-style: normal;
 }
-
-/* Header, Footer 폰트 _(수정본) 기존 코드 적용 안됨*/
-@import url('https://webfontworld.github.io/pretendard/Pretendard.css');
-@import url('https://fonts.googleapis.com/css2?family=Kavoon&display=swap');
