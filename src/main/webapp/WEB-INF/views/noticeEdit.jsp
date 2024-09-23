@@ -7,17 +7,16 @@
     <title>WOLF 관리자 페이지</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/resource/css/admin.css">
-    <link rel="stylesheet" type="text/css" href="/resource/css/sidebar.css">
-    <link rel="stylesheet" type="text/css" href="/resource/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/resource/css/footer.css">
-    <link rel="stylesheet" type="text/css" href="/resource/css/form.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/form.css">
 
 </head>
 <body>
     <div class="admin-main">
-        <header class="header">
-        </header>
+        <%@ include file="header.jsp" %>
         
         <main class="main-content">
             <nav class="sidebar">
@@ -64,9 +63,7 @@
                 </div>
             </section>
         </main>
-        
-        <footer class="footer">
-        </footer>
+        <%@ include file="footer.jsp" %>
     </div>
 </body>
 </html>

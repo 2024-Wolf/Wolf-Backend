@@ -1,66 +1,72 @@
-.footer {
-    justify-content: center;
-    background-color: var(--violet100);
-    display: flex;
+@charset "UTF-8";
+
+.FooterContainer {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  padding: 30px 35px;
+  background: var(--violet100);
+}
+
+.FooterContent {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 10px;
+  @media (max-width: 768px) {
+    font-size: 10px;
     flex-direction: column;
-    padding: 10px 35px;
-    width: 100%;
-    height: 175px;
-    
+  }
 }
 
-/* .footer-logo {
-    color: #49494a;
-    font: 400 36px Kavoon, sans-serif;
+.FooterText {
+  font-size: 14px;
+  color: var(--black500);
+  line-height: 150%;
+  @media (max-width: 768px) {
+    font-size: 130%;
+  }
 }
 
-.footer-content {
-    display: flex;
-    margin-top: 10px;
-    width: 100%;
-    align-items: flex-end;
-    gap: 35px 100px;
-    font-family: Pretendard, sans-serif;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.FooterLinks {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--black700);
 }
 
-.footer-info {
-    color: #838586;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    width: 470px;
+.LogoS {
+    font-family: "Kavoon";
+    font-size: 24px;
+    color: var(--black700);
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 }
 
-.footer-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 16px;
-    color: #49494a;
-    font-weight: 700;
-    text-align: center;
-}
+.FooterButton {
+  border: none;
+  font-weight: 700;
 
-.footer-links > a{
-    text-decoration: none;
-    color: #838586;
-}
+  margin-right: 20px; /* 모든 버튼의 오른쪽에 간격 설정 */
+  &:last-child {
+    margin-right: 0; /* 마지막 버튼의 오른쪽 여백 제거 */
+  }
+  
+  /* Hover effect */
+  &:hover {
+    background-color: transparent;
+  }
 
-.footer-link {
-    align-self: stretch;
-    margin: auto 0;
-}
+  /* Active (마우스 클릭 또는 모바일 터치) effect */
+  &:active {
+	background-color: transparent;
+  }
 
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-} */
+  @media (max-width: 768px) {
+    font-size: 80%;
+  }
+}

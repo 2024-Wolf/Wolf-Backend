@@ -16,9 +16,7 @@
 </head>
 <body>
     <div class="admin-main">
-        <header class="header">
-        </header>
-         
+        <%@ include file="header.jsp" %>
         <main class="main-content">
             <nav class="sidebar">
                 <a href="/notice" class="sidebar-item">공지사항</a>
@@ -81,9 +79,7 @@
                 </div>
             </section>
         </main>
-        
-        <footer class="footer">
-        </footer>
+        <%@ include file="footer.jsp" %>
     </div>
 </body>
 </html>
