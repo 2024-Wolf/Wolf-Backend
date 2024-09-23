@@ -2,25 +2,21 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
-    color: #666869;
+    color: var(--black600);
 }
 
 .table th,
 .table td {
     padding: 17px 20px;
     text-align: center;
-    border: 1px solid #e2e3e3;
+    border: 1px solid var(--black200);
 }
 
 .table th {
-    background-color: #e2e3e3;
-    color: #49494a;
+    background-color: var(--black200);
+    color: var(--black700);
 }
 
 .table td {
-    background-color: #fcfcfc;
+    background-color: var(--black000);
 }
-
-/*.faq-table .title-cell { 
-    text-align: left; 
-}*/
