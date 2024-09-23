@@ -1,66 +1,89 @@
-.footer {
-    justify-content: center;
-    background-color: var(--violet100);
-    display: flex;
+@charset "UTF-8";
+
+.FooterContainer {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 35px;
+  background: var(--violet100);
+  width: 100%;
+  gap: 10px;
+}
+
+.FooterContent {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 30px;
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {
     flex-direction: column;
-    padding: 10px 35px;
+  }
+}
+
+.FooterText {
+  font-size: 13px;
+  color: var(--black400);
+  line-height: 150%;
+
+  @media (max-width: 768px) {}
+}
+
+.FooterLinks {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
     width: 100%;
-    height: 175px;
-    
+    justify-content: center;
+    gap: 30px;
+  }
 }
 
-/* .footer-logo {
-    color: #49494a;
-    font: 400 36px Kavoon, sans-serif;
+.LogoS {
+  font-family: "Kavoon";
+  font-size: 24px;
+  color: var(--black500);
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {}
 }
 
-.footer-content {
-    display: flex;
-    margin-top: 10px;
-    width: 100%;
-    align-items: flex-end;
-    gap: 35px 100px;
-    font-family: Pretendard, sans-serif;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
+.FooterButton {
+  border: none;
+  font-weight: bold;
+  margin-right: 20px;
+  font-size: 16px;
+  color: var(--black600);
+  background: none;
 
-.footer-info {
-    color: #838586;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    width: 470px;
-}
+  /* 모든 버튼의 오른쪽에 간격 설정 */
+  &:last-child {
+    margin-right: 0;
+    /* 마지막 버튼의 오른쪽 여백 제거 */
+  }
 
-.footer-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 16px;
-    color: #49494a;
-    font-weight: 700;
-    text-align: center;
-}
+  /* Hover effect */
+  &:hover {
+    color: var(--black800);
+    background-color: transparent;
+  }
 
-.footer-links > a{
-    text-decoration: none;
-    color: #838586;
-}
+  /* Active (마우스 클릭 또는 모바일 터치) effect */
+  &:active {
+    color: var(--black800);
+    background-color: transparent;
+  }
 
-.footer-link {
-    align-self: stretch;
-    margin: auto 0;
+  @media (max-width: 360px) {
+    min-width: 76px;
+  }
 }
-
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-} */

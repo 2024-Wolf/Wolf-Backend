@@ -1,0 +1,330 @@
+.mainContents {
+    display: flex;
+    justify-content: start;
+    align-items: left;
+    height: auto;
+    width: 100%;
+    max-width: 1500px;
+    flex-direction: row;
+    margin: auto;
+    padding: 50px 30px 50px 0px;
+    gap: 30px;
+}
+
+.FooterContainer {
+    align-items: start;
+    padding: 30px 35px;
+    background: var(--violet100);
+
+    gap: 35px;
+}
+
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0px 50px 30px;
+    width: 100%;
+}
+
+.loginLogo {
+    color: var(--violet700);
+    text-align: center;
+    font: 50px Kavoon, sans-serif;
+    font-weight: lighter;
+    cursor: pointer;
+}
+
+.loginCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: var(--violet100);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 30px;
+    padding: 70px 50px;
+    max-width: 400px;
+    width: 100%;
+
+    @media (max-width: 768px) {
+        padding: 60px 40px;
+    }
+
+    @media (max-width: 360px) {
+        padding: 50px 30px;
+        min-width: 240px;
+    }
+}
+
+.infoCard {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 40px;
+    gap: 30px;
+    background: var(--black000);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.inputSection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+
+.buttonSideContainer {
+    min-width: fit-content;
+    width: fit-content;
+    display: flex;
+    /* Flexbox로 설정 */
+    gap: 10px;
+    /* 버튼 사이에 간격을 추가 */
+}
+
+.title {
+    height: 40px;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--black800);
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.subtitle {
+    min-width: 110px;
+    min-height: 40px;
+    height: 100%;
+    display: flex;
+    font-weight: 700;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: var(--black700);
+    background-color: var(--violet100);
+    border-radius: 5px;
+}
+
+.textContent {
+    height: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
+    color: var(--black600);
+}
+
+.loginInput {
+    box-sizing: border-box;
+    height: 50px;
+    padding: 4px 10px;
+    background: var(--violet000);
+    border-radius: 5px;
+    border: 2px solid var(--black200);
+    width: 100%;
+    min-width: 180px;
+    max-width: 300px;
+
+    @media (max-width: 768px) {}
+}
+
+.loginButton {
+    box-sizing: border-box;
+    height: 50px;
+    padding: 4px 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    width: 100%;
+    min-width: 180px;
+    max-width: 300px;
+
+    @media (max-width: 768px) {}
+}
+
+.loginForm {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+    width: 100%;
+}
+
+.input {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 4px 10px;
+    width: 100%;
+    background: var(--violet000);
+    border: 1.5px solid var(--violet400);
+    border-radius: 5px;
+}
+
+.input:disabled {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 4px 10px;
+    width: 100%;
+    background: var(--violet200);
+    border: 1.5px solid var(--violet400);
+    border-radius: 5px;
+}
+
+
+.textarea {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 4px 10px;
+    width: 100%;
+    background: var(--violet000);
+    border: 1.5px solid var(--violet400);
+    border-radius: 5px;
+    height: 200px;
+    resize: none;
+}
+
+.textarea:disabled {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 4px 10px;
+    width: 100%;
+    background: var(--violet200);
+    border: 1.5px solid var(--violet400);
+    border-radius: 5px;
+    height: 200px;
+    resize: none;
+}
+
+.formButton {
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 30px;
+}
+
+.darkBackgroundButton {
+    background: var(--violet600);
+    color: var(--violet000);
+
+    &:hover {
+        background-color: var(--violet700);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        background-color: var(--violet800);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
+}
+
+.lightBackgroundButton {
+    background: var(--violet100);
+    color: var(--black500);
+
+    &:hover {
+        color: var(--violet700);
+        background-color: var(--violet200);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        color: var(--violet700);
+        background-color: var(--violet200);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.noBackgroundButton {
+    background: none;
+    color: var(--black500);
+
+    &:hover {
+        color: var(--black600);
+        background-color: rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        color: var(--black800);
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
+}
+
+.linePurpleButton {
+    background-color: var(--violet000);
+    border: 1px solid var(--violet400);
+    color: var(--black500);
+
+    &:hover {
+        background-color: var(--violet200);
+        border: 1px solid var(--violet400);
+        color: var(--black700);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        background-color: var(--violet400);
+        border: 1px solid var(--violet400);
+        color: var(--black700);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
+}
+
+select.inputEnabled,
+select.inputDisabled,
+input[type="date"],
+input[type="radio"],
+input[type="file"] {
+    width: fit-content;
+}
+
+input[type="file"] {
+    height: auto;
+}
+
+.imagePlaceholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*display: none;*/
+}

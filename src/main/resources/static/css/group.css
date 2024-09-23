@@ -1,18 +1,22 @@
-.group-table { 
+.group-table {
     width: 800px;
-    border-collapse: collapse; 
-    font-size: 14px; 
+    border-collapse: collapse;
+    font-size: 14px;
     color: #666869;
 }
-.group-table th, .group-table td { 
-    padding: 17px 20px; 
-    text-align: center; 
-    border: 1px solid #e2e3e3; 
+
+.group-table th,
+.group-table td {
+    padding: 17px 20px;
+    text-align: center;
+    border: 1px solid #e2e3e3;
 }
-.group-table th { 
-    background-color: #e2e3e3; 
-    color: #49494a; 
+
+.group-table th {
+    background-color: #e2e3e3;
+    color: #49494a;
 }
-.group-table td { 
-    background-color: #fcfcfc; 
+
+.group-table td {
+    background-color: #fcfcfc;
 }
