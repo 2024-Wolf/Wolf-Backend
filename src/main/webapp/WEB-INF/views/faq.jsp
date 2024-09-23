@@ -21,7 +21,7 @@
                         <h2 class="title">FAQ</h2>
                         <span class="buttonSideContainer">
                             <button class="formButton darkBackgroundButton"
-                                onclick="location.href='/noticeCreate'">작성하기</button>
+                                onclick="location.href='/faqCreate'">작성하기</button>
                         </span>
                     </div>
                     <table class="table">
@@ -35,39 +35,53 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>5</td>
-                                <td class="title-cell"><a href="/faqDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                <td><a href="/faqDetail" class="aLink">7</a></td>
+                                <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
                                         제목입니다. 제목입니다.</a></td>
-                                <td>등록자</td>
-                                <td>24.09.12</td>
+                                <td><a href="/faqDetail" class="aLink">등록자</a></td>
+                                <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td class="title-cell"><a href="/faqDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                <td><a href="/faqDetail" class="aLink">6</a></td>
+                                <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
                                         제목입니다. 제목입니다.</a></td>
-                                <td>정명주</td>
-                                <td>24.09.12</td>
+                                <td><a href="/faqDetail" class="aLink">등록자</a></td>
+                                <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td class="title-cell"><a href="/faqDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                <td><a href="/faqDetail" class="aLink">5</a></td>
+                                <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
                                         제목입니다. 제목입니다.</a></td>
-                                <td>정명주</td>
-                                <td>24.09.12</td>
+                                <td><a href="/faqDetail" class="aLink">등록자</a></td>
+                                <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td class="title-cell"><a href="/faqDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                <td><a href="/faqDetail" class="aLink">4</a></td>
+                                <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
                                         제목입니다. 제목입니다.</a></td>
-                                <td>정명주</td>
-                                <td>24.09.12</td>
+                                <td><a href="/faqDetail" class="aLink">등록자</a></td>
+                                <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td class="title-cell"><a href="/faqDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                <td><a href="/faqDetail" class="aLink">3</a></td>
+                                <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
                                         제목입니다. 제목입니다.</a></td>
-                                <td>정명주</td>
-                                <td>24.09.12</td>
+                                <td><a href="/faqDetail" class="aLink">등록자</a></td>
+                                <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/faqDetail" class="aLink">2</a></td>
+                                <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                        제목입니다. 제목입니다.</a></td>
+                                <td><a href="/faqDetail" class="aLink">등록자</a></td>
+                                <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/faqDetail" class="aLink">1</a></td>
+                                <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                        제목입니다. 제목입니다.</a></td>
+                                <td><a href="/faqDetail" class="aLink">등록자</a></td>
+                                <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
                             </tr>
                         </tbody>
                     </table>

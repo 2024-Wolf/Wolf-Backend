@@ -26,82 +26,77 @@
                                 <th>인증 챌린지</th>
                                 <th>그룹</th>
                                 <th>인증일</th>
-                                <th>상태</th>
-                                <th>성공</th>
+                                <th>인증 상태</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>2</td>
-                                <td>늑대소녀</td>
-                                <td>야 너도 자격증 딸 수 있어!</td>
-                                <td>늑대들</td>
-                                <td>2024.09.13</td>
-                                <td>성공</td>
-                                <td><button class="btn1" disabled>성공 처리</button></td>
+                                <td><a href="/authDetail" class="aLink">2</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/authInsert'">인증실패</button></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>늑대소년</td>
-                                <td>야 너도 자격증 딸 수 있어!</td>
-                                <td>늑대들</td>
-                                <td>2024.09.13</td>
-                                <td>실패</td>
-                                <td><button class="btn1">성공 처리</button></td>
+                                <td><a href="/authDetail" class="aLink">2</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/authInsert'" disabled>인증성공</button>
+                                </td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>늑대소녀</td>
-                                <td>야 너도 자격증 딸 수 있어!</td>
-                                <td>늑대들</td>
-                                <td>2024.09.13</td>
-                                <td>성공</td>
-                                <td><button class="btn1" disabled>성공 처리</button></td>
+                                <td><a href="/authDetail" class="aLink">2</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/authInsert'">인증실패</button></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>늑대소년</td>
-                                <td>야 너도 자격증 딸 수 있어!</td>
-                                <td>늑대들</td>
-                                <td>2024.09.13</td>
-                                <td>실패</td>
-                                <td><button class="btn1">성공 처리</button></td>
+                                <td><a href="/authDetail" class="aLink">2</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/authInsert'" disabled>인증성공</button>
+                                </td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>늑대소녀</td>
-                                <td>야 너도 자격증 딸 수 있어!</td>
-                                <td>늑대들</td>
-                                <td>2024.09.13</td>
-                                <td>성공</td>
-                                <td><button class="btn1" disabled>성공 처리</button></td>
+                                <td><a href="/authDetail" class="aLink">2</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/authInsert'">인증실패</button></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>늑대소년</td>
-                                <td>야 너도 자격증 딸 수 있어!</td>
-                                <td>늑대들</td>
-                                <td>2024.09.13</td>
-                                <td>실패</td>
-                                <td><button class="btn1">성공 처리</button></td>
+                                <td><a href="/authDetail" class="aLink">2</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/authInsert'" disabled>인증성공</button>
+                                </td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>늑대소녀</td>
-                                <td>야 너도 자격증 딸 수 있어!</td>
-                                <td>늑대들</td>
-                                <td>2024.09.13</td>
-                                <td>성공</td>
-                                <td><button class="btn1" disabled>성공 처리</button></td>
+                                <td><a href="/authDetail" class="aLink">2</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/authInsert'">인증실패</button></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>늑대소년</td>
-                                <td>야 너도 자격증 딸 수 있어!</td>
-                                <td>늑대들</td>
-                                <td>2024.09.13</td>
-                                <td>실패</td>
-                                <td><button class="btn1">성공 처리</button></td>
+                                <td><a href="/authDetail" class="aLink">2</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/authDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/authInsert'" disabled>인증성공</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

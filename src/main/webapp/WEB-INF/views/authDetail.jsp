@@ -44,8 +44,9 @@
                                     disabled></textarea>
                             </div>
                             <div class="buttonContainer">
-                                <button class="formButton linePurpleButton">취소</button>
-                                <button class="formButton darkBackgroundButton">완료</button>
+                                <button class="formButton linePurpleButton" onclick="window.history.back()">취소</button>
+                                <button class="formButton darkBackgroundButton"
+                                    onclick="alert('작성완료'); location.href='/auth'">완료</button>
                             </div>
                         </div>
                     </div>

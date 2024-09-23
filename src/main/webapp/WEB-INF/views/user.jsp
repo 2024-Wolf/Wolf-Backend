@@ -33,44 +33,44 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>5</td>
-                                <td>닉네임</td>
-                                <td>풀스택 개발자</td>
-                                <td>LG CNS</td>
-                                <td>1년</td>
-                                <td>2024.09.19</td>
+                                <td><a href="/userDetail" class="aLink">5</a></td>
+                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                <td><a href="/userDetail" class="aLink">1년</a></td>
+                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td>닉네임</td>
-                                <td>풀스택 개발자</td>
-                                <td>LG CNS</td>
-                                <td>1년</td>
-                                <td>2024.09.19</td>
+                                <td><a href="/userDetail" class="aLink">4</a></td>
+                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                <td><a href="/userDetail" class="aLink">1년</a></td>
+                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td>닉네임</td>
-                                <td>풀스택 개발자</td>
-                                <td>LG CNS</td>
-                                <td>1년</td>
-                                <td>2024.09.19</td>
+                                <td><a href="/userDetail" class="aLink">3</a></td>
+                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                <td><a href="/userDetail" class="aLink">1년</a></td>
+                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>닉네임</td>
-                                <td>풀스택 개발자</td>
-                                <td>LG CNS</td>
-                                <td>1년</td>
-                                <td>2024.09.19</td>
+                                <td><a href="/userDetail" class="aLink">2</a></td>
+                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                <td><a href="/userDetail" class="aLink">1년</a></td>
+                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>닉네임</td>
-                                <td>풀스택 개발자</td>
-                                <td>LG CNS</td>
-                                <td>1년</td>
-                                <td>2024.09.19</td>
+                                <td><a href="/userDetail" class="aLink">1</a></td>
+                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                <td><a href="/userDetail" class="aLink">1년</a></td>
+                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
                             </tr>
                         </tbody>
                     </table>

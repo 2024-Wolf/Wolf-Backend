@@ -33,184 +33,134 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>12</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">13</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>11</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">12</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>10</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">11</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>9</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">10</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>8</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">9</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>7</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">8</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>6</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">7</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>5</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">6</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">4</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">3</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">2</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                             <tr>
-                                <td>6</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>늑대들</td>
-                                <td>스터디</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>5</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>2 / 5</td>
+                                <td><a href="/groupDetail" class="aLink">1</a></td>
+                                <td><a href="/groupDetail" class="aLink">늑대들</a></td>
+                                <td><a href="/groupDetail" class="aLink">스터디</a></td>
+                                <td><a href="/groupDetail" class="aLink">2024.09.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">2025.03.13</a></td>
+                                <td><a href="/groupDetail" class="aLink">5</a></td>
+                                <td><a href="/groupDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/groupDetail" class="aLink">2 / 5</a></td>
                             </tr>
                         </tbody>
                     </table>

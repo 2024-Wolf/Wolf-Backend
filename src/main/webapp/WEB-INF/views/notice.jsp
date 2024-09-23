@@ -37,49 +37,46 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>5</td>
-                                    <td class="title-cell"><a href="/noticeDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다.
-                                            제목입니다.
-                                            제목입니다.</a></td>
-                                    <td>등록자</td>
-                                    <td>24.09.12</td>
+                                    <td><a href="/noticeDetail" class="aLink">6</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                            제목입니다. 제목입니다.</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">등록자</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
                                 </tr>
                                 <tr>
-                                    <td>4</td>
-                                    <td class="title-cell"><a href="/noticeDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다.
-                                            제목입니다.
-                                            제목입니다.</a></td>
-                                    <td>정명주</td>
-                                    <td>24.09.12</td>
+                                    <td><a href="/noticeDetail" class="aLink">5</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                            제목입니다. 제목입니다.</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">등록자</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
                                 </tr>
                                 <tr>
-                                    <td>3</td>
-                                    <td class="title-cell"><a href="/noticeDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다.
-                                            제목입니다.
-                                            제목입니다.</a></td>
-                                    <td>정명주</td>
-                                    <td>24.09.12</td>
+                                    <td><a href="/noticeDetail" class="aLink">4</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                            제목입니다. 제목입니다.</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">등록자</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
-                                    <td class="title-cell"><a href="/noticeDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다.
-                                            제목입니다.
-                                            제목입니다.</a></td>
-                                    <td>정명주</td>
-                                    <td>24.09.12</td>
+                                    <td><a href="/noticeDetail" class="aLink">3</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                            제목입니다. 제목입니다.</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">등록자</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
                                 </tr>
                                 <tr>
-                                    <td>1</td>
-                                    <td class="title-cell"><a href="/noticeDetail">제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다.
-                                            제목입니다.
-                                            제목입니다.</a></td>
-                                    <td>정명주</td>
-                                    <td>24.09.12</td>
+                                    <td><a href="/noticeDetail" class="aLink">2</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                            제목입니다. 제목입니다.</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">등록자</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/noticeDetail" class="aLink">1</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
+                                            제목입니다. 제목입니다.</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">등록자</a></td>
+                                    <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
                                 </tr>
                             </tbody>
                         </table>

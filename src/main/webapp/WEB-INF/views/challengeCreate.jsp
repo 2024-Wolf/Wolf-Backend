@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/resources/css/globalstyle.css">
     <link rel="stylesheet" href="/resources/css/mainContents.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/form.css">
-
 </head>
 
 <body>
@@ -17,7 +16,7 @@
         <div class="mainContents">
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
-                    <h2 class="title">공지사항 작성</h2>
+                    <h2 class="title">챌린지 작성</h2>
                     <div class="inputSection">
                         <div class="inputGroup">
                             <label class="subtitle" for="challenge">제목</label>
@@ -38,7 +37,7 @@
                         <div class="buttonContainer">
                             <button class="formButton linePurpleButton" onclick="window.history.back()">취소</button>
                             <button class="formButton darkBackgroundButton"
-                                onclick="alert('작성완료'); location.href='/notice'">완료</button>
+                                onclick="alert('작성완료'); location.href='/challenge'">완료</button>
                         </div>
                     </div>
                 </div>

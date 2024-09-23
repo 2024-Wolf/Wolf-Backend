@@ -21,7 +21,7 @@
                         <h2 class="title">챌린지</h2>
                         <span class="buttonSideContainer">
                             <button class="formButton darkBackgroundButton"
-                                onclick="location.href='/noticeCreate'">작성하기</button>
+                                onclick="location.href='/challengeCreate'">작성하기</button>
                         </span>
                     </div>
                     <table class="table">
@@ -37,76 +37,76 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>3</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.10.13</td>
-                                <td>2025.04.13</td>
-                                <td>진행 전</td>
+                                <td><a href="/challengeDetail" class="aLink">9</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">진행 전</a></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>진행 후</td>
+                                <td><a href="/challengeDetail" class="aLink">8</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">진행 후</a></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.04.13</td>
-                                <td>2024.09.13</td>
-                                <td>완료</td>
+                                <td><a href="/challengeDetail" class="aLink">7</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">완료</a></td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.10.13</td>
-                                <td>2025.04.13</td>
-                                <td>진행 전</td>
+                                <td><a href="/challengeDetail" class="aLink">6</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">진행 전</a></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>진행 후</td>
+                                <td><a href="/challengeDetail" class="aLink">5</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">진행 후</a></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.04.13</td>
-                                <td>2024.09.13</td>
-                                <td>완료</td>
+                                <td><a href="/challengeDetail" class="aLink">4</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">완료</a></td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.10.13</td>
-                                <td>2025.04.13</td>
-                                <td>진행 전</td>
+                                <td><a href="/challengeDetail" class="aLink">3</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">진행 전</a></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.09.13</td>
-                                <td>2025.03.13</td>
-                                <td>진행 후</td>
+                                <td><a href="/challengeDetail" class="aLink">2</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">진행 후</a></td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>너도 자격증 딸 수 있어!</td>
-                                <td>시스템</td>
-                                <td>2024.04.13</td>
-                                <td>2024.09.13</td>
-                                <td>완료</td>
+                                <td><a href="/challengeDetail" class="aLink">1</a></td>
+                                <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
+                                <td><a href="/challengeDetail" class="aLink">시스템</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
+                                <td><a href="/challengeDetail" class="aLink">완료</a></td>
                             </tr>
                         </tbody>
                     </table>

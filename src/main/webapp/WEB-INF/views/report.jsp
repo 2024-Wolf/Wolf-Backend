@@ -27,55 +27,51 @@
                                 <th>신고 내용</th>
                                 <th>신고 대상</th>
                                 <th>신고일</th>
-                                <th>상태</th>
-                                <th>처리</th>
+                                <th>신고 상태</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>5</td>
-                                <td>늑대소년</td>
-                                <td>스터디 무단 추방</td>
-                                <td>늑대소녀</td>
-                                <td>2024.09.13</td>
-                                <td>처리 필요</td>
-                                <td><button class="btn1">처리하기</button></td>
+                                <td><a href="/reportDetail" class="aLink">5</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/reportInsert'">접수</button></td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td>늑대소년</td>
-                                <td>스터디 무단 추방</td>
-                                <td>늑대소녀</td>
-                                <td>2024.09.13</td>
-                                <td>처리 필요</td>
-                                <td><button class="btn1">처리하기</button></td>
+                                <td><a href="/reportDetail" class="aLink">4</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/reportInsert'" disabled>완료</button>
+                                </td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td>늑대소년</td>
-                                <td>스터디 무단 추방</td>
-                                <td>늑대소녀</td>
-                                <td>2024.09.13</td>
-                                <td>처리 필요</td>
-                                <td><button class="btn1">처리하기</button></td>
+                                <td><a href="/reportDetail" class="aLink">3</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/reportInsert'">접수</button></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td>늑대소년</td>
-                                <td>스터디 무단 추방</td>
-                                <td>늑대소녀</td>
-                                <td>2024.09.13</td>
-                                <td>처리 필요</td>
-                                <td><button class="btn1">처리하기</button></td>
+                                <td><a href="/reportDetail" class="aLink">2</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/reportInsert'" disabled>완료</button>
+                                </td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>늑대소년</td>
-                                <td>스터디 무단 추방</td>
-                                <td>늑대소녀</td>
-                                <td>2024.09.13</td>
-                                <td>처리 필요</td>
-                                <td><button class="btn1">처리하기</button></td>
+                                <td><a href="/reportDetail" class="aLink">1</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                <td><button class="btn1" onclick="location.href='/reportInsert'">접수</button></td>
                             </tr>
                         </tbody>
                     </table>

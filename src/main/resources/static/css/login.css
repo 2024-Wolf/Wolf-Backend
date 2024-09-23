@@ -7,13 +7,13 @@
 }
 
 .loginDescription {
-	height: 20px;
-	font-weight: 500;
-	font-size: 18px;
-	line-height: 140%;
-	display: flex;
-	align-items: center;
-	color: var(--black500);
+    height: 20px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
+    color: var(--black500);
 }
 
 .loginCard {
@@ -43,9 +43,8 @@
 .loginLogo {
     color: var(--violet700);
     text-align: center;
-    font: 50px Kavoon, sans-serif;
+    font: 60px Kavoon, sans-serif;
     font-weight: lighter;
-    cursor: pointer;
 }
 
 .loginForm {

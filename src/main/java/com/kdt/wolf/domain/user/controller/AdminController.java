@@ -13,24 +13,39 @@ public class AdminController {
         return "adminLogin";
     }
 
-    @GetMapping("/notice")
-    public String notice() {
-        return "notice";
+    @GetMapping("/auth")
+    public String auth() {
+        return "auth";
     }
 
-    @GetMapping("/noticeCreate")
-    public String noticeCreate() {
-        return "noticeCreate";
+    @GetMapping("/authDetail")
+    public String authDetail() {
+        return "authDetail";
     }
 
-    @GetMapping("/noticeEdit")
-    public String noticeEdit() {
-        return "noticeEdit";
+    @GetMapping("/authEdit")
+    public String authEdit() {
+        return "authEdit";
     }
 
-    @GetMapping("/noticeDetail")
-    public String noticeDetail() {
-        return "noticeDetail";
+    @GetMapping("/challenge")
+    public String challenge() {
+        return "challenge";
+    }
+
+    @GetMapping("/challengeCreate")
+    public String challengeCreate() {
+        return "challengeCreate";
+    }
+
+    @GetMapping("/challengeDetail")
+    public String challengeDetail() {
+        return "challengeDetail";
+    }
+
+    @GetMapping("/challengeEdit")
+    public String challengeEdit() {
+        return "challengeEdit";
     }
 
     @GetMapping("/faq")
@@ -43,24 +58,14 @@ public class AdminController {
         return "faqCreate";
     }
 
-    @GetMapping("/faqEdit")
-    public String faqEdit() {
-        return "faqEdit";
-    }
-
     @GetMapping("/faqDetail")
     public String faqDetail() {
         return "faqDetail";
     }
 
-    @GetMapping("/userDetail")
-    public String userDetail() {
-        return "userDetail";
-    }
-
-    @GetMapping("/user")
-    public String user() {
-        return "user";
+    @GetMapping("/faqEdit")
+    public String faqEdit() {
+        return "faqEdit";
     }
 
     @GetMapping("/group")
@@ -73,14 +78,24 @@ public class AdminController {
         return "groupDetail";
     }
 
-    @GetMapping("/challenge")
-    public String challenge() {
-        return "challenge";
+    @GetMapping("/notice")
+    public String notice() {
+        return "notice";
     }
 
-    @GetMapping("/challengeDetail")
-    public String challengeDetail() {
-        return "challengeDetail";
+    @GetMapping("/noticeCreate")
+    public String noticeCreate() {
+        return "noticeCreate";
+    }
+
+    @GetMapping("/noticeDetail")
+    public String noticeDetail() {
+        return "noticeDetail";
+    }
+
+    @GetMapping("/noticeEdit")
+    public String noticeEdit() {
+        return "noticeEdit";
     }
 
     @GetMapping("/report")
@@ -93,14 +108,19 @@ public class AdminController {
         return "reportDetail";
     }
 
-    @GetMapping("/auth")
-    public String auth() {
-        return "auth";
+    @GetMapping("/reportEdit")
+    public String reportEdit() {
+        return "reportEdit";
     }
 
-    @GetMapping("/authDetail")
-    public String authDetail() {
-        return "authDetail";
+    @GetMapping("/user")
+    public String user() {
+        return "user";
+    }
+
+    @GetMapping("/userDetail")
+    public String userDetail() {
+        return "userDetail";
     }
 
 }
