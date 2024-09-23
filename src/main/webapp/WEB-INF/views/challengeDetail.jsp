@@ -34,30 +34,41 @@
         </div>
         <div class="infoCard">
             <div class="inputGroup">
-                <h2 class="title">공지사항 정보</h2>
+                <h2 class="title">챌린지 정보</h2>
                 <span class="buttonSideContainer">
                     <button class="formButton linePurpleButton">취소</button>
                     <button class="formButton darkBackgroundButton">완료</button>
                 </span>
             </div>
             <div class="inputSection">
-
                 <div class="inputGroup">
-                    <label class="subtitle" for="username">등록자</label>
-                    <input class="textContent inputEnabled" type="text" name="username" id="username" required>
+                    <label class="subtitle" for="auth">인증주체</label>
+                    <input class="textContent input" type="radio" name="auth" id="system">
+                    <label for="system">시스템</label>
+                    <input class="textContent input" type="radio" name="auth" id="manager">
+                    <label for="manager">관리자</label>
                 </div>
                 <div class="inputGroup">
-                    <label class="subtitle" for="auth-date">등록일</label>
-                    <input class="textContent inputEnabled" type="date" name="auth-date" id="auth-date" required>
+                    <label class="subtitle" for="auth-date">기간</label>
+                    <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+                    ~
+                    <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
                 </div>
                 <div class="inputGroup">
-                    <label class="subtitle" for="challenge">제목</label>
-                    <input class="textContent inputEnabled" type="text" name="challenge" id="challenge">
+                    <label class="subtitle" for="username">이름</label>
+                    <input class="textContent input" type="text" name="username" id="username" required>
                 </div>
                 <div class="inputGroup">
-                    <label class="subtitle" for="content">내용</label>
-                    <textarea class="textContent textareaEnabled" name="content" id="content" cols="30"
-                        rows="10"></textarea>
+                    <label class="subtitle" for="challenge">내용</label>
+                    <input class="textContent input" type="text" name="challenge" id="challenge">
+                </div>
+                <div class="inputGroup">
+                    <label class="subtitle" for="content">유의사항</label>
+                    <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"></textarea>
+                </div>
+                <div class="inputGroup">
+                    <label class="subtitle" for="content">보상</label>
+                    <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"></textarea>
                 </div>
                 <div class="inputGroup imagePlaceholder">
                     <img src="path/to/image.jpg" alt="임시 이미지" style="max-width: 100%; max-height: 100%;">

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>challengeInfo</title>
+    <title>reportInfo</title>
     <!-- Kavoon 폰트 -->
     <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
     <!-- Pretendard 폰트 -->
@@ -33,38 +33,50 @@
             <a class="sidebar-item" href="authInfo.html">인증</a>
         </div>
         <div class="infoCard">
-            <div class="inputGroup">
-                <h2 class="title">공지사항 정보</h2>
-                <span class="buttonSideContainer">
-                    <button class="formButton linePurpleButton">취소</button>
-                    <button class="formButton darkBackgroundButton">완료</button>
-                </span>
-            </div>
+            <h2 class="title">신고 정보</h2>
             <div class="inputSection">
-
                 <div class="inputGroup">
-                    <label class="subtitle" for="username">등록자</label>
-                    <input class="textContent inputEnabled" type="text" name="username" id="username" required>
+                    <label class="subtitle" for="status">상태</label>
+                    <select class="textContent inputEnabled" name="status" id="status">
+                        <option value="success">처리 필요</option>
+                        <option value="failure">처리 완료</option>
+                    </select>
                 </div>
                 <div class="inputGroup">
-                    <label class="subtitle" for="auth-date">등록일</label>
+                    <label class="subtitle" for="auth-date">신고일</label>
                     <input class="textContent inputEnabled" type="date" name="auth-date" id="auth-date" required>
                 </div>
                 <div class="inputGroup">
-                    <label class="subtitle" for="challenge">제목</label>
-                    <input class="textContent inputEnabled" type="text" name="challenge" id="challenge">
+                    <label class="subtitle" for="username">신고자</label>
+                    <input class="textContent inputEnabled" type="text" name="username" id="username" required>
+                </div>
+
+                <div class="inputGroup">
+                    <label class="subtitle" for="username">구분</label>
+                    <input class="textContent inputEnabled" type="text" name="username" id="username" required>
+                </div>
+                <div class="inputGroup">
+                    <label class="subtitle" for="challenge">신고댓글</label>
+                    <textarea class="textContent textareaEnabled" name="content" id="content" cols="30"
+                        rows="10"></textarea>
+                </div>
+                <div class="inputGroup">
+                    <label class="subtitle" for="content">신고대상</label>
+                    <input class="textContent inputEnabled" type="text" name="username" id="username" required>
+                </div>
+                <div class="inputGroup">
+                    <label class="subtitle" for="content">카테고리</label>
+                    <input class="textContent inputEnabled" type="text" name="username" id="username" required>
                 </div>
                 <div class="inputGroup">
                     <label class="subtitle" for="content">내용</label>
                     <textarea class="textContent textareaEnabled" name="content" id="content" cols="30"
                         rows="10"></textarea>
                 </div>
-                <div class="inputGroup imagePlaceholder">
-                    <img src="path/to/image.jpg" alt="임시 이미지" style="max-width: 100%; max-height: 100%;">
-                </div>
-                <div class="inputGroup">
-                    <label class="subtitle" for="content">첨부파일</label>
-                    <input class="textContent" type="file" name="username" id="username" required>
+
+                <div class="buttonContainer">
+                    <button class="formButton linePurpleButton">취소</button>
+                    <button class="formButton darkBackgroundButton">완료</button>
                 </div>
             </div>
         </div>

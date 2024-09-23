@@ -1,68 +1,69 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOLF 관리자 페이지</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/sidebar.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/form.css">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html>
+    <html>
 
-</head>
-<body>
-    <div class="admin-main">
-        <header class="header">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>challengeInfo</title>
+        <!-- Kavoon 폰트 -->
+        <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
+        <!-- Pretendard 폰트 -->
+        <link rel="stylesheet" as="style" crossorigin
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+        <!-- 글로벌스타일.css -->
+        <link rel="stylesheet" href="globalstyle.css">
+        <!-- 사이드바.css -->
+        <link rel="stylesheet" href="sidebar.css">
+        <!-- mainContents.css -->
+        <link rel="stylesheet" href="mainContents.css">
+    </head>
+
+    <body>
+        <header style="margin: 0 auto; width: 100%; height: 175px; background-color: var(--violet200);">
         </header>
-        
-        <main class="main-content">
-            <nav class="sidebar">
-                <a href="/notice" class="sidebar-item">공지사항</a>
-                <a href="/faq" class="sidebar-item active">FAQ</a>
-                <a href="/user" class="sidebar-item">회원</a>
-                <a href="/group" class="sidebar-item">그룹</a>
-                <a href="/challenge" class="sidebar-item">챌린지</a>
-                <a href="/report" class="sidebar-item">신고</a>
-                <a href="/auth" class="sidebar-item">인증</a>
-            </nav>
-        
-            <section class="content-area">
-                <div class="content-header">
-                    <h2 class="content-title">FAQ 정보</h2>
-                    <div class="button-container">
-                        <button type="button" class="edit-btn" onclick="location.href='/faqEdit'">수정</button>
-                        <button type="button" class="delete-btn">삭제</button>
+        <div class="mainContents">
+            <div class="sidebar">
+                <a class="sidebar-item" href="faqInfo.html">FAQ</a>
+                <a class="sidebar-item" href="noticeInfo.html">공지사항</a>
+                <a class="sidebar-item" href="userInfo.html">회원</a>
+                <a class="sidebar-item" href="groupInfo.html">그룹</a>
+                <a class="sidebar-item" href="challengeInfo.html">챌린지</a>
+                <a class="sidebar-item" href="reportInfo.html">신고</a>
+                <a class="sidebar-item" href="authInfo.html">인증</a>
+            </div>
+            <div class="infoCard">
+                <div class="inputGroup">
+                    <h2 class="title">FAQ 정보</h2>
+                    <span class="buttonSideContainer">
+                        <button class="formButton linePurpleButton">취소</button>
+                        <button class="formButton darkBackgroundButton">완료</button>
+                    </span>
+                </div>
+                <div class="inputSection">
+
+                    <div class="inputGroup">
+                        <label class="subtitle" for="username">등록자</label>
+                        <input class="textContent inputEnabled" type="text" name="username" id="username" required>
+                    </div>
+                    <div class="inputGroup">
+                        <label class="subtitle" for="auth-date">등록일</label>
+                        <input class="textContent inputEnabled" type="date" name="auth-date" id="auth-date" required>
+                    </div>
+                    <div class="inputGroup">
+                        <label class="subtitle" for="challenge">제목</label>
+                        <input class="textContent inputEnabled" type="text" name="challenge" id="challenge">
+                    </div>
+                    <div class="inputGroup">
+                        <label class="subtitle" for="content">내용</label>
+                        <textarea class="textContent textareaEnabled" name="content" id="content" cols="30"
+                            rows="10"></textarea>
                     </div>
                 </div>
-                <div class="content-main">
-                    <form class="form-container">
-                        <div class="form-group">
-                            <label for="notice-registrant" class="form-label">등록자</label>
-                            <input id="notice-registrant" type="text" class="form-input reg" value="우두머리 늑대" aria-label="공지사항 등록자" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="notice-date" class="form-label">등록일</label>
-                            <input id="notice-date" type="text" class="form-input reg" value="2024.09.13" aria-label="공지사항 등록일" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="notice-title" class="form-label">제목</label>
-                            <input id="notice-title" type="text" class="form-input" value="울프 서비스가 시작되었습니다." aria-label="공지사항 제목" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="notice-content" class="form-label">내용</label>
-                            <textarea id="notice-content" class="form-input form-textarea" aria-label="공지사항 내용" disabled>지금 2조에서 울프 서비스 개발을 완료했습니다. 많은 관심 부탁드립니다.</textarea>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </main>
-        
-        <footer class="footer">
+            </div>
+        </div>
+        <footer style="margin: 0 auto; width: 100%; height: 175px; background-color: var(--violet200);">
         </footer>
-    </div>
-</body>
-</html>
+    </body>
+
+    </html>

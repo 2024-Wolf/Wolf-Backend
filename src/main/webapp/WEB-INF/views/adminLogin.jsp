@@ -10,11 +10,6 @@
             <link rel="stylesheet" href="/resources/css/globalstyle.css">
             <link rel="stylesheet" href="/resources/css/mainContents.css">
             <link rel="stylesheet" href="/resources/css/login.css">
-            <!--	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-	<link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
-	
-	-->
         </head>
 
         <body>
@@ -35,17 +30,6 @@
                             </form>
                         </div>
                     </div>
-                </div>
-                </div>
-
-
-                <div class="main-content">
-
-                </div>
-
-
-
-                </div>
                 </div>
                 <%@ include file="footer.jsp" %>
         </body>

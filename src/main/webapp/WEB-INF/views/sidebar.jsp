@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+    <link rel="stylesheet" type="text/css" href="/resources/css/sidebar.css">
     <nav class="sidebar">
         <a class="sidebar-item" href="/notice">공지사항</a>
         <a class="sidebar-item" href="/faq">FAQ</a>
