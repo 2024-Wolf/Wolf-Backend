@@ -9,6 +9,7 @@
     margin: auto;
     padding: 50px 50px 50px 0px;
     gap: 50px;
+    min-height: 771.5px;
 }
 
 .FooterContainer {
@@ -28,8 +29,8 @@
     background: var(--black000);
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-	width: 100%;
-	height: auto;
+    width: 100%;
+    height: auto;
 }
 
 .inputSection {
@@ -37,7 +38,7 @@
     flex-direction: column;
     width: 100%;
     gap: 20px;
-	/*	flex-direction: row;
+    /*	flex-direction: row;
 	justify-content: start;
 	align-items: center;
 	gap: 10px;*/
@@ -178,8 +179,7 @@
         transition: background-color 0.1s ease, color 0.1s ease;
     }
 
-    @media (max-width: 768px) {
-    }
+    @media (max-width: 768px) {}
 }
 
 .noBackgroundButton {

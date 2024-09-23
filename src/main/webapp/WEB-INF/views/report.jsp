@@ -1,25 +1,25 @@
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WOLF 관리자 페이지</title>
-	<link rel="stylesheet" href="/resources/css/globalstyle.css">
-	<link rel="stylesheet" href="/resources/css/mainContents.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/report.css">
+    <link rel="stylesheet" href="/resources/css/globalstyle.css">
+    <link rel="stylesheet" href="/resources/css/mainContents.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/table.css">
 
 </head>
+
 <body>
-		<%@ include file="header.jsp" %>
-		<div class="mainContents">
-			<%@ include file="sidebar.jsp" %>
-            <section class="content-area">
-                <div class="content-header">
-                    <h2 class="content-title">신고</h2>
-                </div>
-                <div class="content-main">
-                    <table class="report-table">
+
+    <%@ include file="header.jsp" %>
+        <div class="mainContents">
+            <%@ include file="sidebar.jsp" %>
+                <div class="infoCard">
+                    <h2 class="title">신고</h2>
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -80,8 +80,8 @@
                         </tbody>
                     </table>
                 </div>
-            </section>
-		</div>
-		<%@ include file="footer.jsp" %>
+        </div>
+        <%@ include file="footer.jsp" %>
 </body>
+
 </html>

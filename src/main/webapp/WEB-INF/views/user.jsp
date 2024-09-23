@@ -1,27 +1,26 @@
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WOLF 관리자 페이지</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     <link href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="/resources/css/globalstyle.css">
-	<link rel="stylesheet" href="/resources/css/mainContents.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/user.css">
+    <link rel="stylesheet" href="/resources/css/globalstyle.css">
+    <link rel="stylesheet" href="/resources/css/mainContents.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/table.css">
 
 </head>
+
 <body>
-		<%@ include file="header.jsp" %>
-		<div class="mainContents">
-			<%@ include file="sidebar.jsp" %>
-            <section class="content-area">
-                <div class="content-header">
-                    <h2 class="content-title">회원</h2>
-                </div>
-                <div class="content-main">
-                    <table class="user-table">
+    <%@ include file="header.jsp" %>
+        <div class="mainContents">
+            <%@ include file="sidebar.jsp" %>
+                <div class="infoCard">
+                    <h2 class="title">회원</h2>
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -76,8 +75,8 @@
                         </tbody>
                     </table>
                 </div>
-            </section>
-		</div>
-		<%@ include file="footer.jsp" %>
+        </div>
+        <%@ include file="footer.jsp" %>
 </body>
+
 </html>
