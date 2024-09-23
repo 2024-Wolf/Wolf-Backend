@@ -8,14 +8,12 @@
         <title>WOLF 관리자 페이지</title>
 		<link rel="stylesheet" href="/resources/css/globalstyle.css">
 		<link rel="stylesheet" href="/resources/css/mainContents.css">
-		<link rel="stylesheet" href="/resources/css/login.css">
     </head>
 
     <body>
 		<%@ include file="header.jsp" %>
         <div class="mainContents">
 			<%@ include file="sidebar.jsp" %>
-			
             <div class="infoCard">
                 <div class="inputGroup">
                     <h2 class="title">FAQ 정보</h2>
