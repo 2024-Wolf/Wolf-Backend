@@ -19,45 +19,11 @@
     gap: 35px;
 }
 
-.loginContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 50px 0px 50px 30px;
-    width: 100%;
-}
 
-.loginLogo {
-    color: var(--violet700);
-    text-align: center;
-    font: 50px Kavoon, sans-serif;
-    font-weight: lighter;
-    cursor: pointer;
-}
 
-.loginCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    background-color: var(--violet100);
-    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
-    display: flex;
-    gap: 30px;
-    padding: 70px 50px;
-    max-width: 400px;
-    width: 100%;
 
-    @media (max-width: 768px) {
-        padding: 60px 40px;
-    }
 
-    @media (max-width: 360px) {
-        padding: 50px 30px;
-        min-width: 240px;
-    }
-}
+
 
 .infoCard {
     display: flex;
@@ -137,42 +103,6 @@
     display: flex;
     align-items: center;
     color: var(--black600);
-}
-
-.loginInput {
-    box-sizing: border-box;
-    height: 50px;
-    padding: 4px 10px;
-    background: var(--violet000);
-    border-radius: 5px;
-    border: 2px solid var(--black200);
-    width: 100%;
-    min-width: 180px;
-    max-width: 300px;
-
-    @media (max-width: 768px) {}
-}
-
-.loginButton {
-    box-sizing: border-box;
-    height: 50px;
-    padding: 4px 10px;
-    margin-top: 5px;
-    border-radius: 5px;
-    width: 100%;
-    min-width: 180px;
-    max-width: 300px;
-
-    @media (max-width: 768px) {}
-}
-
-.loginForm {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    align-items: center;
-    width: 100%;
 }
 
 .input {
