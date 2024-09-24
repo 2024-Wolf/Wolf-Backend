@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-widt h, initial-scale=1.0">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>WOLF 관리자 페이지</title>
             <link rel="stylesheet" href="/resources/css/globalstyle.css">
             <link rel="stylesheet" href="/resources/css/mainContents.css">
@@ -22,10 +22,10 @@
                                 <p class="loginDescription">WOLF 관리자 페이지 입니다.</p>
                             </div>
                             <form class="loginForm" action="notice" method="get">
-                                <input id="username" type="text" class="loginInput textContent" placeholder="아이디"
+                                <input id="username" type="text" class="loginInput loginDescription" placeholder="아이디"
                                     aria-label="아이디" name="username">
-                                <input id="password" type="password" class="loginInput textContent" placeholder="비밀번호"
-                                    aria-label="비밀번호" name="password">
+                                <input id="password" type="password" class="loginInput loginDescription"
+                                    placeholder="비밀번호" aria-label="비밀번호" name="password">
                                 <button type="submit" class="loginButton darkBackgroundButton">로그인</button>
                             </form>
                         </div>
