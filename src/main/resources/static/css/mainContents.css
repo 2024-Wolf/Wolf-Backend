@@ -1,0 +1,297 @@
+.mainContents {
+    display: flex;
+    justify-content: start;
+    align-items: left;
+    height: auto;
+    width: 100%;
+    max-width: 1500px;
+    flex-direction: row;
+    margin: auto;
+    padding: 50px 50px 50px 0px;
+    gap: 50px;
+    min-height: 700px;
+    background-color: var(--violet000);
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+        padding: 50px 0px;
+        gap: 20px;
+    }
+}
+
+.FooterContainer {
+    align-items: start;
+    padding: 30px 35px;
+    background: var(--violet100);
+
+    gap: 35px;
+}
+
+.infoCard {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 40px;
+    gap: 30px;
+    background: var(--black000);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    height: auto;
+
+    @media (min-width: 1201px) {
+        width: 100%;
+    }
+
+    @media (max-width: 1200px) {
+        margin: 0px 50px;
+    }
+}
+
+.inputSection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    /*	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+	gap: 10px;*/
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.fileGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+
+.buttonSideContainer {
+    min-width: fit-content;
+    width: fit-content;
+    display: flex;
+    gap: 10px;
+}
+
+.title {
+    height: 40px;
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--black800);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+}
+
+.subtitle {
+    min-width: 110px;
+    min-height: 40px;
+    height: 100%;
+    display: flex;
+    font-weight: 700;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: var(--black700);
+    background-color: var(--violet100);
+    border-radius: 5px;
+}
+
+.textContent {
+    height: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
+    color: var(--black600);
+}
+
+.input {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 4px 10px;
+    width: 100%;
+    background: var(--violet000);
+    border: 1.5px solid var(--violet400);
+    border-radius: 5px;
+}
+
+.input:disabled {
+    background: var(--violet200);
+    color: var(--black400);
+}
+
+
+.textarea {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 4px 10px;
+    width: 100%;
+    background: var(--violet000);
+    border: 1.5px solid var(--violet400);
+    border-radius: 5px;
+    height: 200px;
+    resize: none;
+}
+
+.textarea:disabled {
+    background: var(--violet200);
+    color: var(--black400);
+}
+
+.formButton {
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 30px;
+    min-height: 37px;
+}
+
+.darkBackgroundButton {
+    background: var(--violet600);
+    color: var(--violet000);
+
+    &:hover {
+        background-color: var(--violet700);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        background-color: var(--violet800);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
+}
+
+.lightBackgroundButton {
+    background: var(--violet100);
+    color: var(--black500);
+
+    &:hover {
+        color: var(--violet700);
+        background-color: var(--violet200);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        color: var(--violet700);
+        background-color: var(--violet200);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
+}
+
+.noBackgroundButton {
+    background: none;
+    color: var(--black500);
+
+    &:hover {
+        color: var(--black600);
+        background-color: rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        color: var(--black800);
+        background-color: rgba(0, 0, 0, 0.2);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
+}
+
+.linePurpleButton {
+    background-color: var(--violet000);
+    border: 1px solid var(--violet400);
+    color: var(--black500);
+
+    &:hover {
+        background-color: var(--violet200);
+        color: var(--black700);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        background-color: var(--violet400);
+        color: var(--black700);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
+}
+
+.btn1 {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--violet100);
+    color: var(--violet600);
+    border-color: var(--violet600);
+
+    transition-duration: 0.5s;
+}
+
+.btn1:hover {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--violet600);
+    color: var(--black000);
+    border-color: var(--violet600);
+}
+
+.btn1:disabled {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--black000);
+    color: var(--black300);
+    border-color: var(--black300);
+}
+
+select.input,
+input[type="date"],
+input[type="radio"],
+input[type="file"] {
+    width: fit-content;
+}
+
+input[type="file"] {
+    height: auto;
+}
+
+.imagePlaceholder {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    /*display: none;*/
+}
+
+svg {
+    margin-right: 5px;
+}

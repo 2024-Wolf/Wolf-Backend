@@ -4,69 +4,86 @@
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   padding: 30px 35px;
   background: var(--violet100);
+  width: 100%;
+  gap: 10px;
 }
 
 .FooterContent {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  gap: 10px;
+  gap: 30px;
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+
   @media (max-width: 768px) {
-    font-size: 10px;
     flex-direction: column;
   }
 }
 
 .FooterText {
-  font-size: 14px;
-  color: var(--black500);
+  font-size: 13px;
+  color: var(--black400);
   line-height: 150%;
-  @media (max-width: 768px) {
-    font-size: 130%;
-  }
+
+  @media (max-width: 768px) {}
 }
 
 .FooterLinks {
   display: flex;
   align-items: center;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--black700);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+    gap: 30px;
+  }
 }
 
 .LogoS {
-    font-family: "Kavoon";
-    font-size: 24px;
-    color: var(--black700);
+  font-family: "Kavoon";
+  font-size: 24px;
+  color: var(--black500);
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
 
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
+  @media (max-width: 768px) {}
 }
 
 .FooterButton {
   border: none;
-  font-weight: 700;
+  font-weight: bold;
+  margin-right: 20px;
+  font-size: 16px;
+  color: var(--black600);
+  background: none;
 
-  margin-right: 20px; /* 모든 버튼의 오른쪽에 간격 설정 */
+  /* 모든 버튼의 오른쪽에 간격 설정 */
   &:last-child {
-    margin-right: 0; /* 마지막 버튼의 오른쪽 여백 제거 */
+    margin-right: 0;
+    /* 마지막 버튼의 오른쪽 여백 제거 */
   }
-  
+
   /* Hover effect */
   &:hover {
+    color: var(--black800);
     background-color: transparent;
   }
 
   /* Active (마우스 클릭 또는 모바일 터치) effect */
   &:active {
-	background-color: transparent;
+    color: var(--black800);
+    background-color: transparent;
   }
 
-  @media (max-width: 768px) {
-    font-size: 80%;
+  @media (max-width: 360px) {
+    min-width: 76px;
   }
 }

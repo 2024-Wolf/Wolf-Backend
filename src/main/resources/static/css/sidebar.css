@@ -2,19 +2,34 @@
     top: 150px;
     left: 0px;
     min-width: 200px;
+    flex-direction: column;
+    display: flex;
+
+    @media (max-width: 1200px) {
+        flex-direction: row;
+        width: 100%;
+    }
 }
 
 .sidebar-item {
-    display: block;
-    padding: 17px 0;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 0;
     border: 1px solid var(--black200);
     background-color: var(--black000);
     color: var(--black600);
     text-decoration: none;
     font-weight: 500;
     transition-duration: 0.5s;
+
+    @media (max-width: 1200px) {
+        width: 100%;
+        justify-content: center;
+    }
 }
+
+
 
 .sidebar-item.active {
     background-color: var(--violet500);
