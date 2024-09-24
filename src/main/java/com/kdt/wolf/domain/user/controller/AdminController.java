@@ -9,61 +9,121 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class AdminController {
     @GetMapping("/adminLogin")
-    public String adminLogin(){
+    public String adminLogin() {
         return "adminLogin";
     }
 
-    @GetMapping("/notice")
-    public String notice(){
-        return "notice";
+    @GetMapping("/auth")
+    public String auth() {
+        return "auth";
     }
-    @GetMapping("/noticeCreate")
-    public String noticeCreate(){
-        return "noticeCreate";
+
+    @GetMapping("/authDetail")
+    public String authDetail() {
+        return "authDetail";
     }
-    @GetMapping("/noticeEdit")
-    public String noticeEdit(){
-        return "noticeEdit";
+
+    @GetMapping("/authEdit")
+    public String authEdit() {
+        return "authEdit";
     }
-    @GetMapping("/noticeDetail")
-    public String noticeDetail(){
-        return "noticeDetail";
-    }
-    @GetMapping("/faq")
-    public String faq(){
-        return "faq";
-    }
-    @GetMapping("/faqCreate")
-    public String faqCreate(){
-        return "faqCreate";
-    }
-    @GetMapping("/faqEdit")
-    public String faqEdit(){
-        return "faqEdit";
-    }
-    @GetMapping("/faqDetail")
-    public String faqDetail(){
-        return "faqDetail";
-    }
-    @GetMapping("/user")
-    public String user(){
-        return "user";
-    }
-    @GetMapping("/group")
-    public String group(){
-        return "group";
-    }
+
     @GetMapping("/challenge")
-    public String challenge(){
+    public String challenge() {
         return "challenge";
     }
+
+    @GetMapping("/challengeCreate")
+    public String challengeCreate() {
+        return "challengeCreate";
+    }
+
+    @GetMapping("/challengeDetail")
+    public String challengeDetail() {
+        return "challengeDetail";
+    }
+
+    @GetMapping("/challengeEdit")
+    public String challengeEdit() {
+        return "challengeEdit";
+    }
+
+    @GetMapping("/faq")
+    public String faq() {
+        return "faq";
+    }
+
+    @GetMapping("/faqCreate")
+    public String faqCreate() {
+        return "faqCreate";
+    }
+
+    @GetMapping("/faqDetail")
+    public String faqDetail() {
+        return "faqDetail";
+    }
+
+    @GetMapping("/faqEdit")
+    public String faqEdit() {
+        return "faqEdit";
+    }
+
+    @GetMapping("/group")
+    public String group() {
+        return "group";
+    }
+
+    @GetMapping("/groupDetail")
+    public String groupDetail() {
+        return "groupDetail";
+    }
+
+    @GetMapping("/notice")
+    public String notice() {
+        return "notice";
+    }
+
+    @GetMapping("/noticeCreate")
+    public String noticeCreate() {
+        return "noticeCreate";
+    }
+
+    @GetMapping("/noticeDetail")
+    public String noticeDetail() {
+        return "noticeDetail";
+    }
+
+    @GetMapping("/noticeEdit")
+    public String noticeEdit() {
+        return "noticeEdit";
+    }
+
     @GetMapping("/report")
-    public String report(){
+    public String report() {
         return "report";
     }
-    @GetMapping("/auth")
-    public String auth(){
-        return "auth";
+
+    @GetMapping("/reportDetail")
+    public String reportDetail() {
+        return "reportDetail";
+    }
+
+<<<<<<< HEAD
+=======
+    @GetMapping("/reportEdit")
+    public String reportEdit() {
+        return "reportEdit";
+    }
+
+>>>>>>> 2ed8e836cd156dd0c22f669a3e727356a286cddb
+    @GetMapping("/user")
+    public String user() {
+        return "user";
+    }
+
+    @GetMapping("/userDetail")
+    public String userDetail() {
+        return "userDetail";
     }
 
 }

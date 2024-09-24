@@ -22,7 +22,8 @@
     --black800: #2E2E2E;
     --black900: #111111;
 }
-body{
+
+body {
     background-color: var(--violet000);
 }
 
@@ -43,62 +44,45 @@ body{
     margin-bottom: 50px;
 }
 
-.content-area { 
+.content-area {
     flex: 1;
     width: 800px;
     overflow-y: auto;
     background-color: var(--black000);
     padding: 0px 30px;
 }
-.content-header { 
-    display: flex; 
-    justify-content: space-between; 
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px; 
-}
-.content-title { 
-    color: #49494a; 
-    font-size: 48px; 
-    font-weight: 700; 
-}
-.content-main{
-    max-height: 500px; /* 원하는 최대 높이 설정 */
-    overflow: auto;
-    box-sizing: border-box; /* 패딩을 포함하여 높이 계산 */
-}
-.create-btn { 
-    border-radius: 5px; 
-    background-color: var(--violet500); 
-    color: var(--black000);
-    border-color: var(--violet500); 
-    padding: 10px 50px; 
-    font: 14px Pretendard, sans-serif; 
+    margin-bottom: 50px;
 }
 
-button{
+.content-title {
+    color: #49494a;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.content-main {
+    max-height: 500px;
+    /* 원하는 최대 높이 설정 */
+    overflow: auto;
+    box-sizing: border-box;
+    /* 패딩을 포함하여 높이 계산 */
+}
+
+.create-btn {
+    border-radius: 5px;
+    background-color: var(--violet500);
+    color: var(--black000);
+    border-color: var(--violet500);
+    padding: 10px 50px;
+    font: 14px Pretendard, sans-serif;
+}
+
+button {
     border: 1px solid;
     cursor: pointer;
-}
-.btn1{
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: var(--black000);
-    color: var(--violet600);
-    border-color: var(--violet600);
-
-    transition-duration: 0.5s;
-}
-.btn1:hover{
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: var(--violet600);
-    color: var(--black000);
-    border-color: var(--violet600);
-}
-.btn1:disabled{
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: var(--black000);
-    color: var(--black300);
-    border-color: var(--black300);
 }
