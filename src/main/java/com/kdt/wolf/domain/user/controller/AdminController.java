@@ -108,14 +108,11 @@ public class AdminController {
         return "reportDetail";
     }
 
-<<<<<<< HEAD
-=======
     @GetMapping("/reportEdit")
     public String reportEdit() {
         return "reportEdit";
     }
 
->>>>>>> 2ed8e836cd156dd0c22f669a3e727356a286cddb
     @GetMapping("/user")
     public String user() {
         return "user";
