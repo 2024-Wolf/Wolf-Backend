@@ -76,10 +76,6 @@ section {
     --black900: #111111;
 }
 
-body {
-    background-color: var(--violet000);
-}
-
 button {
     cursor: pointer;
 }

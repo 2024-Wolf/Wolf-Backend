@@ -1,25 +1,30 @@
 .table {
-    width: 100%;
     border-collapse: collapse;
     color: var(--black600);
     font-size: 14px;
+    overflow-x: auto;
+    width: 100%;
+    min-width: fit-content;
 }
 
 .table th,
 .table td {
-    padding: 17px 20px;
     text-align: center;
     border: 1px solid var(--black200);
 }
 
 .table th {
+    padding: 17px 20px;
     background-color: var(--black200);
     color: var(--black700);
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .table td {
+    padding: 12px 20px;
     background-color: var(--black000);
+    white-space: nowrap;
 }
 
 a.aLink {

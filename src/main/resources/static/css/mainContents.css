@@ -10,10 +10,11 @@
     padding: 50px 50px 50px 0px;
     gap: 50px;
     min-height: 700px;
+    background-color: var(--violet000);
 
     @media (max-width: 1200px) {
         flex-direction: column;
-        padding: 50px;
+        padding: 50px 0px;
         gap: 20px;
     }
 }
@@ -35,8 +36,16 @@
     background: var(--black000);
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    width: 100%;
+    overflow: hidden;
     height: auto;
+
+    @media (min-width: 1201px) {
+        width: 100%;
+    }
+
+    @media (max-width: 1200px) {
+        margin: 0px 50px;
+    }
 }
 
 .inputSection {
@@ -92,6 +101,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    min-width: 150px;
 }
 
 .subtitle {
