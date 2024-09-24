@@ -53,6 +53,14 @@
     gap: 10px;
 }
 
+.fileGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+
 .buttonContainer {
     display: flex;
     flex-direction: row;
@@ -117,6 +125,7 @@
 
 .input:disabled {
     background: var(--violet200);
+    color: var(--black400);
 }
 
 
@@ -134,6 +143,7 @@
 
 .textarea:disabled {
     background: var(--violet200);
+    color: var(--black400);
 }
 
 .formButton {
@@ -144,6 +154,7 @@
     align-items: center;
     justify-content: center;
     padding: 10px 30px;
+    min-height: 37px;
 }
 
 .darkBackgroundButton {
@@ -235,7 +246,11 @@ input[type="file"] {
 
 .imagePlaceholder {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     /*display: none;*/
+}
+
+svg {
+    margin-right: 5px;
 }

@@ -1,8 +1,8 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
     color: var(--black600);
+    font-size: 14px;
 }
 
 .table th,
@@ -29,5 +29,5 @@ a.aLink {
 }
 
 a.aLink:hover {
-    color: #007bff;
+    color: var(--violet500);
 }

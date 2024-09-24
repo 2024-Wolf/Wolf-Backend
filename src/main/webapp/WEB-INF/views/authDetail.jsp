@@ -16,7 +16,17 @@
             <div class="mainContents">
                 <%@ include file="sidebar.jsp" %>
                     <div class="infoCard">
-                        <h2 class="title">인증 정보</h2>
+                        <div class="inputGroup">
+                            <h2 class="title">인증 정보</h2>
+                            <span class="buttonSideContainer">
+                                <button class="formButton noBackgroundButton" onclick="location.href='/auth'"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                                    </svg>이전</button>
+                            </span>
+                        </div>
                         <div class="inputSection">
                             <div class="inputGroup">
                                 <label class="subtitle" for="status">상태</label>

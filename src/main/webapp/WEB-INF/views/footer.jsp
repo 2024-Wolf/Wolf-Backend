@@ -9,9 +9,9 @@
 				Copyright
 			</div>
 			<div class="FooterLinks">
-				<button class="FooterButton NoBackgroundButton">공지사항</button>
-				<button class="FooterButton NoBackgroundButton">FAQ 게시판</button>
-				<button class="FooterButton NoBackgroundButton">이용약관</button>
+				<button class="FooterButton noBackgroundButton">공지사항</button>
+				<button class="FooterButton noBackgroundButton">FAQ 게시판</button>
+				<button class="FooterButton noBackgroundButton">이용약관</button>
 			</div>
 		</div>
 	</footer>

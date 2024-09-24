@@ -8,7 +8,6 @@
     <title>WOLF 관리자 페이지</title>
     <link rel="stylesheet" href="/resources/css/globalstyle.css">
     <link rel="stylesheet" href="/resources/css/mainContents.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/form.css">
 </head>
 
 <body>
@@ -17,29 +16,55 @@
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">챌린지 작성</h2>
-                    <div class="inputSection">
+                    <form method="get" action="/challenge" onsubmit="alert('작성완료');" class="inputSection">
                         <div class="inputGroup">
-                            <label class="subtitle" for="challenge">제목</label>
+                            <label class="subtitle" for="auth">인증주체</label>
+                            <input class="textContent input" type="radio" name="auth" id="system">
+                            <label for="system">시스템</label>
+                            <input class="textContent input" type="radio" name="auth" id="manager">
+                            <label for="manager">관리자</label>
+                        </div>
+                        <div class="inputGroup">
+                            <label class="subtitle" for="auth-date">기간</label>
+                            <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+                            ~
+                            <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+                        </div>
+                        <div class="inputGroup">
+                            <label class="subtitle" for="username">이름</label>
+                            <input class="textContent input" type="text" name="username" id="username" required>
+                        </div>
+                        <div class="inputGroup">
+                            <label class="subtitle" for="challenge">내용</label>
                             <input class="textContent input" type="text" name="challenge" id="challenge">
                         </div>
                         <div class="inputGroup">
-                            <label class="subtitle" for="content">내용</label>
+                            <label class="subtitle" for="content">유의사항</label>
                             <textarea class="textContent textarea" name="content" id="content" cols="30"
                                 rows="10"></textarea>
                         </div>
-                        <div class="inputGroup imagePlaceholder">
-                            <img src="path/to/image.jpg" alt="임시 이미지" style="max-width: 100%; max-height: 100%;">
+                        <div class="inputGroup">
+                            <label class="subtitle" for="content">보상</label>
+                            <textarea class="textContent textarea" name="content" id="content" cols="30"
+                                rows="10"></textarea>
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">첨부파일</label>
-                            <input class="textContent" type="file" name="username" id="username" required>
+                            <div class="fileGroup">
+                                <input class="textContent" type="file" name="username" id="username"
+                                    style="margin-top: 10px;" disabled>
+                                <div class="inputGroup imagePlaceholder">
+                                    <img src="/resources/img/thumbnail_challenge 1.png" alt=""
+                                        style="max-width: 100%; max-height: 100%;">
+                                </div>
+                            </div>
                         </div>
                         <div class="buttonContainer">
                             <button type="button" class="formButton linePurpleButton"
                                 onclick="window.history.back()">취소</button>
                             <button type="submit" class="formButton darkBackgroundButton">완료</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
         </div>
         <%@ include file="footer.jsp" %>

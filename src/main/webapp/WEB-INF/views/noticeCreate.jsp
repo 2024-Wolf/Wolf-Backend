@@ -28,12 +28,15 @@
                             <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
                                 required></textarea>
                         </div>
-                        <div class="inputGroup imagePlaceholder">
-                            <img src="path/to/image.jpg" alt="임시 이미지" style="max-width: 100%; max-height: 100%;">
-                        </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">첨부파일</label>
-                            <input class="textContent" type="file" name="username" id="username">
+                            <div class="fileGroup">
+                                <input class="textContent" type="file" name="username" id="username"
+                                    style="margin-top: 10px;" disabled>
+                                <div class="inputGroup imagePlaceholder">
+                                    <img src="" alt="" style="max-width: 100%; max-height: 100%;">
+                                </div>
+                            </div>
                         </div>
                         <div class="buttonContainer">
                             <button type="button" class="formButton linePurpleButton"

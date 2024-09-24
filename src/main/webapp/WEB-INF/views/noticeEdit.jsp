@@ -41,12 +41,15 @@
                             <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
                                 required>지금 2조에서 울프 서비스 개발을 완료했습니다. 많은 관심 부탁드립니다.</textarea>
                         </div>
-                        <div class="inputGroup imagePlaceholder">
-                            <img src="path/to/image.jpg" alt="임시 이미지" style="max-width: 100%; max-height: 100%;">
-                        </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">첨부파일</label>
-                            <input class="textContent" type="file" name="username" id="username">
+                            <div class="fileGroup">
+                                <input class="textContent" type="file" name="username" id="username"
+                                    style="margin-top: 10px;">
+                                <div class="inputGroup imagePlaceholder">
+                                    <img src="" alt="" style="max-width: 100%; max-height: 100%;">
+                                </div>
+                            </div>
                         </div>
                         <div class="buttonContainer">
                             <button type="button" class="formButton linePurpleButton"
