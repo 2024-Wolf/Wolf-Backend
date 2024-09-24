@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/resources/css/globalstyle.css">
     <link rel="stylesheet" href="/resources/css/mainContents.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/table.css">
-
 </head>
 
 <body>
@@ -27,7 +26,7 @@
                                 <th>신고 내용</th>
                                 <th>신고 대상</th>
                                 <th>신고일</th>
-                                <th>신고 상태</th>
+                                <th>상태</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,7 +36,7 @@
                                 <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
                                 <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
                                 <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportInsert'">접수</button></td>
+                                <td><button class="btn1" onclick="location.href='/reportDetail'">접수</button></td>
                             </tr>
                             <tr>
                                 <td><a href="/reportDetail" class="aLink">4</a></td>
@@ -45,7 +44,7 @@
                                 <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
                                 <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
                                 <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportInsert'" disabled>완료</button>
+                                <td><button class="btn1" onclick="location.href='/reportDetail'" disabled>완료</button>
                                 </td>
                             </tr>
                             <tr>
@@ -54,7 +53,7 @@
                                 <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
                                 <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
                                 <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportInsert'">접수</button></td>
+                                <td><button class="btn1" onclick="location.href='/reportDetail'">접수</button></td>
                             </tr>
                             <tr>
                                 <td><a href="/reportDetail" class="aLink">2</a></td>
@@ -62,7 +61,7 @@
                                 <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
                                 <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
                                 <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportInsert'" disabled>완료</button>
+                                <td><button class="btn1" onclick="location.href='/reportDetail'" disabled>완료</button>
                                 </td>
                             </tr>
                             <tr>
@@ -71,7 +70,7 @@
                                 <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
                                 <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
                                 <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportInsert'">접수</button></td>
+                                <td><button class="btn1" onclick="location.href='/reportDetail'">접수</button></td>
                             </tr>
                         </tbody>
                     </table>
