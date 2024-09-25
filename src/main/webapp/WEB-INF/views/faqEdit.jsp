@@ -18,7 +18,7 @@
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">FAQ 수정</h2>
-                    <form method="get" action="/faqDetail" onsubmit="alert('수정완료');" class="inputSection">
+                    <form method="get" action="/faqDetail" onsubmit="alert('수정완료');" class="inputSection scrollArea">
                         <div class="inputGroup">
                             <label class="subtitle" for="auth-date">등록일</label>
                             <input class="textContent input" type="date" name="auth-date" id="auth-date"

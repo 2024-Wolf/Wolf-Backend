@@ -16,7 +16,8 @@
                 <%@ include file="sidebar.jsp" %>
                     <div class="infoCard">
                         <h2 class="title">챌린지 수정</h2>
-                        <div class="inputSection">
+                        <form method="get" action="/challengeDetail" onsubmit="alert('수정완료');"
+                            class="inputSection scrollArea">
                             <div class="inputGroup">
                                 <label class="subtitle" for="auth">인증주체</label>
                                 <input class="textContent input" type="radio" name="auth" id="system">
@@ -52,14 +53,19 @@
                                 <label class="subtitle" for="content">첨부파일</label>
                                 <div class="fileGroup">
                                     <input class="textContent" type="file" name="username" id="username"
-                                        style="margin-top: 10px;" disabled>
+                                        style="margin-top: 10px;">
                                     <div class="inputGroup imagePlaceholder">
                                         <img src="/resources/img/thumbnail_challenge 1.png" alt=""
                                             style="max-width: 100%; max-height: 100%;">
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="buttonContainer">
+                                <button type="button" class="formButton linePurpleButton"
+                                    onclick="window.history.back()">취소</button>
+                                <button type="submit" class="formButton darkBackgroundButton">완료</button>
+                            </div>
+                        </form>
                     </div>
             </div>
             <%@ include file="footer.jsp" %>

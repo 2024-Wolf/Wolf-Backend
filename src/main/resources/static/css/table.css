@@ -2,7 +2,6 @@
     border-collapse: collapse;
     color: var(--black600);
     font-size: 14px;
-    overflow-x: auto;
     width: 100%;
     min-width: fit-content;
 }

@@ -37,6 +37,7 @@
   font: 32px Kavoon, sans-serif;
   font-weight: lighter;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .LinePurpleButton {

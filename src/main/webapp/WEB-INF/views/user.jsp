@@ -20,60 +20,62 @@
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">회원</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>닉네임</th>
-                                <th>직무</th>
-                                <th>소속</th>
-                                <th>경력</th>
-                                <th>가입일</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><a href="/userDetail" class="aLink">5</a></td>
-                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                <td><a href="/userDetail" class="aLink">1년</a></td>
-                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/userDetail" class="aLink">4</a></td>
-                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                <td><a href="/userDetail" class="aLink">1년</a></td>
-                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/userDetail" class="aLink">3</a></td>
-                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                <td><a href="/userDetail" class="aLink">1년</a></td>
-                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/userDetail" class="aLink">2</a></td>
-                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                <td><a href="/userDetail" class="aLink">1년</a></td>
-                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/userDetail" class="aLink">1</a></td>
-                                <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                <td><a href="/userDetail" class="aLink">1년</a></td>
-                                <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="scrollArea">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>닉네임</th>
+                                    <th>직무</th>
+                                    <th>소속</th>
+                                    <th>경력</th>
+                                    <th>가입일</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="/userDetail" class="aLink">5</a></td>
+                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                    <td><a href="/userDetail" class="aLink">1년</a></td>
+                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/userDetail" class="aLink">4</a></td>
+                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                    <td><a href="/userDetail" class="aLink">1년</a></td>
+                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/userDetail" class="aLink">3</a></td>
+                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                    <td><a href="/userDetail" class="aLink">1년</a></td>
+                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/userDetail" class="aLink">2</a></td>
+                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                    <td><a href="/userDetail" class="aLink">1년</a></td>
+                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/userDetail" class="aLink">1</a></td>
+                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
+                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
+                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
+                                    <td><a href="/userDetail" class="aLink">1년</a></td>
+                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
         </div>
         <%@ include file="footer.jsp" %>

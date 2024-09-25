@@ -18,62 +18,80 @@
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">신고</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>신고자</th>
-                                <th>신고 내용</th>
-                                <th>신고 대상</th>
-                                <th>신고일</th>
-                                <th>상태</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><a href="/reportDetail" class="aLink">5</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportDetail'">접수</button></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/reportDetail" class="aLink">4</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportDetail'" disabled>완료</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="/reportDetail" class="aLink">3</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportDetail'">접수</button></td>
-                            </tr>
-                            <tr>
-                                <td><a href="/reportDetail" class="aLink">2</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportDetail'" disabled>완료</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="/reportDetail" class="aLink">1</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                <td><button class="btn1" onclick="location.href='/reportDetail'">접수</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="scrollArea">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>신고자</th>
+                                    <th>신고 내용</th>
+                                    <th>신고 대상</th>
+                                    <th>신고일</th>
+                                    <th>상태</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="/reportDetail" class="aLink">5</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                    <td><button class="btn1"
+                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';"
+                                            disabled>처리
+                                            완료</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/reportDetail" class="aLink">4</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                    <td><button class="btn1"
+                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';">처리
+                                            접수</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/reportDetail" class="aLink">3</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                    <td><button class="btn1"
+                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';"
+                                            disabled>처리
+                                            완료</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/reportDetail" class="aLink">2</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                    <td><button class="btn1"
+                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';">처리
+                                            접수</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a href="/reportDetail" class="aLink">1</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
+                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
+                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
+                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
+                                    <td><button class="btn1"
+                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';"
+                                            disabled>처리
+                                            완료</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
         </div>
         <%@ include file="footer.jsp" %>

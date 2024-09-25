@@ -19,6 +19,12 @@
     }
 }
 
+.scrollArea {
+    overflow-x: auto;
+    width: 100%;
+    display: flex;
+}
+
 .FooterContainer {
     align-items: start;
     padding: 30px 35px;
@@ -36,7 +42,7 @@
     background: var(--black000);
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    overflow: hidden;
+    overflow: auto;
     height: auto;
 
     @media (min-width: 1201px) {
@@ -85,12 +91,71 @@
     gap: 10px;
 }
 
+.buttonLeftContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    width: 100%;
+    min-width: fit-content;
+    width: fit-content;
+    display: flex;
+    gap: 10px;
+
+    @media (max-width: 768px) {
+        flex-wrap: wrap;
+    }
+}
 
 .buttonSideContainer {
     min-width: fit-content;
     width: fit-content;
     display: flex;
     gap: 10px;
+    justify-content: right;
+    width: 100%;
+}
+
+.warningButton {
+    background-color: var(--violet000);
+    border: 1px solid var(--black500);
+    color: var(--black500);
+    gap: 5px;
+
+    &:hover {
+        background-color: var(--violet200);
+        color: var(--black700);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        background-color: var(--violet400);
+        color: var(--black700);
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
+}
+
+
+
+.warningRedButton {
+    background-color: var(--violet000);
+    border: 1px solid #ED4E51;
+    color: #ED4E50;
+    font-weight: bold;
+    gap: 5px;
+
+    &:hover {
+        background-color: #F9EAEC;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    &:active {
+        background-color: #F9EAEC;
+        transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    @media (max-width: 768px) {}
 }
 
 .title {
@@ -116,6 +181,12 @@
     color: var(--black700);
     background-color: var(--violet100);
     border-radius: 5px;
+
+    @media (max-width: 768px) {
+        min-height: 35px;
+        min-width: 80px;
+        font-size: 15px;
+    }
 }
 
 .textContent {
@@ -126,6 +197,11 @@
     display: flex;
     align-items: center;
     color: var(--black600);
+    white-space: nowrap;
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
 }
 
 .input {
@@ -137,6 +213,10 @@
     background: var(--violet000);
     border: 1.5px solid var(--violet400);
     border-radius: 5px;
+
+    @media (max-width: 768px) {
+        height: 35px;
+    }
 }
 
 .input:disabled {
@@ -147,7 +227,6 @@
 
 .textarea {
     box-sizing: border-box;
-    height: 40px;
     padding: 4px 10px;
     width: 100%;
     background: var(--violet000);
@@ -155,6 +234,10 @@
     border-radius: 5px;
     height: 200px;
     resize: none;
+
+    @media (max-width: 768px) {
+        height: 180px;
+    }
 }
 
 .textarea:disabled {
@@ -171,6 +254,13 @@
     justify-content: center;
     padding: 10px 30px;
     min-height: 37px;
+    white-space: nowrap;
+
+    @media (max-width: 768px) {
+        height: 35px;
+        min-height: 35px;
+        padding: 10px 25px;
+    }
 }
 
 .darkBackgroundButton {
@@ -228,6 +318,25 @@
     @media (max-width: 768px) {}
 }
 
+.displayFlex {
+    @media (min-width: 769px) {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .displayNone {
+        display: none;
+    }
+
+
+}
+
 .linePurpleButton {
     background-color: var(--violet000);
     border: 1px solid var(--violet400);
@@ -281,7 +390,14 @@ input[type="file"] {
     width: fit-content;
 }
 
+input[type="checkbox"] {
+    justify-content: center;
+    align-items: center;
+}
+
+label,
 input[type="file"] {
+    display: flex;
     height: auto;
 }
 
