@@ -48,11 +48,6 @@ public class MainController {
         return "notice"; // notice.jsp를 반환
     }
     
-    @GetMapping("/noticeCreate")
-    public String noticeCreatePage() {
-        return "noticeCreate"; // noticeCreate.jsp를 반환
-    }
-    
     @GetMapping("/report")
     public String reportPage() {
         return "report"; // report.jsp를 반환

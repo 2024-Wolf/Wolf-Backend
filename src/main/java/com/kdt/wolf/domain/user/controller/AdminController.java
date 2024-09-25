@@ -8,15 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class AdminController {
-    @GetMapping("/adminLogin")
-    public String adminLogin() {
-        return "adminLogin";
-    }
-
-    @GetMapping("/auth")
-    public String auth() {
-        return "auth";
-    }
 
     @GetMapping("/authDetail")
     public String authDetail() {
@@ -26,11 +17,6 @@ public class AdminController {
     @GetMapping("/authEdit")
     public String authEdit() {
         return "authEdit";
-    }
-
-    @GetMapping("/challenge")
-    public String challenge() {
-        return "challenge";
     }
 
     @GetMapping("/challengeCreate")
@@ -48,11 +34,6 @@ public class AdminController {
         return "challengeEdit";
     }
 
-    @GetMapping("/faq")
-    public String faq() {
-        return "faq";
-    }
-
     @GetMapping("/faqCreate")
     public String faqCreate() {
         return "faqCreate";
@@ -68,19 +49,9 @@ public class AdminController {
         return "faqEdit";
     }
 
-    @GetMapping("/group")
-    public String group() {
-        return "group";
-    }
-
     @GetMapping("/groupDetail")
     public String groupDetail() {
         return "groupDetail";
-    }
-
-    @GetMapping("/notice")
-    public String notice() {
-        return "notice";
     }
 
     @GetMapping("/noticeCreate")
@@ -98,11 +69,6 @@ public class AdminController {
         return "noticeEdit";
     }
 
-    @GetMapping("/report")
-    public String report() {
-        return "report";
-    }
-
     @GetMapping("/reportDetail")
     public String reportDetail() {
         return "reportDetail";
@@ -111,11 +77,6 @@ public class AdminController {
     @GetMapping("/reportEdit")
     public String reportEdit() {
         return "reportEdit";
-    }
-
-    @GetMapping("/user")
-    public String user() {
-        return "user";
     }
 
     @GetMapping("/userDetail")
