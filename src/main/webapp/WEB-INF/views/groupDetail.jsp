@@ -26,44 +26,56 @@
                                     </svg>이전</button>
                             </span>
                         </div>
-                        <div class="inputSection">
+                        <div class="inputSection scrollArea">
                             <div class="inputGroup">
-                                <label class="subtitle" for="auth-date">기간</label>
-                                <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+                                <label class="subtitle" for="groupStartDate">기간</label>
+                                <input class="textContent input" type="date" name="groupStartDate" id="groupStartDate"
+                                    disabled>
                                 ~
-                                <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+                                <input class="textContent input" type="date" name="groupEndDate" id="groupEndDate"
+                                    disabled>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="username">그룹명</label>
-                                <input class="textContent input" type="text" name="username" id="username" required>
+                                <label class="subtitle" for="challengeType">구분</label>
+                                <input class="textContent input" type="text" name="challengeType" id="challengeType"
+                                    disabled>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="challenge">그룹장</label>
-                                <input class="textContent input" type="text" name="challenge" id="challenge">
+                                <label class="subtitle" for="groupName">그룹명</label>
+                                <input class="textContent input" type="text" name="groupName" id="groupName" disabled>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="content">구분</label>
-                                <input class="textContent input" type="text" name="challenge" id="challenge">
+                                <label class="subtitle" for="groupLeader">그룹장</label>
+                                <input class="textContent input" type="text" name="groupLeader" id="groupLeader"
+                                    disabled>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="content">상태</label>
-                                <input class="textContent input" type="text" name="challenge" id="challenge">
+                                <label class="subtitle" for="participants">인원</label>
+                                <input class="textContent input" type="text" name="participants" id="participants"
+                                    disabled>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="challenge">인원</label>
-                                <input class="textContent input" type="text" name="challenge" id="challenge">
+                                <label class="subtitle" for="participants">그룹원</label>
+                                <input class="textContent input" type="text" name="participants" id="participants"
+                                    disabled>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="challenge">태그</label>
-                                <input class="textContent input" type="text" name="challenge" id="challenge">
+                                <label class="subtitle" for="status">상태</label>
+                                <input class="textContent input" type="text" name="status" id="status" disabled>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="challenge">챌린지</label>
-                                <input class="textContent input" type="text" name="challenge" id="challenge">
+                                <label class="subtitle" for="tags">태그</label>
+                                <input class="textContent input" type="text" name="tags" id="tags" disabled>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="challenge">참가 챌린지</label>
-                                <input class="textContent input" type="text" name="challenge" id="challenge">
+                                <label class="subtitle" for="challengeName">챌린지</label>
+                                <input class="textContent input" type="text" name="challengeName" id="challengeName"
+                                    disabled>
+                            </div>
+                            <div class="inputGroup">
+                                <label class="subtitle" for="participatingChallenge">참가 챌린지</label>
+                                <input class="textContent input" type="text" name="participatingChallenge"
+                                    id="participatingChallenge" disabled>
                             </div>
                         </div>
                     </div>

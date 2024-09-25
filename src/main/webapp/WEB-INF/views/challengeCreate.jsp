@@ -16,7 +16,7 @@
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">챌린지 작성</h2>
-                    <form method="get" action="/challenge" onsubmit="alert('작성완료');" class="inputSection">
+                    <form method="get" action="/challenge" onsubmit="alert('작성완료');" class="inputSection scrollArea">
                         <div class="inputGroup">
                             <label class="subtitle" for="auth">인증주체</label>
                             <input class="textContent input" type="radio" name="auth" id="system">

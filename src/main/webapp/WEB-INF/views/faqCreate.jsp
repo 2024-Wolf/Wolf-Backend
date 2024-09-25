@@ -18,7 +18,7 @@
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">FAQ 작성</h2>
-                    <form method="get" action="/faq" onsubmit="alert('작성완료');" class="inputSection">
+                    <form method="get" action="/faq" onsubmit="alert('작성완료');" class="inputSection scrollArea">
                         <div class="inputGroup">
                             <label class="subtitle" for="title">제목</label>
                             <input class="textContent input" type="text" name="title" id="title" required>

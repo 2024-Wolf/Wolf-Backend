@@ -8,7 +8,7 @@
     <title>WOLF 관리자 페이지</title>
     <link rel="stylesheet" href="/resources/css/globalstyle.css">
     <link rel="stylesheet" href="/resources/css/mainContents.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/form.css">
+
 
 </head>
 
@@ -18,7 +18,7 @@
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">공지사항 작성</h2>
-                    <form method="get" action="/notice" onsubmit="alert('작성완료');" class="inputSection">
+                    <form method="get" action="/notice" onsubmit="alert('작성완료');" class="inputSection scrollArea">
                         <div class="inputGroup">
                             <label class="subtitle" for="challenge">제목</label>
                             <input class="textContent input" type="text" name="challenge" id="challenge" required>
