@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="/resources/css/globalstyle.css">
     <link rel="stylesheet" href="/resources/css/mainContents.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/table.css">
-
+	<script>
+	    alert('<%= request.getRequestURI() %>');
+	</script>
 </head>
 
 <body>

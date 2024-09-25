@@ -22,9 +22,7 @@
     display: flex;
 
     @media (max-width: 1200px) {
-        height: 53.33px;
-        flex-direction: row;
-        width: 100%;
+        display: none;
     }
 }
 

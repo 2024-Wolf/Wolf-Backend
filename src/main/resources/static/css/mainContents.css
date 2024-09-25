@@ -10,10 +10,8 @@
     padding: 50px 50px 50px 0px;
     gap: 50px;
     min-height: 700px;
-    background-color: var(--violet000);
 
     @media (max-width: 1200px) {
-        flex-direction: column;
         padding: 50px 0px;
         gap: 20px;
     }
@@ -44,13 +42,10 @@
     border-radius: 20px;
     overflow: auto;
     height: auto;
-
-    @media (min-width: 1201px) {
-        width: 100%;
-    }
+    width: 100%;
 
     @media (max-width: 1200px) {
-        margin: 0px 50px;
+        margin: 73.33px 50px 0px 50px;
     }
 }
 

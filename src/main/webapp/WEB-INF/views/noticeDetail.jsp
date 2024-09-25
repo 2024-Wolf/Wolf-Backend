@@ -10,11 +10,6 @@
         <link rel="stylesheet" href="/resources/css/mainContents.css">
     </head>
 
-
-    <span class="buttonSideContainer">
-
-    </span>
-
     <body>
         <%@ include file="header.jsp" %>
             <div class="mainContents">
