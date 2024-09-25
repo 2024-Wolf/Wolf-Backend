@@ -45,6 +45,8 @@ dependencies {
 	implementation 'jakarta.servlet:jakarta.servlet-api'
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+
+	implementation 'org.apache.tomcat:tomcat-jdbc:9.0.74'
 }
 
 tasks.named('test') {
