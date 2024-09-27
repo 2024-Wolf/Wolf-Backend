@@ -15,25 +15,25 @@
             <div class="mainContents">
                 <%@ include file="sidebar.jsp" %>
                     <div class="infoCard">
-                        <div class="inputGroup">
+                        <div class="titleInputGroup">
                             <h2 class="title">그룹 정보</h2>
-                            <span class="buttonSideContainer">
-                                <button class="formButton noBackgroundButton" onclick="location.href='/group'"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                    </svg>이전</button>
-                            </span>
+                            <button class="sideButton noBackgroundButton" onclick="location.href='/group'"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
+                                </svg><span class="innerText">이전</span></button>
                         </div>
                         <div class="inputSection scrollArea">
                             <div class="inputGroup">
                                 <label class="subtitle" for="groupStartDate">기간</label>
-                                <input class="textContent input" type="date" name="groupStartDate" id="groupStartDate"
-                                    disabled>
-                                ~
-                                <input class="textContent input" type="date" name="groupEndDate" id="groupEndDate"
-                                    disabled>
+                                <div class="nowrapLeftContainer">
+                                    <input class="textContent input" type="date" name="groupStartDate"
+                                        id="groupStartDate" disabled>
+                                    ~
+                                    <input class="textContent input" type="date" name="groupEndDate" id="groupEndDate"
+                                        disabled>
+                                </div>
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="challengeType">구분</label>

@@ -9,7 +9,8 @@
 
     @media (max-width: 1200px) {
         flex-direction: row;
-        width: 100%;
+		min-width: 100%;
+        max-width: 100%;
         position: absolute;
     }
 }
@@ -24,6 +25,7 @@
     @media (max-width: 1200px) {
         display: none;
     }
+	
 }
 
 .sidebar-item {
@@ -37,11 +39,17 @@
     text-decoration: none;
     font-weight: 500;
     transition-duration: 0.5s;
+	font-size: 16px;
+	text-wrap: nowrap;
 
     @media (max-width: 1200px) {
         width: 100%;
         justify-content: center;
     }
+	
+	@media (max-width: 768px) {
+		font-size: 14px;
+	}
 }
 
 .sidebar-item.active {

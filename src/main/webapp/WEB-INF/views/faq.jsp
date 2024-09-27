@@ -16,7 +16,7 @@
         <div class="mainContents">
             <%@ include file="sidebar.jsp" %>
                 <div class="infoCard">
-                    <div class="inputGroup">
+                    <div class="titleInputGroup">
                         <h2 class="title">FAQ</h2>
                         <span class="buttonSideContainer">
                             <button class="formButton darkBackgroundButton"

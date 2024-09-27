@@ -20,17 +20,21 @@
                             class="inputSection scrollArea">
                             <div class="inputGroup">
                                 <label class="subtitle" for="auth">인증주체</label>
-                                <input class="textContent input" type="radio" name="auth" id="system">
-                                <label for="system">시스템</label>
-                                <input class="textContent input" type="radio" name="auth" id="manager">
-                                <label for="manager">관리자</label>
+								<div class="nowrapLeftContainer">
+	                                <input class="textContent input" type="radio" name="auth" id="system">
+	                                <label for="system">시스템</label>
+	                                <input class="textContent input" type="radio" name="auth" id="manager">
+	                                <label for="manager">관리자</label>
+								</div>
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="auth-date">기간</label>
-                                <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
-                                ~
-                                <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
-                            </div>
+								<div class="nowrapLeftContainer">
+	                                <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+	                                ~
+	                                <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+                            	</div>
+							</div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="username">이름</label>
                                 <input class="textContent input" type="text" name="username" id="username" required>
