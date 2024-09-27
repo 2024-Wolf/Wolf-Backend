@@ -36,25 +36,25 @@
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="challenge">내용</label>
-                            <input class="textContent input" type="text" name="challenge" id="challenge">
+                            <input class="textContent input" type="text" name="challenge" id="challenge" required>
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">유의사항</label>
                             <textarea class="textContent textarea" name="content" id="content" cols="30"
-                                rows="10"></textarea>
+                                rows="10" required></textarea>
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">보상</label>
                             <textarea class="textContent textarea" name="content" id="content" cols="30"
-                                rows="10"></textarea>
+                                rows="10" required></textarea>
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">첨부파일</label>
                             <div class="fileGroup">
                                 <input class="textContent" type="file" name="username" id="username"
-                                    style="margin-top: 10px;" disabled>
+                                    style="margin-top: 10px;">
                                 <div class="inputGroup imagePlaceholder">
-                                    <img src="/resources/img/thumbnail_challenge 1.png" alt=""
+                                    <img src="" alt=""
                                         style="max-width: 100%; max-height: 100%;">
                                 </div>
                             </div>
