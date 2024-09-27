@@ -97,7 +97,7 @@
                                 <label class="subtitle" for="content">처리 내용</label>
                                 <textarea class="textContent textarea" name="content" id="content" cols="30"
                                     rows="10"></textarea>
-                                <button class="formButton linePurpleButton">알림 발송</button>
+                                <button class="alarmButton linePurpleButton" >알림 발송</button>
                             </div>
                             <div class="buttonContainer">
                                 <button type="button" class="formButton linePurpleButton"

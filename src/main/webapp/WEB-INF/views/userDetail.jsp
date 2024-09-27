@@ -23,11 +23,13 @@
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="status">상태</label>
-                                <select class="textContent input" name="status" id="status">
-                                    <option value="">정지 상태</option>
-                                    <option value="">활성 상태</option>
-                                </select>
-                                <input class="textContent input" type="date" name="auth-date" id="auth-date" disabled>
+								<div class="nowrapLeftContainer">
+	                                <select class="textContent input" name="status" id="status">
+	                                    <option value="">정지 상태</option>
+	                                    <option value="">활성 상태</option>
+	                                </select>
+	                                <input class="textContent input" type="date" name="auth-date" id="auth-date" disabled>
+								</div>
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="username">닉네임</label>
@@ -85,33 +87,39 @@
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="challenge">스터디</label>
-                                <label for="percentage-slider" class="textContent">완료:</label>
-                                <span id="slider-value" class="textContent">50%</span>
-                                <input type="range" id="percentage-slider" name="percentage" min="0" max="100"
-                                    value="50" oninput="updateSliderValue(this.value)" disabled />
+								<div class="buttonLeftContainer">
+	                                <label for="percentage-slider" class="textContent">완료</label>
+	                                <span id="slider-value" class="textContent">50%</span>
+	                                <input type="range" id="percentage-slider" name="percentage" min="0" max="100"
+	                                    value="50" oninput="updateSliderValue(this.value)" disabled />
+								</div>
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="challenge">프로젝트</label>
-                                <label for="percentage-slider" class="textContent">완료:</label>
-                                <span id="slider-value" class="textContent">50%</span>
-                                <input type="range" id="percentage-slider" name="percentage" min="0" max="100"
-                                    value="50" oninput="updateSliderValue(this.value)" disabled />
-                            </div>
+								<div class="buttonLeftContainer">
+	                                <label for="percentage-slider" class="textContent">완료</label>
+	                                <span id="slider-value" class="textContent">50%</span>
+	                                <input type="range" id="percentage-slider" name="percentage" min="0" max="100"
+	                                    value="50" oninput="updateSliderValue(this.value)" disabled />
+								</div>
+							</div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="challenge">챌린지</label>
-                                <label for="percentage-slider" class="textContent">성공:</label>
-                                <span id="slider-value" class="textContent">50%</span>
-                                <input type="range" id="percentage-slider" name="percentage" min="0" max="100"
-                                    value="50" oninput="updateSliderValue(this.value)" disabled />
+								<div class="buttonLeftContainer">
+	                                <label for="percentage-slider" class="textContent">성공</label>
+	                                <span id="slider-value" class="textContent">50%</span>
+	                                <input type="range" id="percentage-slider" name="percentage" min="0" max="100"
+	                                    value="50" oninput="updateSliderValue(this.value)" disabled />
+								</div>
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="challenge">신고</label>
-                                <label for="percentage-slider" class="textContent">신고:</label>
-                                <span id="slider-value" class="textContent">50%</span>
-                                <input type="range" id="percentage-slider" name="percentage" min="0" max="100"
-                                    value="50" oninput="updateSliderValue(this.value)" disabled />
-                                <label for="percentage-slider" class="textContent">피신고:</label>
-                                <span id="slider-value" class="textContent">50%</span>
+								<div class="buttonLeftContainer">
+	                                <label for="percentage-slider" class="textContent">비율</label>
+	                                <span id="slider-value" class="textContent">50%</span>
+	                                <input type="range" id="percentage-slider" name="percentage" min="0" max="100"
+	                                    value="50" oninput="updateSliderValue(this.value)" disabled />
+								</div>
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="challenge">활동지표</label>

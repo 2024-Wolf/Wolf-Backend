@@ -30,7 +30,7 @@
                             <label class="subtitle" for="content">첨부파일</label>
                             <div class="fileGroup">
                                 <input class="textContent" type="file" name="username" id="username"
-                                    style="margin-top: 10px;" disabled>
+                                    style="margin-top: 10px;">
                                 <div class="inputGroup imagePlaceholder">
                                     <img src="" alt="" style="max-width: 100%; max-height: 100%;">
                                 </div>

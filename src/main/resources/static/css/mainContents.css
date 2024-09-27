@@ -47,6 +47,16 @@
     @media (max-width: 1200px) {
         margin: 73.33px 50px 0px 50px;
     }
+	
+	@media (max-width: 768px) {
+		margin: 73.33px 30px 0px 30px;
+		padding: 30px;
+	}
+	
+	@media (max-width: 576px) {
+		margin: 73.33px 10px 0px 10px;
+		padding: 30px;
+	}
 }
 
 .inputSection {
@@ -67,6 +77,24 @@
     align-items: center;
     width: 100%;
     gap: 10px;
+	
+	@media (max-width: 576px) {
+		flex-direction: column;
+		gap: 5px;
+	}
+}
+
+.titleInputGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    width: 100%;
+    gap: 10px;
+	justify-content: space-between;
+	
+	@media (max-width: 576px) {
+
+	}
 }
 
 .fileGroup {
@@ -84,30 +112,68 @@
     align-items: center;
     width: 100%;
     gap: 10px;
+	margin-top: 10px;
 }
 
 .buttonLeftContainer {
     display: flex;
     flex-direction: row;
-    align-items: left;
+    align-items: center;
     width: 100%;
-    min-width: fit-content;
-    width: fit-content;
     display: flex;
     gap: 10px;
+	justify-content: left;
+	flex-wrap: wrap;
+    @media (max-width: 576px) {
+		justify-content: center;
+    }
+}
 
-    @media (max-width: 768px) {
-        flex-wrap: wrap;
+
+
+.nowrapLeftContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+	justify-content: left;
+
+    @media (max-width: 576px) {
+		justify-content: center;
     }
 }
 
 .buttonSideContainer {
     min-width: fit-content;
-    width: fit-content;
+    width: 100%;
     display: flex;
     gap: 10px;
     justify-content: right;
-    width: 100%;
+}
+
+.sideButton {
+	font-weight: 500;
+	font-size: 14px;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 30px;
+	min-height: 37px;
+	white-space: nowrap;
+
+	@media (max-width: 768px) {
+		height: 35px;
+		min-height: 35px;
+		padding: 10px 25px;
+	}
+		
+	@media (max-width: 576px) {
+		padding: 0px;
+		min-width: 35px;
+	}
 }
 
 .warningButton {
@@ -158,10 +224,18 @@
     font-weight: 700;
     font-size: 26px;
     color: var(--black800);
-    width: 100%;
+    width: fit-content;
     display: flex;
     align-items: center;
-    min-width: 150px;
+	text-wrap: nowrap;
+	
+	@media (max-width: 768px) {
+    	font-size: 20px;
+	}
+	
+	@media (max-width: 576px) {
+		min-width:auto;
+	}
 }
 
 .subtitle {
@@ -182,6 +256,12 @@
         min-width: 80px;
         font-size: 15px;
     }
+	
+	@media (max-width: 576px) {
+	    min-height: 35px;
+	    min-width: 100%;
+		height:auto;
+	}
 }
 
 .textContent {
@@ -258,6 +338,28 @@
     }
 }
 
+.alarmButton {
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 30px;
+    min-height: 37px;
+    white-space: nowrap;
+
+    @media (max-width: 768px) {
+        height: 35px;
+        min-height: 35px;
+        padding: 10px 25px;
+    }
+	
+	@media (max-width: 576px) {
+		width:100%;
+	}
+}
+
 .darkBackgroundButton {
     background: var(--violet600);
     color: var(--violet000);
@@ -274,6 +376,8 @@
 
     @media (max-width: 768px) {}
 }
+
+
 
 .lightBackgroundButton {
     background: var(--violet100);
@@ -313,22 +417,12 @@
     @media (max-width: 768px) {}
 }
 
-.displayFlex {
-    @media (min-width: 769px) {
-        display: none;
-    }
-
-    @media (max-width: 768px) {
-        display: flex;
-    }
-}
-
 @media (max-width: 768px) {
 
     .displayNone {
-        display: none;
+        visibility: hidden;
+		opacity: 0;
     }
-
 
 }
 
@@ -378,8 +472,6 @@
     border-color: var(--black300);
 }
 
-select.input,
-input[type="date"],
 input[type="radio"],
 input[type="file"] {
     width: fit-content;
@@ -405,4 +497,18 @@ input[type="file"] {
 
 svg {
     margin-right: 5px;
+	
+	@media (max-width: 576px) {
+	    margin-right: 0px;
+	}
 }
+
+.innerText {
+	display: inline;
+	
+	@media (max-width: 576px) {
+	    display: none;
+	}
+}
+
+
