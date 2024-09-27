@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>WOLF 관리자 페이지</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="/resources/css/globalstyle.css">
         <link rel="stylesheet" href="/resources/css/mainContents.css">
     </head>
@@ -21,18 +22,18 @@
                             <div class="inputGroup">
                                 <label class="subtitle" for="auth">인증주체</label>
 								<div class="nowrapLeftContainer">
-	                                <input class="textContent input" type="radio" name="auth" id="system">
-	                                <label for="system">시스템</label>
-	                                <input class="textContent input" type="radio" name="auth" id="manager">
-	                                <label for="manager">관리자</label>
+								    <input class="" type="radio" name="auth" id="system" required>
+								    <label for="system" class="textContent">시스템</label>
+								    <input class="" type="radio" name="auth" id="manager" required>
+								    <label for="manager" class="textContent">관리자</label>
 								</div>
                             </div>
                             <div class="inputGroup">
-                                <label class="subtitle" for="auth-date">기간</label>
+                                <label class="subtitle">기간</label>
 								<div class="nowrapLeftContainer">
-	                                <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+	                                <input class="textContent input" type="date" name="start-date" id="start-date" required>
 	                                ~
-	                                <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
+	                                <input class="textContent input" type="date" name="end-date" id="end-date" required>
                             	</div>
 							</div>
                             <div class="inputGroup">

@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>WOLF 관리자 페이지</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="/resources/css/globalstyle.css">
         <link rel="stylesheet" href="/resources/css/mainContents.css">
     </head>
@@ -46,7 +47,7 @@
                             <div class="inputGroup">
                                 <label class="subtitle" for="auth-date">등록일</label>
                                 <input class="textContent input" type="date" name="auth-date" id="auth-date"
-                                    value="2024-09-24" disabled>
+                                    value="2024-09-24" disabled />
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="username">등록자</label>
