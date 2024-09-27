@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WOLF 관리자 페이지</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="/resources/css/globalstyle.css">
     <link rel="stylesheet" href="/resources/css/mainContents.css">
 </head>
@@ -19,10 +20,12 @@
                     <form method="get" action="/challenge" onsubmit="alert('작성완료');" class="inputSection scrollArea">
                         <div class="inputGroup">
                             <label class="subtitle" for="auth">인증주체</label>
-                            <input class="textContent input" type="radio" name="auth" id="system">
-                            <label for="system">시스템</label>
-                            <input class="textContent input" type="radio" name="auth" id="manager">
-                            <label for="manager">관리자</label>
+                            <div class="nowrapLeftContainer">
+                                <input class="" type="radio" name="auth" id="system">
+                                <label for="system" class="textContent">시스템</label>
+                                <input class="" type="radio" name="auth" id="manager">
+                                <label for="manager" class="textContent">관리자</label>
+                            </div>
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="auth-date">기간</label>
@@ -40,13 +43,13 @@
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">유의사항</label>
-                            <textarea class="textContent textarea" name="content" id="content" cols="30"
-                                rows="10" required></textarea>
+                            <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
+                                required></textarea>
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">보상</label>
-                            <textarea class="textContent textarea" name="content" id="content" cols="30"
-                                rows="10" required></textarea>
+                            <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
+                                required></textarea>
                         </div>
                         <div class="inputGroup">
                             <label class="subtitle" for="content">첨부파일</label>
@@ -54,8 +57,7 @@
                                 <input class="textContent" type="file" name="username" id="username"
                                     style="margin-top: 10px;">
                                 <div class="inputGroup imagePlaceholder">
-                                    <img src="" alt=""
-                                        style="max-width: 100%; max-height: 100%;">
+                                    <img src="" alt="" style="max-width: 100%; max-height: 100%;">
                                 </div>
                             </div>
                         </div>

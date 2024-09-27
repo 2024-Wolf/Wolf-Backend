@@ -265,22 +265,19 @@
 }
 
 .textContent {
-    height: 20px;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 140%;
-    display: flex;
-    align-items: center;
-    color: var(--black600);
-    white-space: nowrap;
+	height: 20px;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 140%;
+	color: var(--black600);
+	white-space: nowrap;
 
-    @media (max-width: 768px) {
-        font-size: 12px;
-    }
+	@media (max-width: 768px) {
+	    font-size: 12px;
+	}
 }
 
 .input {
-    display: inline-block;
     box-sizing: border-box;
     height: 40px;
     padding: 4px 10px;
@@ -288,10 +285,16 @@
     background: var(--violet000);
     border: 1.5px solid var(--violet400);
     border-radius: 5px;
+	appearance: none;
 
     @media (max-width: 768px) {
         height: 35px;
     }
+}
+
+select.input {
+	appearance: auto;
+
 }
 
 .input:disabled {
@@ -510,5 +513,3 @@ svg {
 	    display: none;
 	}
 }
-
-

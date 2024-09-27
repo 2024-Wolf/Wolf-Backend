@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>WOLF 관리자 페이지</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
         <link rel="stylesheet" href="/resources/css/globalstyle.css">
         <link rel="stylesheet" href="/resources/css/mainContents.css">
     </head>
@@ -45,12 +46,12 @@
                         <div class="inputSection scrollArea">
                             <div class="inputGroup">
                                 <label class="subtitle" for="auth">인증주체</label>
-                                <div class="nowrapLeftContainer"">
-									<input class=" textContent input" type="radio" name="auth" id="system" disabled>
-                                    <label for="system">시스템</label>
-                                    <input class="textContent input" type="radio" name="auth" id="manager" disabled>
-                                    <label for="manager">관리자</label>
-                                </div>
+								<div class="nowrapLeftContainer">
+								    <input class="" type="radio" name="auth" id="system" disabled>
+								    <label for="system" class="textContent">시스템</label>
+								    <input class="" type="radio" name="auth" id="manager" disabled>
+								    <label for="manager" class="textContent">관리자</label>
+								</div>
                             </div>
                             <div class="inputGroup">
                                 <label class="subtitle" for="auth-date">기간</label>

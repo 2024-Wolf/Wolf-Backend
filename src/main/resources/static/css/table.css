@@ -1,9 +1,13 @@
 .table {
     border-collapse: collapse;
     color: var(--black600);
-    font-size: 14px;
     width: 100%;
     min-width: fit-content;
+	
+	font-size: 14px;
+	@media (max-width: 768px) {
+	    font-size: 12px;
+	}
 }
 
 .table th,
