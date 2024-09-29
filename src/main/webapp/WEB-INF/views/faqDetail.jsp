@@ -12,63 +12,48 @@
     </head>
 
     <body>
-        <%@ include file="header.jsp" %>
+        <%@ include file="components/header.jsp" %>
             <div class="mainContents">
-                <%@ include file="sidebar.jsp" %>
+                <%@ include file="components/sidebar.jsp" %>
                     <div class="infoCard">
                         <div class="titleInputGroup">
                             <h2 class="title">FAQ 정보</h2>
-                            <button class="sideButton noBackgroundButton" onclick="location.href='/faq'"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                </svg><span class="innerText">이전</span></button>
-                        </div>
-                        <div class="buttonSideContainer">
-                            <button class="sideButton linePurpleButton" onclick="location.href='/faqEdit'"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path
-                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                </svg><span class="innerText">수정</span></button>
-
-                            <button class="sideButton darkBackgroundButton"
-                                onclick="alert('삭제완료'); location.href='/faq'"><svg xmlns="http://www.w3.org/2000/svg"
-                                    width="16" height="16" fill="currentColor" class="bi bi-trash-fill"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                </svg><span class="innerText">삭제</span></button>
-                        </div>
+							<%-- 이전 버튼 --%>
+							<jsp:include page="components/button/backButton.jsp" />
+						</div>
+						<%-- 수정 및 삭제 버튼 --%>
+						<jsp:include page="components/button/editDeleteButton.jsp" />
+							
                         <div class="inputSection scrollArea">
-                            <div class="inputGroup">
-                                <label class="subtitle" for="registration-date">등록일</label>
-                                <input class="textContent input" type="date" name="registration-date"
-                                    id="registration-date" value="2024-09-24" disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="registrant">등록자</label>
-                                <input class="textContent input" type="text" name="registrant" id="registrant"
-                                    value="우두머리 늑대" disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="title">제목</label>
-                                <input class="textContent input" type="text" name="title" id="title"
-                                    value="회원가입은 어떻게 하나요?" disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="description">내용</label>
-                                <textarea class="textContent textarea" name="description" id="description" cols="30"
-                                    rows="10" disabled>로그인 화면의 “구글로 로그인하기”를 클릭하신 후, 회원가입 절차를 진행하시면 됩니다!</textarea>
-                            </div>
+							<%-- 등록일 필드 --%>
+							<jsp:include page="components/inputDate/registrationDate.jsp" >
+								<jsp:param name="registrationDate" value="2024-09-29" />
+							</jsp:include>
+
+							<%-- 등록자 필드 --%>
+							<jsp:include page="components/inputText/registrarName.jsp" >
+								<jsp:param name="registrarName" value="우두머리 늑대" />
+							</jsp:include>
+
+							<%-- 카테고리 필드 --%>
+							<jsp:include page="components/select/faqCategory.jsp" >
+								<jsp:param name="faqCategory" value="계정" />
+							</jsp:include>
+
+							<%-- 제목 입력 필드 --%>
+							<jsp:include page="components/inputText/title.jsp" >
+								<jsp:param name="title" value="회원가입은 어떻게 하나요?" />
+							</jsp:include>
+
+							<%-- 내용 입력 필드 --%>
+							<jsp:include page="components/textarea/content.jsp" >
+								<jsp:param name="content" value="로그인 화면의 “구글로 로그인하기”를 클릭하신 후, 회원가입 절차를 진행하시면 됩니다!" />
+							</jsp:include>
                         </div>
 
                     </div>
             </div>
-            <%@ include file="footer.jsp" %>
+            <%@ include file="components/footer.jsp" %>
     </body>
 
     </html>

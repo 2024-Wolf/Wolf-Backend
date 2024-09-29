@@ -13,9 +13,9 @@
 </head>
 
 <body>
-    <%@ include file="header.jsp" %>
+    <%@ include file="components/header.jsp" %>
         <div class="mainContents">
-            <%@ include file="sidebar.jsp" %>
+            <%@ include file="components/sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">인증</h2>
                     <div class="scrollArea">
@@ -31,81 +31,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href="/authDetail" class="aLink">6</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대소녀</a></td>
-                                    <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대들</a></td>
-                                    <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
-                                    <td>
-                                        <button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '인증성공';">인증실패</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/authDetail" class="aLink">5</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대소년</a></td>
-                                    <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대들</a></td>
-                                    <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
-                                    <td>
-                                        <button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '인증성공';"
-                                            disabled>인증성공</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/authDetail" class="aLink">4</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대소녀</a></td>
-                                    <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대들</a></td>
-                                    <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
-                                    <td>
-                                        <button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '인증성공';">인증실패</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/authDetail" class="aLink">3</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대소년</a></td>
-                                    <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대들</a></td>
-                                    <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
-                                    <td>
-                                        <button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '인증성공';"
-                                            disabled>인증성공</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/authDetail" class="aLink">2</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대소녀</a></td>
-                                    <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대들</a></td>
-                                    <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
-                                    <td>
-                                        <button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '인증성공';">인증실패</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/authDetail" class="aLink">1</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대소년</a></td>
-                                    <td><a href="/authDetail" class="aLink">야 너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/authDetail" class="aLink">늑대들</a></td>
-                                    <td><a href="/authDetail" class="aLink">2024.09.13</a></td>
-                                    <td>
-                                        <button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '인증성공';"
-                                            disabled>인증성공</button>
-                                    </td>
-                                </tr>
+								<%-- 인증 테이블 tr --%>
+								<jsp:include page="components/table/authTableTr.jsp">
+								    <jsp:param name="auth_id" value="6" />
+								    <jsp:param name="nickname" value="늑대소녀" />
+								    <jsp:param name="challenge_title" value="야 너도 자격증 딸 수 있어!" />
+								    <jsp:param name="group_title" value="늑대들" />
+								    <jsp:param name="verification_date" value="2024.09.13" />
+									<jsp:param name="auth_status" value="인증 실패" />
+								</jsp:include>
                             </tbody>
                         </table>
                     </div>
                 </div>
         </div>
-        <%@ include file="footer.jsp" %>
+        <%@ include file="components/footer.jsp" %>
 </body>
 
 </html>

@@ -15,16 +15,14 @@
     </head>
 
     <body>
-        <%@ include file="header.jsp" %>
+        <%@ include file="components/header.jsp" %>
             <div class="mainContents">
-                <%@ include file="sidebar.jsp" %>
+                <%@ include file="components/sidebar.jsp" %>
                     <div class="infoCard">
                         <div class="titleInputGroup">
                             <h2 class="title">공지사항</h2>
-                            <span class="buttonSideContainer">
-                                <button class="formButton darkBackgroundButton"
-                                    onclick="location.href='/noticeCreate'">작성하기</button>
-                            </span>
+							<%-- 작성하기 버튼 --%>
+							<jsp:include page="components/button/createButton.jsp" />
                         </div>
                         <div class="scrollArea">
                             <table class="table">
@@ -37,56 +35,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><a href="/noticeDetail" class="aLink">6</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                                제목입니다. 제목입니다.</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">등록자</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="/noticeDetail" class="aLink">5</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                                제목입니다. 제목입니다.</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">등록자</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="/noticeDetail" class="aLink">4</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                                제목입니다. 제목입니다.</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">등록자</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="/noticeDetail" class="aLink">3</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                                제목입니다. 제목입니다.</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">등록자</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="/noticeDetail" class="aLink">2</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                                제목입니다. 제목입니다.</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">등록자</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="/noticeDetail" class="aLink">1</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                                제목입니다. 제목입니다.</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">등록자</a></td>
-                                        <td><a href="/noticeDetail" class="aLink">24.09.12</a></td>
-                                    </tr>
+									<%-- 공지사항 테이블 tr --%>
+									<jsp:include page="components/table/noticeTableTr.jsp">
+										<jsp:param name="notice_id" value="6" />
+										<jsp:param name="notice_title" value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다." />
+										<jsp:param name="registrarName" value="등록자" />
+										<jsp:param name="registrationDate" value="2024.09.24" />
+									</jsp:include>
                                 </tbody>
                             </table>
                         </div>
-
-
                     </div>
             </div>
-            <%@ include file="footer.jsp" %>
+            <%@ include file="components/footer.jsp" %>
     </body>
 
 </html>

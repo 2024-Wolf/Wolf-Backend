@@ -14,13 +14,14 @@
         </head>
 
         <body>
-            <%@ include file="header.jsp" %>
+            <%@ include file="components/header.jsp" %>
                 <div class="mainContents">
+					<%-- 로그인 컨테이너 --%>
                     <div class="loginContainer">
                         <div class="loginCard">
-                            <div>
+                            <div style="text-align: center;">
                                 <h2 class="loginLogo">WOLF</h2>
-                                <p class="loginDescription">WOLF 관리자 페이지 입니다.</p>
+                                <p class="loginDescription"><span>관리자 페이지에</span><span>&nbsp오신 것을</span><span>&nbsp환영합니다.</span></p>
                             </div>
                             <form class="loginForm" action="notice" method="get">
                                 <input id="username" type="text" class="loginInput loginDescription" placeholder="아이디"
@@ -32,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <%@ include file="footer.jsp" %>
+				<%@ include file="components/footer.jsp" %>
         </body>
 
         </html>

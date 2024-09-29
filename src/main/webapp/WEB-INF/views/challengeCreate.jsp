@@ -12,64 +12,52 @@
 </head>
 
 <body>
-    <%@ include file="header.jsp" %>
+    <%@ include file="components/header.jsp" %>
         <div class="mainContents">
-            <%@ include file="sidebar.jsp" %>
+            <%@ include file="components/sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">챌린지 작성</h2>
                     <form method="get" action="/challenge" onsubmit="alert('작성완료');" class="inputSection scrollArea">
-                        <div class="inputGroup">
-                            <label class="subtitle" for="auth">인증주체</label>
-                            <div class="nowrapLeftContainer">
-                                <input class="" type="radio" name="auth" id="system">
-                                <label for="system" class="textContent">시스템</label>
-                                <input class="" type="radio" name="auth" id="manager">
-                                <label for="manager" class="textContent">관리자</label>
-                            </div>
-                        </div>
-                        <div class="inputGroup">
-                            <label class="subtitle" for="auth-date">기간</label>
-                            <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
-                            ~
-                            <input class="textContent input" type="date" name="auth-date" id="auth-date" required>
-                        </div>
-                        <div class="inputGroup">
-                            <label class="subtitle" for="username">이름</label>
-                            <input class="textContent input" type="text" name="username" id="username" required>
-                        </div>
-                        <div class="inputGroup">
-                            <label class="subtitle" for="challenge">내용</label>
-                            <input class="textContent input" type="text" name="challenge" id="challenge" required>
-                        </div>
-                        <div class="inputGroup">
-                            <label class="subtitle" for="content">유의사항</label>
-                            <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
-                                required></textarea>
-                        </div>
-                        <div class="inputGroup">
-                            <label class="subtitle" for="content">보상</label>
-                            <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
-                                required></textarea>
-                        </div>
-                        <div class="inputGroup">
-                            <label class="subtitle" for="content">첨부파일</label>
-                            <div class="fileGroup">
-                                <input class="textContent" type="file" name="username" id="username"
-                                    style="margin-top: 10px;">
-                                <div class="inputGroup imagePlaceholder">
-                                    <img src="" alt="" style="max-width: 100%; max-height: 100%;">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="buttonContainer">
-                            <button type="button" class="formButton linePurpleButton"
-                                onclick="window.history.back()">취소</button>
-                            <button type="submit" class="formButton darkBackgroundButton">완료</button>
-                        </div>
+						<%-- 인증 주체 입력 필드 --%>
+						<jsp:include page="components/inputRadio/verificationAgent.jsp" />
+						
+						<%-- 챌린지 기간 입력 필드 --%>
+						<jsp:include page="components/inputDate/startEndDate.jsp" >
+							<jsp:param name="startDate" value="" />
+							<jsp:param name="endDate" value="" />
+						</jsp:include>
+						
+						<%-- 챌린지 이름 입력 필드 --%>
+						<jsp:include page="components/inputText/challengeName.jsp" >
+							<jsp:param name="challengeName" value="" />
+						</jsp:include>
+						
+						<%-- 챌린지 내용 필드 --%>
+						<jsp:include page="components/textarea/content.jsp" >
+							<jsp:param name="content" value="" />
+						</jsp:include>
+						
+						<%-- 유의사항 입력 필드 --%>
+						<jsp:include page="components/textarea/challengeWarning.jsp" >
+							<jsp:param name="challengeWarning" value="" />
+						</jsp:include>
+						
+						<%-- 보상 입력 필드 --%>
+						<jsp:include page="components/textarea/challengeAwardContent.jsp" >
+							<jsp:param name="challengeAwardContent" value="" />
+						</jsp:include>
+						
+						<%-- 첨부파일 입력 필드 --%>
+						<jsp:include page="components/inputFile/inputFile.jsp" >
+							<jsp:param name="inputFile" value="" />
+						</jsp:include>
+						
+						<%-- 취소 & 완료(submit) 버튼 --%>
+						<jsp:include page="components/button/cancelCompleteButton.jsp" />
                     </form>
                 </div>
         </div>
-        <%@ include file="footer.jsp" %>
+        <%@ include file="components/footer.jsp" %>
 </body>
 
 </html>

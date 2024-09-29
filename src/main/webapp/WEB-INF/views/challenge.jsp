@@ -13,16 +13,14 @@
 </head>
 
 <body>
-    <%@ include file="header.jsp" %>
+    <%@ include file="components/header.jsp" %>
         <div class="mainContents">
-            <%@ include file="sidebar.jsp" %>
+            <%@ include file="components/sidebar.jsp" %>
                 <div class="infoCard">
                     <div class="titleInputGroup">
                         <h2 class="title">챌린지</h2>
-                        <span class="buttonSideContainer">
-                            <button class="formButton darkBackgroundButton"
-                                onclick="location.href='/challengeCreate'">작성하기</button>
-                        </span>
+						<%-- 작성하기 버튼 --%>
+						<jsp:include page="components/button/createButton.jsp"/>
                     </div>
                     <div class="scrollArea">
                         <table class="table">
@@ -37,84 +35,37 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">9</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">진행 전</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">8</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">진행 후</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">7</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">완료</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">6</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">진행 전</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">5</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">진행 후</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">4</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">완료</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">3</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">진행 전</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">2</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">진행 후</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/challengeDetail" class="aLink">1</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">너도 자격증 딸 수 있어!</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">시스템</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2024.10.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">2025.04.13</a></td>
-                                    <td><a href="/challengeDetail" class="aLink">완료</a></td>
-                                </tr>
+								<%-- 챌린지 테이블 tr --%>
+								<jsp:include page="components/table/challengeTableTr.jsp">
+								    <jsp:param name="challenge_post_id" value="8" />
+								    <jsp:param name="challenge_title" value="너도 자격증 딸 수 있어!" />
+								    <jsp:param name="verification_agent" value="시스템" />
+								    <jsp:param name="challenge_startDate" value="2024.10.13" />
+								    <jsp:param name="challenge_endDate" value="2025.04.13" />
+									<jsp:param name="challenge_status" value="진행 후" />
+								</jsp:include>
+								<jsp:include page="components/table/challengeTableTr.jsp">
+								    <jsp:param name="challenge_post_id" value="7" />
+								    <jsp:param name="challenge_title" value="너도 자격증 딸 수 있어!" />
+								    <jsp:param name="verification_agent" value="시스템" />
+								    <jsp:param name="challenge_startDate" value="2024.10.13" />
+								    <jsp:param name="challenge_endDate" value="2025.04.13" />
+								    <jsp:param name="challenge_status" value="완료" />
+								</jsp:include>
+								<jsp:include page="components/table/challengeTableTr.jsp">
+								    <jsp:param name="challenge_post_id" value="6" />
+								    <jsp:param name="challenge_title" value="너도 자격증 딸 수 있어!" />
+								    <jsp:param name="verification_agent" value="시스템" />
+								    <jsp:param name="challenge_startDate" value="2024.10.13" />
+								    <jsp:param name="challenge_endDate" value="2025.04.13" />
+								    <jsp:param name="challenge_status" value="진행 전" />
+								</jsp:include>
                             </tbody>
                         </table>
                     </div>
                 </div>
         </div>
-        <%@ include file="footer.jsp" %>
+        <%@ include file="components/footer.jsp" %>
 </body>
 
 </html>

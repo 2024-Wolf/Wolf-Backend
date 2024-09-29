@@ -10,86 +10,75 @@
     <link rel="stylesheet" href="/resources/css/globalstyle.css">
     <link rel="stylesheet" href="/resources/css/mainContents.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/table.css">
+	<script>
+	    console.log('<%= request.getContextPath() + "/create/" + request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1, request.getRequestURI().lastIndexOf('.')) %>');
+	</script>
 </head>
 
 <body>
-    <%@ include file="header.jsp" %>
+    <%@ include file="components/header.jsp" %>
         <div class="mainContents">
-            <%@ include file="sidebar.jsp" %>
+            <%@ include file="components/sidebar.jsp" %>
                 <div class="infoCard">
                     <div class="titleInputGroup">
                         <h2 class="title">FAQ</h2>
-                        <span class="buttonSideContainer">
-                            <button class="formButton darkBackgroundButton"
-                                onclick="location.href='/faqCreate'">작성하기</button>
-                        </span>
+						<%-- 작성하기 버튼 --%>
+						<jsp:include page="components/button/createButton.jsp"/>
                     </div>
                     <div class="scrollArea">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>ID</th>
+									<th>카테고리</th>
                                     <th>제목</th>
                                     <th>등록자</th>
                                     <th>등록일</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href="/faqDetail" class="aLink">7</a></td>
-                                    <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다. 제목입니다.</a></td>
-                                    <td><a href="/faqDetail" class="aLink">등록자</a></td>
-                                    <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/faqDetail" class="aLink">6</a></td>
-                                    <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다. 제목입니다.</a></td>
-                                    <td><a href="/faqDetail" class="aLink">등록자</a></td>
-                                    <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/faqDetail" class="aLink">5</a></td>
-                                    <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다. 제목입니다.</a></td>
-                                    <td><a href="/faqDetail" class="aLink">등록자</a></td>
-                                    <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/faqDetail" class="aLink">4</a></td>
-                                    <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다. 제목입니다.</a></td>
-                                    <td><a href="/faqDetail" class="aLink">등록자</a></td>
-                                    <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/faqDetail" class="aLink">3</a></td>
-                                    <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다. 제목입니다.</a></td>
-                                    <td><a href="/faqDetail" class="aLink">등록자</a></td>
-                                    <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/faqDetail" class="aLink">2</a></td>
-                                    <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다. 제목입니다.</a></td>
-                                    <td><a href="/faqDetail" class="aLink">등록자</a></td>
-                                    <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/faqDetail" class="aLink">1</a></td>
-                                    <td><a href="/faqDetail" class="aLink">제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.
-                                            제목입니다. 제목입니다.</a></td>
-                                    <td><a href="/faqDetail" class="aLink">등록자</a></td>
-                                    <td><a href="/faqDetail" class="aLink">24.09.12</a></td>
-                                </tr>
+								<%-- FAQ 테이블 tr --%>
+								<jsp:include page="components/table/faqTableTr.jsp" >
+									<jsp:param name="faq_id" value="7" />
+									<jsp:param name="category_id" value="계정" />
+									<jsp:param name="question" value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
+									<jsp:param name="author_id" value="등록자" />
+									<jsp:param name="created_date" value="2024.09.12" />
+								</jsp:include>
+								<jsp:include page="components/table/faqTableTr.jsp" >
+									<jsp:param name="faq_id" value="7" />
+									<jsp:param name="category_id" value="스터디" />
+									<jsp:param name="question" value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
+									<jsp:param name="author_id" value="등록자" />
+									<jsp:param name="created_date" value="2024.09.12" />
+								</jsp:include>
+								<jsp:include page="components/table/faqTableTr.jsp" >
+									<jsp:param name="faq_id" value="7" />
+									<jsp:param name="category_id" value="프로젝트" />
+									<jsp:param name="question" value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
+									<jsp:param name="author_id" value="등록자" />
+									<jsp:param name="created_date" value="2024.09.12" />
+								</jsp:include>
+								<jsp:include page="components/table/faqTableTr.jsp" >
+									<jsp:param name="faq_id" value="7" />
+									<jsp:param name="category_id" value="챌린지" />
+									<jsp:param name="question" value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
+									<jsp:param name="author_id" value="등록자" />
+									<jsp:param name="created_date" value="2024.09.12" />
+								</jsp:include>
+								<jsp:include page="components/table/faqTableTr.jsp" >
+									<jsp:param name="faq_id" value="7" />
+									<jsp:param name="category_id" value="Etc" />
+									<jsp:param name="question" value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
+									<jsp:param name="author_id" value="등록자" />
+									<jsp:param name="created_date" value="2024.09.12" />
+								</jsp:include>
                             </tbody>
                         </table>
                     </div>
                 </div>
         </div>
-        <%@ include file="footer.jsp" %>
+        <%@ include file="components/footer.jsp" %>
 </body>
 
 </html>
