@@ -20,10 +20,8 @@
 					<div class="infoCard">
 						<div class="titleInputGroup">
 							<h2 class="title">그룹 정보</h2>
-							<!-- 이전 버튼 -->
-							<jsp:include page="components/button/backButton.jsp" />
 						</div>
-						<div class="inputSection scrollArea">
+						<form method="get" action="/group" onsubmit="alert('저장완료');" class="inputSection scrollArea">
 							<!-- 모집 상태 입력 필드 -->
 							<jsp:include page="components/select/recruitmentStatus.jsp">
 								<jsp:param name="recruitmentStatus" value="모집 중" />
@@ -82,7 +80,10 @@
 							<jsp:include page="components/textarea/reportProcessing.jsp">
 								<jsp:param name="reportProcessing" value="" />
 							</jsp:include>
-						</div>
+							
+							<!-- 취소 & 완료(submit) 버튼 -->
+							<jsp:include page="components/button/cancelCompleteButton.jsp" />
+						</form>
 					</div>
 			</div>
 			<!-- 푸터 -->

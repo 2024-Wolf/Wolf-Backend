@@ -227,7 +227,7 @@
 .warningButton {
     background-color: var(--violet000);
     border: 1px solid var(--black500);
-    color: var(--black500);
+    color: var(--black600);
     gap: 5px;
 
     &:hover {
@@ -317,7 +317,7 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 140%;
-    color: var(--black700);
+    color: var(--black600);
     white-space: nowrap;
     text-overflow: ellipsis;
 
@@ -331,7 +331,7 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 140%;
-    color: var(--black700);
+    color: var(--black600);
 
     @media (max-width: 768px) {
         font-size: 12px;
@@ -355,13 +355,13 @@
 
 select.input {
     appearance: auto;
-
 }
 
 .input:disabled {
     background: var(--violet200);
     color: var(--black500);
 }
+
 
 
 .textarea {

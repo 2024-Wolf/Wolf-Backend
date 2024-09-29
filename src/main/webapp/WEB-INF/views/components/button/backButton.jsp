@@ -9,7 +9,10 @@
         redirectUrl = "/faq";
     } else if (currentUrl.startsWith("/WEB-INF/views/challenge")) {
         redirectUrl = "/challenge";
-    } else {
+    } else if (currentUrl.startsWith("/WEB-INF/views/group")) {
+		redirectUrl = "/group";
+	} 
+	else {
         redirectUrl = "/";
     }
     request.setAttribute("redirectUrl", redirectUrl);
