@@ -117,7 +117,7 @@
 
 .buttonLeftContainer {
     display: flex;
-    flex-direction: row;
+	flex-direction: row;
     align-items: center;
     width: 100%;
     display: flex;
@@ -129,7 +129,19 @@
     }
 }
 
+.rangeContainer {
+    display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	justify-content: left;
+	flex-wrap: wrap;
 
+	@media (max-width: 576px) {
+		justify-content: center;
+		width: 100%;
+	}
+}
 
 .nowrapLeftContainer {
     display: flex;
@@ -271,7 +283,20 @@
 	line-height: 140%;
 	color: var(--black600);
 	white-space: nowrap;
+	text-overflow: ellipsis;
 
+	@media (max-width: 768px) {
+	    font-size: 12px;
+	}
+}
+
+.textareaContent {
+	height: 20px;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 140%;
+	color: var(--black600);
+	
 	@media (max-width: 768px) {
 	    font-size: 12px;
 	}
@@ -420,15 +445,6 @@ select.input {
     @media (max-width: 768px) {}
 }
 
-@media (max-width: 768px) {
-
-    .displayNone {
-        visibility: hidden;
-		opacity: 0;
-    }
-
-}
-
 .linePurpleButton {
     background-color: var(--violet000);
     border: 1px solid var(--violet400);
@@ -494,7 +510,9 @@ input[type="file"] {
 .imagePlaceholder {
     display: flex;
     justify-content: start;
-    align-items: center;
+    align-items: start;
+	flex-direction: column;
+	width: 100%;
     /*display: none;*/
 }
 
@@ -512,4 +530,26 @@ svg {
 	@media (max-width: 576px) {
 	    display: none;
 	}
+}
+
+.imageWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+img {
+    max-width: 100%;
+    max-height: 214px;
+    border: 1.5px solid var(--black200);
+    border-radius: 10px;
+}
+.fileName {
+    margin-left: 10px;
+}
+.imgText {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--black600);
 }

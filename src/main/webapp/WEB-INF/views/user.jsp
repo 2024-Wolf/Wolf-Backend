@@ -14,12 +14,11 @@
 </head>
 
 <body>
-    <%@ include file="header.jsp" %>
+    <%@ include file="components/header.jsp" %>
         <div class="mainContents">
-            <%@ include file="sidebar.jsp" %>
+            <%@ include file="components/sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">회원</h2>
-					
                     <div class="scrollArea">
                         <table class="table">
                             <thead>
@@ -33,52 +32,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href="/userDetail" class="aLink">5</a></td>
-                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                    <td><a href="/userDetail" class="aLink">1년</a></td>
-                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/userDetail" class="aLink">4</a></td>
-                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                    <td><a href="/userDetail" class="aLink">1년</a></td>
-                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/userDetail" class="aLink">3</a></td>
-                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                    <td><a href="/userDetail" class="aLink">1년</a></td>
-                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/userDetail" class="aLink">2</a></td>
-                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                    <td><a href="/userDetail" class="aLink">1년</a></td>
-                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/userDetail" class="aLink">1</a></td>
-                                    <td><a href="/userDetail" class="aLink">닉네임</a></td>
-                                    <td><a href="/userDetail" class="aLink">풀스택 개발자</a></td>
-                                    <td><a href="/userDetail" class="aLink">LG CNS</a></td>
-                                    <td><a href="/userDetail" class="aLink">1년</a></td>
-                                    <td><a href="/userDetail" class="aLink">2024.09.19</a></td>
-                                </tr>
+								<%-- 회원 테이블 tr --%>
+								<jsp:include page="components/table/userTableTr.jsp" >
+									<jsp:param name="user_id" value="5" />
+									<jsp:param name="nickname" value="닉네임" />
+									<jsp:param name="job_title" value="풀스택 개발자" />
+									<jsp:param name="organization" value="LG CNS" />
+									<jsp:param name="experience" value="1년" />
+									<jsp:param name="created_date" value="2024.09.19" />
+								</jsp:include>
                             </tbody>
                         </table>
                     </div>
                 </div>
         </div>
-        <%@ include file="footer.jsp" %>
+        <%@ include file="components/footer.jsp" %>
 </body>
 
 </html>

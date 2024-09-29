@@ -14,9 +14,9 @@
 
 <body>
 
-    <%@ include file="header.jsp" %>
+    <%@ include file="components/header.jsp" %>
         <div class="mainContents">
-            <%@ include file="sidebar.jsp" %>
+            <%@ include file="components/sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">신고</h2>
                     <div class="scrollArea">
@@ -32,70 +32,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href="/reportDetail" class="aLink">5</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                    <td><button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';"
-                                            disabled>처리
-                                            완료</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/reportDetail" class="aLink">4</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                    <td><button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';">처리
-                                            접수</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/reportDetail" class="aLink">3</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                    <td><button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';"
-                                            disabled>처리
-                                            완료</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/reportDetail" class="aLink">2</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                    <td><button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';">처리
-                                            접수</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><a href="/reportDetail" class="aLink">1</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소년</a></td>
-                                    <td><a href="/reportDetail" class="aLink">스터디 무단 추방</a></td>
-                                    <td><a href="/reportDetail" class="aLink">늑대소녀</a></td>
-                                    <td><a href="/reportDetail" class="aLink">2024.09.13</a></td>
-                                    <td><button class="btn1"
-                                            onclick="this.disabled = !this.disabled; this.textContent = '처리 완료';"
-                                            disabled>처리
-                                            완료</button>
-                                    </td>
-                                </tr>
+								<%-- 신고 테이블 tr --%>
+								<jsp:include page="components/table/reportTableTr.jsp" >
+									<jsp:param name="report_id" value="5" />
+									<jsp:param name="reporter_id" value="늑대소년" />
+									<jsp:param name="report_content" value="스터디 무단 추방" />
+									<jsp:param name="reported_user_id" value="늑대소녀" />
+									<jsp:param name="report_date" value="2024.09.13" />
+									<jsp:param name="is_solved" value="신고 접수" />
+								</jsp:include>
                             </tbody>
                         </table>
                     </div>
                 </div>
         </div>
-        <%@ include file="footer.jsp" %>
+        <%@ include file="components/footer.jsp" %>
 </body>
 
 </html>

@@ -12,76 +12,78 @@
     </head>
 
     <body>
-        <%@ include file="header.jsp" %>
+        <%@ include file="components/header.jsp" %>
             <div class="mainContents">
-                <%@ include file="sidebar.jsp" %>
+                <%@ include file="components/sidebar.jsp" %>
                     <div class="infoCard">
-                        <div class="titleInputGroup">
-                            <h2 class="title">그룹 정보</h2>
-                            <button class="sideButton noBackgroundButton" onclick="location.href='/group'"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                </svg><span class="innerText">이전</span></button>
-                        </div>
+						<div class="titleInputGroup">
+						    <h2 class="title">그룹 정보</h2>
+							<%-- 이전 버튼 --%>
+							<jsp:include page="components/button/backButton.jsp" />
+						</div>
                         <div class="inputSection scrollArea">
-                            <div class="inputGroup">
-                                <label class="subtitle" for="groupStartDate">기간</label>
-                                <div class="nowrapLeftContainer">
-                                    <input class="textContent input" type="date" name="groupStartDate"
-                                        id="groupStartDate" disabled>
-                                    ~
-                                    <input class="textContent input" type="date" name="groupEndDate" id="groupEndDate"
-                                        disabled>
-                                </div>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="challengeType">구분</label>
-                                <input class="textContent input" type="text" name="challengeType" id="challengeType"
-                                    disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="groupName">그룹명</label>
-                                <input class="textContent input" type="text" name="groupName" id="groupName" disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="groupLeader">그룹장</label>
-                                <input class="textContent input" type="text" name="groupLeader" id="groupLeader"
-                                    disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="participants">인원</label>
-                                <input class="textContent input" type="text" name="participants" id="participants"
-                                    disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="participants">그룹원</label>
-                                <input class="textContent input" type="text" name="participants" id="participants"
-                                    disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="status">상태</label>
-                                <input class="textContent input" type="text" name="status" id="status" disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="tags">태그</label>
-                                <input class="textContent input" type="text" name="tags" id="tags" disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="challengeName">챌린지</label>
-                                <input class="textContent input" type="text" name="challengeName" id="challengeName"
-                                    disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="participatingChallenge">참가 챌린지</label>
-                                <input class="textContent input" type="text" name="participatingChallenge"
-                                    id="participatingChallenge" disabled>
-                            </div>
+							<%-- 모집 상태 입력 필드 --%>
+							<jsp:include page="components/select/recruitmentStatus.jsp">
+								<jsp:param name="recruitmentStatus" value="모집 중" />
+							</jsp:include>
+							
+							<%-- 기간 입력 필드 --%>
+							<jsp:include page="components/inputDate/startEndDate.jsp">
+								<jsp:param name="startDate" value="2024-09-01" />
+								<jsp:param name="endDate" value="2024-09-30" />
+							</jsp:include>
+							
+							<%-- 구분 & 진행했던 챌린지 & 챌린지 횟수 입력 필드 --%>
+							<jsp:include page="components/inputText/groupType.jsp">
+								<jsp:param name="groupType" value="스터디" />
+								<jsp:param name="challengeName" value="야, 너도 자격증 딸 수 있어! (정처기)" />
+								<jsp:param name="challengeCount" value="50개" />
+							</jsp:include>
+							
+							<%-- 그룹명 입력 필드 --%>
+							<jsp:include page="components/inputText/groupName.jsp">
+								<jsp:param name="groupName" value="Grooby Room" />
+							</jsp:include>
+
+							<%-- 그룹장 입력 필드 --%>
+							<jsp:include page="components/inputText/groupLeader.jsp">
+								<jsp:param name="groupLeader" value="힙합 늑대" />
+							</jsp:include>
+							
+							<%-- 인원 입력 필드 --%>
+							<jsp:include page="components/inputText/numberOfMember.jsp">
+								<jsp:param name="numberOfMember" value="5명" />
+							</jsp:include>
+							
+							<%-- 그룹원 입력 필드 --%>
+							<jsp:include page="components/inputText/groupMember.jsp">
+								<jsp:param name="groupMember" value="늑대1/늑대2" />
+							</jsp:include>
+							
+							<%-- 태그 입력 필드 --%>
+							<jsp:include page="components/inputText/tag.jsp">
+								<jsp:param name="tag" value="#프론트엔드 #백엔드 #풀스택" />
+							</jsp:include>
+
+							<hr style="border: 1px solid var(--black200);">
+							
+							<%-- 정지 상태 입력 필드 --%>
+							<jsp:include page="components/select/userStatus.jsp" >
+								<jsp:param name="userStatus" value="활성 상태" />
+								<jsp:param name="RemainingTime" value="없음" />
+							</jsp:include>
+
+							<%-- 대상 제재 입력 필드 --%>
+							<jsp:include page="components/button/warningStop.jsp" />
+							
+							<%-- 신고 처리 내용 입력 필드 --%>
+							<jsp:include page="components/textarea/reportProcessing.jsp" >
+								<jsp:param name="reportProcessing" value="" />
+							</jsp:include>
                         </div>
                     </div>
             </div>
-            <%@ include file="footer.jsp" %>
+            <%@ include file="components/footer.jsp" %>
     </body>
 
     </html>

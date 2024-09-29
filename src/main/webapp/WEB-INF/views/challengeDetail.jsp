@@ -12,90 +12,61 @@
     </head>
 
     <body>
-        <%@ include file="header.jsp" %>
+        <%@ include file="components/header.jsp" %>
             <div class="mainContents">
-                <%@ include file="sidebar.jsp" %>
+                <%@ include file="components/sidebar.jsp" %>
                     <div class="infoCard">
-                        <div class="titleInputGroup">
-                            <h2 class="title">챌린지 정보</h2>
-                            <button class="sideButton noBackgroundButton" onclick="location.href='/challenge'"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                                </svg><span class="innerText">이전</span></button>
-                        </div>
-                        <div class="buttonSideContainer">
-                            <button class="sideButton linePurpleButton" onclick="location.href='/challengeEdit'"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path
-                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                </svg><span class="innerText">수정</span></button>
+						<div class="titleInputGroup">
+						    <h2 class="title">챌린지 정보</h2>
+							<%-- 이전 버튼 --%>
+							<jsp:include page="components/button/backButton.jsp" />
+						</div>
+						<%-- 수정 및 삭제 버튼 --%>
+						<jsp:include page="components/button/editDeleteButton.jsp" />
+						<div class="inputSection scrollArea">
+							<%-- 인증 주체 입력 필드 --%>
+							<jsp:include page="components/inputRadio/verificationAgent.jsp">
+								<jsp:param name="verificationAgent" value="시스템" />
+							</jsp:include>
+							
+							<%-- 챌린지 기간 입력 필드 --%>
+							<jsp:include page="components/inputDate/startEndDate.jsp" >
+								<jsp:param name="startDate" value="2024-09-01" />
+								<jsp:param name="endDate" value="2024-09-30" />
+							</jsp:include>
 
-                            <button class="sideButton darkBackgroundButton"
-                                onclick="alert('삭제완료'); location.href='/challenge'"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                </svg><span class="innerText">삭제</span></button>
-                        </div>
-                        <div class="inputSection scrollArea">
-                            <div class="inputGroup">
-                                <label class="subtitle" for="auth">인증주체</label>
-								<div class="nowrapLeftContainer">
-								    <input class="" type="radio" name="auth" id="system" disabled>
-								    <label for="system" class="textContent">시스템</label>
-								    <input class="" type="radio" name="auth" id="manager" disabled>
-								    <label for="manager" class="textContent">관리자</label>
-								</div>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="auth-date">기간</label>
-                                <div class="nowrapLeftContainer">
-                                    <input class="textContent input" type="date" name="auth-date" id="auth-date"
-                                        disabled>
-                                    ~
-                                    <input class="textContent input" type="date" name="auth-date" id="auth-date"
-                                        disabled>
-                                </div>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="username">이름</label>
-                                <input class="textContent input" type="text" name="username" id="username" disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="challenge">내용</label>
-                                <input class="textContent input" type="text" name="challenge" id="challenge" disabled>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="content">유의사항</label>
-                                <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
-                                    disabled></textarea>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="content">보상</label>
-                                <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
-                                    disabled></textarea>
-                            </div>
-                            <div class="inputGroup">
-                                <label class="subtitle" for="content">첨부파일</label>
-                                <div class="fileGroup">
-                                    <input class="textContent" type="file" name="username" id="username"
-                                        style="margin-top: 10px;" disabled>
-                                    <div class="inputGroup imagePlaceholder">
-                                        <img src="/resources/img/thumbnail_challenge 1.png" alt=""
-                                            style="max-width: 100%; max-height: 100%;">
-                                    </div>
-                                </div>
-                            </div>
+							<%-- 챌린지 이름 입력 필드 --%>
+							<jsp:include page="components/inputText/challengeName.jsp" >
+								<jsp:param name="challengeName" value="야, 너도 자격증 딸 수 있어! (정처기)" />
+							</jsp:include>
+
+							<%-- 챌린지 내용 필드 --%>
+							<jsp:include page="components/textarea/content.jsp" >
+								<jsp:param name="content" value="기간 내에 자격증을 취득하신 후 자격증 코드를 인증하시면 성공처리 됩니다!" />
+							</jsp:include>
+
+							<%-- 유의사항 입력 필드 --%>
+							<jsp:include page="components/textarea/challengeWarning.jsp" >
+								<jsp:param name="challengeWarning" value="중복 인증은 불가하므로, 반드시 본인 명의의 자격증 취득 내용만 인증하시기 바랍니다.
+참가 후 인증하지 않을 시, 인증처리되지 않습니다.
+타인의 자격증 코드 도용 시, 챌린지 실패처리 됩니다." />
+							</jsp:include>
+
+
+							<%-- 보상 입력 필드 --%>
+							<jsp:include page="components/textarea/challengeAwardContent.jsp" >
+								<jsp:param name="challengeAwardContent" value="제출된 금액을 챌린지 성공 인원으로 나눈 금액이 보상으로 지급됩니다.
+※ 그룹별로 챌린지에 참가한 인원과 성공한 인원으로 계산됩니다." />
+							</jsp:include>
+
+							<%-- 첨부파일 입력 필드 --%>
+							<jsp:include page="components/inputFile/inputFile.jsp" >
+								<jsp:param name="inputFile" value="/resources/img/thumbnail_challenge1.png" />
+							</jsp:include>
                         </div>
                     </div>
             </div>
-            <%@ include file="footer.jsp" %>
+            <%@ include file="components/footer.jsp" %>
     </body>
 
     </html>

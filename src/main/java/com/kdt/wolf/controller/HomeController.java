@@ -9,7 +9,7 @@ public class HomeController {
     
 	@GetMapping("/adminLogin")
 	public String home() {
-		return "adminLogin";
+		return "pages/adminLogin";
 	}
 	// http://localhost:8080/adminLogin
 }

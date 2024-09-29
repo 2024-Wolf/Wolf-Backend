@@ -12,30 +12,43 @@
 </head>
 
 <body>
-    <%@ include file="header.jsp" %>
+    <%@ include file="components/header.jsp" %>
         <div class="mainContents">
-            <%@ include file="sidebar.jsp" %>
+            <%@ include file="components/sidebar.jsp" %>
                 <div class="infoCard">
                     <h2 class="title">FAQ 작성</h2>
                     <form method="get" action="/faq" onsubmit="alert('작성완료');" class="inputSection scrollArea">
-                        <div class="inputGroup">
-                            <label class="subtitle" for="title">제목</label>
-                            <input class="textContent input" type="text" name="title" id="title" required>
-                        </div>
-                        <div class="inputGroup">
-                            <label class="subtitle" for="content">내용</label>
-                            <textarea class="textContent textarea" name="content" id="content" cols="30" rows="10"
-                                required></textarea>
-                        </div>
-                        <div class="buttonContainer">
-                            <button type="button" class="formButton linePurpleButton"
-                                onclick="window.history.back()">취소</button>
-                            <button type="submit" class="formButton darkBackgroundButton">완료</button>
-                        </div>
+						<%-- 등록일 필드 --%>
+						<jsp:include page="components/inputDate/registrationDate.jsp" >
+							<jsp:param name="registrationDate" value="2024-09-29" />
+						</jsp:include>
+
+						<%-- 등록자 필드 --%>
+						<jsp:include page="components/inputText/registrarName.jsp" >
+							<jsp:param name="registrarName" value="우두머리 늑대" />
+						</jsp:include>
+
+						<%-- 카테고리 필드 --%>
+						<jsp:include page="components/select/faqCategory.jsp" >
+							<jsp:param name="faqCategory" value="" />
+						</jsp:include>
+						
+						<%-- 제목 입력 필드 --%>
+						<jsp:include page="components/inputText/title.jsp" >
+							<jsp:param name="title" value="" />
+						</jsp:include>
+						
+						<%-- 내용 입력 필드 --%>
+						<jsp:include page="components/textarea/content.jsp" >
+							<jsp:param name="content" value="" />
+						</jsp:include>
+						
+						<%-- 취소 & 완료(submit) 버튼 --%>
+						<jsp:include page="components/button/cancelCompleteButton.jsp" />
                     </form>
                 </div>
         </div>
-        <%@ include file="footer.jsp" %>
+        <%@ include file="components/footer.jsp" %>
 </body>
 
 </html>
