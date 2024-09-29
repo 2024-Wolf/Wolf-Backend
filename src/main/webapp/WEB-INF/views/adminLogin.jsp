@@ -7,21 +7,26 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>WOLF 관리자 페이지</title>
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
             <link rel="stylesheet" href="/resources/css/globalstyle.css">
             <link rel="stylesheet" href="/resources/css/mainContents.css">
             <link rel="stylesheet" href="/resources/css/login.css">
         </head>
 
         <body>
+            <!-- 헤더 -->
             <%@ include file="components/header.jsp" %>
                 <div class="mainContents">
-					<%-- 로그인 컨테이너 --%>
+                    <!-- 로그인 컨테이너 -->
                     <div class="loginContainer">
                         <div class="loginCard">
                             <div style="text-align: center;">
                                 <h2 class="loginLogo">WOLF</h2>
-                                <p class="loginDescription"><span>관리자 페이지에</span><span>&nbsp오신 것을</span><span>&nbsp환영합니다.</span></p>
+                                <p class="loginDescription">
+                                    <span>관리자 페이지에</span>
+                                    <span>&nbsp오신것을</span>
+                                    <span>&nbsp환영합니다.</span>
+                                </p>
                             </div>
                             <form class="loginForm" action="notice" method="get">
                                 <input id="username" type="text" class="loginInput loginDescription" placeholder="아이디"
@@ -33,7 +38,8 @@
                         </div>
                     </div>
                 </div>
-				<%@ include file="components/footer.jsp" %>
+                <!-- 푸터 -->
+                <%@ include file="components/footer.jsp" %>
         </body>
 
         </html>

@@ -44,6 +44,10 @@
     justify-content: center;
     gap: 30px;
   }
+
+  @media (max-width: 576px) {
+	gap: auto;
+  }
 }
 
 .LogoS {
@@ -84,6 +88,8 @@
   }
 
   @media (max-width: 360px) {
-    min-width: 76px;
+    min-width: fit-content;
+	margin: auto;
+	font-size: 14px;
   }
 }

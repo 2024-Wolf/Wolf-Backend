@@ -15,12 +15,49 @@
         padding: 50px 0px;
         gap: 20px;
     }
+
+    @media (max-width: 768px) {
+        min-height: 600px;
+    }
+
+    @media (max-width: 576px) {
+        min-height: 500px;
+    }
 }
 
 .scrollArea {
     overflow-x: auto;
     width: 100%;
     display: flex;
+}
+
+.scrollContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.scrollAreaText {
+    display: none;
+    height: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    gap: 10px;
+    align-items: center;
+    color: var(--black300);
+
+    @media (max-width: 929.33px) {
+        display: flex;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
 }
 
 .FooterContainer {
@@ -47,16 +84,16 @@
     @media (max-width: 1200px) {
         margin: 73.33px 50px 0px 50px;
     }
-	
-	@media (max-width: 768px) {
-		margin: 73.33px 30px 0px 30px;
-		padding: 30px;
-	}
-	
-	@media (max-width: 576px) {
-		margin: 73.33px 10px 0px 10px;
-		padding: 30px;
-	}
+
+    @media (max-width: 768px) {
+        margin: 73.33px 30px 0px 30px;
+        padding: 30px;
+    }
+
+    @media (max-width: 576px) {
+        margin: 73.33px 10px 0px 10px;
+        padding: 30px;
+    }
 }
 
 .inputSection {
@@ -77,11 +114,11 @@
     align-items: center;
     width: 100%;
     gap: 10px;
-	
-	@media (max-width: 576px) {
-		flex-direction: column;
-		gap: 5px;
-	}
+
+    @media (max-width: 576px) {
+        flex-direction: column;
+        gap: 5px;
+    }
 }
 
 .titleInputGroup {
@@ -90,11 +127,9 @@
     align-items: start;
     width: 100%;
     gap: 10px;
-	justify-content: space-between;
-	
-	@media (max-width: 576px) {
+    justify-content: space-between;
 
-	}
+    @media (max-width: 576px) {}
 }
 
 .fileGroup {
@@ -112,35 +147,36 @@
     align-items: center;
     width: 100%;
     gap: 10px;
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 .buttonLeftContainer {
     display: flex;
-	flex-direction: row;
+    flex-direction: row;
     align-items: center;
     width: 100%;
     display: flex;
     gap: 10px;
-	justify-content: left;
-	flex-wrap: wrap;
+    justify-content: left;
+    flex-wrap: wrap;
+
     @media (max-width: 576px) {
-		justify-content: center;
+        justify-content: center;
     }
 }
 
 .rangeContainer {
     display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 10px;
-	justify-content: left;
-	flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: left;
+    flex-wrap: wrap;
 
-	@media (max-width: 576px) {
-		justify-content: center;
-		width: 100%;
-	}
+    @media (max-width: 576px) {
+        justify-content: center;
+        width: 100%;
+    }
 }
 
 .nowrapLeftContainer {
@@ -150,10 +186,10 @@
     width: 100%;
     display: flex;
     gap: 10px;
-	justify-content: left;
+    justify-content: left;
 
     @media (max-width: 576px) {
-		justify-content: center;
+        justify-content: center;
     }
 }
 
@@ -166,26 +202,26 @@
 }
 
 .sideButton {
-	font-weight: 500;
-	font-size: 14px;
-	border-radius: 5px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 10px 30px;
-	min-height: 37px;
-	white-space: nowrap;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 30px;
+    min-height: 37px;
+    white-space: nowrap;
 
-	@media (max-width: 768px) {
-		height: 35px;
-		min-height: 35px;
-		padding: 10px 25px;
-	}
-		
-	@media (max-width: 576px) {
-		padding: 0px;
-		min-width: 35px;
-	}
+    @media (max-width: 768px) {
+        height: 35px;
+        min-height: 35px;
+        padding: 10px 25px;
+    }
+
+    @media (max-width: 576px) {
+        padding: 0px;
+        min-width: 35px;
+    }
 }
 
 .warningButton {
@@ -239,15 +275,15 @@
     width: fit-content;
     display: flex;
     align-items: center;
-	text-wrap: nowrap;
-	
-	@media (max-width: 768px) {
-    	font-size: 20px;
-	}
-	
-	@media (max-width: 576px) {
-		min-width:auto;
-	}
+    text-wrap: nowrap;
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media (max-width: 576px) {
+        min-width: auto;
+    }
 }
 
 .subtitle {
@@ -268,38 +304,38 @@
         min-width: 80px;
         font-size: 15px;
     }
-	
-	@media (max-width: 576px) {
-	    min-height: 35px;
-	    min-width: 100%;
-		height:auto;
-	}
+
+    @media (max-width: 576px) {
+        min-height: 35px;
+        min-width: 100%;
+        height: auto;
+    }
 }
 
 .textContent {
-	height: 20px;
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 140%;
-	color: var(--black600);
-	white-space: nowrap;
-	text-overflow: ellipsis;
+    height: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--black700);
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
-	@media (max-width: 768px) {
-	    font-size: 12px;
-	}
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
 }
 
 .textareaContent {
-	height: 20px;
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 140%;
-	color: var(--black600);
-	
-	@media (max-width: 768px) {
-	    font-size: 12px;
-	}
+    height: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    color: var(--black700);
+
+    @media (max-width: 768px) {
+        font-size: 12px;
+    }
 }
 
 .input {
@@ -310,7 +346,7 @@
     background: var(--violet000);
     border: 1.5px solid var(--violet400);
     border-radius: 5px;
-	appearance: none;
+    appearance: none;
 
     @media (max-width: 768px) {
         height: 35px;
@@ -318,13 +354,13 @@
 }
 
 select.input {
-	appearance: auto;
+    appearance: auto;
 
 }
 
 .input:disabled {
     background: var(--violet200);
-    color: var(--black400);
+    color: var(--black500);
 }
 
 
@@ -345,7 +381,7 @@ select.input {
 
 .textarea:disabled {
     background: var(--violet200);
-    color: var(--black400);
+    color: var(--black500);
 }
 
 .formButton {
@@ -382,10 +418,10 @@ select.input {
         min-height: 35px;
         padding: 10px 25px;
     }
-	
-	@media (max-width: 576px) {
-		width:100%;
-	}
+
+    @media (max-width: 576px) {
+        width: 100%;
+    }
 }
 
 .darkBackgroundButton {
@@ -487,7 +523,7 @@ select.input {
     padding: 5px 10px;
     border-radius: 5px;
     background-color: var(--black000);
-    color: var(--black300);
+    color: var(--black500);
     border-color: var(--black300);
 }
 
@@ -511,25 +547,25 @@ input[type="file"] {
     display: flex;
     justify-content: start;
     align-items: start;
-	flex-direction: column;
-	width: 100%;
+    flex-direction: column;
+    width: 100%;
     /*display: none;*/
 }
 
 svg {
     margin-right: 5px;
-	
-	@media (max-width: 576px) {
-	    margin-right: 0px;
-	}
+
+    @media (max-width: 576px) {
+        margin-right: 0px;
+    }
 }
 
 .innerText {
-	display: inline;
-	
-	@media (max-width: 576px) {
-	    display: none;
-	}
+    display: inline;
+
+    @media (max-width: 576px) {
+        display: none;
+    }
 }
 
 .imageWrapper {
@@ -538,15 +574,18 @@ svg {
     margin-bottom: 10px;
     gap: 10px;
 }
+
 img {
     max-width: 100%;
     max-height: 214px;
     border: 1.5px solid var(--black200);
     border-radius: 10px;
 }
+
 .fileName {
     margin-left: 10px;
 }
+
 .imgText {
     font-weight: 500;
     font-size: 14px;

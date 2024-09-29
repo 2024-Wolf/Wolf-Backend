@@ -2,9 +2,10 @@
     border-collapse: collapse;
     color: var(--black600);
     width: 100%;
-    min-width: fit-content;
+    min-width: 750px;
 	
 	font-size: 14px;
+	
 	@media (max-width: 768px) {
 	    font-size: 12px;
 	}

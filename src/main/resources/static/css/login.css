@@ -24,6 +24,14 @@
     color: var(--black500);
 	justify-content: center;
 	flex-wrap: wrap;
+	
+	@media (max-width: 768px) {
+	font-size: 14px;
+	}
+
+	@media (max-width: 360px) {
+	font-size: 12px;
+	}
 }
 
 .loginCard {
@@ -36,10 +44,10 @@
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
     display: flex;
     gap: 30px;
-    padding: 70px 50px;
+    padding:60px 50px;
     max-width: 400px;
     width: 100%;
-
+	
     @media (max-width: 768px) {
         padding: 60px 40px;
     }
@@ -99,5 +107,11 @@
     max-width: 300px;
 	font-size: 16px;
 
-    @media (max-width: 768px) {}
+	@media (max-width: 768px) {
+	font-size: 15px;
+	}
+
+	@media (max-width: 360px) {
+	font-size: 14px;
+	}
 }
