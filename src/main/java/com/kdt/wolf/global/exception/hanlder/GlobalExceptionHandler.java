@@ -9,9 +9,9 @@ import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 import com.kdt.wolf.global.base.ApiResult;
 import com.kdt.wolf.global.base.ValidationErrorResponse;
 import com.kdt.wolf.global.exception.BusinessException;
+import com.kdt.wolf.global.exception.NotFoundException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -32,7 +32,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ApiResult<?> handleNotFoundException(final NotFoundException e) {
         log.error(e.getMessage(), e);
-
         return ApiResult.of(e);
     }
 
@@ -41,9 +40,10 @@ public class GlobalExceptionHandler {
     public ApiResult<?> handleBusinessException(final BusinessException e) {
         log.error(e.getMessage(), e);
         ExceptionMDCBuilder.getStringStringMap(e);
-
         return ApiResult.of(e);
     }
+
+
 
     // =================================================================================================================================================
 
