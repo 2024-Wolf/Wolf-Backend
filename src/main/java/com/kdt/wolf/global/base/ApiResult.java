@@ -15,7 +15,6 @@ public class ApiResult<T> {
     private String code;
     private String message;
     private T data;
-    private HttpStatus status;  // HTTP 상태 코드를 추가
 
     public static ApiResult<Object> of(final CustomException exception) {
         return of(exception.getResultCode(), exception.getData());
@@ -32,26 +31,12 @@ public class ApiResult<T> {
                 .data(data)
                 .build();
     }
-
-    public static <T> ApiResult<T> of(final String code, final String message, final T data, final HttpStatus status) {
-        return ApiResult.<T>builder()
-                .code(code)
-                .message(message)
-                .data(data)
-                .status(status)
-                .build();
-    }
-
     public static ApiResult<?> ok() {
         return ok(null);
     }
 
     public static <T> ApiResult<T> ok(T data) {
         return of("SUCCESS_NORMAL", "성공", data);
-    }
-
-    public static <T> ApiResult<T> created(T data) {
-        return of("CREATED", "자원이 성공적으로 생성되었습니다.", data, HttpStatus.CREATED);
     }
 
     public static ApiResult<String> badRequest(String message) {

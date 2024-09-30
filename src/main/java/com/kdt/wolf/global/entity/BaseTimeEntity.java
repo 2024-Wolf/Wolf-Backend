@@ -23,7 +23,6 @@ public abstract class BaseTimeEntity {
 
     @PreUpdate
     public void preUpdate() {
-        LocalDateTime now = LocalDateTime.now();
-        this.modifiedTime = now;
+        this.modifiedTime = LocalDateTime.now();
     }
 }
