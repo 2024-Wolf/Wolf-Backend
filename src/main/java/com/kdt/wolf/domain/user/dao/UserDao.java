@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.user.dao;
 
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,4 +17,8 @@ public class UserDao {
                 .orElseThrow(UserNotFoundException::new);
     }
 
+    public UserEntity signUpOrSignIn(GoogleOAuth2UserInfo userInfo) {
+        return userRepository.findByEmail(userInfo.getEmail())
+                .orElseGet(() -> userRepository.save(userInfo.toEntity()));
+    }
 }

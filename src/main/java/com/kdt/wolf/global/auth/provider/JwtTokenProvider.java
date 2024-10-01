@@ -1,5 +1,6 @@
 package com.kdt.wolf.global.auth.provider;
 
+import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
@@ -12,6 +13,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Map;
 import java.util.Optional;
 import javax.crypto.SecretKey;
 import lombok.NoArgsConstructor;
@@ -24,11 +26,13 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class JwtTokenProvider {
     @Value("${security.access-token.expiry-in-millis}")
-    private long tokenExpiryInMilli;
+    private static long ACCESS_TOKEN_EXPIRE_TIME;
+    private static final String BEARER_TYPE = "bearer";
+
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 
     @Value("${security.access-token.jwt-secret-key}")
     private String signatureSecretKey;
-
     private SecretKey key;
 
     @PostConstruct
@@ -36,13 +40,32 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(signatureSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateAccessTokenValue(UserEntity user) {
+    public TokenResponse generateJwtTokenResponse(UserEntity user) {
+        long now = getNowDateTime();
+        String accessToken = generateAccessTokenValue(user, now);
+        Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
+        String refreshToken = createRefreshToken(now);
+        return new TokenResponse(BEARER_TYPE, accessToken, refreshToken, accessTokenExpiresIn.getTime());
+    }
+
+    public String generateAccessTokenValue(UserEntity user, long now) {
         return Jwts.builder()
                 .subject(String.valueOf(user.getUserId()))
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + tokenExpiryInMilli))
+                .expiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))
                 .signWith(key)
                 .compact();
+    }
+
+    public String createRefreshToken(long now) {
+        return Jwts.builder()
+                .expiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
+                .signWith(this.key)
+                .compact();
+    }
+
+    private static long getNowDateTime() {
+        return (new Date(System.currentTimeMillis())).getTime();
     }
 
     public void validateToken(String jwtToken) {

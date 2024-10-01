@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.user.controller;
 
 import com.kdt.wolf.domain.user.dto.LoginDto;
+import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.service.AuthService;
 import com.kdt.wolf.global.base.ApiResult;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,8 @@ public class AuthController {
 
     @GetMapping("/google")
     public ApiResult<?> google(@RequestBody LoginDto.googleLoginRequest request) {
-        authService.googleLogin(request.idToken());
-
-        return ApiResult.ok();
+        TokenResponse response = authService.googleLogin(request.idToken());
+        return ApiResult.ok(response);
     }
 
 }
