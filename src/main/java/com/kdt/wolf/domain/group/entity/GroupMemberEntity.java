@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "group_members")
-public class GroupMember extends BaseTimeEntity {
+public class GroupMemberEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class GroupMember extends BaseTimeEntity {
     private String position;
 
     @Builder
-    public GroupMember(GroupPost groupPost, UserEntity user, String role, String position) {
+    public GroupMemberEntity(GroupPost groupPost, UserEntity user, String role, String position) {
         this.groupPost = groupPost;
         this.user = user;
         this.role = role;

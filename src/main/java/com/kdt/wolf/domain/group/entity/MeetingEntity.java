@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "meeting")
-public class Meeting extends BaseTimeEntity {
+public class MeetingEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Meeting extends BaseTimeEntity {
     private LocalDate endTime;
 
     @Builder
-    public Meeting(GroupPost groupPost, LocalDate meetingDate, String participants, LocalDate startTime, LocalDate endTime) {
+    public MeetingEntity(GroupPost groupPost, LocalDate meetingDate, String participants, LocalDate startTime, LocalDate endTime) {
         this.groupPost = groupPost;
         this.meetingDate = meetingDate;
         this.participants = participants;
