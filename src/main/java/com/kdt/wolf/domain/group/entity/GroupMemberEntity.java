@@ -1,48 +1,47 @@
 package com.kdt.wolf.domain.group.entity;
 
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.domain.group.entity.common.MemberRole;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "group_members")
+@Table(name = "group_member")
 public class GroupMemberEntity extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_member_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_group_member_id")
+    @SequenceGenerator(name = "seq_group_member_id", sequenceName = "group_member_sequence", allocationSize = 1)
     private Long groupMemberId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_post_id", referencedColumnName = "id", nullable = false)
-    private GroupPost groupPost;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "group_post_id", nullable = false)
+    private GroupPostEntity groupPostId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
-    private UserEntity user;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "user_id", nullable = false)
+    private UserEntity userId;
 
-    @Column(name = "role", length = 50, nullable = false)
-    private String role;
+    @Column(length = 50, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MemberRole role;
 
-    @Column(name = "position", length = 100, nullable = true)
+    @Column(length = 100)
     private String position;
 
     @Builder
-    public GroupMemberEntity(GroupPost groupPost, UserEntity user, String role, String position) {
-        this.groupPost = groupPost;
-        this.user = user;
+    public GroupMemberEntity(GroupPostEntity groupPostId, UserEntity userId, MemberRole role,
+                             String position) {
+        this.groupPostId = groupPostId;
+        this.userId = userId;
         this.role = role;
         this.position = position;
     }
 
-    public void updateRole(String role) {
-        this.role = role;
-    }
-
-    public void updatePosition(String position) {
-        this.position = position;
-    }
 }
