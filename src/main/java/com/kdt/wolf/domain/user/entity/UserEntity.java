@@ -3,6 +3,7 @@ package com.kdt.wolf.domain.user.entity;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +36,9 @@ import lombok.NoArgsConstructor;
 
         @Enumerated(EnumType.STRING)
         private Status status;
+
+        // 정지 날짜를 저장할 필드 (3일 정지 시 사용)
+        private LocalDate suspensionDate;
 
         // ActivityMetrics와 1:1 관계 설정
         @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
