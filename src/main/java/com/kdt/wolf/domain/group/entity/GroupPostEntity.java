@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -48,28 +49,21 @@ public class GroupPostEntity{
     @Enumerated(EnumType.STRING)
     private GroupType type;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date recruitStartDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date recruitDeadlineDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private LocalDate recruitStartDate;
+    private LocalDate recruitDeadlineDate;
 
     @Builder
-    public GroupPostEntity(String name, UserEntity leaderUser, GroupType type, Date startDate, Date endDate, Date recruitStartDate,
-                           Date recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements,
+    public GroupPostEntity(String name, UserEntity leaderUser, GroupType type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
+                           LocalDate recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements,
                            int targetMembers, String thumbnail, String title, String description, String warning, char challengeStatus) {
         this.name = name;
         this.leaderUser = leaderUser;
         this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.recruitStartDate = recruitStartDate != null ? recruitStartDate : new Date();
+        this.recruitStartDate = recruitStartDate;
         this.recruitDeadlineDate = recruitDeadlineDate;
         this.shortIntro = shortIntro;
         this.tag = tag;
