@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Entity
 @RequiredArgsConstructor
-@Table(name = "verificationEntity")
+@Table(name = "verification")
 public class VerificationEntity {
 
   @Id

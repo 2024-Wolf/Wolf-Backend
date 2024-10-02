@@ -6,7 +6,7 @@ public class LoginDto {
             String loginId,
             String password
     ) {}
-    public record googleLoginRequest(
+    public record GoogleLoginRequest(
             String idToken
     ) {}
     public record TokenResponse(
@@ -14,6 +14,7 @@ public class LoginDto {
             String accessToken,
             String refreshToken,
             Long accessTokenExpiresIn
+
     ) {
         public TokenResponse(String grantType, String accessToken, String refreshToken, Long accessTokenExpiresIn) {
             this.accessToken = accessToken;
@@ -22,4 +23,8 @@ public class LoginDto {
             this.accessTokenExpiresIn = accessTokenExpiresIn;
         }
     }
+    public record GoogleLoginResponse(
+        TokenResponse tokenResponse,
+        LoginFlag loginFlag
+    ) {}
 }

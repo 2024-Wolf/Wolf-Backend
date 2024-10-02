@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Entity
 @RequiredArgsConstructor
-@Table(name = "challengeResult")
+@Table(name = "challenge_result")
 public class ChallengeResultEntity {
 
   @Id

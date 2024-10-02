@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.user.dao;
 
+import com.kdt.wolf.domain.user.dto.LoginFlag;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.domain.user.repository.UserRepository;
@@ -17,8 +18,20 @@ public class UserDao {
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    public UserEntity signUpOrSignIn(GoogleOAuth2UserInfo userInfo) {
+//    public UserEntity signUpOrSignIn(GoogleOAuth2UserInfo userInfo) {
+//        return userRepository.findByEmail(userInfo.getEmail())
+//                .orElseGet(() -> userRepository.save(userInfo.toEntity()));
+//    }
+
+    public UserLoginResult signUpOrSignIn(GoogleOAuth2UserInfo userInfo) {
         return userRepository.findByEmail(userInfo.getEmail())
-                .orElseGet(() -> userRepository.save(userInfo.toEntity()));
+                .map(u -> new UserLoginResult(u, LoginFlag.LOGIN))
+                .orElseGet(() -> new UserLoginResult(userRepository.save(userInfo.toEntity()), LoginFlag.SIGNUP));
+    }
+
+    public LoginFlag checkUserLoginFlag(UserEntity user) {
+        return userRepository.findByEmail(user.getEmail())
+                .map(u -> LoginFlag.LOGIN)
+                .orElse(LoginFlag.SIGNUP);
     }
 }

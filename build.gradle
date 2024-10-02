@@ -32,8 +32,9 @@ dependencies {
 	//JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// 오라클 데이터베이스 11
-	implementation 'org.apache.tomcat:tomcat-jdbc:9.0.68'
-	implementation 'com.oracle.database.jdbc:ojdbc6:11.2.0.4'
+	implementation group: 'com.oracle.database.jdbc', name: 'ojdbc6', version: '11.2.0.4'
+//	implementation 'org.apache.tomcat:tomcat-jdbc:9.0.74'
+//	implementation 'com.oracle.database.jdbc:ojdbc6:11.2.0.4'
 	// h2
 	testRuntimeOnly 'com.h2database:h2'
 
@@ -57,7 +58,6 @@ dependencies {
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 
-	implementation 'org.apache.tomcat:tomcat-jdbc:9.0.74'
 }
 
 tasks.named('test') {

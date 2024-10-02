@@ -12,8 +12,7 @@ import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -30,22 +29,19 @@ import org.hibernate.annotations.SQLRestriction;
 @DynamicUpdate
 public class RefreshTokenEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "refresh_token_id", columnDefinition = "bigint")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_refresh_token_id")
+    @Column(name = "refresh_token_id")
     private final Long id = 0L;
 
-    @Comment("토큰 소유자 유저 아이디")
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Comment("리프레시 토큰값")
     @Column(name = "refresh_token_value", length = 255, nullable = false)
     private String refreshTokenValue;
 
-    @Comment("발급일시")
     @Column(name = "issued_datetime")
-    private Instant issuedDatetime;
+    private LocalDateTime issuedDatetime;
 
     public static RefreshTokenEntity createOf(
             UserEntity user,
@@ -53,7 +49,7 @@ public class RefreshTokenEntity {
         RefreshTokenEntity refreshToken = new RefreshTokenEntity();
         refreshToken.user = user;
         refreshToken.refreshTokenValue = refreshTokenValue;
-        refreshToken.issuedDatetime = Instant.now();
+        refreshToken.issuedDatetime = LocalDateTime.now();
 
         return refreshToken;
     }
