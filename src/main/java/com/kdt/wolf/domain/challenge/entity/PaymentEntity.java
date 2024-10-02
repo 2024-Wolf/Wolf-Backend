@@ -1,15 +1,13 @@
 package com.kdt.wolf.domain.challenge.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import java.util.Date;
+import lombok.*;
+
+import java.time.LocalDate;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 @Table(name = "paymentEntity")
 public class PaymentEntity {
 
@@ -25,14 +23,14 @@ public class PaymentEntity {
     private Long userId;
 
     private char paymentStatus;
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
     @Builder
     public void PaymentEntity(Long registrationId, Long userId) {
         this.registrationId = registrationId;
         this.userId = userId;
         this.paymentStatus = 'N';
-        this.paymentDate = new Date();
+        this.paymentDate = LocalDate.now();
     }
 
     public void updatePaymentStatus() {

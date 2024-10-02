@@ -3,11 +3,12 @@ package com.kdt.wolf.domain.challenge.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 @Table(name = "challengeResult")
 public class ChallengeResultEntity {
 
@@ -24,7 +25,7 @@ public class ChallengeResultEntity {
 
   private int totalChallengeAmount;
   private int successfulParticipants;
-  private Date resultCreateDate;
+  private LocalDate resultCreateDate;
 
   @Builder
   public void ChallengeResultEntity(Long groupPostId, Long challengePostId, int totalChallengeAmount, int successfulParticipants) {
@@ -32,6 +33,6 @@ public class ChallengeResultEntity {
     this.challengePostId = challengePostId;
     this.totalChallengeAmount = totalChallengeAmount;
     this.successfulParticipants = successfulParticipants;
-    this.resultCreateDate = new Date();
+    this.resultCreateDate = LocalDate.now();
   }
 }

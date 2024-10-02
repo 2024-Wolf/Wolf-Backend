@@ -1,16 +1,14 @@
 package com.kdt.wolf.domain.challenge.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 @Table(name = "challengeRegistration")
 public class ChallengeRegistrationEntity {
 
@@ -26,14 +24,14 @@ public class ChallengeRegistrationEntity {
   private Long groupPostId;
 
   private Long ChallengeAmount;
-  private Date registrationDate;
+  private LocalDate registrationDate;
 
   @Builder
   public void ChallengeRegistrationEntity(Long challengePostId, Long groupPostId, Long challengeAmount) {
     this.challengePostId = challengePostId;
     this.groupPostId = groupPostId;
     this.ChallengeAmount = challengeAmount;
-    this.registrationDate = new Date();
+    this.registrationDate = LocalDate.now();
   }
 
 }

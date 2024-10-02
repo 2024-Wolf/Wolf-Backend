@@ -1,17 +1,15 @@
 package com.kdt.wolf.domain.challenge.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import oracle.sql.DATE;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 @Table(name = "verificationEntity")
 public class VerificationEntity {
 
@@ -30,7 +28,7 @@ public class VerificationEntity {
   private String institutionName;
   private String verificationContent;
   private char verificationStatus;
-  private Date verificationDate;
+  private LocalDate verificationDate;
 
   @Builder
   public void VerificationEntity(Long registrationId, Long userId, String certificationNo, String institutionName, String verificationContent) {
@@ -40,7 +38,7 @@ public class VerificationEntity {
     this.institutionName = institutionName;
     this.verificationContent = verificationContent;
     this.verificationStatus = 'N';
-    this.verificationDate = new Date();
+    this.verificationDate = LocalDate.now();
   }
 
   public void updateVerification() {
