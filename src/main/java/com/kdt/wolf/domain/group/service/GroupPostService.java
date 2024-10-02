@@ -21,7 +21,7 @@ public class GroupPostService {
         List<GroupPostEntity> posts = groupPostDao.findByType(option);
         return posts.stream()
                 .map(GroupPostResponse::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     // 모집 글 생성 메서드
