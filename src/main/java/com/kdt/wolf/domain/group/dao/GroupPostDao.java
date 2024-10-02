@@ -7,6 +7,7 @@ import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
+import com.kdt.wolf.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,7 @@ public class GroupPostDao {
 
     public void createPost(GroupPostRequest request) {
         UserEntity leaderUser = userRepository.findById(request.getLeaderUser())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(UserNotFoundException::new);
 
         // GroupPostEntity 생성
         GroupPostEntity groupPost = GroupPostEntity.builder()
