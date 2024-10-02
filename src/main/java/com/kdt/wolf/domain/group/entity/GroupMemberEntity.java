@@ -21,12 +21,12 @@ public class GroupMemberEntity extends BaseTimeEntity {
     private Long groupMemberId;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "group_post_id", nullable = false)
-    private GroupPostEntity groupPostId;
+    @JoinColumn(name = "group_post_id", nullable = false)
+    private GroupPostEntity groupPost;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id", nullable = false)
-    private UserEntity userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @Column(length = 50, nullable = false)
     @Enumerated(EnumType.STRING)
@@ -36,10 +36,10 @@ public class GroupMemberEntity extends BaseTimeEntity {
     private String position;
 
     @Builder
-    public GroupMemberEntity(GroupPostEntity groupPostId, UserEntity userId, MemberRole role,
+    public GroupMemberEntity(GroupPostEntity groupPost, UserEntity user, MemberRole role,
                              String position) {
-        this.groupPostId = groupPostId;
-        this.userId = userId;
+        this.groupPost = groupPost;
+        this.user = user;
         this.role = role;
         this.position = position;
     }

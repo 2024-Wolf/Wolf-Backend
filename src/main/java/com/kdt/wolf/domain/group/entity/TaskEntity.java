@@ -21,11 +21,11 @@ public class TaskEntity {
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "group_post_id", nullable = false)
-    private GroupPostEntity groupPostId;
+    private GroupPostEntity groupPost;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "user_id", nullable = false)
-    private UserEntity userId;
+    private UserEntity user;
 
     @Column
     private String details;
@@ -35,9 +35,9 @@ public class TaskEntity {
     private TaskStatus status;
 
     @Builder
-    public TaskEntity(GroupPostEntity groupPostId, UserEntity userId, String details, TaskStatus status) {
-        this.groupPostId = groupPostId;
-        this.userId = userId;
+    public TaskEntity(GroupPostEntity groupPost, UserEntity user, String details, TaskStatus status) {
+        this.groupPost = groupPost;
+        this.user = user;
         this.details = details;
         this.status = status;
     }

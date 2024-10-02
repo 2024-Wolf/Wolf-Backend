@@ -20,12 +20,12 @@ public class RecruitApplyEntity extends BaseTimeEntity {
     private Long recruitApplyId;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "group_post_id", nullable = false)
-    private GroupPostEntity groupPostId;
+    @JoinColumn(name = "group_post_id", nullable = false)
+    private GroupPostEntity groupPost;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id", nullable = false)
-    private UserEntity userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "recruit_role_id", nullable = false)
@@ -53,11 +53,11 @@ public class RecruitApplyEntity extends BaseTimeEntity {
     private String additionalNotes;
 
     @Builder
-    public RecruitApplyEntity(GroupPostEntity groupPostId, UserEntity userId, RecruitRoleEntity position, String email, String applicationReason,
+    public RecruitApplyEntity(GroupPostEntity groupPost, UserEntity user, RecruitRoleEntity position, String email, String applicationReason,
                               String introduction, String techStack, String portfolioLink, String availableDays,
                               String additionalNotes) {
-        this.groupPostId = groupPostId;
-        this.userId = userId;
+        this.groupPost = groupPost;
+        this.user = user;
         this.position = position;
         this.email = email;
         this.applicationReason = applicationReason;

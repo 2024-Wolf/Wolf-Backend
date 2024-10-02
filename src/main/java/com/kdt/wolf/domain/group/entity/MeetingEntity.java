@@ -17,8 +17,8 @@ public class MeetingEntity extends BaseTimeEntity {
     private Long meetingId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_post_id", referencedColumnName = "group_post_id", nullable = false)
-    private GroupPostEntity groupPostId;
+    @JoinColumn(name = "group_post_id", nullable = false)
+    private GroupPostEntity groupPost;
 
     @Column(name = "meeting_date", nullable = false)
     private LocalDate meetingDate;
@@ -33,8 +33,8 @@ public class MeetingEntity extends BaseTimeEntity {
     private LocalDate endTime;
 
     @Builder
-    public MeetingEntity(GroupPostEntity groupPostId, LocalDate meetingDate, String participants, LocalDate startTime, LocalDate endTime) {
-        this.groupPostId = groupPostId;
+    public MeetingEntity(GroupPostEntity groupPost, LocalDate meetingDate, String participants, LocalDate startTime, LocalDate endTime) {
+        this.groupPost = groupPost;
         this.meetingDate = meetingDate;
         this.participants = participants;
         this.startTime = startTime;

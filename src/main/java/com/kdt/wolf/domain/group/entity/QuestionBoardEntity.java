@@ -21,12 +21,12 @@ public class QuestionBoardEntity extends BaseTimeEntity {
     private Long questionId;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "group_post_id", nullable = false)
-    private GroupPostEntity groupPostId;
+    @JoinColumn(name = "group_post_id", nullable = false)
+    private GroupPostEntity groupPost;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id", nullable = false)
-    private UserEntity userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @Column(length = 50, nullable = false)
     @Enumerated(EnumType.STRING)
@@ -39,10 +39,10 @@ public class QuestionBoardEntity extends BaseTimeEntity {
     private String questionImageUrl;
 
     @Builder
-    public QuestionBoardEntity(GroupPostEntity groupPostId, UserEntity userId, BoardType boardType,
+    public QuestionBoardEntity(GroupPostEntity groupPost, UserEntity user, BoardType boardType,
                                String questionDetails, String questionImageUrl) {
-        this.groupPostId = groupPostId;
-        this.userId = userId;
+        this.groupPost = groupPost;
+        this.user = user;
         this.boardType = boardType;
         this.questionDetails = questionDetails;
         this.questionImageUrl = boardType == BoardType.COMMUNICATION ? questionImageUrl : null;

@@ -20,27 +20,27 @@ public class QuestionCommentEntity extends BaseTimeEntity {
     private Long commentId;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "question_id", nullable = false)
-    private QuestionBoardEntity questionId;
+    @JoinColumn(name = "question_id", nullable = false)
+    private QuestionBoardEntity question;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "comment_id")
-    private QuestionCommentEntity parentCommentId;
+    @JoinColumn(name = "comment_id")
+    private QuestionCommentEntity parentComment;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id", nullable = false)
-    private UserEntity authorId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity author;
 
     private String commentDetails;
     private String commentImageUrl;
 
     @Builder
-    public QuestionCommentEntity(QuestionBoardEntity questionId, QuestionCommentEntity parentCommentId,
-                                 UserEntity authorId, String commentDetails,
+    public QuestionCommentEntity(QuestionBoardEntity question, QuestionCommentEntity parentComment,
+                                 UserEntity author, String commentDetails,
                                  String commentImageUrl) {
-        this.questionId = questionId;
-        this.parentCommentId = parentCommentId;
-        this.authorId = authorId;
+        this.question = question;
+        this.parentComment = parentComment;
+        this.author = author;
         this.commentDetails = commentDetails;
         this.commentImageUrl = commentImageUrl;
     }

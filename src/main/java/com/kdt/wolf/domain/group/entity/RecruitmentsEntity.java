@@ -16,20 +16,20 @@ public class RecruitmentsEntity {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "group_id", referencedColumnName = "group_post_id", nullable = false)
-    private GroupPostEntity groupPostId;
+    @JoinColumn(name = "group_post_id", nullable = false)
+    private GroupPostEntity groupPost;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "recruit_role_id", referencedColumnName = "recruitRoleId", nullable = false)
+    @JoinColumn(name = "recruitRoleId", nullable = false)
     private RecruitRoleEntity recruitRole;
 
     @Column(nullable = false)
     private int recruitRoleCnt;
 
     @Builder
-    public RecruitmentsEntity(GroupPostEntity groupPostId, RecruitRoleEntity recruitRole, int recruitRoleCnt) {
-        this.groupPostId = groupPostId;
+    public RecruitmentsEntity(GroupPostEntity groupPost, RecruitRoleEntity recruitRole, int recruitRoleCnt) {
+        this.groupPost = groupPost;
         this.recruitRole = recruitRole;
         this.recruitRoleCnt = recruitRoleCnt;
     }

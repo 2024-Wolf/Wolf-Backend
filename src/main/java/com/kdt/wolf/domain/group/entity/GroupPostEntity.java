@@ -21,8 +21,8 @@ public class GroupPostEntity{
     private Long groupPostId;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id", nullable = false)
-    private UserEntity leaderUserId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity leaderUser;
 
     @Column(unique = true, nullable = false)
     private String name;
@@ -61,11 +61,11 @@ public class GroupPostEntity{
     private Date recruitDeadlineDate;
 
     @Builder
-    public GroupPostEntity(String name, UserEntity leaderUserId, GroupType type, Date startDate, Date endDate, Date recruitStartDate,
+    public GroupPostEntity(String name, UserEntity leaderUser, GroupType type, Date startDate, Date endDate, Date recruitStartDate,
                            Date recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements,
                            int targetMembers, String thumbnail, String title, String description, String warning, char challengeStatus) {
         this.name = name;
-        this.leaderUserId = leaderUserId;
+        this.leaderUser = leaderUser;
         this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;

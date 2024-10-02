@@ -21,12 +21,12 @@ public class ScheduleEntity {
     private Long scheduleId;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "group_post_id", nullable = false)
-    private GroupPostEntity groupPostId;
+    @JoinColumn(name = "group_post_id", nullable = false)
+    private GroupPostEntity groupPost;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id", nullable = false)
-    private UserEntity userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
     @Column(length = 100)
     private String details;
@@ -40,9 +40,9 @@ public class ScheduleEntity {
     private Date endTime;
 
     @Builder
-    public ScheduleEntity(GroupPostEntity groupPostId, UserEntity userId, String details, Date startTime, Date endTime) {
-        this.groupPostId = groupPostId;
-        this.userId = userId;
+    public ScheduleEntity(GroupPostEntity groupPost, UserEntity user, String details, Date startTime, Date endTime) {
+        this.groupPost = groupPost;
+        this.user = user;
         this.details = details;
         this.startTime = startTime;
         this.endTime = endTime;
