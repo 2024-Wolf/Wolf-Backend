@@ -20,11 +20,11 @@ public class TaskEntity {
     private Long taskId;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "group_post_id", nullable = false)
+    @JoinColumn(name = "group_post_id", nullable = false)
     private GroupPostEntity groupPost;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @Column

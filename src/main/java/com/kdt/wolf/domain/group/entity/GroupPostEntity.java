@@ -16,8 +16,8 @@ import java.util.Date;
 @Table(name = "group_post")
 public class GroupPostEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_group_post_group_post_id")
-    @SequenceGenerator(name = "seq_group_post_group_post_id", sequenceName = "group_post_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_group_post_id")
+    @SequenceGenerator(name = "seq_group_post_id", sequenceName = "group_post_sequence", allocationSize = 1)
     private Long groupPostId;
 
     @ManyToOne

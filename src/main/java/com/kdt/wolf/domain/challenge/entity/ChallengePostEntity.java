@@ -29,7 +29,7 @@ public class ChallengePostEntity {
     private LocalDate deadline;
 
     @Builder
-    public void ChallengePostEntity(Long userId, String img, String title, String content, String manner, Date deadline) {
+    public void ChallengePostEntity(Long userId, String img, String title, String content, String manner, LocalDate deadline) {
         this.userId = userId;
         this.img = img;
         this.title = title;

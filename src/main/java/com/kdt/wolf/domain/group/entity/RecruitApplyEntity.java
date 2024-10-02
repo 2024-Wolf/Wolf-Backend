@@ -28,7 +28,7 @@ public class RecruitApplyEntity extends BaseTimeEntity {
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "recruit_role_id", nullable = false)
+    @JoinColumn(name = "recruit_role_id", nullable = false)
     private RecruitRoleEntity position;
 
     @Column(nullable = false)

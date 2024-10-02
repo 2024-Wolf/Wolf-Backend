@@ -21,7 +21,7 @@ public class RecruitmentsEntity {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "recruitRoleId", nullable = false)
+    @JoinColumn(name = "recruit_role_id", nullable = false)
     private RecruitRoleEntity recruitRole;
 
     @Column(nullable = false)
