@@ -25,7 +25,6 @@ import org.hibernate.annotations.SQLRestriction;
         name = "refresh_token",
         indexes = {@Index(name = "IDX_REFRESH_TOKEN_VALUE", columnList = "refresh_token_value")})
 @Entity
-@SQLRestriction("expired_datetime > now()")
 @DynamicUpdate
 public class RefreshTokenEntity {
     @Id

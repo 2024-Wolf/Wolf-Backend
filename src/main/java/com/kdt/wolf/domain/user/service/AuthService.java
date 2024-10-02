@@ -91,6 +91,7 @@ public class AuthService {
 
         return generateJwtTokenResponse(user);
     }
+
     private void validateRefreshToken(String refreshToken) {
         try {
             tokenProvider.validateToken(refreshToken);
