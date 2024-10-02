@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.user.controller;
 
 import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginRequest;
 import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginResponse;
+import com.kdt.wolf.domain.user.dto.LoginDto.ReissueAccessTokenRequest;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.service.AuthService;
 import com.kdt.wolf.global.base.ApiResult;
@@ -35,6 +36,12 @@ public class AuthController {
     @PostMapping("/test-login")
     public ApiResult<GoogleLoginResponse> test() {
         GoogleLoginResponse response = authService.loginForTest();
+        return ApiResult.ok(response);
+    }
+
+    @PostMapping("/reissue")
+    public ApiResult<TokenResponse> reissueAccessToken(@RequestBody ReissueAccessTokenRequest request) {
+        TokenResponse response = authService.reissueAccessToken(request.accessToken(), request.refreshToken());
         return ApiResult.ok(response);
     }
 }
