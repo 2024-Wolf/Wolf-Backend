@@ -31,11 +31,10 @@ public class AuthController {
         GoogleLoginResponse response = authService.googleLogin(request.idToken());
         return ApiResult.ok(response);
     }
-//
-//    @PostMapping("/test")
-//    public ApiResult<?> test() {
-//        TokenResponse response = authService.loginForTest();
-//        return ApiResult.ok(response);
-//    }
 
+    @PostMapping("/test-login")
+    public ApiResult<GoogleLoginResponse> test() {
+        GoogleLoginResponse response = authService.loginForTest();
+        return ApiResult.ok(response);
+    }
 }

@@ -11,6 +11,9 @@ import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.dto.LoginFlag;
 import com.kdt.wolf.domain.user.entity.RefreshTokenEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.domain.user.entity.common.SocialType;
+import com.kdt.wolf.domain.user.entity.common.Status;
+import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.domain.user.repository.RefreshTokenRepository;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
@@ -50,7 +53,7 @@ public class AuthService {
                 throw new BusinessException(ExceptionCode.TOKEN_VALIDATION_FAILED);
             }
             else {
-                GoogleOAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(googleIdToken.getPayload());
+                OAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(googleIdToken.getPayload());
                 UserLoginResult userLoginResult = userDao.signUpOrSignIn(userInfo);
                 TokenResponse response = generateJwtTokenResponse(userLoginResult.user());
                 return new GoogleLoginResponse(response, userLoginResult.flag());
@@ -66,4 +69,16 @@ public class AuthService {
     }
 
 
+    public GoogleLoginResponse loginForTest() {
+        OAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(
+                "testId",
+                "testName",
+                "testNickname",
+                "testEmail",
+                "testImageUrl"
+        );
+        UserLoginResult userLoginResult = userDao.signUpOrSignIn(userInfo);
+        TokenResponse response = generateJwtTokenResponse(userLoginResult.user());
+        return new GoogleLoginResponse(response, userLoginResult.flag());
+    }
 }

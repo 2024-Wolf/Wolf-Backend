@@ -1,11 +1,16 @@
 package com.kdt.wolf.domain.user.controller;
 
+import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.response.UserProfileResponse;
 import com.kdt.wolf.domain.user.service.UserService;
+import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,4 +25,13 @@ public class UserController {
         UserProfileResponse response = userService.getUserProfile(userId);
         return ApiResult.ok(response);
     }
+
+    @PostMapping("/user/sign-up")
+    public ApiResult<?> completeSignUpProcess(@RequestBody SignUpRequest request,
+                                              @AuthenticationPrincipal AuthenticatedUser user) {
+        userService.completeSignUpProcess(user.getUserId(), request);
+        return ApiResult.ok();
+    }
+
+
 }

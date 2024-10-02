@@ -22,4 +22,12 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
         this.name = (String) payload.get("name");
         this.imageUrl = (String) payload.get("picture");
     }
+
+    public GoogleOAuth2UserInfo(String id, String name, String nickname, String email, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.nickname = nickname;
+        this.email = email;
+        this.imageUrl = imageUrl;
+    }
 }
