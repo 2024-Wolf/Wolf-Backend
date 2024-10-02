@@ -55,13 +55,18 @@ public class UserEntity extends BaseTimeEntity {
         this.status = status;
     }
 
-    public void updateProfile(String jobTitle, String organization, int experience, String interests,
-                              String refundAccount, String introduction) {
+    public void updateDetailProfile(String jobTitle, String organization, int experience, String interests) {
         this.jobTitle = jobTitle;
         this.organization = organization;
         this.experience = experience;
         this.interests = interests;
+    }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updateRefundAccount(String refundAccount) {
         this.refundAccount = refundAccount;
-        this.introduction = introduction;
     }
 }

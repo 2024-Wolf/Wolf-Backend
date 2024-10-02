@@ -9,12 +9,12 @@ import java.util.Date;
 @Getter
 @Entity
 @RequiredArgsConstructor
-@Table(name = "challengeRegistration")
+@Table(name = "challenge_registration")
 public class ChallengeRegistrationEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_challenge_registration_id")
-  @SequenceGenerator(name = "seq_challenge_registration_id", sequenceName = "challenge_registration_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_challenge_reg_id")
+  @SequenceGenerator(name = "seq_challenge_reg_id", sequenceName = "challenge_reg_seq", allocationSize = 1)
   private Long registrationId;
 
   // 챌린지 id

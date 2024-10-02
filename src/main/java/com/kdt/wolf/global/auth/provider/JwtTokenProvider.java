@@ -24,10 +24,9 @@ import org.springframework.stereotype.Component;
 @Component
 @NoArgsConstructor
 public class JwtTokenProvider {
-    @Value("${security.access-token.expiry-in-millis}")
-    private static long ACCESS_TOKEN_EXPIRE_TIME;
+//    @Value("${security.access-token.expiry-in-millis}")
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60;
     private static final String BEARER_TYPE = "bearer";
-
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
 
     @Value("${security.access-token.jwt-secret-key}")

@@ -75,7 +75,7 @@ class JwtTokenProviderTest {
     @Test
     @DisplayName("만료된 토큰 예외 처리")
     void validateToken() {
-        long now = (new Date()).getTime() - 100000;
+        long now = (new Date()).getTime() - 10000 * 60 * 60;
         String expiredToken = jwtTokenProvider.generateAccessTokenValue(userEntity, now);
         // When & Then: 만료된 토큰을 전달했을 때 예외가 발생하는지 확인
         assertThrows(UnauthorizedException.class, () -> jwtTokenProvider.validateToken(expiredToken));

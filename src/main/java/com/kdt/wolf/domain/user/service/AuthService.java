@@ -5,9 +5,15 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.kdt.wolf.domain.user.dao.UserDao;
+import com.kdt.wolf.domain.user.dao.UserLoginResult;
+import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginResponse;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
+import com.kdt.wolf.domain.user.dto.LoginFlag;
 import com.kdt.wolf.domain.user.entity.RefreshTokenEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.domain.user.entity.common.SocialType;
+import com.kdt.wolf.domain.user.entity.common.Status;
+import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.domain.user.repository.RefreshTokenRepository;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
@@ -35,7 +41,7 @@ public class AuthService {
 
     private final JwtTokenProvider tokenProvider;
 
-    public TokenResponse googleLogin(String idToken) {
+    public GoogleLoginResponse googleLogin(String idToken) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
                                             .Builder(new NetHttpTransport(), new GsonFactory())
                                             .setAudience(List.of(googleClientId))
@@ -47,10 +53,10 @@ public class AuthService {
                 throw new BusinessException(ExceptionCode.TOKEN_VALIDATION_FAILED);
             }
             else {
-                GoogleOAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(googleIdToken.getPayload());
-                UserEntity user = userDao.signUpOrSignIn(userInfo);
-                return generateJwtTokenResponse(user);
-                // TODO : 분기처리 필요
+                OAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(googleIdToken.getPayload());
+                UserLoginResult userLoginResult = userDao.signUpOrSignIn(userInfo);
+                TokenResponse response = generateJwtTokenResponse(userLoginResult.user());
+                return new GoogleLoginResponse(response, userLoginResult.flag());
             }
         } catch (IllegalArgumentException | HttpClientErrorException | GeneralSecurityException | IOException e) {
             throw new BusinessException(ExceptionCode.TOKEN_VALIDATION_FAILED);
@@ -60,5 +66,19 @@ public class AuthService {
         TokenResponse tokenResponse = tokenProvider.generateJwtTokenResponse(user);
         refreshTokenService.saveRefreshToken(user, tokenResponse.refreshToken());
         return tokenResponse;
+    }
+
+
+    public GoogleLoginResponse loginForTest() {
+        OAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(
+                "testId",
+                "testName",
+                "testNickname",
+                "testEmail",
+                "testImageUrl"
+        );
+        UserLoginResult userLoginResult = userDao.signUpOrSignIn(userInfo);
+        TokenResponse response = generateJwtTokenResponse(userLoginResult.user());
+        return new GoogleLoginResponse(response, userLoginResult.flag());
     }
 }

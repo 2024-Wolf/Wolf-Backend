@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @RequiredArgsConstructor
-@Table(name = "paymentEntity")
+@Table(name = "payment")
 public class PaymentEntity {
 
     @Id
