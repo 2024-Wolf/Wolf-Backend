@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+.FooterContainer {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 35px;
+  background: var(--violet100);
+  width: 100%;
+  gap: 10px;
+}
+
+.FooterContent {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 30px;
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.FooterText {
+  font-size: 13px;
+  color: var(--black400);
+  line-height: 150%;
+
+  @media (max-width: 768px) {}
+}
+
+.FooterLinks {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  @media (max-width: 576px) {
+	gap: auto;
+  }
+}
+
+.LogoS {
+  font-family: "Kavoon";
+  font-size: 24px;
+  color: var(--black500);
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+
+  @media (max-width: 768px) {}
+}
+
+.FooterButton {
+  border: none;
+  font-weight: bold;
+  margin-right: 20px;
+  font-size: 16px;
+  color: var(--black600);
+  background: none;
+
+  /* 모든 버튼의 오른쪽에 간격 설정 */
+  &:last-child {
+    margin-right: 0;
+    /* 마지막 버튼의 오른쪽 여백 제거 */
+  }
+
+  /* Hover effect */
+  &:hover {
+    color: var(--black800);
+    background-color: transparent;
+  }
+
+  /* Active (마우스 클릭 또는 모바일 터치) effect */
+  &:active {
+    color: var(--black800);
+    background-color: transparent;
+  }
+
+  @media (max-width: 360px) {
+    min-width: fit-content;
+	margin: auto;
+	font-size: 14px;
+  }
+}

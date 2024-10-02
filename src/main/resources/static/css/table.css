@@ -1,0 +1,42 @@
+.table {
+    border-collapse: collapse;
+    color: var(--black600);
+    width: 100%;
+    min-width: 750px;
+	
+	font-size: 14px;
+	
+	@media (max-width: 768px) {
+	    font-size: 12px;
+	}
+}
+
+.table th,
+.table td {
+    text-align: center;
+    border: 1px solid var(--black200);
+}
+
+.table th {
+    padding: 17px 20px;
+    background-color: var(--black200);
+    color: var(--black700);
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 12px 20px;
+    background-color: var(--black000);
+    white-space: nowrap;
+}
+
+a.aLink {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+a.aLink:hover {
+    color: var(--violet500);
+}

@@ -1,0 +1,92 @@
+/* Header, Footer 폰트 _(수정본) 기존 코드 적용 안됨*/
+@import url('https://webfontworld.github.io/pretendard/Pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=Kavoon&display=swap');
+
+/* CSS 초기화 코드 시작 */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+/* CSS 초기화 코드 종료 */
+
+/* 색상 전역 번수 선언 */
+:root {
+    --violet000: #FAF9FF;
+    --violet100: #F2F0FF;
+    --violet200: #E5E1FF;
+    --violet300: #CEC6FF;
+    --violet400: #B3A8FF;
+    --violet500: #9787FF;
+    --violet600: #8578D8;
+    --violet700: #685EA8;
+    --violet800: #4F487D;
+    --violet900: #343054;
+
+    --black000: #FCFCFC;
+    --black100: #F1F1F1;
+    --black200: #e2e3e3;
+    --black300: #B3B4B4;
+    --black400: #A0A0A0;
+    --black500: #838586;
+    --black600: #666869;
+    --black700: #49494A;
+    --black800: #2E2E2E;
+    --black900: #111111;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* 공통 폰트 설정 _ (수정본) 기존 코드 반영이 안됨*/
+html * {
+    font-family: "Pretendard", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background-color: var(--violet000);
+}

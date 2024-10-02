@@ -1,0 +1,117 @@
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 40px;
+    width: 100%;
+	
+	@media (max-width: 768px) {
+		margin: 0px 30px 0px 30px;
+	}
+
+	@media (max-width: 576px) {
+		margin: 0px 10px 0px 10px;
+	}
+}
+
+.loginDescription {
+    min-height: 20px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 140%;
+    display: flex;
+    align-items: center;
+    color: var(--black500);
+	justify-content: center;
+	flex-wrap: wrap;
+	
+	@media (max-width: 768px) {
+	font-size: 14px;
+	}
+
+	@media (max-width: 360px) {
+	font-size: 12px;
+	}
+}
+
+.loginCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: var(--violet100);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 30px;
+    padding:60px 50px;
+    max-width: 400px;
+    width: 100%;
+	
+    @media (max-width: 768px) {
+        padding: 60px 40px;
+    }
+
+    @media (max-width: 360px) {
+        padding: 50px 30px;
+        min-width: 200px;
+    }
+}
+
+.loginLogo {
+    color: var(--violet700);
+    text-align: center;
+    font: 60px Kavoon, sans-serif;
+    font-weight: lighter;
+	
+	@media (max-width: 768px) {
+    font-size: 50px;
+	}
+
+	@media (max-width: 360px) {
+    font-size: 45px;
+	}
+}
+
+.loginForm {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+    width: 100%;
+}
+
+.loginInput {
+    box-sizing: border-box;
+    height: 50px;
+    padding: 4px 10px;
+    background: var(--violet000);
+    border-radius: 5px;
+    border: 2px solid var(--black200);
+    width: 100%;
+    min-width: 100px;
+    max-width: 300px;
+
+    @media (max-width: 768px) {}
+}
+
+.loginButton {
+    box-sizing: border-box;
+    height: 50px;
+    padding: 4px 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    width: 100%;
+    min-width: 100px;
+    max-width: 300px;
+	font-size: 16px;
+
+	@media (max-width: 768px) {
+	font-size: 15px;
+	}
+
+	@media (max-width: 360px) {
+	font-size: 14px;
+	}
+}
