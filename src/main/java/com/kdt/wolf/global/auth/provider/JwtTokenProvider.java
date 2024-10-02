@@ -13,7 +13,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.Map;
 import java.util.Optional;
 import javax.crypto.SecretKey;
 import lombok.NoArgsConstructor;
