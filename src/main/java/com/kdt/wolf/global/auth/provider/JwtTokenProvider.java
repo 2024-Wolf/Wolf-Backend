@@ -97,6 +97,11 @@ public class JwtTokenProvider {
         return Optional.ofNullable(parseClaimsJws(jwtToken).getPayload().get(claimName));
     }
 
+    public Date getExpirationDateFromToken(String token) {
+        Jws<Claims> claims = parseClaimsJws(token);
+        return claims.getPayload().getExpiration();  // 만료 시간 추출
+    }
+
     public String getSubject(String jwtToken) {
         Jws<Claims> jws = parseClaimsJws(jwtToken);
 

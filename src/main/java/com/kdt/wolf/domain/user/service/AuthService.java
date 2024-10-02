@@ -6,8 +6,10 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
+import com.kdt.wolf.domain.user.entity.RefreshTokenEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
+import com.kdt.wolf.domain.user.repository.RefreshTokenRepository;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
@@ -26,6 +28,7 @@ import org.springframework.web.client.HttpClientErrorException;
 @RequiredArgsConstructor
 public class AuthService {
     private final UserDao userDao;
+    private final RefreshTokenService refreshTokenService;
 
     @Value("${google.client.id}")
     private String googleClientId;
@@ -46,12 +49,16 @@ public class AuthService {
             else {
                 GoogleOAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(googleIdToken.getPayload());
                 UserEntity user = userDao.signUpOrSignIn(userInfo);
-                return tokenProvider.generateJwtTokenResponse(user);
+                return generateJwtTokenResponse(user);
                 // TODO : 분기처리 필요
             }
         } catch (IllegalArgumentException | HttpClientErrorException | GeneralSecurityException | IOException e) {
             throw new BusinessException(ExceptionCode.TOKEN_VALIDATION_FAILED);
         }
     }
-
+    private TokenResponse generateJwtTokenResponse(UserEntity user) {
+        TokenResponse tokenResponse = tokenProvider.generateJwtTokenResponse(user);
+        refreshTokenService.saveRefreshToken(user, tokenResponse.refreshToken());
+        return tokenResponse;
+    }
 }
