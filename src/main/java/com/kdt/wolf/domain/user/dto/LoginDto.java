@@ -9,20 +9,17 @@ public class LoginDto {
     public record GoogleLoginRequest(
             String idToken
     ) {}
+    public record ReissueAccessTokenRequest(
+            String accessToken,
+            String refreshToken
+    ) {}
     public record TokenResponse(
             String grantType,
             String accessToken,
             String refreshToken,
             Long accessTokenExpiresIn
 
-    ) {
-        public TokenResponse(String grantType, String accessToken, String refreshToken, Long accessTokenExpiresIn) {
-            this.accessToken = accessToken;
-            this.grantType = grantType;
-            this.refreshToken = refreshToken;
-            this.accessTokenExpiresIn = accessTokenExpiresIn;
-        }
-    }
+    ) { }
     public record GoogleLoginResponse(
         TokenResponse tokenResponse,
         LoginFlag loginFlag

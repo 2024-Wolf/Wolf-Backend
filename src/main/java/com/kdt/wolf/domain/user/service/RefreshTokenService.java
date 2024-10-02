@@ -30,4 +30,8 @@ public class RefreshTokenService {
     private Date getRefreshTokenExpireTime(String refreshToken) {
         return tokenProvider.getExpirationDateFromToken(refreshToken);
     }
+
+    public void deleteRefreshToken(Long userId) {
+        refreshTokenDao.deleteRefreshToken(userId);
+    }
 }

@@ -2,6 +2,7 @@ package com.kdt.wolf.global.auth.provider;
 
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -24,7 +25,6 @@ import org.springframework.stereotype.Component;
 @Component
 @NoArgsConstructor
 public class JwtTokenProvider {
-//    @Value("${security.access-token.expiry-in-millis}")
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60;
     private static final String BEARER_TYPE = "bearer";
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;

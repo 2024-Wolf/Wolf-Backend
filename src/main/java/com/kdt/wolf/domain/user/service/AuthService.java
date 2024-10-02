@@ -8,14 +8,10 @@ import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.dao.UserLoginResult;
 import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginResponse;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
-import com.kdt.wolf.domain.user.dto.LoginFlag;
-import com.kdt.wolf.domain.user.entity.RefreshTokenEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
-import com.kdt.wolf.domain.user.entity.common.SocialType;
-import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
-import com.kdt.wolf.domain.user.repository.RefreshTokenRepository;
+import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
@@ -50,7 +46,7 @@ public class AuthService {
             GoogleIdToken googleIdToken = verifier.verify(idToken);
 
             if (googleIdToken == null) {
-                throw new BusinessException(ExceptionCode.TOKEN_VALIDATION_FAILED);
+                throw new BusinessException(ExceptionCode.ID_TOKEN_VALIDATION_FAILED);
             }
             else {
                 OAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(googleIdToken.getPayload());
@@ -59,10 +55,13 @@ public class AuthService {
                 return new GoogleLoginResponse(response, userLoginResult.flag());
             }
         } catch (IllegalArgumentException | HttpClientErrorException | GeneralSecurityException | IOException e) {
-            throw new BusinessException(ExceptionCode.TOKEN_VALIDATION_FAILED);
+            throw new BusinessException(ExceptionCode.ID_TOKEN_VALIDATION_FAILED);
         }
     }
+
     private TokenResponse generateJwtTokenResponse(UserEntity user) {
+        refreshTokenService.deleteRefreshToken(user.getUserId());
+
         TokenResponse tokenResponse = tokenProvider.generateJwtTokenResponse(user);
         refreshTokenService.saveRefreshToken(user, tokenResponse.refreshToken());
         return tokenResponse;
@@ -80,5 +79,23 @@ public class AuthService {
         UserLoginResult userLoginResult = userDao.signUpOrSignIn(userInfo);
         TokenResponse response = generateJwtTokenResponse(userLoginResult.user());
         return new GoogleLoginResponse(response, userLoginResult.flag());
+    }
+
+    public TokenResponse reissueAccessToken(String accessToken, String refreshToken) {
+        // 토큰 검증
+        validateRefreshToken(refreshToken);
+
+        // 토큰에서 유저 정보 확인
+        long userId = Long.parseLong(tokenProvider.getSubject(accessToken));
+        UserEntity user = userDao.findById(userId);
+
+        return generateJwtTokenResponse(user);
+    }
+    private void validateRefreshToken(String refreshToken) {
+        try {
+            tokenProvider.validateToken(refreshToken);
+        } catch (Exception e) {
+            throw new BusinessException(ExceptionCode.REFRESH_TOKEN_VALIDATION_FAILED);
+        }
     }
 }
