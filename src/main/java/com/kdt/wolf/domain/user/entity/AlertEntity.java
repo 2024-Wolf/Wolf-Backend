@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.user.entity;
 
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,4 +30,11 @@ public class AlertEntity extends BaseTimeEntity {
 
     private String alertLink;
 
+    @Builder
+    public AlertEntity(UserEntity user, Long groupPostId, String alertContent, String alertLink) {
+        this.user = user;
+        this.groupPostId = groupPostId;
+        this.alertContent = alertContent;
+        this.alertLink = alertLink;
+    }
 }

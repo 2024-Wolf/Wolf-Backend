@@ -1,4 +1,4 @@
-package com.kdt.wolf.domain.user.entity;
+package com.kdt.wolf.domain.faq.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -10,11 +10,10 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "faqCategories")
+@Table(name = "faq_Categories")
 public class FaqCategoriesEntity {
 // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_faqcategory_id")
 // @SequenceGenerator(name = "seq_faqcategory_id", sequenceName = "faqcategory_sequence", allocationSize = 1)
-
     @Id
     private Long categoryId;
 
