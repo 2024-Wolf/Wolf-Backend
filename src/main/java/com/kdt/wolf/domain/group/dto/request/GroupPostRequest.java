@@ -4,12 +4,9 @@ import com.kdt.wolf.domain.group.entity.common.GroupType;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class GroupPostRequest {
     @NotNull
@@ -21,10 +18,10 @@ public class GroupPostRequest {
     @NotNull
     private GroupType type;
 
-    private Date startDate;
-    private Date endDate;
-    private Date recruitStartDate;
-    private Date recruitDeadlineDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private LocalDate recruitStartDate;
+    private LocalDate recruitDeadlineDate;
     private String shortIntro;
     private String tag;
     private String optionalRequirements;
