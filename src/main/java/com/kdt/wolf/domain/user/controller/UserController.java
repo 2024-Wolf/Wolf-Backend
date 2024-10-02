@@ -20,4 +20,6 @@ public class UserController {
         UserProfileResponse response = userService.getUserProfile(userId);
         return ApiResult.ok(response);
     }
+
+
 }
