@@ -14,6 +14,7 @@ import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.domain.user.service.AuthService;
+import com.kdt.wolf.domain.user.service.RefreshTokenService;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.base.ApiResult;
 import java.time.Clock;
@@ -70,5 +71,27 @@ class AuthControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         assertTrue(result.getResponse().getContentAsString().contains("accessToken"));
+    }
+
+    //    @PostMapping("/user")
+    //    public ApiResult<?> logout(@RequestBody LogoutRequest request) {
+    //        authService.logout(request.refreshToken());
+    //        return ApiResult.ok();
+    //    }
+    //
+    //    @DeleteMapping("/user")
+    //    public ApiResult<Status> removeUser(@AuthenticationPrincipal AuthenticatedUser user) {
+    //        Status status = authService.removeUser(user.getUserId());
+    //        return ApiResult.ok(status);
+    //    }
+    @Test
+    @WithMockUser
+    void logout() throws Exception {
+
+        mockMvc.perform(post("/api/v1/auth/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(tokenResponse)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 }

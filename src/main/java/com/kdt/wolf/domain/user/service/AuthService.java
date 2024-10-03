@@ -9,6 +9,7 @@ import com.kdt.wolf.domain.user.dao.UserLoginResult;
 import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginResponse;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
@@ -102,5 +103,11 @@ public class AuthService {
     public void logout(String refreshToken) {
         validateRefreshToken(refreshToken);
         refreshTokenService.deleteRefreshToken(refreshToken);
+    }
+
+    public Status removeUser(Long userId) {
+        // 유저 삭제 우선 safe delete로 구현
+        refreshTokenService.deleteRefreshTokenByUserId(userId);
+        return userDao.changeUserStatus(userId);
     }
 }
