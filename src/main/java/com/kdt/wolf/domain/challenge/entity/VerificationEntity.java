@@ -18,6 +18,9 @@ public class VerificationEntity {
   @SequenceGenerator(name = "seq_verification_id", sequenceName = "verification_sequence", allocationSize = 1)
   private Long verificationId;
 
+  // 챌린지 id
+  private Long challengePostId;
+
   // 신청 id
   private Long registrationId;
 
@@ -31,8 +34,9 @@ public class VerificationEntity {
   private LocalDate verificationDate;
 
   @Builder
-  public void VerificationEntity(Long registrationId, Long userId, String certificationNo, String institutionName, String verificationContent) {
+  public void VerificationEntity(Long registrationId, Long challengePostId, Long userId, String certificationNo, String institutionName, String verificationContent) {
     this.registrationId = registrationId;
+    this.challengePostId = challengePostId;
     this.userId = userId;
     this.certificationNo = certificationNo;
     this.institutionName = institutionName;

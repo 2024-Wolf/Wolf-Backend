@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChallengeService {
 
-    private final ChallengePostDao challengePostDao;
-
     @Autowired
-    public ChallengeService(ChallengePostDao challengePostDao) {
-        this.challengePostDao = challengePostDao;
-    }
+    private ChallengePostDao challengePostDao;
+
+
 }
