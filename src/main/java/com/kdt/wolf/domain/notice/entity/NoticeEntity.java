@@ -19,13 +19,13 @@ public class NoticeEntity extends BaseTimeEntity {
 //    @SequenceGenerator(name = "seq_notice_id", sequenceName = "notice_sequence", allocationSize = 1)
     private Long noticeId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String noticeTitle;
 
     @Column(nullable = false)
     private String noticeContent;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 255)
     private String noticeThumbnail;
 
     @ManyToOne
