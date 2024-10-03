@@ -69,4 +69,8 @@ public class UserEntity extends BaseTimeEntity {
     public void updateRefundAccount(String refundAccount) {
         this.refundAccount = refundAccount;
     }
+
+    public void changeStatus(Status status) {
+        this.status = status;
+    }
 }

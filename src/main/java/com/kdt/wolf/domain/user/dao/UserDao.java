@@ -3,6 +3,7 @@ package com.kdt.wolf.domain.user.dao;
 import com.kdt.wolf.domain.user.dto.LoginFlag;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.domain.user.repository.UserRepository;
@@ -35,6 +36,16 @@ public class UserDao {
                 request.experience(),
                 request.interests()
         );
-        userRepository.save(user);
+        saveUser(user);
+    }
+
+    public Status changeUserStatus(Long userId) {
+        UserEntity user = findById(userId);
+        user.changeStatus(Status.WITHDRAWN);
+        return saveUser(user).getStatus();
+    }
+
+    private UserEntity saveUser(UserEntity user) {
+        return userRepository.save(user);
     }
 }
