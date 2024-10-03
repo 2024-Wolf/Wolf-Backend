@@ -31,7 +31,11 @@ public class RefreshTokenService {
         return tokenProvider.getExpirationDateFromToken(refreshToken);
     }
 
-    public void deleteRefreshToken(Long userId) {
-        refreshTokenDao.deleteRefreshToken(userId);
+    public void deleteRefreshTokenByUserId(Long userId) {
+        refreshTokenDao.deleteRefreshTokenByUserId(userId);
+    }
+
+    public void deleteRefreshToken(String refreshToken) {
+        refreshTokenDao.deleteRefreshToken(refreshToken);
     }
 }

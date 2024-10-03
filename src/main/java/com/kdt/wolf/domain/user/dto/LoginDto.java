@@ -24,4 +24,7 @@ public class LoginDto {
         TokenResponse tokenResponse,
         LoginFlag loginFlag
     ) {}
+    public record LogoutRequest(
+            String refreshToken
+    ) {}
 }

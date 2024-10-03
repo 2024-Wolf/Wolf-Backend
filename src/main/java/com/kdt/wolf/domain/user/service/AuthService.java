@@ -11,7 +11,6 @@ import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
-import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
@@ -60,7 +59,7 @@ public class AuthService {
     }
 
     private TokenResponse generateJwtTokenResponse(UserEntity user) {
-        refreshTokenService.deleteRefreshToken(user.getUserId());
+        refreshTokenService.deleteRefreshTokenByUserId(user.getUserId());
 
         TokenResponse tokenResponse = tokenProvider.generateJwtTokenResponse(user);
         refreshTokenService.saveRefreshToken(user, tokenResponse.refreshToken());
@@ -98,5 +97,10 @@ public class AuthService {
         } catch (Exception e) {
             throw new BusinessException(ExceptionCode.REFRESH_TOKEN_VALIDATION_FAILED);
         }
+    }
+
+    public void logout(String refreshToken) {
+        validateRefreshToken(refreshToken);
+        refreshTokenService.deleteRefreshToken(refreshToken);
     }
 }
