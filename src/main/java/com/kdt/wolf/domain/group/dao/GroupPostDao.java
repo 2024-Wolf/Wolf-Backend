@@ -33,8 +33,12 @@ public class GroupPostDao {
         };
     }
 
+    public List<GroupPostEntity> findByKeyword(String keyword) {
+        return groupPostRepository.findByKeyword(keyword);
+    }
+
     public void createPost(GroupPostRequest request) {
-        UserEntity leaderUser = userRepository.findById(request.getLeaderUser())
+        UserEntity leaderUser = userRepository.findById(request.getLeaderUser().getUserId())
                 .orElseThrow(UserNotFoundException::new);
 
         // GroupPostEntity 생성

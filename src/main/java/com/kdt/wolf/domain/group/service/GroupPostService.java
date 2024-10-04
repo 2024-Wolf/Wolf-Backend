@@ -5,11 +5,9 @@ import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +25,13 @@ public class GroupPostService {
     // 모집 글 생성 메서드
     public void createPost(GroupPostRequest request) {
         groupPostDao.createPost(request);
+    }
+
+    public List<GroupPostResponse> searchPosts(String keyword) {
+        List<GroupPostEntity> posts = groupPostDao.findByKeyword(keyword);
+        return posts.stream()
+                .map(GroupPostResponse::new)
+                .toList();
     }
 
 }

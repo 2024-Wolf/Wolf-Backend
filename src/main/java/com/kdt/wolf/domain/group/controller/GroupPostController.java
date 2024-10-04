@@ -2,11 +2,8 @@ package com.kdt.wolf.domain.group.controller;
 
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest; // 추가: 요청 DTO
-import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.service.GroupPostService;
 import com.kdt.wolf.global.base.ApiResult;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,5 +28,11 @@ public class GroupPostController {
     public ApiResult<Void> createPost(@RequestBody GroupPostRequest request) {
         groupPostService.createPost(request);
         return ApiResult.ok(null);
+    }
+
+    @GetMapping("/search/{keyword}")
+    public ApiResult<List<GroupPostResponse>> searchPosts(@PathVariable String keyword) {
+        List<GroupPostResponse> responses = groupPostService.searchPosts(keyword);
+        return ApiResult.ok(responses);
     }
 }
