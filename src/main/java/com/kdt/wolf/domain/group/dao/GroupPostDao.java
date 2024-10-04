@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -30,7 +29,7 @@ public class GroupPostDao {
             case "all" -> groupPostRepository.findAll();
             case "study" -> groupPostRepository.findByType(GroupType.STUDY);
             case "project" -> groupPostRepository.findByType(GroupType.PROJECT);
-            default -> throw new IllegalArgumentException("Invalid option: " + option);
+            default -> throw new NotFoundException();
         };
     }
 
