@@ -1,11 +1,7 @@
 package com.kdt.wolf.domain.user.controller;
 
-import com.kdt.wolf.domain.user.dto.response.UserProfileResponse;
-import com.kdt.wolf.global.base.ApiResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AdminController {
