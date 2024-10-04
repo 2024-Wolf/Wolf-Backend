@@ -3,6 +3,7 @@ package com.kdt.wolf.domain.user.controller;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
+import com.kdt.wolf.domain.user.dto.UserDto.UserUpdateRequest;
 import com.kdt.wolf.domain.user.service.UserService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
@@ -33,6 +34,14 @@ public class UserController {
     @GetMapping("/user/my")
     public ApiResult<UserProfileDetailResponse> getMyProfile(@AuthenticationPrincipal AuthenticatedUser user) {
         UserProfileDetailResponse response = userService.getUserProfileDetail(user.getUserId());
+        return ApiResult.ok(response);
+    }
+
+    @Operation(summary = "내 프로필 수정")
+    @PostMapping("/user/my")
+    public ApiResult<UserProfileDetailResponse> updateMyProfile(@RequestBody UserUpdateRequest request,
+                                        @AuthenticationPrincipal AuthenticatedUser user) {
+        UserProfileDetailResponse response = userService.updateMyProfile(user.getUserId(), request);
         return ApiResult.ok(response);
     }
 

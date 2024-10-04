@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.user.entity;
 
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
+import com.kdt.wolf.domain.user.dto.UserDto.UserUpdateRequest;
 import com.kdt.wolf.domain.user.entity.common.SocialType;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
@@ -103,5 +104,17 @@ public class UserEntity extends BaseTimeEntity {
                 profilePicture,
                 activityMetrics.toResponse()
         );
+    }
+
+    public UserEntity updateProfile(UserUpdateRequest request) {
+        this.nickname = request.nickname();
+        this.name = request.name();
+        updateDetailProfile(
+                request.jobTitle(),
+                request.organization(),
+                request.experience(),
+                request.interests()
+        );
+        return this;
     }
 }
