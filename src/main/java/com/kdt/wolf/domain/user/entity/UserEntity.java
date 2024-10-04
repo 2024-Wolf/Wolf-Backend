@@ -1,5 +1,7 @@
 package com.kdt.wolf.domain.user.entity;
 
+import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
+import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
 import com.kdt.wolf.domain.user.entity.common.SocialType;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
@@ -44,6 +46,9 @@ public class UserEntity extends BaseTimeEntity {
     // 정지 날짜를 저장할 필드 (3일 정지 시 사용)
     private LocalDate suspensionDate;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private ActivityMetricsEntity activityMetrics;
+
     @Builder
     public UserEntity(String nickname, String name, String email, String profilePicture, SocialType socialType,
                       Status status) {
@@ -72,5 +77,31 @@ public class UserEntity extends BaseTimeEntity {
 
     public void changeStatus(Status status) {
         this.status = status;
+    }
+
+    public UserProfileDetailResponse toUserProfileDetailResponse() {
+        return new UserProfileDetailResponse(
+                userId,
+                nickname,
+                name,
+                email,
+                profilePicture,
+                activityMetrics.toResponse(),
+                jobTitle,
+                organization,
+                experience,
+                interests,
+                refundAccount,
+                introduction
+        );
+    }
+
+    public UserProfileResponse toUserProfileResponse() {
+        return new UserProfileResponse(
+                userId,
+                nickname,
+                profilePicture,
+                activityMetrics.toResponse()
+        );
     }
 }

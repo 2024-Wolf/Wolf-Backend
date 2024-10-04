@@ -2,12 +2,15 @@ package com.kdt.wolf.domain.user.dao;
 
 import com.kdt.wolf.domain.user.dto.LoginFlag;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
+import com.kdt.wolf.domain.user.entity.ActivityMetricsEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
+import com.kdt.wolf.domain.user.repository.ActivityMetricsRepository;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.UserNotFoundException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserDao {
     private final UserRepository userRepository;
+    private final ActivityMetricsRepository activityMetricsRepository;
 
     public UserEntity findById(Long userId) {
         return userRepository.findById(userId)
@@ -22,9 +26,13 @@ public class UserDao {
     }
 
     public UserLoginResult signUpOrSignIn(OAuth2UserInfo userInfo) {
-        return userRepository.findByEmail(userInfo.getEmail())
-                .map(u -> new UserLoginResult(u, LoginFlag.LOGIN))
-                .orElseGet(() -> new UserLoginResult(userRepository.save(userInfo.toEntity()), LoginFlag.SIGNUP));
+        Optional<UserEntity> user = userRepository.findByEmail(userInfo.getEmail());
+        if(user.isPresent()) {
+            return new UserLoginResult(user.get(), LoginFlag.LOGIN);
+        }
+        UserEntity newUser = userRepository.save(userInfo.toEntity());
+        activityMetricsRepository.save(new ActivityMetricsEntity(newUser));
+        return new UserLoginResult(newUser, LoginFlag.SIGNUP);
     }
 
     public void updateUser(long userId, SignUpRequest request) {

@@ -1,7 +1,10 @@
 package com.kdt.wolf.domain.user.entity;
 
+import com.kdt.wolf.domain.user.dto.UserDto.ActivityMetric;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
@@ -15,29 +18,54 @@ import lombok.NoArgsConstructor;
 @Entity @Table(name = "activity_metrics")
 public class ActivityMetricsEntity {
     @Id
-    @OneToOne
+    private Long userId;
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @MapsId  // UserEntity의 ID를 ActivityMetrics의 ID로 사용
     private UserEntity user;
 
     @Column(columnDefinition = "NUMBER DEFAULT 0")
-    private int totalStudyParticipation = 0;
+    private int totalStudyParticipation;
 
     @Column(columnDefinition = "NUMBER DEFAULT 0")
-    private int memberExperienceCount = 0;
+    private int memberExperienceCount;
 
     @Column(columnDefinition = "NUMBER DEFAULT 0")
-    private int leaderExperienceCount = 0;
+    private int leaderExperienceCount;
 
     @Column(columnDefinition = "NUMBER DEFAULT 0")
-    private int challengeSuccessCount = 0;
+    private int challengeSuccessCount;
 
     @Column(columnDefinition = "NUMBER DEFAULT 0")
-    private int activityRatingGood = 0;
+    private int activityRatingGood;
 
     @Column(columnDefinition = "NUMBER DEFAULT 0")
-    private int activityRatingSoso = 0;
+    private int activityRatingSoso;
 
     @Column(columnDefinition = "NUMBER DEFAULT 0")
-    private int activityRatingBad = 0;
+    private int activityRatingBad;
+
+    public ActivityMetricsEntity(UserEntity user) {
+        this.user = user;
+        this.totalStudyParticipation = 0;
+        this.memberExperienceCount = 0;
+        this.leaderExperienceCount = 0;
+        this.challengeSuccessCount = 0;
+        this.activityRatingGood = 0;
+        this.activityRatingSoso = 0;
+        this.activityRatingBad = 0;
+    }
+
+    public ActivityMetric toResponse() {
+        return new ActivityMetric(
+                totalStudyParticipation,
+                memberExperienceCount,
+                leaderExperienceCount,
+                challengeSuccessCount,
+                activityRatingGood,
+                activityRatingSoso,
+                activityRatingBad
+        );
+    }
 }
