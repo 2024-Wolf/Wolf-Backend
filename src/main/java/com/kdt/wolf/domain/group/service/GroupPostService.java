@@ -8,12 +8,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class GroupPostService {
 
     private final GroupPostDao groupPostDao;
+
+    public  GroupPostResponse getGroupPostById(long groupPostId) {
+        GroupPostEntity groupPostEntity = groupPostDao.findById(groupPostId);
+        return new GroupPostResponse(groupPostEntity);
+    }
 
     public List<GroupPostResponse> getPostsByOption(String option) {
         List<GroupPostEntity> posts = groupPostDao.findByType(option);
@@ -22,7 +28,6 @@ public class GroupPostService {
                 .toList();
     }
 
-    // 모집 글 생성 메서드
     public void createPost(GroupPostRequest request) {
         groupPostDao.createPost(request);
     }

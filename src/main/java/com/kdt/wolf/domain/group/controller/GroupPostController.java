@@ -26,7 +26,7 @@ public class GroupPostController {
         return ApiResult.ok(null);
     }
 
-    @Operation(summary = "모집글 조회")
+    @Operation(summary = "모집글 Type별 View")
     @GetMapping("/{option}")
     public ApiResult<List<GroupPostResponse>> getPosts(@PathVariable String option) {
         List<GroupPostResponse> responses = groupPostService.getPostsByOption(option);
@@ -38,5 +38,12 @@ public class GroupPostController {
     public ApiResult<List<GroupPostResponse>> searchPosts(@PathVariable String keyword) {
         List<GroupPostResponse> responses = groupPostService.searchPosts(keyword);
         return ApiResult.ok(responses);
+    }
+
+    @Operation(summary = "그룹 정보 조회")
+    @GetMapping("/{postId}")
+    public ApiResult<GroupPostResponse> getGroupPost(@PathVariable Long postId) {
+        GroupPostResponse groupPostResponse = groupPostService.getGroupPostById(postId);
+        return ApiResult.ok(groupPostResponse);
     }
 }

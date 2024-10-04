@@ -29,7 +29,7 @@ public class GroupPostDao {
             case "all" -> groupPostRepository.findAll();
             case "study" -> groupPostRepository.findByType(GroupType.STUDY);
             case "project" -> groupPostRepository.findByType(GroupType.PROJECT);
-            default -> throw new IllegalArgumentException("Invalid option: " + option);
+            default -> throw new NotFoundException();
         };
     }
 
