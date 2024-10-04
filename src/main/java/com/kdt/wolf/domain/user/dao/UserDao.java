@@ -47,6 +47,10 @@ public class UserDao {
         saveUser(user);
     }
 
+    public void updateUser(UserEntity user) {
+        saveUser(user);
+    }
+
     public Status changeUserStatus(Long userId) {
         UserEntity user = findById(userId);
         user.changeStatus(Status.WITHDRAWN);

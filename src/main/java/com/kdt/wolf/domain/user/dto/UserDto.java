@@ -23,6 +23,18 @@ public class UserDto {
             String introduction
     ) {}
 
+    public record UserUpdateRequest(
+            Long id,
+            String nickname,
+            String name,
+            String jobTitle,
+            String organization,
+            int experience,
+            String interests,
+            String refundAccount,
+            String introduction
+    ) {}
+
     public record ActivityMetric(
             int totalStudyParticipation,
             int memberExperienceCount,
