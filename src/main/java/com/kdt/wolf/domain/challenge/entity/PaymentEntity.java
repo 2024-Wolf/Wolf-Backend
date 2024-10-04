@@ -26,7 +26,7 @@ public class PaymentEntity {
     private LocalDate paymentDate;
 
     @Builder
-    public void PaymentEntity(Long registrationId, Long userId) {
+    public PaymentEntity(Long registrationId, Long userId) {
         this.registrationId = registrationId;
         this.userId = userId;
         this.paymentStatus = 'N';

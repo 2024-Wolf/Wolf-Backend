@@ -12,14 +12,14 @@ import java.util.List;
 public interface ChallengePostRepository extends JpaRepository<ChallengePostEntity, Long> {
 
     // 신청 가능
-    @Query("select distinct T.challengePostId " +
+    @Query("select distinct T.challengePostId, T.img, T.title, T.date, T.deadline " +
             "from ChallengePostEntity T left join ChallengeRegistrationEntity R " +
             "on T.challengePostId = R.challengePostId " +
             "where R.registrationId is null or R.groupPostId != :groupPostId")
     List<ChallengePostEntity> findAppliable(@Param("groupPostId")Long groupPostId);
 
     // 참여 가능
-    @Query("select distinct T.challengePostId from ChallengePostEntity T " +
+    @Query("select distinct T.challengePostId, T.img, T.title, T.date, T.deadline from ChallengePostEntity T " +
             "where T.challengePostId in " +
             "(" +
             "  select R.challengePostId from ChallengeRegistrationEntity R left join PaymentEntity P" +
@@ -29,21 +29,21 @@ public interface ChallengePostRepository extends JpaRepository<ChallengePostEnti
     List<ChallengePostEntity> findPayable(@Param("groupPostId")Long groupPostId, @Param("userId")Long userId);
 
     // 인증 가능
-    @Query("select T.challengePostId from ChallengePostEntity T " +
+    @Query("select T.challengePostId, T.img, T.title, T.date, T.deadline from ChallengePostEntity T " +
             "where T.challengePostId in " +
             "(" +
             "  select R.challengePostId from ChallengeRegistrationEntity R join PaymentEntity P" +
             "  on R.registrationId = P.registrationId" +
             "  where R.challengePostId not in" +
             "  (" +
-            "    select V.challengePostId from VerificationEntity V where V.userId = ? and V.verificationStatus = 'Y'" +
+            "    select V.challengePostId from VerificationEntity V where V.userId = :userId and V.verificationStatus = 'Y'" +
             "  )" +
             "  and R.groupPostId = :groupPostId" +
             ")")
-    List<ChallengePostEntity> findCertifiable(@Param("groupPostId")Long groupPostId);
+    List<ChallengePostEntity> findCertifiable(@Param("groupPostId")Long groupPostId, @Param("userId")Long userId);
 
     // 인증 완료
-    @Query("select T.challengePostId from ChallengePostEntity T join ChallengeRegistrationEntity R " +
+    @Query("select T.challengePostId, T.img, T.title, T.date, T.deadline from ChallengePostEntity T join ChallengeRegistrationEntity R " +
             "on T.challengePostId = R.challengePostId " +
             "where R.challengePostId in " +
             "(" +
@@ -55,7 +55,7 @@ public interface ChallengePostRepository extends JpaRepository<ChallengePostEnti
     List<ChallengePostEntity> findCertificationCompleted(@Param("userId")Long userId, @Param("groupPostId")Long groupPostId);
 
     // 챌린지 종료
-    @Query("select T.challengePostId from ChallengePostEntity T join ChallengeRegistrationEntity R " +
+    @Query("select T.challengePostId, T.img, T.title, T.date, T.deadline from ChallengePostEntity T join ChallengeRegistrationEntity R " +
             "on T.challengePostId = R.challengePostId " +
             "where R.challengePostId in " +
             "(" +

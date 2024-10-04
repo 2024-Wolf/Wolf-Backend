@@ -27,7 +27,7 @@ public class ChallengeRegistrationEntity {
   private LocalDate registrationDate;
 
   @Builder
-  public void ChallengeRegistrationEntity(Long challengePostId, Long groupPostId, Long challengeAmount) {
+  public ChallengeRegistrationEntity(Long challengePostId, Long groupPostId, Long challengeAmount) {
     this.challengePostId = challengePostId;
     this.groupPostId = groupPostId;
     this.ChallengeAmount = challengeAmount;

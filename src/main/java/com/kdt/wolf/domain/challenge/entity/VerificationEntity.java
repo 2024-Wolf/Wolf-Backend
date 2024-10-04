@@ -34,7 +34,7 @@ public class VerificationEntity {
   private LocalDate verificationDate;
 
   @Builder
-  public void VerificationEntity(Long registrationId, Long challengePostId, Long userId, String certificationNo, String institutionName, String verificationContent) {
+  public VerificationEntity(Long registrationId, Long challengePostId, Long userId, String certificationNo, String institutionName, String verificationContent) {
     this.registrationId = registrationId;
     this.challengePostId = challengePostId;
     this.userId = userId;
