@@ -2,19 +2,17 @@ package com.kdt.wolf.domain.challenge.service;
 
 import com.kdt.wolf.domain.challenge.dao.ChallengePostDao;
 import com.kdt.wolf.domain.challenge.dto.response.ChallengeListResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ChallengeService {
 
     private final ChallengePostDao challengePostDao;
-
-    public ChallengeService(ChallengePostDao challengePostDao) {
-        this.challengePostDao = challengePostDao;
-    }
 
     public List<ChallengeListResponse> getAllChallenges(Long groupId, Long userId){
         List<ChallengeListResponse> listResponse = new ArrayList<>();

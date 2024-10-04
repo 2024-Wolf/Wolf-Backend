@@ -8,14 +8,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Component
 public class ChallengePostDao {
 
     private final ChallengePostRepository challengePostRepository;
-
-    public ChallengePostDao(ChallengePostRepository challengePostRepository) {
-        this.challengePostRepository = challengePostRepository;
-    }
 
     // 신청 가능
     public List<ChallengePostEntity> appliableChallenges(Long groupId){
