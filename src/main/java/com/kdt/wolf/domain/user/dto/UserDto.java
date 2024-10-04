@@ -2,8 +2,8 @@ package com.kdt.wolf.domain.user.dto;
 
 public class UserDto {
     public record UserProfileResponse(
-            String nickname,
             Long id,
+            String nickname,
             String profilePicture,
             ActivityMetric activityMetric
     ) {}

@@ -2,7 +2,7 @@ package com.kdt.wolf.domain.user.controller;
 
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
-import com.kdt.wolf.domain.user.dto.response.UserProfileResponse;
+import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
 import com.kdt.wolf.domain.user.service.UserService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
