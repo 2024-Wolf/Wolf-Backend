@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChallengeRegistrationQueryRepository extends JpaRepository<ChallengeRegistrationEntity, Long> {
-    //TODO : Preview가 아니라,,, 다른 데이터 클래스를 만들어야할 듯. 프리뷰 내용 + 인증 여부 아니면 쿼리에서 나눠도 되는데 .. 비효율적임
-    //TODO : 결제 여부도 넣으면 쿼리 개수를 줄일 수 있지 않을까 ?
+
     /** 진행 중인 챌린지: 신청 O, 결제 O, 마감일 이전  + 인증 여부 */
     @Query("SELECT new com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview ("
             + "r.challengePost.challengePostId, r.challengePost.img, r.challengePost.title, r.registrationDate, r.challengePost.deadline) "
