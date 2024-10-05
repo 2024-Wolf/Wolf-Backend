@@ -39,7 +39,7 @@ public class GroupChallengeParticipantEntity extends BaseTimeEntity {
     private char paymentStatus;
 
     @Column(columnDefinition = "VARCHAR2(1)")
-    private char participationStatus;
+    private char participationStatus; //인증 여부
 
     @Builder
     public GroupChallengeParticipantEntity(ChallengeRegistrationEntity challengeRegistration, UserEntity user) {

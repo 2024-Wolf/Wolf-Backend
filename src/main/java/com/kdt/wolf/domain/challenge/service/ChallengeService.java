@@ -20,11 +20,53 @@ public class ChallengeService {
     public Map<String, List<ChallengePreview>> getAllChallenges(Long groupId, Long userId){
         Map<String, List<ChallengePreview>> challengesByStatus = new HashMap<>();
 
-        challengesByStatus.put("신청 가능",
-                challengePostDao.findOngoingChallenges(groupId, userId)
+
+
+        challengesByStatus.put(ChallengeStatus.CERTIFICATION.getDescription(),
+                challengePostDao.findCertifiableChallenges(groupId, userId)
                         .stream()
                         .map(post -> {
-                            ChallengeStatus status = null;
+                            ChallengeStatus status = ChallengeStatus.CERTIFICATION;
+                            return new ChallengePreview(post, status);
+                        })
+                        .toList()
+        );
+
+        challengesByStatus.put(ChallengeStatus.CERTIFICATION_COMPLETE.getDescription(),
+                challengePostDao.findCertifiedChallenges(groupId, userId)
+                        .stream()
+                        .map(post -> {
+                            ChallengeStatus status = ChallengeStatus.APPLY;
+                            return new ChallengePreview(post, status);
+                        })
+                        .toList()
+        );
+
+        challengesByStatus.put(ChallengeStatus.RESULT_CONFIRM.getDescription(),
+                challengePostDao.findCompletedChallenges(groupId, userId)
+                        .stream()
+                        .map(post -> {
+                            ChallengeStatus status = ChallengeStatus.RESULT_CONFIRM;
+                            return new ChallengePreview(post, status);
+                        })
+                        .toList()
+        );
+
+        challengesByStatus.put(ChallengeStatus.APPLY.getDescription(),
+                challengePostDao.findAvailableChallenges(groupId)
+                        .stream()
+                        .map(post -> {
+                            ChallengeStatus status = ChallengeStatus.APPLY;
+                            return new ChallengePreview(post, status);
+                        })
+                        .toList()
+        );
+
+        challengesByStatus.put(ChallengeStatus.PARTICIPATE.getDescription(),
+                challengePostDao.findJoinableChallenges(groupId, userId)
+                        .stream()
+                        .map(post -> {
+                            ChallengeStatus status = ChallengeStatus.PARTICIPATE;
                             return new ChallengePreview(post, status);
                         })
                         .toList()
