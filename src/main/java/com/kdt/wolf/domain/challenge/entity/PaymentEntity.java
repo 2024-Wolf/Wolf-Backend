@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.challenge.entity;
 
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,19 +17,23 @@ public class PaymentEntity {
     @SequenceGenerator(name = "seq_payment_id", sequenceName = "payment_sequence", allocationSize = 1)
     private Long paymentId;
 
-    // 신청 id
-    private Long registrationId;
+    // ChallengeRegistrationEntity와 다대일 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "registration_id")
+    private ChallengeRegistrationEntity registration;
 
-    // 결제 회원 id
-    private Long userId;
+    // UserEntity와 다대일 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     private char paymentStatus;
     private LocalDate paymentDate;
 
     @Builder
-    public PaymentEntity(Long registrationId, Long userId) {
-        this.registrationId = registrationId;
-        this.userId = userId;
+    public PaymentEntity(ChallengeRegistrationEntity registration, UserEntity user) {
+        this.registration = registration;
+        this.user = user;
         this.paymentStatus = 'N';
         this.paymentDate = LocalDate.now();
     }
@@ -36,5 +41,4 @@ public class PaymentEntity {
     public void updatePaymentStatus() {
         this.paymentStatus = 'Y';
     }
-
 }

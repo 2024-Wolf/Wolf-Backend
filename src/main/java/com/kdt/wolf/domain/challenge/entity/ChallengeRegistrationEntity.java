@@ -1,10 +1,10 @@
 package com.kdt.wolf.domain.challenge.entity;
 
+import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Entity
@@ -17,20 +17,24 @@ public class ChallengeRegistrationEntity {
   @SequenceGenerator(name = "seq_challenge_reg_id", sequenceName = "challenge_reg_seq", allocationSize = 1)
   private Long registrationId;
 
-  // 챌린지 id
-  private Long challengePostId;
+  // ChallengePostEntity와 다대일 관계 설정
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "challenge_post_id")
+  private ChallengePostEntity challengePost;
 
-  // 신청 그룹 id
-  private Long groupPostId;
+  // GroupPostEntity와 다대일 관계 설정
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "group_post_id")
+  private GroupPostEntity groupPost;
 
-  private Long ChallengeAmount;
+  private Long challengeAmount;
   private LocalDate registrationDate;
 
   @Builder
-  public ChallengeRegistrationEntity(Long challengePostId, Long groupPostId, Long challengeAmount) {
-    this.challengePostId = challengePostId;
-    this.groupPostId = groupPostId;
-    this.ChallengeAmount = challengeAmount;
+  public ChallengeRegistrationEntity(ChallengePostEntity challengePost, GroupPostEntity groupPost, Long challengeAmount) {
+    this.challengePost = challengePost;
+    this.groupPost = groupPost;
+    this.challengeAmount = challengeAmount;
     this.registrationDate = LocalDate.now();
   }
 

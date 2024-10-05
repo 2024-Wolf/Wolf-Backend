@@ -11,15 +11,13 @@ public class ChallengeListResponse {
     private final String title;
     private final String date;
     private final String deadline;
-    private final String state;
 
-    public ChallengeListResponse(ChallengePostEntity challengeEntity, String state) {
+    public ChallengeListResponse(ChallengePostEntity challengeEntity) {
         this.challengePostId = challengeEntity.getChallengePostId();
         this.img = challengeEntity.getImg();
         this.title = challengeEntity.getTitle();
         this.date = challengeEntity.getDate().toString();
         this.deadline = challengeEntity.getDeadline().toString();
-        this.state = state;
     }
 
 }

@@ -17,7 +17,7 @@ public class ChallengePostEntity {
     @SequenceGenerator(name = "seq_challenge_post_id", sequenceName = "challenge_post_sequence", allocationSize = 1)
     private Long challengePostId;
 
-    // 작성자 id
+    // 작성자 id (어드민)
     private Long userId;
 
     private String img;
