@@ -2,52 +2,25 @@ package com.kdt.wolf.domain.challenge.dto;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import lombok.Getter;
 
 public class ChallengeDto {
-    public record ChallengePreview(
-            Long challengePostId,
-            String img,
-            String title,
-            String registrationDate,
-            String deadline,
-            ChallengeStatus status
-    ) {
-        public ChallengePreview(Long challengePostId,
-                                String img,
-                                String title,
-                                LocalDate registrationDate,
-                                LocalDate deadline) {
-            this(challengePostId,
-                    img,
-                    title,
-                    registrationDate.toString(),
-                    deadline.toString(),
-                    null
-            );
-        }
-        public ChallengePreview(Long challengePostId,
-                                String img,
-                                String title,
-                                LocalDateTime registrationDate,
-                                LocalDate deadline) {
-            this(challengePostId,
-                    img,
-                    title,
-                    registrationDate.toString(),
-                    deadline.toString(),
-                    null
-            );
-        }
+    @Getter
+    public static class ChallengePreview {
+        private final Long challengePostId;
+        private final String img;
+        private final String title;
+        private final String registrationDate;
+        private final String deadline;
+        private final ChallengeStatus status;
 
-        public ChallengePreview (ChallengePreview challengePreview ,ChallengeStatus status) {
-            this(challengePreview.challengePostId(),
-                    challengePreview.img(),
-                    challengePreview.title(),
-                    challengePreview.registrationDate(),
-                    challengePreview.deadline(),
-                    status
-            );
+        public ChallengePreview(Long challengePostId, String img, String title, LocalDate registrationDate, LocalDate deadline, ChallengeStatus status) {
+            this.challengePostId = challengePostId;
+            this.img = img;
+            this.title = title;
+            this.registrationDate = registrationDate.toString();
+            this.deadline = deadline.toString();
+            this.status = status;
         }
     }
 }

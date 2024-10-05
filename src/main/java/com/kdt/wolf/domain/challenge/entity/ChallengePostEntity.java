@@ -26,7 +26,6 @@ public class ChallengePostEntity extends BaseTimeEntity {
     private String content;
     private String manner;
     private String awardContent;
-    private LocalDate date;
     private LocalDate deadline;
 
     @Builder
@@ -37,7 +36,6 @@ public class ChallengePostEntity extends BaseTimeEntity {
         this.content = content;
         this.manner = manner;
         this.awardContent = null;
-        this.date = LocalDate.now();
         this.deadline = deadline;
     }
 

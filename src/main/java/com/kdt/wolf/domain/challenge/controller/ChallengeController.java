@@ -1,9 +1,10 @@
 package com.kdt.wolf.domain.challenge.controller;
 
 
-import com.kdt.wolf.domain.challenge.dto.response.ChallengeListResponse;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.service.ChallengeService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
+import java.util.Map;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class ChallengeController {
     }
 
     @GetMapping("/challenges/{groupPostId}")
-    public List<ChallengeListResponse> getAllChallenges(@PathVariable Long groupPostId, @AuthenticationPrincipal AuthenticatedUser user) {
+    public Map<String,List<ChallengePreview>> getAllChallenges(@PathVariable Long groupPostId, @AuthenticationPrincipal AuthenticatedUser user) {
         return challengeService.getAllChallenges(groupPostId, user.getUserId());
     }
 }

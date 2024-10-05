@@ -27,7 +27,14 @@ public class ChallengeService {
                         .stream()
                         .map(post -> {
                             ChallengeStatus status = ChallengeStatus.CERTIFICATION;
-                            return new ChallengePreview(post, status);
+                            return new ChallengePreview(
+                                    post.getChallengePost().getChallengePostId(),
+                                    post.getChallengePost().getImg(),
+                                    post.getChallengePost().getTitle(),
+                                    post.getRegistrationDate(),
+                                    post.getChallengePost().getDeadline(),
+                                    status
+                            );
                         })
                         .toList()
         );
@@ -37,7 +44,14 @@ public class ChallengeService {
                         .stream()
                         .map(post -> {
                             ChallengeStatus status = ChallengeStatus.APPLY;
-                            return new ChallengePreview(post, status);
+                            return new ChallengePreview(
+                                    post.getChallengePost().getChallengePostId(),
+                                    post.getChallengePost().getImg(),
+                                    post.getChallengePost().getTitle(),
+                                    post.getRegistrationDate(),
+                                    post.getChallengePost().getDeadline(),
+                                    status
+                            );
                         })
                         .toList()
         );
@@ -47,7 +61,14 @@ public class ChallengeService {
                         .stream()
                         .map(post -> {
                             ChallengeStatus status = ChallengeStatus.RESULT_CONFIRM;
-                            return new ChallengePreview(post, status);
+                            return new ChallengePreview(
+                                    post.getChallengePost().getChallengePostId(),
+                                    post.getChallengePost().getImg(),
+                                    post.getChallengePost().getTitle(),
+                                    post.getRegistrationDate(),
+                                    post.getChallengePost().getDeadline(),
+                                    status
+                            );
                         })
                         .toList()
         );
@@ -57,7 +78,14 @@ public class ChallengeService {
                         .stream()
                         .map(post -> {
                             ChallengeStatus status = ChallengeStatus.APPLY;
-                            return new ChallengePreview(post, status);
+                            return new ChallengePreview(
+                                    post.getChallengePostId(),
+                                    post.getImg(),
+                                    post.getTitle(),
+                                    post.getCreatedTime().toLocalDate(),
+                                    post.getDeadline(),
+                                    status
+                            );
                         })
                         .toList()
         );
@@ -67,7 +95,14 @@ public class ChallengeService {
                         .stream()
                         .map(post -> {
                             ChallengeStatus status = ChallengeStatus.PARTICIPATE;
-                            return new ChallengePreview(post, status);
+                            return new ChallengePreview(
+                                    post.getChallengePost().getChallengePostId(),
+                                    post.getChallengePost().getImg(),
+                                    post.getChallengePost().getTitle(),
+                                    post.getRegistrationDate(),
+                                    post.getChallengePost().getDeadline(),
+                                    status
+                            );
                         })
                         .toList()
         );
