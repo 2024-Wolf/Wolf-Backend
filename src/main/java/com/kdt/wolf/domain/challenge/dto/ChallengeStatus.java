@@ -1,4 +1,4 @@
-package com.kdt.wolf.domain.challenge.dto.response;
+package com.kdt.wolf.domain.challenge.dto;
 
 import lombok.Getter;
 

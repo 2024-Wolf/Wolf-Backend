@@ -1,8 +1,8 @@
 package com.kdt.wolf.domain.challenge.dto;
 
 
-import com.kdt.wolf.domain.challenge.dto.response.ChallengeStatus;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ChallengeDto {
     public record ChallengePreview(
@@ -24,6 +24,29 @@ public class ChallengeDto {
                     registrationDate.toString(),
                     deadline.toString(),
                     null
+            );
+        }
+        public ChallengePreview(Long challengePostId,
+                                String img,
+                                String title,
+                                LocalDateTime registrationDate,
+                                LocalDate deadline) {
+            this(challengePostId,
+                    img,
+                    title,
+                    registrationDate.toString(),
+                    deadline.toString(),
+                    null
+            );
+        }
+
+        public ChallengePreview (ChallengePreview challengePreview ,ChallengeStatus status) {
+            this(challengePreview.challengePostId(),
+                    challengePreview.img(),
+                    challengePreview.title(),
+                    challengePreview.registrationDate(),
+                    challengePreview.deadline(),
+                    status
             );
         }
     }

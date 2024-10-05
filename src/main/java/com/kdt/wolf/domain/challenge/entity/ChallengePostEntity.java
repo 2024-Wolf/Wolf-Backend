@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.challenge.entity;
 
+import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import java.util.Date;
 @Entity
 @RequiredArgsConstructor
 @Table(name = "challenge_post")
-public class ChallengePostEntity {
+public class ChallengePostEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_challenge_post_id")
