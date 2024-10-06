@@ -39,4 +39,8 @@ public class GroupPostService {
                 .toList();
     }
 
+    public void editGroupPost(long postId, GroupPostRequest request) {
+        groupPostDao.updateGroupPost(postId, request);
+    }
+
 }

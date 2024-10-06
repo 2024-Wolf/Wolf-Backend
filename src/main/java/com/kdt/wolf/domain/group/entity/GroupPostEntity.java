@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import jakarta.persistence.*;
@@ -9,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -74,5 +74,22 @@ public class GroupPostEntity{
         this.description = description;
         this.warning = warning;
         this.challengeStatus = challengeStatus;
+    }
+
+    public void updateGroupPost(GroupPostRequest request){
+        this.name = request.getName() != null ? request.getName() : this.name;
+        this.type = request.getType() != null ? request.getType() : this.type;
+        this.title = request.getTitle() != null ? request.getTitle() : this.title;
+        this.description = request.getDescription() != null ? request.getDescription() : this.description;
+        this.startDate = request.getStartDate() != null ? request.getStartDate() : this.startDate;
+        this.endDate = request.getEndDate() != null ? request.getEndDate() : this.endDate;
+        this.recruitStartDate = request.getRecruitStartDate() != null ? request.getRecruitStartDate() : this.recruitStartDate;
+        this.recruitDeadlineDate = request.getRecruitDeadlineDate() != null ? request.getRecruitDeadlineDate() : this.recruitDeadlineDate;
+        this.targetMembers = request.getTargetMembers() > 0 ? request.getTargetMembers() : this.targetMembers;
+        this.optionalRequirements = request.getOptionalRequirements() != null ? request.getOptionalRequirements() : this.optionalRequirements;
+        this.thumbnail = request.getThumbnail() != null ? request.getThumbnail() : this.thumbnail;
+        this.tag = request.getTag() != null ? request.getTag() : this.tag;
+        this.warning = request.getWarning() != null ? request.getWarning() : this.warning;
+
     }
 }
