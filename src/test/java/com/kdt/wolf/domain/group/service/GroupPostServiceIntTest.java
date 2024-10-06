@@ -246,6 +246,53 @@ public class GroupPostServiceIntTest {
         Assertions.assertEquals("Updated warning.", updatedGroupPost.getWarning());
     }
 
+    @Test
+    void deletePost() {
+        // Given: 유저 생성 및 DB에 저장
+        UserEntity leaderUser = UserEntity.builder()
+                .nickname("Leader")
+                .name("User Name")
+                .email("user@example.com")
+                .profilePicture("profile_pic_url")
+                .socialType(SocialType.KAKAO) // 예시로 KAKAO 사용
+                .status(Status.ACTIVE) // 예시로 ACTIVE 상태 사용
+                .build();
+
+        UserEntity savedLeaderUser = userRepository.save(leaderUser);
+
+        // 그룹 모집 요청 객체 생성 및 저장
+        GroupPostRequest studyRequest = GroupPostRequest.builder()
+                .name("Study Group")
+                .leaderUser(savedLeaderUser)
+                .type(GroupType.STUDY)
+                .startDate(LocalDate.now())
+                .endDate(LocalDate.now().plusDays(1))
+                .recruitStartDate(LocalDate.now())
+                .recruitDeadlineDate(LocalDate.now().plusDays(7))
+                .shortIntro("Short introduction")
+                .tag("study")
+                .optionalRequirements("No specific requirements")
+                .targetMembers(10)
+                .thumbnail("thumbnail_url")
+                .title("Study Group Title")
+                .description("Detailed description of the study group.")
+                .warning("Warning message.")
+                .challengeStatus('O') // 또는 'X'
+                .build();
+
+        groupPostService.createPost(studyRequest); // 포스트 생성
+
+        // When: 그룹 포스트 삭제 요청
+        List<GroupPostEntity> beforeDeletePosts = groupPostRepository.findAll();
+        Assertions.assertEquals(1, beforeDeletePosts.size()); // 삭제 전 포스트 개수 확인
+
+        Long groupPostId = beforeDeletePosts.get(0).getGroupPostId(); // 삭제할 포스트의 ID
+        groupPostService.deleteGroupPost(groupPostId); // 포스트 삭제 요청 수행
+
+        // Then: 삭제된 그룹 포스트가 DB에 존재하지 않음 확인
+        List<GroupPostEntity> afterDeletePosts = groupPostRepository.findAll();
+        Assertions.assertEquals(0, afterDeletePosts.size()); // 삭제 후 포스트 개수 확인
+    }
 
 
 }

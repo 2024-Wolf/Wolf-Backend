@@ -65,12 +65,18 @@ public class GroupPostDao {
     }
 
     public void updateGroupPost(Long groupPostId, GroupPostRequest request) {
-
         GroupPostEntity existingGroupPost = groupPostRepository.findById(groupPostId)
                 .orElseThrow(NotFoundException::new);
 
         existingGroupPost.updateGroupPost(request);
         groupPostRepository.save(existingGroupPost);
 
+    }
+
+    public void deleteById(Long groupPostId) {
+        if (!groupPostRepository.existsById(groupPostId)) {
+            throw new NotFoundException();
+        }
+        groupPostRepository.deleteById(groupPostId);
     }
 }
