@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
+@Setter
 @Entity
 @RequiredArgsConstructor
 @Table(name = "challenge_post")
@@ -29,13 +30,13 @@ public class ChallengePostEntity extends BaseTimeEntity {
     private LocalDate deadline;
 
     @Builder
-    public ChallengePostEntity(Long userId, String img, String title, String content, String manner, LocalDate deadline) {
+    public ChallengePostEntity(Long userId, String img, String title, String content, String manner, String awardContent, LocalDate deadline) {
         this.userId = userId;
         this.img = img;
         this.title = title;
         this.content = content;
         this.manner = manner;
-        this.awardContent = null;
+        this.awardContent = awardContent;
         this.deadline = deadline;
     }
 

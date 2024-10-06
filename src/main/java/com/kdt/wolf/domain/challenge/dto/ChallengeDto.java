@@ -2,6 +2,8 @@ package com.kdt.wolf.domain.challenge.dto;
 
 
 import java.time.LocalDate;
+
+import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
 import lombok.Getter;
 
 public class ChallengeDto {

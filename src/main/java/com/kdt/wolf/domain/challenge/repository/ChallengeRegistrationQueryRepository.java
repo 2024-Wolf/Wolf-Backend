@@ -64,4 +64,11 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + ")")
     List<ChallengePostEntity> findApplicableChallenges(Long groupId);
 
+    // 챌린지 신청 정보 조회
+    @Query("SELECT r "
+            + "FROM ChallengeRegistrationEntity r "
+            + "WHERE r.groupPost.groupPostId = :groupPostId "
+            + "AND r.challengePost.challengePostId = :challengePostId")
+    ChallengeRegistrationEntity findByChallengeRegistration(Long groupPostId, Long challengePostId);
+
 }
