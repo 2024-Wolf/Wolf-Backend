@@ -1,5 +1,6 @@
-package com.kdt.wolf.domain.user.entity;
+package com.kdt.wolf.domain.alert.entity;
 
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
