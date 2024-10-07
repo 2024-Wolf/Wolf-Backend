@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.user.controller;
 
-import com.kdt.wolf.domain.user.dto.FcmDto.AlertDto;
+import com.kdt.wolf.domain.alert.service.AlertService;
+import com.kdt.wolf.domain.alert.dto.AlertDto.AlertResponse;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final AlertService alertService;
 
     @Operation(summary = "유저 프로필 조회")
     @GetMapping("/{userId}")
@@ -54,16 +56,18 @@ public class UserController {
         return ApiResult.ok();
     }
 
+    @Operation(summary = "알람 전체 조회")
     @GetMapping("/alarms")
-    public ApiResult<List<AlertDto>> getAlarms(@AuthenticationPrincipal AuthenticatedUser user) {
+    public ApiResult<List<AlertResponse>> getAlarms(@AuthenticationPrincipal AuthenticatedUser user) {
 
-        List<AlertDto> response = userService.getAlarms(user.getUserId());
+        List<AlertResponse> response = alertService.getAlarms(user.getUserId());
         return ApiResult.ok(response);
     }
 
+    @Operation(summary = "알람 미리보기 조회")
     @GetMapping("/alarms/preview")
-    public ApiResult<List<AlertDto>> getAlarmsPreview(@AuthenticationPrincipal AuthenticatedUser user) {
-        List<AlertDto> response = userService.getAlarmsPreview(user.getUserId());
+    public ApiResult<List<AlertResponse>> getAlarmsPreview(@AuthenticationPrincipal AuthenticatedUser user) {
+        List<AlertResponse> response = alertService.getAlarmsPreview(user.getUserId());
         return ApiResult.ok(response);
     }
 

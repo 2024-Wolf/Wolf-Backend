@@ -1,4 +1,4 @@
-package com.kdt.wolf.domain.user.entity.common;
+package com.kdt.wolf.domain.alert.entity;
 
 import lombok.Getter;
 

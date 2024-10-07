@@ -1,6 +1,6 @@
-package com.kdt.wolf.domain.user.repository;
+package com.kdt.wolf.domain.alert.repository;
 
-import com.kdt.wolf.domain.user.entity.AlertEntity;
+import com.kdt.wolf.domain.alert.entity.AlertEntity;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
