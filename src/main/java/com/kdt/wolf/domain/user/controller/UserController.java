@@ -61,4 +61,10 @@ public class UserController {
         return ApiResult.ok(response);
     }
 
+    @GetMapping("/alarms/preview")
+    public ApiResult<List<AlertDto>> getAlarmsPreview(@AuthenticationPrincipal AuthenticatedUser user) {
+        List<AlertDto> response = userService.getAlarmsPreview(user.getUserId());
+        return ApiResult.ok(response);
+    }
+
 }

@@ -47,4 +47,8 @@ public class UserService {
     public List<AlertDto> getAlarms(Long userId) {
         return alertDao.getAlarms(userId);
     }
+
+    public List<AlertDto> getAlarmsPreview(Long userId) {
+        return alertDao.getAlarmsPreview(userId);
+    }
 }

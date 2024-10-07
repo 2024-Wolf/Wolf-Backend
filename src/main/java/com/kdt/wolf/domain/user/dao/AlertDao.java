@@ -27,4 +27,16 @@ public class AlertDao {
                 })
                 .toList();
     }
+
+    public List<AlertDto> getAlarmsPreview(Long userId) {
+        List<AlertEntity> alerts = alertRepository.findUnReadAlarmsByUserId(userId);
+        return alerts
+                .stream()
+                .map(alert -> new AlertDto(
+                        alert.getAlertContent(),
+                        alert.getAlertLink(),
+                        alert.getCreatedTime()
+                ))
+                .toList();
+    }
 }
