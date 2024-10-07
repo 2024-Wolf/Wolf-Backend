@@ -2,8 +2,10 @@ package com.kdt.wolf.global.fcm.service;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
+import com.kdt.wolf.global.fcm.entity.FcmEntity;
 import com.kdt.wolf.global.fcm.repository.FcmRepository;
 import com.kdt.wolf.global.fcm.service.dto.FCMNotificationRequestDto;
 import java.util.List;
@@ -32,5 +34,19 @@ public class FcmService {
         } catch (Exception e) {
             throw new BusinessException(ExceptionCode.FCM_SEND_FAIL);
         }
+    }
+
+    public String saveFcmToken(UserEntity user, String fcmToken) {
+        return fcmRepository.save(FcmEntity.builder()
+                .user(user)
+                .fcmToken(fcmToken)
+                .build()
+                ).getFcmToken();
+    }
+
+    public void deleteFcmToken(String fcmToken) {
+        FcmEntity fcmEntity = fcmRepository.findByFcmToken(fcmToken)
+                .orElseThrow(() -> new BusinessException(ExceptionCode.NOT_FOUND));
+        fcmRepository.delete(fcmEntity);
     }
 }

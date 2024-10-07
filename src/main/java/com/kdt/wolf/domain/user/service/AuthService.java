@@ -15,6 +15,7 @@ import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
+import com.kdt.wolf.global.fcm.service.FcmService;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -31,13 +32,14 @@ import org.springframework.web.client.HttpClientErrorException;
 public class AuthService {
     private final UserDao userDao;
     private final RefreshTokenService refreshTokenService;
+    private final FcmService fcmService;
 
     @Value("${google.client.id}")
     private String googleClientId;
 
     private final JwtTokenProvider tokenProvider;
 
-    public GoogleLoginResponse googleLogin(String idToken) {
+    public GoogleLoginResponse googleLogin(String idToken, String fcmToken) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
                                             .Builder(new NetHttpTransport(), new GsonFactory())
                                             .setAudience(List.of(googleClientId))
@@ -52,10 +54,17 @@ public class AuthService {
                 OAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(googleIdToken.getPayload());
                 UserLoginResult userLoginResult = userDao.signUpOrSignIn(userInfo);
                 TokenResponse response = generateJwtTokenResponse(userLoginResult.user());
+                saveFcmToken(userLoginResult.user(), fcmToken);
                 return new GoogleLoginResponse(response, userLoginResult.flag());
             }
         } catch (IllegalArgumentException | HttpClientErrorException | GeneralSecurityException | IOException e) {
             throw new BusinessException(ExceptionCode.ID_TOKEN_VALIDATION_FAILED);
+        }
+    }
+
+    private void saveFcmToken(UserEntity user, String fcmToken) {
+        if( fcmService.saveFcmToken(user, fcmToken).isEmpty() ) {
+            throw new BusinessException(ExceptionCode.FCM_TOKEN_SAVE_FAILED);
         }
     }
 
@@ -100,9 +109,10 @@ public class AuthService {
         }
     }
 
-    public void logout(String refreshToken) {
+    public void logout(String refreshToken, String fcmToken) {
         validateRefreshToken(refreshToken);
         refreshTokenService.deleteRefreshToken(refreshToken);
+        fcmService.deleteFcmToken(fcmToken);
     }
 
     public Status removeUser(Long userId) {
