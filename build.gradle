@@ -33,8 +33,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// 오라클 데이터베이스 11
 	implementation group: 'com.oracle.database.jdbc', name: 'ojdbc6', version: '11.2.0.4'
-//	implementation 'org.apache.tomcat:tomcat-jdbc:9.0.74'
-//	implementation 'com.oracle.database.jdbc:ojdbc6:11.2.0.4'
 	// h2
 	testRuntimeOnly 'com.h2database:h2'
 
@@ -43,7 +41,6 @@ dependencies {
 	// spring security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'
-	// jwt
 	//JJWT
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
@@ -57,6 +54,11 @@ dependencies {
 	implementation 'jakarta.servlet:jakarta.servlet-api'
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+	// Google Firebase Admin
+	implementation 'com.google.firebase:firebase-admin:9.3.0'
+	// Jackson Data Bind
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
+
 
 }
 

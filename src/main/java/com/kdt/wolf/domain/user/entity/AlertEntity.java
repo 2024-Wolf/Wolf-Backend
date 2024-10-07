@@ -29,4 +29,8 @@ public class AlertEntity extends BaseTimeEntity {
 
     private String alertLink;
 
+
+    public void makeRead() {
+        this.isRead = true;
+    }
 }
