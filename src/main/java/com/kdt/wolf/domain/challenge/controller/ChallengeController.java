@@ -38,34 +38,34 @@ public class ChallengeController {
     @PostMapping("/registration")
     public ApiResult<?> challengeRegistration(@RequestBody ChallengeRegistrationRequest request){
         challengeService.createChallengeRegistration(request);
-        return ApiResult.ok(null);
+        return ApiResult.ok();
     }
 
     // 그룹원 참여
     @PostMapping("/registrations")
     public ApiResult<?> challengeRegistrations(@RequestBody ChallengeRegistrationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.createChallengeRegistrations(request, user.getUserId());
-        return ApiResult.ok(null);
+        return ApiResult.ok();
     }
 
     // 챌린지 인증
     @PostMapping("/challenge/verification")
     public ApiResult<?> challengeVerification(@RequestBody ChallengeRegistrationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.updateVerification(request, user.getUserId());
-        return ApiResult.ok(null);
+        return ApiResult.ok();
     }
 
     // 챌린지 생성
     @PostMapping("/challenge")
     public ApiResult<?> registerChallenge(@RequestBody ChallengeCreationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.registerChallenge(request, user.getUserId());
-        return ApiResult.ok(null);
+        return ApiResult.ok();
     }
 
     // 챌린지 수정
     @PatchMapping("/challenge/{challengePostId}")
     public ApiResult<?> updateChallenge(@RequestBody ChallengeCreationRequest request, @RequestParam Long challengePostId){
         challengeService.updateChallenge(request, challengePostId);
-        return ApiResult.ok(null);
+        return ApiResult.ok();
     }
 }

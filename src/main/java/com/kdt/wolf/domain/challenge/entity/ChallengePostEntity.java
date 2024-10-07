@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
-@Setter
 @Entity
 @RequiredArgsConstructor
 @Table(name = "challenge_post")

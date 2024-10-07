@@ -111,14 +111,15 @@ public class ChallengePostDao {
 
     // 챌린지 수정
     public void updateChallenge(ChallengeCreationRequest request,Long challengePostId){
-        ChallengePostEntity entity = challengePostRepository.findById(challengePostId).orElseThrow(NotFoundException::new);
-
-        entity.setImg(request.getImg() == null ? entity.getImg() : request.getImg());
-        entity.setTitle(request.getTitle() == null ? entity.getTitle() : request.getTitle());
-        entity.setContent(request.getContent() == null ? entity.getContent() : request.getContent());
-        entity.setManner(request.getManner() == null ? entity.getManner() : request.getManner());
-        entity.setAwardContent(request.getAwardContent() == null ? entity.getAwardContent() : request.getAwardContent());
-        entity.setDeadline(request.getDeadline() == null ? entity.getDeadline() : request.getDeadline());
+        ChallengePostEntity entity = new ChallengePostEntity(
+                challengePostRepository.findById(challengePostId).orElseThrow(NotFoundException::new).getChallengePostId(),
+                request.getImg(),
+                request.getTitle(),
+                request.getContent(),
+                request.getManner(),
+                request.getAwardContent(),
+                request.getDeadline()
+        );
 
         challengePostRepository.save(entity);
     }
