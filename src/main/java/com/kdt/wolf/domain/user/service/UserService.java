@@ -10,6 +10,7 @@ import com.kdt.wolf.domain.user.dto.UserDto.UserUpdateRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,9 +35,9 @@ public class UserService {
         userDao.updateUser(userId, request);
     }
 
-
+    @Transactional
     public UserProfileDetailResponse updateMyProfile(Long userId, UserUpdateRequest request) {
-        if(userId != request.id()) {
+        if(!userId.equals(request.id())) {
             throw new BusinessException(ExceptionCode.ACCESS_DENIED);
         }
         UserEntity user = userDao.findById(userId);
