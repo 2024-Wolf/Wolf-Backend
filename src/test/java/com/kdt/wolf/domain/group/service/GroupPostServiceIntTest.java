@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
+import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
@@ -27,7 +28,7 @@ public class GroupPostServiceIntTest {
     GroupPostRepository groupPostRepository;
 
     @Autowired
-    UserRepository userRepository; // UserRepository 추가
+    UserRepository userRepository;
 
     @Test
     void getPostsByType() {
@@ -172,6 +173,125 @@ public class GroupPostServiceIntTest {
         // Test for no results with a query that should not match
         List<GroupPostResponse> searchNoPosts = groupPostService.searchPosts("Non-existing Group");
         Assertions.assertTrue(searchNoPosts.isEmpty());
+    }
+
+    @Test
+    void updatePost() {
+        // Given: 유저 생성 및 DB에 저장
+        UserEntity leaderUser = UserEntity.builder()
+                .nickname("Leader")
+                .name("User Name")
+                .email("user@example.com")
+                .profilePicture("profile_pic_url")
+                .socialType(SocialType.KAKAO) // 예시로 KAKAO 사용
+                .status(Status.ACTIVE) // 예시로 ACTIVE 상태 사용
+                .build();
+
+        UserEntity savedLeaderUser = userRepository.save(leaderUser);
+
+        // 기존 그룹 포스트 생성 및 저장
+        GroupPostRequest originalRequest = GroupPostRequest.builder()
+                .name("Original Study Group")
+                .leaderUser(savedLeaderUser)
+                .type(GroupType.STUDY)
+                .startDate(LocalDate.now())
+                .endDate(LocalDate.now().plusDays(1))
+                .recruitStartDate(LocalDate.now())
+                .recruitDeadlineDate(LocalDate.now().plusDays(7))
+                .shortIntro("Short introduction")
+                .tag("study")
+                .optionalRequirements("No specific requirements")
+                .targetMembers(10)
+                .thumbnail("thumbnail_url")
+                .title("Original Title")
+                .description("Original description.")
+                .warning("Original warning.")
+                .challengeStatus('O') // 또는 'X'
+                .build();
+
+        groupPostService.createPost(originalRequest);
+
+        GroupPostEntity savedGroupPost = groupPostRepository.findAll().get(0); // 저장된 그룹 포스트 가져오기
+
+        // When: 그룹 포스트 수정 요청
+        GroupPostRequest updateRequest = GroupPostRequest.builder()
+                .title("Updated Title") // 수정할 제목
+                .description("Updated description.") // 수정할 설명
+                .startDate(LocalDate.now().plusDays(2)) // 수정할 시작 날짜
+                .endDate(LocalDate.now().plusDays(3)) // 수정할 종료 날짜
+                .recruitStartDate(LocalDate.now().plusDays(1)) // 수정할 모집 시작 날짜
+                .recruitDeadlineDate(LocalDate.now().plusDays(8)) // 수정할 모집 종료 날짜
+                .targetMembers(12) // 수정할 목표 인원
+                .optionalRequirements("Updated requirements") // 수정할 조건
+                .thumbnail("updated_thumbnail_url") // 수정할 썸네일
+                .tag("updated_study") // 수정할 태그
+                .warning("Updated warning.") // 수정할 경고
+                .build();
+
+        groupPostService.editGroupPost(savedGroupPost.getGroupPostId(), updateRequest); // 업데이트 요청 수행
+        System.out.println(savedGroupPost.getGroupPostId());
+
+        // Then: 수정된 그룹 포스트 검증
+        GroupPostEntity updatedGroupPost = groupPostRepository.findById(savedGroupPost.getGroupPostId()).orElseThrow();
+        Assertions.assertEquals("Updated Title", updatedGroupPost.getTitle());
+        Assertions.assertEquals("Updated description.", updatedGroupPost.getDescription());
+        Assertions.assertEquals(LocalDate.now().plusDays(2), updatedGroupPost.getStartDate());
+        Assertions.assertEquals(LocalDate.now().plusDays(3), updatedGroupPost.getEndDate());
+        Assertions.assertEquals(LocalDate.now().plusDays(1), updatedGroupPost.getRecruitStartDate());
+        Assertions.assertEquals(LocalDate.now().plusDays(8), updatedGroupPost.getRecruitDeadlineDate());
+        Assertions.assertEquals(12, updatedGroupPost.getTargetMembers());
+        Assertions.assertEquals("Updated requirements", updatedGroupPost.getOptionalRequirements());
+        Assertions.assertEquals("updated_thumbnail_url", updatedGroupPost.getThumbnail());
+        Assertions.assertEquals("updated_study", updatedGroupPost.getTag());
+        Assertions.assertEquals("Updated warning.", updatedGroupPost.getWarning());
+    }
+
+    @Test
+    void deletePost() {
+        // Given: 유저 생성 및 DB에 저장
+        UserEntity leaderUser = UserEntity.builder()
+                .nickname("Leader")
+                .name("User Name")
+                .email("user@example.com")
+                .profilePicture("profile_pic_url")
+                .socialType(SocialType.KAKAO) // 예시로 KAKAO 사용
+                .status(Status.ACTIVE) // 예시로 ACTIVE 상태 사용
+                .build();
+
+        UserEntity savedLeaderUser = userRepository.save(leaderUser);
+
+        // 그룹 모집 요청 객체 생성 및 저장
+        GroupPostRequest studyRequest = GroupPostRequest.builder()
+                .name("Study Group")
+                .leaderUser(savedLeaderUser)
+                .type(GroupType.STUDY)
+                .startDate(LocalDate.now())
+                .endDate(LocalDate.now().plusDays(1))
+                .recruitStartDate(LocalDate.now())
+                .recruitDeadlineDate(LocalDate.now().plusDays(7))
+                .shortIntro("Short introduction")
+                .tag("study")
+                .optionalRequirements("No specific requirements")
+                .targetMembers(10)
+                .thumbnail("thumbnail_url")
+                .title("Study Group Title")
+                .description("Detailed description of the study group.")
+                .warning("Warning message.")
+                .challengeStatus('O') // 또는 'X'
+                .build();
+
+        groupPostService.createPost(studyRequest); // 포스트 생성
+
+        // When: 그룹 포스트 삭제 요청
+        List<GroupPostEntity> beforeDeletePosts = groupPostRepository.findAll();
+        Assertions.assertEquals(1, beforeDeletePosts.size()); // 삭제 전 포스트 개수 확인
+
+        Long groupPostId = beforeDeletePosts.get(0).getGroupPostId(); // 삭제할 포스트의 ID
+        groupPostService.deleteGroupPost(groupPostId); // 포스트 삭제 요청 수행
+
+        // Then: 삭제된 그룹 포스트가 DB에 존재하지 않음 확인
+        List<GroupPostEntity> afterDeletePosts = groupPostRepository.findAll();
+        Assertions.assertEquals(0, afterDeletePosts.size()); // 삭제 후 포스트 개수 확인
     }
 
 

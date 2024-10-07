@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import jakarta.persistence.*;
@@ -9,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -75,4 +75,21 @@ public class GroupPostEntity{
         this.warning = warning;
         this.challengeStatus = challengeStatus;
     }
+
+    public void updateGroupPost(GroupPostRequest request) {
+        this.name = request.getName();
+        this.type = request.getType();
+        this.title = request.getTitle();
+        this.description = request.getDescription();
+        this.startDate = request.getStartDate();
+        this.endDate = request.getEndDate();
+        this.recruitStartDate = request.getRecruitStartDate();
+        this.recruitDeadlineDate = request.getRecruitDeadlineDate();
+        this.targetMembers = request.getTargetMembers();
+        this.optionalRequirements = request.getOptionalRequirements();
+        this.thumbnail = request.getThumbnail();
+        this.tag = request.getTag();
+        this.warning = request.getWarning();
+    }
+
 }

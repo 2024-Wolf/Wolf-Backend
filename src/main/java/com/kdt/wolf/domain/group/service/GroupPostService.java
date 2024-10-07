@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,4 +38,11 @@ public class GroupPostService {
                 .toList();
     }
 
+    public void editGroupPost(long postId, GroupPostRequest request) {
+        groupPostDao.updateGroupPost(postId, request);
+    }
+
+    public void deleteGroupPost(Long postId) {
+        groupPostDao.deleteById(postId);
+    }
 }

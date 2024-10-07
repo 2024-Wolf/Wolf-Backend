@@ -46,4 +46,20 @@ public class GroupPostController {
         GroupPostResponse groupPostResponse = groupPostService.getGroupPostById(postId);
         return ApiResult.ok(groupPostResponse);
     }
+
+    @Operation(summary = "그룹 정보 수정")
+    @PutMapping("/{postId}")
+    public ApiResult<Void> updateGroupPost(
+            @PathVariable long postId,
+            @RequestBody GroupPostRequest request) {
+        groupPostService.editGroupPost(postId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "그룹 정보 삭제")
+    @DeleteMapping("/{postId}")
+    public ApiResult<Void> deleteGroupPost(@PathVariable Long postId) {
+        groupPostService.deleteGroupPost(postId);
+        return ApiResult.ok(null);
+    }
 }
