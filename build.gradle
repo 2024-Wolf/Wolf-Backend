@@ -55,7 +55,7 @@ dependencies {
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 	// Google Firebase Admin
-	implementation 'com.google.firebase:firebase-admin:9.2.0'
+	implementation 'com.google.firebase:firebase-admin:9.3.0'
 	// Jackson Data Bind
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
 
