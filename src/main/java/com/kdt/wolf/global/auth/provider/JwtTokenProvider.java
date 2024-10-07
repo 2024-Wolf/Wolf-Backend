@@ -2,7 +2,6 @@ package com.kdt.wolf.global.auth.provider;
 
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
-import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
