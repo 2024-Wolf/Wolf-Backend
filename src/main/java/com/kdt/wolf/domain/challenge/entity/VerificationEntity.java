@@ -1,11 +1,9 @@
 package com.kdt.wolf.domain.challenge.entity;
 
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import oracle.sql.DATE;
-
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Entity
@@ -13,35 +11,48 @@ import java.util.Date;
 @Table(name = "verification")
 public class VerificationEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_verification_id")
-  @SequenceGenerator(name = "seq_verification_id", sequenceName = "verification_sequence", allocationSize = 1)
-  private Long verificationId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_verification_id")
+    @SequenceGenerator(name = "seq_verification_id", sequenceName = "verification_sequence", allocationSize = 1)
+    private Long verificationId;
 
-  // 신청 id
-  private Long registrationId;
+    // ChallengePostEntity와 다대일 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "challenge_post_id")
+    private ChallengePostEntity challengePost;
 
-  // 신청 회원 id
-  private Long userId;
+    // ChallengeRegistrationEntity와 다대일 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "registration_id")
+    private ChallengeRegistrationEntity registration;
 
-  private String certificationNo;
-  private String institutionName;
-  private String verificationContent;
-  private char verificationStatus;
-  private LocalDate verificationDate;
+    // UserEntity와 다대일 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
-  @Builder
-  public void VerificationEntity(Long registrationId, Long userId, String certificationNo, String institutionName, String verificationContent) {
-    this.registrationId = registrationId;
-    this.userId = userId;
-    this.certificationNo = certificationNo;
-    this.institutionName = institutionName;
-    this.verificationContent = verificationContent;
-    this.verificationStatus = 'N';
-    this.verificationDate = LocalDate.now();
-  }
+    private String certificationNo;
+    private String institutionName;
+    private String verificationContent;
 
-  public void updateVerification() {
-    this.verificationStatus = 'Y';
-  }
+    // 기본값 'N' 설정
+    @Column(columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
+    private char verificationStatus = 'N';
+
+    private LocalDate verificationDate;
+
+    @Builder
+    public VerificationEntity(ChallengeRegistrationEntity registration, ChallengePostEntity challengePost, UserEntity user, String certificationNo, String institutionName, String verificationContent) {
+        this.registration = registration;
+        this.challengePost = challengePost;
+        this.user = user;
+        this.certificationNo = certificationNo;
+        this.institutionName = institutionName;
+        this.verificationContent = verificationContent;
+        this.verificationDate = LocalDate.now();
+    }
+
+    public void updateVerification() {
+        this.verificationStatus = 'Y';
+    }
 }
