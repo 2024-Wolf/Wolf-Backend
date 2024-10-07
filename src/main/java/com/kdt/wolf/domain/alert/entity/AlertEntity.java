@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.alert.entity;
 
+import com.kdt.wolf.domain.alert.dto.AlertDto.AlertRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -31,11 +32,20 @@ public class AlertEntity extends BaseTimeEntity {
 
     private String alertLink;
 
-    public AlertEntity(UserEntity user, AlertType type, String alertContent, String alertLink) {
+    public AlertEntity (UserEntity user, AlertType type, String alertContent, String alertLink) {
         this.user = user;
         this.type = type;
         this.alertContent = alertContent;
         this.alertLink = alertLink;
+    }
+
+    public static AlertEntity createOf(UserEntity user, AlertRequest alertRequest) {
+        return new AlertEntity(
+                user,
+                alertRequest.alertType(),
+                alertRequest.alertContent(),
+                alertRequest.alertLink()
+        );
     }
 
     public void makeRead() {

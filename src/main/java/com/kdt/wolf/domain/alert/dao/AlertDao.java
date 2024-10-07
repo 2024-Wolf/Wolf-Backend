@@ -39,4 +39,7 @@ public class AlertDao {
                 ))
                 .toList();
     }
+    public void saveAlert(AlertEntity alert) {
+        alertRepository.save(alert);
+    }
 }
