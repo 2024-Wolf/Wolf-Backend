@@ -47,6 +47,9 @@ public class ChallengePostDao {
         return challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
     }
 
+    public List<ChallengeRegistrationEntity> findPayableChallenges(Long groupId, Long userId) {
+        return challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
+    }
 
     public List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId) {
         return challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);

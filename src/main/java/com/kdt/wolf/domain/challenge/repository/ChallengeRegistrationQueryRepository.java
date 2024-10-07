@@ -3,6 +3,8 @@ package com.kdt.wolf.domain.challenge.repository;
 import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
 import com.kdt.wolf.domain.challenge.entity.ChallengeRegistrationEntity;
 import java.util.List;
+
+import com.kdt.wolf.domain.challenge.entity.GroupChallengeParticipantEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -47,10 +49,12 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
     // 참여 가능
     @Query("SELECT r "
             + "FROM ChallengeRegistrationEntity r "
-            + "JOIN FETCH GroupChallengeParticipantEntity cp ON cp.challengeRegistration.registrationId = r.registrationId "
             + "WHERE r.groupPost.groupPostId = :groupId "
-            + "AND cp.user.userId = :userId "
-            + "AND cp.paymentStatus = 'N'") // 결제 미완료
+            + "AND NOT EXISTS("
+                + "SELECT 1 "
+                + "FROM GroupChallengeParticipantEntity cp "
+                + "WHERE cp.user.userId = :userId"
+            + ")")
     List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId);
 
     // 신청 가능
@@ -63,6 +67,16 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
                 + "AND r.challengePost.challengePostId = p.challengePostId"
             + ")")
     List<ChallengePostEntity> findApplicableChallenges(Long groupId);
+
+    // 결제 가능
+    @Query(
+            "SELECT cp.challengeRegistration "
+            + "FROM GroupChallengeParticipantEntity cp "
+            + "WHERE cp.challengeRegistration.groupPost.groupPostId = :groupId "
+            + "AND cp.user.userId = :userId "
+            + "AND cp.paymentStatus = 'N'"
+            )
+    List<ChallengeRegistrationEntity> findPayableChallenge(Long groupId, Long userId);
 
     // 챌린지 신청 정보 조회
     @Query("SELECT r "

@@ -55,6 +55,23 @@ public class ChallengeService {
                         .toList()
         );
 
+        challengesByStatus.put(ChallengeStatus.PAY.getDescription(),
+                challengePostDao.findPayableChallenges(groupId, userId)
+                        .stream()
+                        .map(post -> {
+                            ChallengeStatus status = ChallengeStatus.PAY;
+                            return new ChallengePreview(
+                                    post.getChallengePost().getChallengePostId(),
+                                    post.getChallengePost().getImg(),
+                                    post.getChallengePost().getTitle(),
+                                    post.getRegistrationDate(),
+                                    post.getChallengePost().getDeadline(),
+                                    status
+                            );
+                        })
+                        .toList()
+            );
+
         challengesByStatus.put(ChallengeStatus.CERTIFICATION_COMPLETE.getDescription(),
                 challengePostDao.findCertifiedChallenges(groupId, userId)
                         .stream()
