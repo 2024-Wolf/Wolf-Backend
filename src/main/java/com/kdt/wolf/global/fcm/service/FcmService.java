@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class FcmService {
-    private final FirebaseMessaging firebaseMessaging;
     private final FcmRepository fcmRepository;
 
     public String sendNotificationByToken(FCMNotificationRequestDto requestDto) {
@@ -29,7 +28,7 @@ public class FcmService {
                 .build();
 
         try {
-            return firebaseMessaging.send(message);
+            return FirebaseMessaging.getInstance().send(message);
         } catch (Exception e) {
             throw new BusinessException(ExceptionCode.FCM_SEND_FAIL);
         }

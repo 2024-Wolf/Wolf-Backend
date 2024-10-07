@@ -9,13 +9,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 @Configuration
 public class FCMInitializer {
-    @Value("${fcm.certification")
+    @Value("${fcm.certification}")
     private String googleApplicationCredentials;
 
     @PostConstruct
@@ -33,8 +34,4 @@ public class FCMInitializer {
         }
     }
 
-    @Bean
-    public FirebaseMessaging firebaseMessaging() {
-        return FirebaseMessaging.getInstance();
-    }
 }
