@@ -1,8 +1,10 @@
 package com.kdt.wolf.domain.group.controller;
 
+import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest; // 추가: 요청 DTO
 import com.kdt.wolf.domain.group.service.GroupPostService;
+import com.kdt.wolf.domain.group.service.RecruitApplyService;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,13 @@ import java.util.List;
 public class GroupPostController {
 
     private final GroupPostService groupPostService;
+    private final RecruitApplyService recruitApplyService;
 
-    public GroupPostController(GroupPostService groupPostService) {
+    public GroupPostController(GroupPostService groupPostService, RecruitApplyService recruitApplyService) {
         this.groupPostService = groupPostService;
+        this.recruitApplyService = recruitApplyService;
     }
+
 
     @Operation(summary = "모집글 작성")
     @PostMapping
@@ -50,7 +55,7 @@ public class GroupPostController {
     @Operation(summary = "그룹 정보 수정")
     @PutMapping("/{postId}")
     public ApiResult<Void> updateGroupPost(
-            @PathVariable long postId,
+            @PathVariable Long postId,
             @RequestBody GroupPostRequest request) {
         groupPostService.editGroupPost(postId, request);
         return ApiResult.ok(null);
@@ -60,6 +65,16 @@ public class GroupPostController {
     @DeleteMapping("/{postId}")
     public ApiResult<Void> deleteGroupPost(@PathVariable Long postId) {
         groupPostService.deleteGroupPost(postId);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "그룹 지원")
+    @PostMapping("/{groupId}/apply")
+    public ApiResult<Void> applyToGroup(
+            @PathVariable Long groupId,
+            @RequestParam Long userId,
+            @RequestBody RecruitApplyRequest request) {
+        recruitApplyService.recruitApply(groupId, userId, request);
         return ApiResult.ok(null);
     }
 }

@@ -1,10 +1,15 @@
 package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
+import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
+import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
+import com.kdt.wolf.domain.group.entity.RecruitRoleEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
+import com.kdt.wolf.domain.group.repository.RecruitApplyRepository;
+import com.kdt.wolf.domain.group.repository.RecruitRoleRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.SocialType;
 import com.kdt.wolf.domain.user.entity.common.Status;
@@ -17,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-
 @SpringBootTest
 @Transactional
 public class GroupPostServiceIntTest {
@@ -29,6 +33,15 @@ public class GroupPostServiceIntTest {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RecruitApplyService recruitApplyService;
+
+    @Autowired
+    RecruitApplyRepository recruitApplyRepository;
+
+    @Autowired
+    RecruitRoleRepository recruitRoleRepository;
 
     @Test
     void getPostsByType() {
@@ -293,6 +306,85 @@ public class GroupPostServiceIntTest {
         List<GroupPostEntity> afterDeletePosts = groupPostRepository.findAll();
         Assertions.assertEquals(0, afterDeletePosts.size()); // 삭제 후 포스트 개수 확인
     }
+
+    @Test
+    void recruitApply() {
+        // Given: 유저 생성 및 DB에 저장
+        UserEntity leaderUser = UserEntity.builder()
+                .nickname("Leader")
+                .name("User Name")
+                .email("leader@example.com")
+                .profilePicture("profile_pic_url")
+                .socialType(SocialType.KAKAO) // 예시로 KAKAO 사용
+                .status(Status.ACTIVE) // 예시로 ACTIVE 상태 사용
+                .build();
+
+        UserEntity savedLeaderUser = userRepository.save(leaderUser);
+
+        // 그룹 모집 요청 객체 생성 및 저장
+        GroupPostRequest studyRequest = GroupPostRequest.builder()
+                .name("Study Group")
+                .leaderUser(savedLeaderUser)
+                .type(GroupType.STUDY)
+                .startDate(LocalDate.now())
+                .endDate(LocalDate.now().plusDays(1))
+                .recruitStartDate(LocalDate.now())
+                .recruitDeadlineDate(LocalDate.now().plusDays(7))
+                .shortIntro("Short introduction")
+                .tag("study")
+                .optionalRequirements("No specific requirements")
+                .targetMembers(10)
+                .thumbnail("thumbnail_url")
+                .title("Study Group Title")
+                .description("Detailed description of the study group.")
+                .warning("Warning message.")
+                .challengeStatus('O') // 또는 'X'
+                .build();
+
+        groupPostService.createPost(studyRequest);
+
+        GroupPostEntity savedGroupPost = groupPostRepository.findAll().get(0); // 저장된 그룹 포스트 가져오기
+
+        // 직군 역할 추가
+        RecruitRoleEntity backendRole = RecruitRoleEntity.builder()
+                .recruitRoleId("Backend Developer")
+                .recruitRoleIcon("backend_icon_url")
+                .build();
+
+        RecruitRoleEntity frontendRole = RecruitRoleEntity.builder()
+                .recruitRoleId("Frontend Developer")
+                .recruitRoleIcon("frontend_icon_url")
+                .build();
+
+        recruitRoleRepository.save(backendRole);
+        recruitRoleRepository.save(frontendRole);
+
+        // When: 지원 요청 객체 생성 및 지원 요청 수행
+        RecruitApplyRequest applyRequest = RecruitApplyRequest.builder()
+                .position("Backend Developer")
+                .email("applicant@example.com")
+                .applicationReason("I am passionate about backend development and have experience in Spring Boot.")
+                .introduction("I have a solid foundation in backend technologies and am eager to contribute.")
+                .techStack("Java, Spring Boot, MySQL")
+                .portfolioLink("https://portfolio-link.com")
+                .availableDays("Monday to Friday")
+                .additionalNotes("Excited to join and collaborate on challenging projects.")
+                .build();
+
+        recruitApplyService.recruitApply(savedGroupPost.getGroupPostId(), savedLeaderUser.getUserId(), applyRequest);
+
+        RecruitApplyEntity savedApplication = recruitApplyRepository.findAll().get(0);
+        // Then: 지원 성공 여부 확인
+        Assertions.assertEquals(applyRequest.getPosition(), savedApplication.getPosition().getRecruitRoleId());
+        Assertions.assertEquals(applyRequest.getEmail(), savedApplication.getEmail());
+        Assertions.assertEquals(applyRequest.getApplicationReason(), savedApplication.getApplicationReason());
+        Assertions.assertEquals(applyRequest.getIntroduction(), savedApplication.getIntroduction());
+        Assertions.assertEquals(applyRequest.getTechStack(), savedApplication.getTechStack());
+        Assertions.assertEquals(applyRequest.getPortfolioLink(), savedApplication.getPortfolioLink());
+        Assertions.assertEquals(applyRequest.getAvailableDays(), savedApplication.getAvailableDays());
+        Assertions.assertEquals(applyRequest.getAdditionalNotes(), savedApplication.getAdditionalNotes());
+    }
+
 
 
 }
