@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.user.dao;
 
 import com.kdt.wolf.domain.user.dto.LoginFlag;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
+import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPreviewResponse;
 import com.kdt.wolf.domain.user.entity.ActivityMetricsEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
@@ -68,4 +69,28 @@ public class UserDao {
                 .map(UserEntity::toUserPreviewResponse)
                 .toList();
     }
+
+    public UserDetailResponse findUserDetail(Long userId) {
+        UserEntity user = findById(userId);
+
+        return UserDetailResponse.builder()
+                .id(user.getUserId())
+                .nickname(user.getNickname())
+                .name(user.getName())
+                .email(user.getEmail())
+                .profilePicture(user.getProfilePicture())
+                .jobTitle(user.getJobTitle())
+                .organization(user.getOrganization())
+                .experience(user.getExperience())
+                .interests(user.getInterests())
+                .refundAccount(user.getRefundAccount())
+                .introduction(user.getIntroduction())
+                .socialType(user.getSocialType().name())
+                .status(user.getStatus().name())
+                .suspensionDate(user.getSuspensionDate().toString())
+                .joinDate(user.createdTime.toString())
+                .activityMetrics(user.getActivityMetrics().toResponse())
+                .build();
+    }
+
 }

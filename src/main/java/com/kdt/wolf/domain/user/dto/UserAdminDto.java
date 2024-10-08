@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.user.dto;
 
 import com.kdt.wolf.domain.user.dto.UserDto.ActivityMetric;
+import lombok.Builder;
 
 public class UserAdminDto {
     public record UserPreviewResponse(
@@ -11,7 +12,7 @@ public class UserAdminDto {
             int experience,
             String joinDate
     ) { }
-
+    @Builder
     public record UserDetailResponse(
             Long id,
             String nickname,
@@ -25,10 +26,11 @@ public class UserAdminDto {
             String refundAccount,
             String introduction,
             String socialType,
+
             String status,
             String suspensionDate,
+
             String joinDate,
             ActivityMetric activityMetrics
-            //신고 정보 ?
     ) { }
 }
