@@ -1,9 +1,11 @@
 package com.kdt.wolf.domain.faq.service;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.admin.repository.AdminRepository;
+import com.kdt.wolf.domain.faq.dto.FaqDto.FaqCreateRequest;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqItems;
 import com.kdt.wolf.domain.faq.entity.FaqCategory;
@@ -87,5 +89,18 @@ class FaqServiceTest {
         //then
         assertEquals("question", result.question());
         assertEquals("answer", result.answer());
+    }
+
+    @Test
+    @DisplayName("FAQ 게시글 작성")
+    void createFaq() {
+        //given
+        Long adminId = adminRepository.findAll().get(0).getAdminId();
+        FaqCreateRequest request = new FaqCreateRequest(
+                "스터디", "question", "answer", adminId);
+        //when
+        Long resultId = faqService.createFaq(request);
+        //then
+        assertThat(resultId).isNotNull();
     }
 }

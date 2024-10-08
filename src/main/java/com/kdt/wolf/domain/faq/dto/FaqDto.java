@@ -22,4 +22,10 @@ public class FaqDto {
             String createdAt,
             String updatedAt
     ) {}
+    public record FaqCreateRequest (
+            String category,
+            String question,
+            String answer,
+            Long adminId
+    ) {}
 }

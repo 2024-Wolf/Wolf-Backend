@@ -1,10 +1,16 @@
 package com.kdt.wolf.domain.faq.service;
 
+import com.kdt.wolf.domain.admin.dao.AdminDao;
+import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.faq.dao.FaqDao;
+import com.kdt.wolf.domain.faq.dto.FaqDto.FaqCreateRequest;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqItems;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqResponse;
+import com.kdt.wolf.domain.faq.entity.FaqCategory;
 import com.kdt.wolf.domain.faq.entity.FaqEntity;
+import com.kdt.wolf.global.exception.NotFoundException;
+import com.kdt.wolf.global.exception.code.ExceptionCode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +22,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FaqService {
     private final FaqDao faqDao;
+    private final AdminDao AdminDao;
 
 
     public FaqResponse getFaqs() {
@@ -43,5 +50,25 @@ public class FaqService {
                 faq.getCreatedTime().toString(),
                 faq.getModifiedTime().toString()
         );
+    }
+
+    public Long createFaq(FaqCreateRequest request) {
+        AdminEntity admin = AdminDao.findById(request.adminId());
+        FaqEntity faqEntity = FaqEntity.builder()
+                .category(findCategory(request.category()))
+                .question(request.question())
+                .answer(request.answer())
+                .admin(admin)
+                .build();
+        return faqDao.save(faqEntity);
+    }
+
+    private FaqCategory findCategory(String category) {
+        for (FaqCategory faqCategory : FaqCategory.values()) {
+            if (faqCategory.getName().equals(category)) {
+                return faqCategory;
+            }
+        }
+        throw new NotFoundException(ExceptionCode.NOT_FOUND_FAQ_CATEGORY);
     }
 }

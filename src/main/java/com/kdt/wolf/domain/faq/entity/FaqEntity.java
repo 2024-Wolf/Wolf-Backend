@@ -1,6 +1,8 @@
 package com.kdt.wolf.domain.faq.entity;
 
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
+import com.kdt.wolf.domain.faq.dto.FaqDto;
+import com.kdt.wolf.domain.faq.dto.FaqDto.FaqCreateRequest;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
