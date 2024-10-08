@@ -41,10 +41,12 @@ public class GroupPostDao {
         UserEntity leaderUser = userRepository.findById(request.getLeaderUser().getUserId())
                 .orElseThrow(UserNotFoundException::new);
 
+        GroupType type = "study".equals(request.getType()) ? GroupType.STUDY : GroupType.PROJECT;
+
         // GroupPostEntity 생성
         GroupPostEntity groupPost = GroupPostEntity.builder()
                 .name(request.getName())
-                .type(request.getType())
+                .type(type)
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .recruitStartDate(request.getRecruitStartDate())

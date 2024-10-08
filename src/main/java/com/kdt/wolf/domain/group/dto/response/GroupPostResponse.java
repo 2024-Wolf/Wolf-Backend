@@ -19,7 +19,7 @@ public class GroupPostResponse {
     private final String description;
     private final String warning;
     private final char challengeStatus;
-    private final String type; // GroupType을 String으로 변환
+    private final String type;
     private final String startDate;
     private final String endDate;
     private final String recruitStartDate;

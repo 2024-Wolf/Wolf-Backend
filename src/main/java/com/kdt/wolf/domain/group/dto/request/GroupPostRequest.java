@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.dto.request;
 
+import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +19,7 @@ public class GroupPostRequest {
     private UserEntity leaderUser;
 
     @NotNull
-    private GroupType type;
+    private String type;
 
     private LocalDate startDate;
     private LocalDate endDate;
@@ -38,7 +39,7 @@ public class GroupPostRequest {
     private char challengeStatus;
 
     @Builder
-    public GroupPostRequest(String name, UserEntity leaderUser, GroupType type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
+    public GroupPostRequest(String name, UserEntity leaderUser, String type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
                             LocalDate recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements,
                             int targetMembers, String thumbnail, String title, String description, String warning, char challengeStatus) {
         this.name = name;
