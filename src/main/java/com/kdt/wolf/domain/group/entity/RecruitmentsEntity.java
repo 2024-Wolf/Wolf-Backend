@@ -16,6 +16,10 @@ import lombok.NoArgsConstructor;
 public class RecruitmentsEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_recruitment_id")
+    @SequenceGenerator(name = "seq_recruitment_id", sequenceName = "recruitment_sequence", allocationSize = 1)
+    private Long recruitmentId;
+
     @ManyToOne
     @JoinColumn(name = "group_post_id", nullable = false)
     private GroupPostEntity groupPost;

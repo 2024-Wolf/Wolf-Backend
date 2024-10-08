@@ -37,7 +37,7 @@ public class GroupPostDao {
         return groupPostRepository.findByKeyword(keyword);
     }
 
-    public void createPost(GroupPostRequest request) {
+    public GroupPostEntity createPost(GroupPostRequest request) {
         UserEntity leaderUser = userRepository.findById(request.getLeaderUser().getUserId())
                 .orElseThrow(UserNotFoundException::new);
 
@@ -63,7 +63,7 @@ public class GroupPostDao {
                 .leaderUser(leaderUser)
                 .build();
 
-        groupPostRepository.save(groupPost); // DB에 저장
+        return groupPostRepository.save(groupPost); // DB에 저장
     }
 
     public void updateGroupPost(Long groupPostId, GroupPostRequest request) {
