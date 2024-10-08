@@ -15,7 +15,7 @@ public class GroupPostService {
 
     private final GroupPostDao groupPostDao;
 
-    public  GroupPostResponse getGroupPostById(long groupPostId) {
+    public  GroupPostResponse getGroupPostById(Long groupPostId) {
         GroupPostEntity groupPostEntity = groupPostDao.findById(groupPostId);
         return new GroupPostResponse(groupPostEntity);
     }
@@ -38,7 +38,7 @@ public class GroupPostService {
                 .toList();
     }
 
-    public void editGroupPost(long postId, GroupPostRequest request) {
+    public void editGroupPost(Long postId, GroupPostRequest request) {
         groupPostDao.updateGroupPost(postId, request);
     }
 

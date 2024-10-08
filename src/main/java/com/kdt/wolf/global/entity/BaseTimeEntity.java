@@ -13,7 +13,7 @@ public abstract class BaseTimeEntity {
     @Column(name = "created_time", nullable = false, updatable = false)
     public LocalDateTime createdTime;
 
-    @Column(name = "modified_time", nullable = false, updatable = true)
+    @Column(name = "modified_time", nullable = false)
     public LocalDateTime modifiedTime;
 
     @PrePersist
