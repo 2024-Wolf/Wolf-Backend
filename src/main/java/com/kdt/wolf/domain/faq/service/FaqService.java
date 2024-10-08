@@ -7,10 +7,12 @@ import com.kdt.wolf.domain.faq.dto.FaqDto.FaqCreateRequest;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqItems;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqResponse;
+import com.kdt.wolf.domain.faq.dto.FaqDto.FaqUpdateRequest;
 import com.kdt.wolf.domain.faq.entity.FaqCategory;
 import com.kdt.wolf.domain.faq.entity.FaqEntity;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +25,6 @@ import org.springframework.stereotype.Service;
 public class FaqService {
     private final FaqDao faqDao;
     private final AdminDao AdminDao;
-
 
     public FaqResponse getFaqs() {
         List<FaqEntity> faqs = faqDao.findAll();
@@ -52,6 +53,7 @@ public class FaqService {
         );
     }
 
+    @Transactional
     public Long createFaq(FaqCreateRequest request) {
         AdminEntity admin = AdminDao.findById(request.adminId());
         FaqEntity faqEntity = FaqEntity.builder()
@@ -70,5 +72,26 @@ public class FaqService {
             }
         }
         throw new NotFoundException(ExceptionCode.NOT_FOUND_FAQ_CATEGORY);
+    }
+
+
+    @Transactional
+    public FaqDetail updateFaq(Long faqId, FaqUpdateRequest request) {
+        FaqEntity faq = faqDao.findById(faqId);
+        faq.update(findCategory(request.category()), request.question(), request.answer());
+
+        return new FaqDetail(
+                faq.getCategory(),
+                faq.getQuestion(),
+                faq.getAnswer(),
+                faq.getAdmin().getAdminNickname(),
+                faq.getCreatedTime().toString(),
+                faq.getModifiedTime().toString()
+        );
+    }
+
+    @Transactional
+    public Long deleteFaq(Long faqId) {
+        return faqDao.deleteById(faqId);
     }
 }

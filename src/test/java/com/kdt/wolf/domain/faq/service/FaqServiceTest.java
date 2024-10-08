@@ -8,6 +8,7 @@ import com.kdt.wolf.domain.admin.repository.AdminRepository;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqCreateRequest;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqItems;
+import com.kdt.wolf.domain.faq.dto.FaqDto.FaqUpdateRequest;
 import com.kdt.wolf.domain.faq.entity.FaqCategory;
 import com.kdt.wolf.domain.faq.entity.FaqEntity;
 import com.kdt.wolf.domain.faq.repository.FaqRepository;
@@ -102,5 +103,23 @@ class FaqServiceTest {
         Long resultId = faqService.createFaq(request);
         //then
         assertThat(resultId).isNotNull();
+    }
+
+    @Test
+    @DisplayName("FAQ 게시글 수정")
+    void updateFaq() {
+        //given
+        Long faqId = faqRepository.findAll().get(0).getId();
+        FaqCreateRequest request = new FaqCreateRequest(
+                "스터디", "question", "answer", adminRepository.findAll().get(0).getAdminId());
+        Long resultId = faqService.createFaq(request);
+        //when
+        FaqUpdateRequest updateRequest = new FaqUpdateRequest("스터디", "updateQuestion", "updateAnswer");
+        faqService.updateFaq(resultId, updateRequest);
+        //then
+        FaqEntity expected = faqRepository.findById(resultId).get();
+        assertThat(expected).isNotNull();
+        assertEquals("updateQuestion", expected.getQuestion());
+        assertEquals("updateAnswer", expected.getAnswer());
     }
 }

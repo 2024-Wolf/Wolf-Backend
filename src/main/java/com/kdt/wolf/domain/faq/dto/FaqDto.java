@@ -28,4 +28,9 @@ public class FaqDto {
             String answer,
             Long adminId
     ) {}
+    public record FaqUpdateRequest (
+            String category,
+            String question,
+            String answer
+    ) {}
 }
