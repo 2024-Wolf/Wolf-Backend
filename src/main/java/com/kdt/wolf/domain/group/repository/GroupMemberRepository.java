@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.group.repository;
 
-import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

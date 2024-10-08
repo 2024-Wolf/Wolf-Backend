@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.group.dao;
 
-import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.repository.GroupMemberRepository;

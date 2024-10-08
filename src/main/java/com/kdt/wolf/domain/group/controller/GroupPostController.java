@@ -3,8 +3,7 @@ package com.kdt.wolf.domain.group.controller;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
-import com.kdt.wolf.domain.group.dto.request.GroupPostRequest; // 추가: 요청 DTO
-import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
+import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.service.GroupMemberService;
 import com.kdt.wolf.domain.group.service.GroupPostService;
 import com.kdt.wolf.domain.group.service.RecruitApplyService;
