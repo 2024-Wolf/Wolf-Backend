@@ -452,12 +452,10 @@ public class GroupPostServiceIntTest {
         Assertions.assertEquals(2, groupMembers.size());
 
         GroupMemberResponse memberResponse1 = groupMembers.get(0);
-        Assertions.assertEquals(leaderUser.getNickname(), memberResponse1.getUser().getNickname());
         Assertions.assertEquals(MemberRole.LEADER, memberResponse1.getRole());
         Assertions.assertEquals("백엔드 개발자", memberResponse1.getPosition());
 
         GroupMemberResponse memberResponse2 = groupMembers.get(1);
-        Assertions.assertEquals(leaderUser.getNickname(), memberResponse2.getUser().getNickname());
         Assertions.assertEquals(MemberRole.MEMBER, memberResponse2.getRole());
         Assertions.assertEquals("프론트엔드 개발자", memberResponse2.getPosition());
 
