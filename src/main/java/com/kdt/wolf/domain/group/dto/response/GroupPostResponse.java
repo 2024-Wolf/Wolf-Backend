@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class GroupPostResponse {
     private final Long groupPostId;
+    private final UserEntity leaderUser;
     private final String leaderNickname; // 리더의 닉네임
     private final String name;
     private final String shortIntro;
@@ -26,7 +27,7 @@ public class GroupPostResponse {
 
     public GroupPostResponse(GroupPostEntity groupPost) {
         this.groupPostId = groupPost.getGroupPostId();
-        UserEntity leaderUser = groupPost.getLeaderUser();
+        this.leaderUser = groupPost.getLeaderUser();
         this.leaderNickname = leaderUser != null ? leaderUser.getNickname() : null; // 리더의 닉네임
         this.name = groupPost.getName();
         this.shortIntro = groupPost.getShortIntro();

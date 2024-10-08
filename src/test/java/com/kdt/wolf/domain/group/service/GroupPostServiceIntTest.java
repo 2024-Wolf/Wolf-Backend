@@ -2,11 +2,15 @@ package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
+import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
+import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
 import com.kdt.wolf.domain.group.entity.RecruitRoleEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.domain.group.entity.common.MemberRole;
+import com.kdt.wolf.domain.group.repository.GroupMemberRepository;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.group.repository.RecruitApplyRepository;
 import com.kdt.wolf.domain.group.repository.RecruitRoleRepository;
@@ -42,6 +46,12 @@ public class GroupPostServiceIntTest {
 
     @Autowired
     RecruitRoleRepository recruitRoleRepository;
+
+    @Autowired
+    GroupMemberService groupMemberService;
+
+    @Autowired
+    GroupMemberRepository groupMemberRepository;
 
     @Test
     void getPostsByType() {
@@ -385,6 +395,71 @@ public class GroupPostServiceIntTest {
         Assertions.assertEquals(applyRequest.getAdditionalNotes(), savedApplication.getAdditionalNotes());
     }
 
+    @Test
+    void getGroupMembersTest() {
+        // Given: 사용자 및 그룹 생성
+        UserEntity leaderUser = UserEntity.builder()
+                .nickname("Leader")
+                .name("Leader Name")
+                .email("leader@example.com")
+                .profilePicture("leader_profile.png")
+                .socialType(SocialType.KAKAO)
+                .status(Status.ACTIVE)
+                .build();
+        userRepository.save(leaderUser);
 
+        GroupPostEntity groupPost = GroupPostEntity.builder()
+                .name("Study Group")
+                .leaderUser(leaderUser)
+                .type(GroupType.STUDY)
+                .startDate(LocalDate.now())
+                .endDate(LocalDate.now().plusWeeks(1))
+                .recruitStartDate(LocalDate.now())
+                .recruitDeadlineDate(LocalDate.now().plusDays(7))
+                .shortIntro("Short intro")
+                .tag("Study")
+                .optionalRequirements("No requirements")
+                .targetMembers(5)
+                .thumbnail("thumbnail.png")
+                .title("Group Title")
+                .description("Group Description")
+                .warning("No warnings")
+                .challengeStatus('O')
+                .build();
+        groupPostRepository.save(groupPost);
 
+        GroupMemberEntity member1 = GroupMemberEntity.builder()
+                .groupPost(groupPost)
+                .user(leaderUser)
+                .role(MemberRole.LEADER)
+                .position("백엔드 개발자")
+                .build();
+
+        GroupMemberEntity member2 = GroupMemberEntity.builder()
+                .groupPost(groupPost)
+                .user(leaderUser)
+                .role(MemberRole.MEMBER)
+                .position("프론트엔드 개발자")
+                .build();
+
+        groupMemberRepository.save(member1);
+        groupMemberRepository.save(member2);
+
+        // When: 그룹 멤버 조회
+        List<GroupMemberResponse> groupMembers = groupMemberService.getGroupMembers(groupPost.getGroupPostId());
+
+        // Then: 그룹 멤버 수와 각 멤버의 정보 확인
+        Assertions.assertEquals(2, groupMembers.size());
+
+        GroupMemberResponse memberResponse1 = groupMembers.get(0);
+        Assertions.assertEquals(leaderUser.getNickname(), memberResponse1.getUser().getNickname());
+        Assertions.assertEquals(MemberRole.LEADER, memberResponse1.getRole());
+        Assertions.assertEquals("백엔드 개발자", memberResponse1.getPosition());
+
+        GroupMemberResponse memberResponse2 = groupMembers.get(1);
+        Assertions.assertEquals(leaderUser.getNickname(), memberResponse2.getUser().getNickname());
+        Assertions.assertEquals(MemberRole.MEMBER, memberResponse2.getRole());
+        Assertions.assertEquals("프론트엔드 개발자", memberResponse2.getPosition());
+
+    }
 }
