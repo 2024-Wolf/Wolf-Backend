@@ -34,7 +34,7 @@ public class AuthController {
 
     @PostMapping("/google")
     public ApiResult<GoogleLoginResponse> google(@RequestBody GoogleLoginRequest request) {
-        GoogleLoginResponse response = authService.googleLogin(request.idToken());
+        GoogleLoginResponse response = authService.googleLogin(request.idToken(), request.fcmToken());
         return ApiResult.ok(response);
     }
 
@@ -52,7 +52,7 @@ public class AuthController {
 
     @PostMapping("/user")
     public ApiResult<?> logout(@RequestBody LogoutRequest request) {
-        authService.logout(request.refreshToken());
+        authService.logout(request.refreshToken(), request.fcmToken());
         return ApiResult.ok();
     }
 

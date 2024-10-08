@@ -9,7 +9,6 @@ import lombok.Getter;
 
 @Getter
 @MappedSuperclass
-@Getter
 public abstract class BaseTimeEntity {
     @Column(name = "created_time", nullable = false, updatable = false)
     public LocalDateTime createdTime;

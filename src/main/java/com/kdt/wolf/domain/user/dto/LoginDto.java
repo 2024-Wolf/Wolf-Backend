@@ -7,7 +7,8 @@ public class LoginDto {
             String password
     ) {}
     public record GoogleLoginRequest(
-            String idToken
+            String idToken,
+            String fcmToken
     ) {}
     public record ReissueAccessTokenRequest(
             String accessToken,
@@ -25,6 +26,7 @@ public class LoginDto {
         LoginFlag loginFlag
     ) {}
     public record LogoutRequest(
-            String refreshToken
+            String refreshToken,
+            String fcmToken
     ) {}
 }

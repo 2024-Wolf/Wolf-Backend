@@ -1,8 +1,8 @@
-package com.kdt.wolf.domain.user.dao;
+package com.kdt.wolf.domain.alert.dao;
 
-import com.kdt.wolf.domain.user.dto.FcmDto.AlertDto;
-import com.kdt.wolf.domain.user.entity.AlertEntity;
-import com.kdt.wolf.domain.user.repository.AlertRepository;
+import com.kdt.wolf.domain.alert.dto.AlertDto.AlertResponse;
+import com.kdt.wolf.domain.alert.entity.AlertEntity;
+import com.kdt.wolf.domain.alert.repository.AlertRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 public class AlertDao {
     private final AlertRepository alertRepository;
 
-    public List<AlertDto> getAlarms(Long userId) {
+    public List<AlertResponse> getAlarms(Long userId) {
 
         List<AlertEntity> alerts = alertRepository.findByUserId(userId);
         return alerts
                 .stream()
                 .map(alert -> {
                     alert.makeRead();
-                    return new AlertDto(
+                    return new AlertResponse(
                             alert.getAlertContent(),
                             alert.getAlertLink(),
                             alert.getCreatedTime()
@@ -28,15 +28,18 @@ public class AlertDao {
                 .toList();
     }
 
-    public List<AlertDto> getAlarmsPreview(Long userId) {
+    public List<AlertResponse> getAlarmsPreview(Long userId) {
         List<AlertEntity> alerts = alertRepository.findUnReadAlarmsByUserId(userId);
         return alerts
                 .stream()
-                .map(alert -> new AlertDto(
+                .map(alert -> new AlertResponse(
                         alert.getAlertContent(),
                         alert.getAlertLink(),
                         alert.getCreatedTime()
                 ))
                 .toList();
+    }
+    public void saveAlert(AlertEntity alert) {
+        alertRepository.save(alert);
     }
 }
