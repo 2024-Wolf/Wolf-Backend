@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@RequiredArgsConstructor //final로 선언된 모든 맴버 생성자 만들어줌.
+@RequiredArgsConstructor
 @Component
 public class NoticeDao {
     private final NoticeRepository noticeRepository;

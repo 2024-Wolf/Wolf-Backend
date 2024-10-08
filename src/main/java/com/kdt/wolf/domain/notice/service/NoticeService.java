@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor //final로 선언된 모든 맴버 생성자 만들어줌.
+@RequiredArgsConstructor
 public class NoticeService {
 
     private final NoticeDao noticeDao;

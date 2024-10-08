@@ -6,9 +6,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-//Entity 클래스는 절대로 요청(Request)에 사용되어서는 안 된다는 말씀을 드렸고,
-//이러한 이유로 BoardRequestDto로 전달받은 데이터(파라미터)를 기준으로 Entity 객체를 생성합니다.
-
 @Getter
 @NoArgsConstructor
 public class NoticeRequestDto {
