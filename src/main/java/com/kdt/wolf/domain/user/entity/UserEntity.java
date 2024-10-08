@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.user.entity;
 
+import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPreviewResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserUpdateRequest;
@@ -116,5 +117,16 @@ public class UserEntity extends BaseTimeEntity {
                 request.interests()
         );
         return this;
+    }
+
+    public UserPreviewResponse toUserPreviewResponse() {
+        return new UserPreviewResponse(
+                userId,
+                nickname,
+                jobTitle,
+                organization,
+                experience,
+                createdTime.toString()
+        );
     }
 }
