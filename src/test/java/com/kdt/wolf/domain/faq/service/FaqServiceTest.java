@@ -33,10 +33,10 @@ class FaqServiceTest {
     @Autowired
     private AdminRepository adminRepository;
 
-
+    private AdminEntity adminEntity;
     @BeforeEach
     void setUp() {
-        AdminEntity adminEntity = adminRepository.save(
+        adminEntity = adminRepository.save(
                 AdminEntity.builder()
                     .adminEmail("adminEmail")
                     .adminPassword("adminPassword")
@@ -44,7 +44,6 @@ class FaqServiceTest {
                     .adminNickname("adminNickname")
                     .build()
         );
-
         faqRepository.save(
                 FaqEntity.builder()
                         .category(FaqCategory.STUDY)
@@ -53,7 +52,12 @@ class FaqServiceTest {
                         .admin(adminEntity)
                         .build()
         );
+    }
 
+    @Test
+    @DisplayName("모든 FAQ를 조회한다.")
+    void getAllFaq() {
+        //given
         faqRepository.save(
                 FaqEntity.builder()
                         .category(FaqCategory.STUDY)
@@ -69,11 +73,6 @@ class FaqServiceTest {
                 .answer("answer3")
                 .admin(adminEntity)
                 .build());
-    }
-
-    @Test
-    @DisplayName("모든 FAQ를 조회한다.")
-    void getAllFaq() {
         //when
         Map<String, List<FaqItems>> response = faqService.getFaqs().faqItems();
         //then
@@ -121,5 +120,17 @@ class FaqServiceTest {
         assertThat(expected).isNotNull();
         assertEquals("updateQuestion", expected.getQuestion());
         assertEquals("updateAnswer", expected.getAnswer());
+    }
+
+    @Test
+    @DisplayName("FAQ 게시글 삭제")
+    void deleteFaq() {
+        //given
+        Long faqId = faqRepository.findAll().get(0).getId();
+        //when
+        Long resultId = faqService.deleteFaq(faqId);
+        //then
+        assertThat(resultId).isNotNull();
+        assertThat(faqRepository.findById(resultId)).isEmpty();
     }
 }

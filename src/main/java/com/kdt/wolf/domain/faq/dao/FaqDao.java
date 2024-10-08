@@ -28,4 +28,9 @@ public class FaqDao {
     public FaqEntity findById(Long faqId) {
         return faqRepository.findById(faqId).orElseThrow(NotFoundException::new);
     }
+
+    public Long deleteById(Long faqId) {
+        faqRepository.deleteById(faqId);
+        return faqId;
+    }
 }
