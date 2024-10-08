@@ -1,4 +1,4 @@
-package com.kdt.wolf.domain.user.controller;
+package com.kdt.wolf.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
