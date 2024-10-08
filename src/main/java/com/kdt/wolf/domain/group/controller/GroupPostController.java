@@ -1,8 +1,10 @@
 package com.kdt.wolf.domain.group.controller;
 
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
+import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
-import com.kdt.wolf.domain.group.dto.request.GroupPostRequest; // 추가: 요청 DTO
+import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
+import com.kdt.wolf.domain.group.service.GroupMemberService;
 import com.kdt.wolf.domain.group.service.GroupPostService;
 import com.kdt.wolf.domain.group.service.RecruitApplyService;
 import com.kdt.wolf.global.base.ApiResult;
@@ -17,10 +19,12 @@ public class GroupPostController {
 
     private final GroupPostService groupPostService;
     private final RecruitApplyService recruitApplyService;
+    private final GroupMemberService groupMemberService;
 
-    public GroupPostController(GroupPostService groupPostService, RecruitApplyService recruitApplyService) {
+    public GroupPostController(GroupPostService groupPostService, RecruitApplyService recruitApplyService, GroupMemberService groupMemberService) {
         this.groupPostService = groupPostService;
         this.recruitApplyService = recruitApplyService;
+        this.groupMemberService = groupMemberService;
     }
 
 
@@ -76,5 +80,12 @@ public class GroupPostController {
             @RequestBody RecruitApplyRequest request) {
         recruitApplyService.recruitApply(groupId, userId, request);
         return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "모임원 조회")
+    @GetMapping("/{groupId}/members")
+    public ApiResult<List<GroupMemberResponse>> getGroupMembers(@PathVariable Long groupId) {
+        List<GroupMemberResponse> members = groupMemberService.getGroupMembers(groupId);
+        return ApiResult.ok(members);
     }
 }
