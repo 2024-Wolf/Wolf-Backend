@@ -3,6 +3,8 @@ package com.kdt.wolf.domain.faq.entity;
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +27,8 @@ public class FaqEntity extends BaseTimeEntity {
     @SequenceGenerator(name = "seq_faq_id", sequenceName = "faq_sequence", allocationSize = 1)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private FaqCategory category;
     private String question;
     private String answer;
 
@@ -31,7 +36,9 @@ public class FaqEntity extends BaseTimeEntity {
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
 
-    public FaqEntity(String question, String answer, AdminEntity admin) {
+    @Builder
+    public FaqEntity(FaqCategory category, String question, String answer, AdminEntity admin) {
+        this.category = category;
         this.question = question;
         this.answer = answer;
         this.admin = admin;
