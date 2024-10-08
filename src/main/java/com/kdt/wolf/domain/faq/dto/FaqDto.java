@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.faq.dto;
 
+import com.kdt.wolf.domain.faq.entity.FaqCategory;
 import java.util.List;
 import java.util.Map;
 
@@ -11,5 +12,14 @@ public class FaqDto {
     public record FaqItems (
             String question,
             String answer
+    ) {}
+
+    public record FaqDetail (
+            FaqCategory category,
+            String question,
+            String answer,
+            String author,
+            String createdAt,
+            String updatedAt
     ) {}
 }

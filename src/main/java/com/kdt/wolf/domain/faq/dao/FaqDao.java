@@ -24,4 +24,8 @@ public class FaqDao {
         }
         return faqs;
     }
+
+    public FaqEntity findById(Long faqId) {
+        return faqRepository.findById(faqId).orElseThrow(NotFoundException::new);
+    }
 }

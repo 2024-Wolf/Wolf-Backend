@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.admin.repository.AdminRepository;
+import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqItems;
 import com.kdt.wolf.domain.faq.entity.FaqCategory;
 import com.kdt.wolf.domain.faq.entity.FaqEntity;
@@ -68,11 +69,23 @@ class FaqServiceTest {
     }
 
     @Test
-    @DisplayName("모든 faq를 조회한다.")
+    @DisplayName("모든 FAQ를 조회한다.")
     void getAllFaq() {
         //when
         Map<String, List<FaqItems>> response = faqService.getFaqs().faqItems();
         //then
         assertEquals(3, response.get("스터디").size());
+    }
+
+    @Test
+    @DisplayName("FAQ 상세 조회")
+    void getFaq() {
+        //given
+        Long faqId = faqRepository.findAll().get(0).getId();
+        //when
+        FaqDetail result = faqService.getFaqDetail(faqId);
+        //then
+        assertEquals("question", result.question());
+        assertEquals("answer", result.answer());
     }
 }

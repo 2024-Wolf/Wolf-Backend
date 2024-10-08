@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.faq.service;
 
 import com.kdt.wolf.domain.faq.dao.FaqDao;
+import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqItems;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqResponse;
 import com.kdt.wolf.domain.faq.entity.FaqEntity;
@@ -30,5 +31,17 @@ public class FaqService {
         }
 
         return new FaqResponse(response);
+    }
+
+    public FaqDetail getFaqDetail (Long faqId) {
+        FaqEntity faq = faqDao.findById(faqId);
+        return new FaqDetail(
+                faq.getCategory(),
+                faq.getQuestion(),
+                faq.getAnswer(),
+                faq.getAdmin().getAdminNickname(),
+                faq.getCreatedTime().toString(),
+                faq.getModifiedTime().toString()
+        );
     }
 }
