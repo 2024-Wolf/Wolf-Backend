@@ -2,6 +2,7 @@ package com.kdt.wolf.global.auth.dto;
 
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.Status;
+import java.time.LocalDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
@@ -41,8 +42,10 @@ public class AuthenticatedUser implements UserDetails {
     // 사용자의 계정이 잠겨 있지 않은지 확인합니다.
     @Override
     public boolean isAccountNonLocked() {
-        return user.getStatus() != Status.BANNED
-                && user.getStatus() != Status.SUSPENDED;
+        if(user.getStatus() == Status.SUSPENDED) {
+            return user.getSuspensionDate().isAfter(LocalDate.now());
+        }
+        return user.getStatus() != Status.BANNED;
     }
 
     // 사용자의 자격 증명(비밀번호)이 만료되지 않았는지 확인합니다.

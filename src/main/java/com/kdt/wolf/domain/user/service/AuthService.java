@@ -118,6 +118,6 @@ public class AuthService {
     public Status removeUser(Long userId) {
         // 유저 삭제 우선 safe delete로 구현
         refreshTokenService.deleteRefreshTokenByUserId(userId);
-        return userDao.changeUserStatus(userId);
+        return userDao.changeUserStatus(userId, Status.WITHDRAWN);
     }
 }
