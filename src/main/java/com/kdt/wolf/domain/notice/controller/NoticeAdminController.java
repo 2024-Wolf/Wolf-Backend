@@ -48,6 +48,7 @@ public class NoticeAdminController {
     @PostMapping("")
     public String createNotice(@RequestBody NoticeCreateDto request,
                                @RequestBody Long adminId) {
+        //TODO : 로그인된 토큰 정보로 어드민 가져와야하는데...... 이부분 어캐 함 ?
         Long noticeId = noticeService.createNotice(request, adminId);
         return "notice";
     }
