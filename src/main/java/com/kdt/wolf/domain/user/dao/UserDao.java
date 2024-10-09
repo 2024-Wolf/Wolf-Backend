@@ -12,6 +12,7 @@ import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.domain.user.repository.ActivityMetricsRepository;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.UserNotFoundException;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ public class UserDao {
         return new UserLoginResult(newUser, LoginFlag.SIGNUP);
     }
 
+    @Transactional
     public void updateUser(long userId, SignUpRequest request) {
         UserEntity user = findById(userId);
         user.updateNickname(request.nickname());
@@ -54,6 +56,7 @@ public class UserDao {
         saveUser(user);
     }
 
+    @Transactional
     public Status changeUserStatus(Long userId) {
         UserEntity user = findById(userId);
         user.changeStatus(Status.WITHDRAWN);
@@ -72,25 +75,21 @@ public class UserDao {
 
     public UserDetailResponse findUserDetail(Long userId) {
         UserEntity user = findById(userId);
-
-        return UserDetailResponse.builder()
-                .id(user.getUserId())
-                .nickname(user.getNickname())
-                .name(user.getName())
-                .email(user.getEmail())
-                .profilePicture(user.getProfilePicture())
-                .jobTitle(user.getJobTitle())
-                .organization(user.getOrganization())
-                .experience(user.getExperience())
-                .interests(user.getInterests())
-                .refundAccount(user.getRefundAccount())
-                .introduction(user.getIntroduction())
-                .socialType(user.getSocialType().name())
-                .status(user.getStatus().name())
-                .suspensionDate(user.getSuspensionDate().toString())
-                .joinDate(user.createdTime.toString())
-                .activityMetrics(user.getActivityMetrics().toResponse())
-                .build();
+        return user.toUserDetailResponse();
     }
 
+    @Transactional
+    public Long warningUser(Long userId) {
+        UserEntity user = findById(userId);
+        user.updateUserStatus(Status.BANNED);
+
+        return null;
+    }
+
+    @Transactional
+    public Long banUser(Long userId) {
+        UserEntity user = findById(userId);
+        user.updateUserStatus(Status.BANNED);
+        return user.getUserId();
+    }
 }

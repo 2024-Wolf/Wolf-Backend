@@ -51,4 +51,12 @@ public class UserService {
     public UserDetailResponse getUserDetail(Long userId) {
         return userDao.findUserDetail(userId);
     }
+
+    public Long warningUser(Long userId) {
+        //경고는 ?
+        return null;
+    }
+    public Long banUser(Long userId) {
+        return userDao.banUser(userId);
+    }
 }

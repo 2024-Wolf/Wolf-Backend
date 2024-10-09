@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.user.entity;
 
+import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPreviewResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
@@ -128,5 +129,30 @@ public class UserEntity extends BaseTimeEntity {
                 experience,
                 createdTime.toString()
         );
+    }
+
+    public UserDetailResponse toUserDetailResponse() {
+        return UserDetailResponse.builder()
+                .id(userId)
+                .nickname(nickname)
+                .name(name)
+                .email(email)
+                .profilePicture(profilePicture)
+                .jobTitle(jobTitle)
+                .organization(organization)
+                .experience(experience)
+                .interests(interests)
+                .refundAccount(refundAccount)
+                .introduction(introduction)
+                .socialType(socialType.name())
+                .status(status.name())
+                .suspensionDate(suspensionDate.toString())
+                .joinDate(createdTime.toString())
+                .activityMetrics(activityMetrics.toResponse())
+                .build();
+    }
+
+    public void updateUserStatus(Status status) {
+        this.status = status;
     }
 }
