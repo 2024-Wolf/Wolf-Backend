@@ -15,6 +15,7 @@ public class RecruitApplyRequest {
 
     @NotNull
     private String applicationReason;
+
     private String introduction;
     private String techStack;
     private String portfolioLink;

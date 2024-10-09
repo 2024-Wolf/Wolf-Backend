@@ -37,14 +37,16 @@ public class GroupPostDao {
         return groupPostRepository.findByKeyword(keyword);
     }
 
-    public void createPost(GroupPostRequest request) {
+    public GroupPostEntity createPost(GroupPostRequest request) {
         UserEntity leaderUser = userRepository.findById(request.getLeaderUser().getUserId())
                 .orElseThrow(UserNotFoundException::new);
+
+        GroupType type = "study".equals(request.getType()) ? GroupType.STUDY : GroupType.PROJECT;
 
         // GroupPostEntity 생성
         GroupPostEntity groupPost = GroupPostEntity.builder()
                 .name(request.getName())
-                .type(request.getType())
+                .type(type)
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .recruitStartDate(request.getRecruitStartDate())
@@ -61,7 +63,7 @@ public class GroupPostDao {
                 .leaderUser(leaderUser)
                 .build();
 
-        groupPostRepository.save(groupPost); // DB에 저장
+        return groupPostRepository.save(groupPost); // DB에 저장
     }
 
     public void updateGroupPost(Long groupPostId, GroupPostRequest request) {

@@ -7,8 +7,7 @@ import lombok.Getter;
 @Getter
 public class GroupPostResponse {
     private final Long groupPostId;
-    private final UserEntity leaderUser;
-    private final String leaderNickname; // 리더의 닉네임
+    private final GroupLeader leaderUser;
     private final String name;
     private final String shortIntro;
     private final String tag;
@@ -19,7 +18,7 @@ public class GroupPostResponse {
     private final String description;
     private final String warning;
     private final char challengeStatus;
-    private final String type; // GroupType을 String으로 변환
+    private final String type;
     private final String startDate;
     private final String endDate;
     private final String recruitStartDate;
@@ -27,8 +26,7 @@ public class GroupPostResponse {
 
     public GroupPostResponse(GroupPostEntity groupPost) {
         this.groupPostId = groupPost.getGroupPostId();
-        this.leaderUser = groupPost.getLeaderUser();
-        this.leaderNickname = leaderUser != null ? leaderUser.getNickname() : null; // 리더의 닉네임
+        this.leaderUser = new GroupLeader(groupPost.getLeaderUser());
         this.name = groupPost.getName();
         this.shortIntro = groupPost.getShortIntro();
         this.tag = groupPost.getTag();
@@ -44,5 +42,17 @@ public class GroupPostResponse {
         this.endDate = groupPost.getEndDate() != null ? groupPost.getEndDate().toString() : null;
         this.recruitStartDate = groupPost.getRecruitStartDate() != null ? groupPost.getRecruitStartDate().toString() : null;
         this.recruitDeadlineDate = groupPost.getRecruitDeadlineDate() != null ? groupPost.getRecruitDeadlineDate().toString() : null;
+    }
+
+    public class GroupLeader {
+        private final Long userId;
+        private final String userNickname;
+        private final String userProfileImg;
+
+        public GroupLeader(UserEntity user) {
+            this.userId = user.getUserId();
+            this.userNickname = user.getNickname();
+            this.userProfileImg = user.getProfilePicture();
+        }
     }
 }

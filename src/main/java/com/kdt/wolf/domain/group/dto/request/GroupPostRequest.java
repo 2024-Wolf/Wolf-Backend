@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.dto.request;
 
+import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import jakarta.validation.constraints.NotNull;
@@ -7,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class GroupPostRequest {
     private UserEntity leaderUser;
 
     @NotNull
-    private GroupType type;
+    private String type;
 
     private LocalDate startDate;
     private LocalDate endDate;
@@ -27,6 +29,7 @@ public class GroupPostRequest {
     private String shortIntro;
     private String tag;
     private String optionalRequirements;
+    private List<Recruitments> recruitments;
     private int targetMembers;
     private String thumbnail;
     @NotNull
@@ -38,8 +41,8 @@ public class GroupPostRequest {
     private char challengeStatus;
 
     @Builder
-    public GroupPostRequest(String name, UserEntity leaderUser, GroupType type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
-                            LocalDate recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements,
+    public GroupPostRequest(String name, UserEntity leaderUser, String type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
+                            LocalDate recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements, List<Recruitments> recruitments,
                             int targetMembers, String thumbnail, String title, String description, String warning, char challengeStatus) {
         this.name = name;
         this.leaderUser = leaderUser;
@@ -51,6 +54,7 @@ public class GroupPostRequest {
         this.shortIntro = shortIntro;
         this.tag = tag;
         this.optionalRequirements = optionalRequirements;
+        this.recruitments = recruitments;
         this.targetMembers = targetMembers;
         this.thumbnail = thumbnail;
         this.title = title;
