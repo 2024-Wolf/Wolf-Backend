@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.user.controller;
 
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPreviewResponse;
+import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
@@ -47,13 +48,14 @@ public class UserAdminController {
     @Operation(summary = "회원 정지")
     @GetMapping("/{userId}/ban")
     public String banUser(@PathVariable Long userId) {
-        Long response = userService.banUser(userId);
+        Status response = userService.banUser(userId);
         return "user";
     }
 
     @Operation(summary = "회원 정지 해제")
     @GetMapping("/{userId}/unban")
     public String unbanUser() {
+
         return "user";
     }
 
