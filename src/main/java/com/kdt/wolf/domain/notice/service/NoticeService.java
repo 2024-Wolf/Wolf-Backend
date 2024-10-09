@@ -60,6 +60,11 @@ public class NoticeService {
         return noticeEntity.getNoticeId();
     }
 
+    @Transactional
+    public void deleteNotice(Long noticeId) {
+        NoticeEntity notice = noticeDao.findById(noticeId);
+        noticeDao.delete(notice);
+    }
 
 }
 

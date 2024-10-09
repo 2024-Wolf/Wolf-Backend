@@ -31,4 +31,8 @@ public class NoticeDao {
     public Long save(NoticeEntity noticeEntity) {
         return noticeRepository.save(noticeEntity).getNoticeId();
     }
+
+    public void delete(NoticeEntity notice) {
+        noticeRepository.delete(notice);
+    }
 }

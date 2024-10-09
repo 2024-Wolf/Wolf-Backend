@@ -63,6 +63,7 @@ public class NoticeAdminController {
     @Operation(summary = "공지사항 삭제")
     @DeleteMapping("/{noticeId}")
     public String deleteNotice(@PathVariable Long noticeId) {
+        noticeService.deleteNotice(noticeId);
         return "notice";
     }
 }

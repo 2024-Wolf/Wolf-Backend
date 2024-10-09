@@ -137,4 +137,15 @@ class NoticeServiceTest {
 
         verify(noticeDao, times(1)).findById(noticeId);
     }
+
+    @Test
+    void deleteNotice_Success() {
+        Long noticeId = 1L;
+        when(noticeDao.findById(noticeId)).thenReturn(noticeEntity);
+
+        noticeService.deleteNotice(noticeId);
+
+        verify(noticeDao, times(1)).findById(noticeId);
+        verify(noticeDao, times(1)).delete(noticeEntity);
+    }
 }
