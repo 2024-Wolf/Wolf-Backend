@@ -154,6 +154,6 @@ public class UserEntity extends BaseTimeEntity {
 
     public void suspend() {
         this.status = Status.SUSPENDED;
-        this.suspensionDate = LocalDate.now();
+        this.suspensionDate = LocalDate.now().plusDays(3);
     }
 }
