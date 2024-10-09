@@ -21,9 +21,7 @@ import java.util.Objects;
 public class GroupPostService {
 
     private final GroupPostDao groupPostDao;
-    private final RecruitMentsRepository recruitMentsRepository;
     private final RecruitmentsDao recruitmentsDao;
-    //직군 DAO 필요
 
     public  GroupPostResponse getGroupPostById(Long groupPostId) {
         GroupPostEntity groupPostEntity = groupPostDao.findById(groupPostId);
@@ -39,14 +37,14 @@ public class GroupPostService {
 
     public void createPost(GroupPostRequest request) {
         //예외 처리
-        if (Objects.equals(request.getType(), "project") && (request.getRecruitments().isEmpty())) {
+        if (request.getType().equals("project") && (request.getRecruitments().isEmpty())) {
             throw new BusinessException(ExceptionCode.BAD_REQUEST);
         }
 
         GroupPostEntity post = groupPostDao.createPost(request);
 
         //프로젝트면 Recruitments 저장
-        if (Objects.equals(request.getType(), "project")) {
+        if (request.getType().equals("project")) {
             List<Recruitments> recruitmentsList = request.getRecruitments();
 
             recruitmentsList.forEach(recruitment -> {
