@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.notice.controller;
 
+import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.service.NoticeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,13 +38,14 @@ public class NoticeAdminController {
     @Operation(summary = "공지사항 단일 정보 조회")
     @GetMapping("/{noticeId}")
     public String getNotice(@PathVariable Long noticeId) {
-
+        NoticeDetailDto notice = noticeService.getNotice(noticeId);
         return "notice";
     }
 
     @Operation(summary = "공지사항 등록")
     @PostMapping("")
     public String createNotice() {
+
         return "notice";
     }
 

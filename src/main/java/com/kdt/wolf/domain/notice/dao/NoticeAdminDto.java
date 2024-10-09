@@ -19,4 +19,26 @@ public class NoticeAdminDto {
             );
         }
     }
+
+    public record NoticeDetailDto(
+        Long noticeId,
+        String title,
+        String content,
+        String thumbnail,
+        String author,
+        LocalDateTime createdAt,
+        Boolean isActive
+    ) {
+        public NoticeDetailDto(NoticeEntity entity) {
+            this(
+                entity.getNoticeId(),
+                entity.getNoticeTitle(),
+                entity.getNoticeContent(),
+                entity.getNoticeThumbnail(),
+                entity.getAdmin().getAdminNickname(),
+                entity.getCreatedTime(),
+                entity.isActive()
+            );
+        }
+    }
 }

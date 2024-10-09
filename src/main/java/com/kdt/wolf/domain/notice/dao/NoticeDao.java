@@ -22,4 +22,9 @@ public class NoticeDao {
         }
         return notices;
     }
+
+    public NoticeEntity findById(Long noticeId) {
+        return noticeRepository.findById(noticeId)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTICE));
+    }
 }

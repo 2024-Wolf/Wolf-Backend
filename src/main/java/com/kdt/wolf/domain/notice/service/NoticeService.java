@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.notice.service;
 
 
+import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.dao.NoticeDao;
 import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeResponseDto;
@@ -29,6 +30,11 @@ public class NoticeService {
         return notices.stream()
                 .map(NoticePreviewDto::new)
                 .toList();
+    }
+
+    public NoticeDetailDto getNotice(Long noticeId) {
+        NoticeEntity notice = noticeDao.findById(noticeId);
+        return new NoticeDetailDto(notice);
     }
 }
 
