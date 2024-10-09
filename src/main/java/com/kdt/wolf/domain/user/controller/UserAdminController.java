@@ -21,8 +21,8 @@ public class UserAdminController {
      * 회원 전체 목록 조회 : `GET /users`
      * 회원 단일 정보 조회 : `GET /users/{userId}`
      * TODO : 회원 경고: `POST : /users/{userId}/warning`
-     * TODO : 회원 기간 정지: `POST /users/{userId}/ban`
-     * TODO : 회원 정지 해제: `POST /users/{userId}/unban`
+     * 회원 기간 정지: `POST /users/{userId}/ban`
+     * 회원 정지 해제: `POST /users/{userId}/unban`
      */
 
     @Operation(summary = "회원 전체 목록 조회")
