@@ -54,7 +54,9 @@ public class NoticeAdminController {
 
     @Operation(summary = "공지사항 수정")
     @PutMapping("/{noticeId}")
-    public String updateNotice(@PathVariable Long noticeId) {
+    public String updateNotice(@PathVariable Long noticeId,
+                               @RequestBody NoticeCreateDto request) {
+        Long updatedNoticeId = noticeService.updateNotice(noticeId, request);
         return "notice";
     }
 

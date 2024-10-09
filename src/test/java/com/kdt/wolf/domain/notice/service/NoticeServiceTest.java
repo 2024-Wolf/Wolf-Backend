@@ -51,6 +51,7 @@ class NoticeServiceTest {
                 .noticeContent("Test Notice Content")
                 .admin(adminEntity)
                 .build();
+
     }
 
     @Test
@@ -116,5 +117,24 @@ class NoticeServiceTest {
 
         verify(adminDao, times(1)).findById(adminId);
         verify(noticeDao, times(1)).save(any(NoticeEntity.class));
+    }
+
+    @Test
+    void updateNotice_Success() {
+        NoticeCreateDto noticeCreateDto = new NoticeCreateDto("New Title", "New Content", "New Thumbnail");
+        Long noticeId = 1L;
+
+        // Mock: noticeDao.findById()가 기존 NoticeEntity를 반환하도록 설정
+        when(noticeDao.findById(noticeId)).thenReturn(noticeEntity);
+
+        // when
+        noticeService.updateNotice(noticeId, noticeCreateDto);
+
+        // then
+        assertEquals("New Title", noticeEntity.getNoticeTitle());
+        assertEquals("New Content", noticeEntity.getNoticeContent());
+        assertEquals("New Thumbnail", noticeEntity.getNoticeThumbnail());
+
+        verify(noticeDao, times(1)).findById(noticeId);
     }
 }

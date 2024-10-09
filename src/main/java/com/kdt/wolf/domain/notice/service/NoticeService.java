@@ -9,6 +9,7 @@ import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.dao.NoticeDao;
 import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeResponseDto;
 import com.kdt.wolf.domain.notice.entity.NoticeEntity;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,14 @@ public class NoticeService {
                 .build()
         );
     }
+
+    @Transactional
+    public Long updateNotice(Long noticeId, NoticeCreateDto notice) {
+        NoticeEntity noticeEntity = noticeDao.findById(noticeId);
+        noticeEntity.updateNotice(notice.title(), notice.content(), notice.thumbnail());
+        return noticeEntity.getNoticeId();
+    }
+
+
 }
 

@@ -47,5 +47,11 @@ public class NoticeEntity extends BaseTimeEntity {
     public boolean changeActive(boolean isActive) {
         return this.isActive = isActive;
     }
+
+    public void updateNotice(String title, String content, String thumbnail) {
+        this.noticeTitle = title;
+        this.noticeContent = content;
+        this.noticeThumbnail = thumbnail;
+    }
 }
 
