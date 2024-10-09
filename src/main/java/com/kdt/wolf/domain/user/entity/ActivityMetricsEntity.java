@@ -59,13 +59,13 @@ public class ActivityMetricsEntity {
 
     public ActivityMetric toResponse() {
         return new ActivityMetric(
-                totalStudyParticipation,
-                memberExperienceCount,
-                leaderExperienceCount,
-                challengeSuccessCount,
-                activityRatingGood,
-                activityRatingSoso,
-                activityRatingBad
+                this.totalStudyParticipation,
+                this.memberExperienceCount,
+                this.leaderExperienceCount,
+                this.challengeSuccessCount,
+                this.activityRatingGood,
+                this.activityRatingSoso,
+                this.activityRatingBad
         );
     }
 }
