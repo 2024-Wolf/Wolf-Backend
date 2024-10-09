@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.notice.service;
 
 
+import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.dao.NoticeDao;
 import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeResponseDto;
 import com.kdt.wolf.domain.notice.entity.NoticeEntity;
@@ -15,12 +16,18 @@ public class NoticeService {
 
     private final NoticeDao noticeDao;
 
-    //목록조회
     public List<NoticeResponseDto> getNotices() {
         List<NoticeEntity> notices = noticeDao.findAll();
         return notices.stream()
                 .filter(NoticeEntity::isActive)
                 .map(NoticeResponseDto::new)
+                .toList();
+    }
+
+    public List<NoticePreviewDto> getNoticePreviews() {
+        List<NoticeEntity> notices = noticeDao.findAll();
+        return notices.stream()
+                .map(NoticePreviewDto::new)
                 .toList();
     }
 }
