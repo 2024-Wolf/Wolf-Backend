@@ -2,7 +2,7 @@ package com.kdt.wolf.domain.notice.service;
 
 
 import com.kdt.wolf.domain.notice.dao.NoticeDao;
-import com.kdt.wolf.domain.notice.dto.response.NoticeResponseDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeResponseDto;
 import com.kdt.wolf.domain.notice.entity.NoticeEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +19,7 @@ public class NoticeService {
     public List<NoticeResponseDto> getNotices() {
         List<NoticeEntity> notices = noticeDao.findAll();
         return notices.stream()
+                .filter(NoticeEntity::isActive)
                 .map(NoticeResponseDto::new)
                 .toList();
     }
