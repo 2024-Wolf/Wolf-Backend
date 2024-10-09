@@ -1,11 +1,14 @@
 package com.kdt.wolf.domain.notice.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.kdt.wolf.domain.admin.dao.AdminDao;
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
+import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeCreateDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.dao.NoticeDao;
@@ -23,17 +26,20 @@ import org.mockito.MockitoAnnotations;
 class NoticeServiceTest {
     @Mock
     private NoticeDao noticeDao;
+    @Mock
+    private AdminDao adminDao;
 
     @InjectMocks
     private NoticeService noticeService;
 
     private NoticeEntity noticeEntity;
+    private AdminEntity adminEntity;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        AdminEntity adminEntity = AdminEntity.builder()
+        adminEntity = AdminEntity.builder()
                 .adminEmail("adminEmail")
                 .adminPassword("adminPassword")
                 .adminNickname("adminNick")
@@ -93,4 +99,22 @@ class NoticeServiceTest {
         verify(noticeDao, times(1)).findById(999L);
     }
 
+    @Test
+    void createNotice_Success() {
+        NoticeCreateDto noticeCreateDto = new NoticeCreateDto("Test Title", "Test Content", "Test Thumbnail");
+        Long adminId = adminEntity.getAdminId();
+
+        when(adminDao.findById(adminId)).thenReturn(adminEntity);
+        when(noticeDao.save(any(NoticeEntity.class))).thenReturn(1L);
+
+        // when
+        Long savedNoticeId = noticeService.createNotice(noticeCreateDto, adminId);
+
+        // then
+        assertNotNull(savedNoticeId);
+        assertEquals(1L, savedNoticeId);
+
+        verify(adminDao, times(1)).findById(adminId);
+        verify(noticeDao, times(1)).save(any(NoticeEntity.class));
+    }
 }

@@ -41,4 +41,10 @@ public class NoticeAdminDto {
             );
         }
     }
+
+    public record NoticeCreateDto(
+        String title,
+        String content,
+        String thumbnail
+    ) { }
 }

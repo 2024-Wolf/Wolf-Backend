@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.notice.controller;
 
+import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeCreateDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.service.NoticeService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
@@ -44,8 +46,9 @@ public class NoticeAdminController {
 
     @Operation(summary = "공지사항 등록")
     @PostMapping("")
-    public String createNotice() {
-
+    public String createNotice(@RequestBody NoticeCreateDto request,
+                               @RequestBody Long adminId) {
+        Long noticeId = noticeService.createNotice(request, adminId);
         return "notice";
     }
 

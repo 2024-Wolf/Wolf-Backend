@@ -1,6 +1,9 @@
 package com.kdt.wolf.domain.notice.service;
 
 
+import com.kdt.wolf.domain.admin.dao.AdminDao;
+import com.kdt.wolf.domain.admin.entity.AdminEntity;
+import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeCreateDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.dao.NoticeDao;
@@ -16,6 +19,7 @@ import java.util.List;
 public class NoticeService {
 
     private final NoticeDao noticeDao;
+    private final AdminDao adminDao;
 
     public List<NoticeResponseDto> getNotices() {
         List<NoticeEntity> notices = noticeDao.findAll();
@@ -35,6 +39,17 @@ public class NoticeService {
     public NoticeDetailDto getNotice(Long noticeId) {
         NoticeEntity notice = noticeDao.findById(noticeId);
         return new NoticeDetailDto(notice);
+    }
+
+    public Long createNotice(NoticeCreateDto notice, Long adminId) {
+        AdminEntity admin = adminDao.findById(adminId);
+        return noticeDao.save(NoticeEntity.builder()
+                .noticeTitle(notice.title())
+                .noticeContent(notice.content())
+                .noticeThumbnail(notice.thumbnail())
+                .admin(admin)
+                .build()
+        );
     }
 }
 

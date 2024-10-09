@@ -27,4 +27,8 @@ public class NoticeDao {
         return noticeRepository.findById(noticeId)
                 .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTICE));
     }
+
+    public Long save(NoticeEntity noticeEntity) {
+        return noticeRepository.save(noticeEntity).getNoticeId();
+    }
 }
