@@ -83,4 +83,11 @@ public class UserDao {
         //경고는 ?
         return null;
     }
+
+    @Transactional
+    public void suspendUser(Long userId) {
+        UserEntity user = findById(userId);
+        user.suspend();
+        saveUser(user);
+    }
 }

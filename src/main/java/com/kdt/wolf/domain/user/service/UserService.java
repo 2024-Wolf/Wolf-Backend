@@ -64,4 +64,12 @@ public class UserService {
         return userDao.changeUserStatus(userId, Status.ACTIVE);
     }
 
+    public Status suspendUser(Long userId) {
+        Status status = userDao.changeUserStatus(userId, Status.SUSPENDED);
+        if(status == Status.SUSPENDED) {
+            userDao.suspendUser(userId);
+        }
+        return status;
+    }
+
 }

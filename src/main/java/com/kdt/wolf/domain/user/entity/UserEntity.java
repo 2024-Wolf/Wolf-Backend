@@ -151,4 +151,9 @@ public class UserEntity extends BaseTimeEntity {
     public void updateUserStatus(Status status) {
         this.status = status;
     }
+
+    public void suspend() {
+        this.status = Status.SUSPENDED;
+        this.suspensionDate = LocalDate.now();
+    }
 }
