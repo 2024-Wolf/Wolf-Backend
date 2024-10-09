@@ -78,10 +78,6 @@ public class UserEntity extends BaseTimeEntity {
         this.refundAccount = refundAccount;
     }
 
-    public void changeStatus(Status status) {
-        this.status = status;
-    }
-
     public UserProfileDetailResponse toUserProfileDetailResponse() {
         return new UserProfileDetailResponse(
                 userId,

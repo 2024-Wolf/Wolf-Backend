@@ -44,9 +44,10 @@ public class UserAdminController {
         return "user";
     }
 
-    @Operation(summary = "회원 기간 정지")
+    @Operation(summary = "회원 정지")
     @GetMapping("/{userId}/ban")
-    public String banUser() {
+    public String banUser(@PathVariable Long userId) {
+        Long response = userService.banUser(userId);
         return "user";
     }
 

@@ -8,6 +8,7 @@ import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserUpdateRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import jakarta.transaction.Transactional;
@@ -56,7 +57,11 @@ public class UserService {
         //경고는 ?
         return null;
     }
-    public Long banUser(Long userId) {
-        return userDao.banUser(userId);
+    public Status banUser(Long userId) {
+        return userDao.changeUserStatus(userId, Status.BANNED);
     }
+    public Status unbanUser(Long userId) {
+        return userDao.changeUserStatus(userId, Status.ACTIVE);
+    }
+
 }

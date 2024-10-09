@@ -57,9 +57,9 @@ public class UserDao {
     }
 
     @Transactional
-    public Status changeUserStatus(Long userId) {
+    public Status changeUserStatus(Long userId, Status status) {
         UserEntity user = findById(userId);
-        user.changeStatus(Status.WITHDRAWN);
+        user.updateUserStatus(status);
         return saveUser(user).getStatus();
     }
 
@@ -80,16 +80,7 @@ public class UserDao {
 
     @Transactional
     public Long warningUser(Long userId) {
-        UserEntity user = findById(userId);
-        user.updateUserStatus(Status.BANNED);
-
+        //경고는 ?
         return null;
-    }
-
-    @Transactional
-    public Long banUser(Long userId) {
-        UserEntity user = findById(userId);
-        user.updateUserStatus(Status.BANNED);
-        return user.getUserId();
     }
 }
