@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserDao {
     private final UserRepository userRepository;
-    private final ActivityMetricsRepository activityMetricsRepository;
 
     public UserEntity findById(Long userId) {
         return userRepository.findById(userId)
@@ -35,7 +34,6 @@ public class UserDao {
             return new UserLoginResult(user.get(), LoginFlag.LOGIN);
         }
         UserEntity newUser = userRepository.save(userInfo.toEntity());
-        activityMetricsRepository.save(new ActivityMetricsEntity(newUser));
         return new UserLoginResult(newUser, LoginFlag.SIGNUP);
     }
 
