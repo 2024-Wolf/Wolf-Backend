@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dao.QuestionBoardDao;
+import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
 import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
 import com.kdt.wolf.domain.group.entity.common.BoardType;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,10 @@ public class QuestionBoardService {
     public List<QuestionResponse> getQuestionList(Long groupPostId, String option) {
         BoardType boardType = "question".equals(option) ? BoardType.QUESTION : BoardType.COMMUNICATION;
         return questionBoardDao.getQuestionsList(groupPostId, boardType);
+    }
+
+    public void insertQuestion(Long groupPostId, String option, QuestionRequest request) {
+        questionBoardDao.createQuestion(groupPostId, option, request);
     }
 
 }
