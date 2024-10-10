@@ -12,7 +12,6 @@ import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
-import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
@@ -72,7 +71,7 @@ public class AuthService {
     private TokenResponse generateJwtTokenResponse(UserEntity user) {
         refreshTokenService.deleteRefreshTokenByUserId(user.getUserId());
 
-        TokenResponse tokenResponse = tokenProvider.generateJwtTokenResponse(user, UserRoleType.USER);
+        TokenResponse tokenResponse = tokenProvider.createJwtTokenResponse(user);
         refreshTokenService.saveRefreshToken(user, tokenResponse.refreshToken());
         return tokenResponse;
     }

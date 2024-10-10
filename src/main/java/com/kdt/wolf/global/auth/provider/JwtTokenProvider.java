@@ -1,5 +1,6 @@
 package com.kdt.wolf.global.auth.provider;
 
+import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.auth.dto.UserRoleType;
@@ -37,17 +38,33 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(signatureSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    public TokenResponse generateJwtTokenResponse(UserEntity user, UserRoleType userType) {
+    public TokenResponse createJwtTokenResponse(UserEntity user) {
         long now = getNowDateTime();
-        String accessToken = generateAccessTokenValue(user, now, userType);
+        String accessToken = generateAccessToken(user, now);
         Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         String refreshToken = createRefreshToken(now);
         return new TokenResponse(BEARER_TYPE, accessToken, refreshToken, accessTokenExpiresIn.getTime());
     }
 
-    public String generateAccessTokenValue(UserEntity user, long now, UserRoleType userType) {
+    public TokenResponse createJwtTokenResponse(AdminEntity admin) {
+        long now = getNowDateTime();
+        String accessToken = generateAccessToken(admin, now);
+        Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
+        String refreshToken = createRefreshToken(now);
+        return new TokenResponse(BEARER_TYPE, accessToken, refreshToken, accessTokenExpiresIn.getTime());
+    }
+
+    public String generateAccessToken(UserEntity user, long now) {
+        return buildAccessToken(user.getUserId(), now, UserRoleType.USER);
+    }
+
+    public String generateAccessToken(AdminEntity admin, long now) {
+        return buildAccessToken(admin.getAdminId(), now, UserRoleType.ADMIN);
+    }
+
+    private String buildAccessToken(long id, long now, UserRoleType userType) {
         return Jwts.builder()
-                .subject(String.valueOf(user.getUserId()))
+                .subject(String.valueOf(id))
                 .claim("UserRoleType", userType.name())
                 .issuedAt(new Date())
                 .expiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))

@@ -6,44 +6,44 @@ import static org.mockito.MockitoAnnotations.openMocks;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
-import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.exception.UnauthorizedException;
+import jakarta.transaction.Transactional;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@Transactional  // 테스트 후 데이터 롤백
 class JwtTokenProviderTest {
     UserEntity userEntity;
+
     @Autowired
     JwtTokenProvider jwtTokenProvider;
-    @MockBean
+
+    @Autowired  // 실제 UserRepository 사용
     UserRepository userRepository;
 
     @BeforeEach
     void setUp() {
-        openMocks(this);
-
         userEntity = UserEntity.builder()
-                        .email("testEmail")
-                        .nickname("testNickname")
-                        .build();
+                .email("testEmail")
+                .nickname("testNickname")
+                .build();
 
-        userRepository.save(userEntity);
+        userEntity = userRepository.save(userEntity);  // 실제 DB에 저장되면서 ID 생성
     }
 
     @Test
     void generateJwtTokenResponse() {
         // Given
-        long now = (new Date()).getTime()-5;
+        long now = (new Date()).getTime() - 5;
         // When
-        TokenResponse tokenResponse = jwtTokenProvider.generateJwtTokenResponse(userEntity, UserRoleType.USER);
+        TokenResponse tokenResponse = jwtTokenProvider.createJwtTokenResponse(userEntity);
         // Then
         assertNotNull(tokenResponse);
         assertNotNull(tokenResponse.accessToken());
@@ -55,9 +55,9 @@ class JwtTokenProviderTest {
     void generateAccessTokenValue() {
         long now = (new Date()).getTime();
         // Given
-        long expectedUserId = 1L;
+        long expectedUserId = userEntity.getUserId();
         // When
-        String token = jwtTokenProvider.generateAccessTokenValue(userEntity, now, UserRoleType.USER);
+        String token = jwtTokenProvider.generateAccessToken(userEntity, now);
         // Then
         assertNotNull(token);
         assertTrue(token.contains(Long.toString(expectedUserId)));
@@ -77,17 +77,15 @@ class JwtTokenProviderTest {
     @DisplayName("만료된 토큰 예외 처리")
     void validateToken() {
         long now = (new Date()).getTime() - 10000 * 60 * 60;
-        String expiredToken = jwtTokenProvider.generateAccessTokenValue(userEntity, now, UserRoleType.USER);
-        // When & Then: 만료된 토큰을 전달했을 때 예외가 발생하는지 확인
+        String expiredToken = jwtTokenProvider.generateAccessToken(userEntity, now);
+
         assertThrows(UnauthorizedException.class, () -> jwtTokenProvider.validateToken(expiredToken));
     }
 
     @Test
     @DisplayName("잘못된 토큰 예외 처리")
     void validateToken_InvalidToken_ThrowsUnauthorizedException() {
-        // Given: 잘못된 JWT 토큰
         String invalidToken = "invalid.token.value";
-        // When & Then: 잘못된 토큰을 전달했을 때 예외가 발생하는지 확인
         assertThrows(UnauthorizedException.class, () -> jwtTokenProvider.validateToken(invalidToken));
     }
 }

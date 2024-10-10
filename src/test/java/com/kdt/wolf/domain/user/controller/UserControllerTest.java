@@ -59,7 +59,7 @@ class UserControllerTest {
                 .build();
 
         userEntity = userRepository.save(userEntity);
-        accessToken = jwtTokenProvider.generateAccessTokenValue(userEntity, System.currentTimeMillis(), UserRoleType.USER);
+        accessToken = jwtTokenProvider.generateAccessToken(userEntity, System.currentTimeMillis());
     }
 
     @Test

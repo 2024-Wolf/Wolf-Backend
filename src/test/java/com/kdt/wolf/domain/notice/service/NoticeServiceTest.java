@@ -40,10 +40,10 @@ class NoticeServiceTest {
         MockitoAnnotations.openMocks(this);
 
         adminEntity = AdminEntity.builder()
-                .adminEmail("adminEmail")
-                .adminPassword("adminPassword")
-                .adminNickname("adminNick")
-                .adminName("adminName")
+                .email("adminEmail")
+                .password("adminPassword")
+                .nickname("adminNick")
+                .name("adminName")
                 .build();
 
         noticeEntity = NoticeEntity.builder()
