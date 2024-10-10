@@ -1,17 +1,17 @@
 package com.kdt.wolf.domain.group.dao;
 
 import com.kdt.wolf.domain.group.entity.RecruitmentsEntity;
-import com.kdt.wolf.domain.group.repository.RecruitMentsRepository;
+import com.kdt.wolf.domain.group.repository.RecruitmentsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class RecruitmentsDao {
-    private final RecruitMentsRepository recruitMentsRepository;
+    private final RecruitmentsRepository recruitmentsRepository;
 
     public RecruitmentsEntity save(RecruitmentsEntity recruitments) {
-        return recruitMentsRepository.save(recruitments);
+        return recruitmentsRepository.save(recruitments);
 
     }
 }

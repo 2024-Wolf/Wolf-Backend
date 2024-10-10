@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@IdClass(GroupRecruitmentId.class)
 @Table(name = "recruitments")
 public class RecruitmentsEntity {
 
@@ -24,6 +23,7 @@ public class RecruitmentsEntity {
     @JoinColumn(name = "group_post_id", nullable = false)
     private GroupPostEntity groupPost;
 
+    @Column
     private RecruitRole recruitRole; //ENUM
 
     @Column(nullable = false)
