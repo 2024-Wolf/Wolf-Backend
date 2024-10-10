@@ -2,6 +2,7 @@ package com.kdt.wolf.global.auth.provider;
 
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -13,7 +14,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.Optional;
 import javax.crypto.SecretKey;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,17 +37,18 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(signatureSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    public TokenResponse generateJwtTokenResponse(UserEntity user) {
+    public TokenResponse generateJwtTokenResponse(UserEntity user, UserRoleType userType) {
         long now = getNowDateTime();
-        String accessToken = generateAccessTokenValue(user, now);
+        String accessToken = generateAccessTokenValue(user, now, userType);
         Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         String refreshToken = createRefreshToken(now);
         return new TokenResponse(BEARER_TYPE, accessToken, refreshToken, accessTokenExpiresIn.getTime());
     }
 
-    public String generateAccessTokenValue(UserEntity user, long now) {
+    public String generateAccessTokenValue(UserEntity user, long now, UserRoleType userType) {
         return Jwts.builder()
                 .subject(String.valueOf(user.getUserId()))
+                .claim("UserRoleType", userType.name())
                 .issuedAt(new Date())
                 .expiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))
                 .signWith(key)
@@ -91,8 +92,15 @@ public class JwtTokenProvider {
         return Jwts.parser().verifyWith(key).build().parseSignedClaims(jwtToken);
     }
 
-    public Optional<Object> getClaimValue(String jwtToken, String claimName) {
-        return Optional.ofNullable(parseClaimsJws(jwtToken).getPayload().get(claimName));
+    public UserRoleType getUserType(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        String userTypeString = claims.get("UserRoleType", String.class);
+        return UserRoleType.valueOf(userTypeString);
     }
 
     public Date getExpirationDateFromToken(String token) {

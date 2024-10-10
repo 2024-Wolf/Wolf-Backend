@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginResponse;
+import com.kdt.wolf.domain.user.dto.LoginDto.LogoutRequest;
 import com.kdt.wolf.domain.user.dto.LoginDto.ReissueAccessTokenRequest;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
@@ -47,15 +48,17 @@ class AuthControllerTest {
     private AuthService authService;
 
     TokenResponse tokenResponse;
+    private String fcmtoken = "fcmToken";
 
     @BeforeEach
     void setUp() {
-        GoogleLoginResponse response = authService.loginForTest();
+        GoogleLoginResponse response = authService.loginForTest(fcmtoken);
         tokenResponse = new TokenResponse(response.tokenResponse().grantType(),
                                             response.tokenResponse().accessToken(),
                                             response.tokenResponse().refreshToken(),
                                             response.tokenResponse().accessTokenExpiresIn()
         );
+
     }
 
     @Test
@@ -76,10 +79,11 @@ class AuthControllerTest {
     @Test
     @WithMockUser
     void logout() throws Exception {
+        LogoutRequest logoutRequest = new LogoutRequest(tokenResponse.refreshToken(), fcmtoken);
 
         mockMvc.perform(post("/api/v1/auth/user")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(tokenResponse)))
+                        .content(objectMapper.writeValueAsString(logoutRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }

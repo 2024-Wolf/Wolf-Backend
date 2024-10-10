@@ -1,5 +1,4 @@
 package com.kdt.wolf.domain.group.entity;
-import com.kdt.wolf.domain.group.entity.common.GroupRecruitmentId;
 
 import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import jakarta.persistence.*;
@@ -11,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@IdClass(GroupRecruitmentId.class)
 @Table(name = "recruitments")
 public class RecruitmentsEntity {
 

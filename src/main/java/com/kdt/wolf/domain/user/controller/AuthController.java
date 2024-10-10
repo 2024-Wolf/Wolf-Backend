@@ -40,7 +40,7 @@ public class AuthController {
 
     @PostMapping("/test-login")
     public ApiResult<GoogleLoginResponse> test() {
-        GoogleLoginResponse response = authService.loginForTest();
+        GoogleLoginResponse response = authService.loginForTest("fcmToken");
         return ApiResult.ok(response);
     }
 

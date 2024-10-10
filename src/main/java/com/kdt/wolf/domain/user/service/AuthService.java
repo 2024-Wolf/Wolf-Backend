@@ -12,6 +12,7 @@ import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
+import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
@@ -71,13 +72,13 @@ public class AuthService {
     private TokenResponse generateJwtTokenResponse(UserEntity user) {
         refreshTokenService.deleteRefreshTokenByUserId(user.getUserId());
 
-        TokenResponse tokenResponse = tokenProvider.generateJwtTokenResponse(user);
+        TokenResponse tokenResponse = tokenProvider.generateJwtTokenResponse(user, UserRoleType.USER);
         refreshTokenService.saveRefreshToken(user, tokenResponse.refreshToken());
         return tokenResponse;
     }
 
 
-    public GoogleLoginResponse loginForTest() {
+    public GoogleLoginResponse loginForTest(String fcmToken) {
         OAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(
                 "testId",
                 "testName",
@@ -87,6 +88,7 @@ public class AuthService {
         );
         UserLoginResult userLoginResult = userDao.signUpOrSignIn(userInfo);
         TokenResponse response = generateJwtTokenResponse(userLoginResult.user());
+        saveFcmToken(userLoginResult.user(), fcmToken);
         return new GoogleLoginResponse(response, userLoginResult.flag());
     }
 

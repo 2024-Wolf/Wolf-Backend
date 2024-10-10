@@ -4,6 +4,7 @@ import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import java.time.LocalDate;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,16 +12,22 @@ import java.util.Collections;
 public class AuthenticatedUser implements UserDetails {
 
     private final transient UserEntity user;
+    private final UserRoleType userType;
 
-    public AuthenticatedUser(UserEntity user) {
+    public AuthenticatedUser(UserEntity user, UserRoleType userType) {
         this.user = user;
+        this.userType = userType;
     }
 
     // 유저의 권한 목록을 반환합니다. 권한이 없으면 빈 리스트를 반환합니다.
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // 권한이 있으면 여기에 추가하는 로직이 들어갈 수 있음
-        return Collections.emptyList();
+        if (userType == UserRoleType.ADMIN) {
+            return Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+//        return Collections.emptyList();
     }
 
     @Override

@@ -6,6 +6,7 @@ import static org.mockito.MockitoAnnotations.openMocks;
 import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
+import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.exception.UnauthorizedException;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ class JwtTokenProviderTest {
         // Given
         long now = (new Date()).getTime()-5;
         // When
-        TokenResponse tokenResponse = jwtTokenProvider.generateJwtTokenResponse(userEntity);
+        TokenResponse tokenResponse = jwtTokenProvider.generateJwtTokenResponse(userEntity, UserRoleType.USER);
         // Then
         assertNotNull(tokenResponse);
         assertNotNull(tokenResponse.accessToken());
@@ -56,7 +57,7 @@ class JwtTokenProviderTest {
         // Given
         long expectedUserId = 1L;
         // When
-        String token = jwtTokenProvider.generateAccessTokenValue(userEntity, now);
+        String token = jwtTokenProvider.generateAccessTokenValue(userEntity, now, UserRoleType.USER);
         // Then
         assertNotNull(token);
         assertTrue(token.contains(Long.toString(expectedUserId)));
@@ -76,7 +77,7 @@ class JwtTokenProviderTest {
     @DisplayName("만료된 토큰 예외 처리")
     void validateToken() {
         long now = (new Date()).getTime() - 10000 * 60 * 60;
-        String expiredToken = jwtTokenProvider.generateAccessTokenValue(userEntity, now);
+        String expiredToken = jwtTokenProvider.generateAccessTokenValue(userEntity, now, UserRoleType.USER);
         // When & Then: 만료된 토큰을 전달했을 때 예외가 발생하는지 확인
         assertThrows(UnauthorizedException.class, () -> jwtTokenProvider.validateToken(expiredToken));
     }
