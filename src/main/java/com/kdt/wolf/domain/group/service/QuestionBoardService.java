@@ -26,5 +26,9 @@ public class QuestionBoardService {
     public void editQuestion(Long questionId, QuestionRequest updateRequest) {
         questionBoardDao.updateQuestion(questionId, updateRequest);
     }
+
+    public void deleteQuestion(Long groupId, Long questionId) {
+        questionBoardDao.deleteById(questionId);
+    }
 }
 

@@ -117,4 +117,14 @@ public class GroupPostController {
         questionBoardService.editQuestion(questionId, updateRequest);
         return ApiResult.ok(null);
     }
+
+    @Operation(summary = "질문 삭제")
+    @DeleteMapping("/{groupId}/question/{questionId}")
+    public ApiResult<Void> deleteQuestion(
+            @PathVariable Long groupId,
+            @PathVariable Long questionId) {
+
+        questionBoardService.deleteQuestion(groupId, questionId);
+        return ApiResult.ok(null);
+    }
 }

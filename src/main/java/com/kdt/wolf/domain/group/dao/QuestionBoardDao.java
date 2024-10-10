@@ -59,5 +59,10 @@ public class QuestionBoardDao {
     }
 
 
-
+    public void deleteById(Long questionId) {
+        if (!questionBoardRepository.existsById(questionId)) {
+            throw new NotFoundException();
+        }
+        questionBoardRepository.deleteById(questionId);
+    }
 }
