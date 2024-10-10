@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/vi/*")
+@RequestMapping("/api/v1/*")
 public class ChallengeAdminController {
 
     private ChallengeService challengeService;
@@ -55,7 +55,7 @@ public class ChallengeAdminController {
     }
 
     // 결제 단일 조회
-    @GetMapping("/payments/{payId}")
+    @GetMapping("/payment/{payId}")
     public ApiResult<PaymentResponse> getPayment(@PathVariable Long paymentId){
         return ApiResult.ok(challengeService.getPayment(paymentId));
     }
