@@ -1,6 +1,6 @@
-package com.kdt.wolf.domain.user.repository;
+package com.kdt.wolf.global.auth.repository;
 
-import com.kdt.wolf.domain.user.entity.RefreshTokenEntity;
+import com.kdt.wolf.global.auth.entity.RefreshTokenEntity;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

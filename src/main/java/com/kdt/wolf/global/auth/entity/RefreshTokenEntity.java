@@ -1,8 +1,9 @@
-package com.kdt.wolf.domain.user.entity;
+package com.kdt.wolf.global.auth.entity;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

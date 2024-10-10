@@ -1,10 +1,10 @@
 package com.kdt.wolf.domain.user.controller;
 
-import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginRequest;
-import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginResponse;
-import com.kdt.wolf.domain.user.dto.LoginDto.LogoutRequest;
-import com.kdt.wolf.domain.user.dto.LoginDto.ReissueAccessTokenRequest;
-import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
+import com.kdt.wolf.global.auth.dto.LoginDto.GoogleLoginRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.GoogleLoginResponse;
+import com.kdt.wolf.global.auth.dto.LoginDto.LogoutRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.ReissueAccessTokenRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.service.AuthService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;

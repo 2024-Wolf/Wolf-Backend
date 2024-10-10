@@ -1,4 +1,6 @@
-package com.kdt.wolf.domain.user.dto;
+package com.kdt.wolf.global.auth.dto;
+
+import com.kdt.wolf.domain.user.dto.LoginFlag;
 
 public class LoginDto {
 

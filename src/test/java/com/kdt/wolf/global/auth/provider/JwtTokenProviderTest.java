@@ -1,9 +1,8 @@
 package com.kdt.wolf.global.auth.provider;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.MockitoAnnotations.openMocks;
 
-import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
+import com.kdt.wolf.global.auth.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.UnauthorizedException;

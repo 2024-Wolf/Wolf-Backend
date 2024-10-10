@@ -1,6 +1,6 @@
 package com.kdt.wolf.domain.user.service;
 
-import com.kdt.wolf.domain.user.dao.RefreshTokenDao;
+import com.kdt.wolf.global.auth.dao.RefreshTokenDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.exception.UnauthorizedException;

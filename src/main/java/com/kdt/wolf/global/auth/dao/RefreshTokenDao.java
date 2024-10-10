@@ -1,8 +1,8 @@
-package com.kdt.wolf.domain.user.dao;
+package com.kdt.wolf.global.auth.dao;
 
-import com.kdt.wolf.domain.user.entity.RefreshTokenEntity;
+import com.kdt.wolf.global.auth.entity.RefreshTokenEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
-import com.kdt.wolf.domain.user.repository.RefreshTokenRepository;
+import com.kdt.wolf.global.auth.repository.RefreshTokenRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

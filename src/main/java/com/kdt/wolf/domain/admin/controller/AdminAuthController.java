@@ -16,7 +16,7 @@ public class AdminAuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody AdminLoginRequest request) {
-        Long loginId = adminService.login(request);
+        adminService.login(request);
         return "redirect:/";
     }
 }
