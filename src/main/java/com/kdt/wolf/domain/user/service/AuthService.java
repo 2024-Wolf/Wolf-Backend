@@ -13,6 +13,7 @@ import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
+import com.kdt.wolf.global.auth.service.RefreshTokenService;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import com.kdt.wolf.global.fcm.service.FcmService;

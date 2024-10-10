@@ -1,5 +1,7 @@
 package com.kdt.wolf.global.auth.dao;
 
+import com.kdt.wolf.domain.admin.entity.AdminEntity;
+import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.auth.entity.RefreshTokenEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.auth.repository.RefreshTokenRepository;
@@ -17,19 +19,23 @@ public class RefreshTokenDao {
         refreshTokenRepository.save(refreshTokenEntity);
     }
 
+    public void saveRefreshToken(AdminEntity admin, String refreshToken) {
+        RefreshTokenEntity refreshTokenEntity = RefreshTokenEntity.createOf(admin, refreshToken);
+        refreshTokenRepository.save(refreshTokenEntity);
+    }
+
     public void deleteRefreshTokenByUserId(long userId) {
         Optional<RefreshTokenEntity> refreshTokenEntity = refreshTokenRepository.findByUserId(userId);
-        if(refreshTokenRepository.findByUserId(userId).isEmpty()) {
-            return;
-        }
-        refreshTokenRepository.delete(refreshTokenEntity.get());
+        refreshTokenEntity.ifPresent(refreshTokenRepository::delete);
+    }
+
+    public void deleteRefreshTokenByAdminId(long adminId) {
+        Optional<RefreshTokenEntity> refreshTokenEntity = refreshTokenRepository.findByAdminId(adminId);
+        refreshTokenEntity.ifPresent(refreshTokenRepository::delete);
     }
 
     public void deleteRefreshToken(String refreshToken) {
         Optional<RefreshTokenEntity> refreshTokenEntity = refreshTokenRepository.findByRefreshToken(refreshToken);
-        if(refreshTokenRepository.findByRefreshToken(refreshToken).isEmpty()) {
-            return;
-        }
-        refreshTokenRepository.delete(refreshTokenEntity.get());
+        refreshTokenEntity.ifPresent(refreshTokenRepository::delete);
     }
 }

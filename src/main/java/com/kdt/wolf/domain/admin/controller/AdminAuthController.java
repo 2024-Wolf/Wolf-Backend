@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.admin.controller;
 
 import com.kdt.wolf.domain.admin.dto.AdminAuthDto.AdminLoginRequest;
 import com.kdt.wolf.domain.admin.service.AdminAuthService;
+import com.kdt.wolf.global.auth.dto.LoginDto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class AdminAuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody AdminLoginRequest request) {
-        adminService.login(request);
+        TokenResponse response = adminService.login(request);
         return "redirect:/";
     }
 }

@@ -1,5 +1,6 @@
-package com.kdt.wolf.domain.user.service;
+package com.kdt.wolf.global.auth.service;
 
+import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.global.auth.dao.RefreshTokenDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
@@ -15,16 +16,23 @@ public class RefreshTokenService {
     private final RefreshTokenDao refreshTokenDao;
 
     public void saveRefreshToken(UserEntity user, String refreshToken) {
-        if(!validateRefreshToken(refreshToken)) {
+        if(isRefreshTokenInvalid(refreshToken)) {
             throw new UnauthorizedException();
         }
         refreshTokenDao.saveRefreshToken(user, refreshToken);
     }
 
-    public boolean validateRefreshToken(String refreshToken) {
+    public void saveRefreshToken(AdminEntity admin, String refreshToken) {
+        if(isRefreshTokenInvalid(refreshToken)) {
+            throw new UnauthorizedException();
+        }
+        refreshTokenDao.saveRefreshToken(admin, refreshToken);
+    }
+
+    private boolean isRefreshTokenInvalid(String refreshToken) {
         tokenProvider.validateToken(refreshToken);
         Date refreshTokenExpireTime = getRefreshTokenExpireTime(refreshToken);
-        return !refreshTokenExpireTime.before(new Date());
+        return refreshTokenExpireTime.before(new Date());
     }
 
     private Date getRefreshTokenExpireTime(String refreshToken) {
@@ -34,6 +42,11 @@ public class RefreshTokenService {
     public void deleteRefreshTokenByUserId(Long userId) {
         refreshTokenDao.deleteRefreshTokenByUserId(userId);
     }
+
+    public void deleteRefreshTokenByAdminId(Long adminId) {
+        refreshTokenDao.deleteRefreshTokenByAdminId(adminId);
+    }
+
 
     public void deleteRefreshToken(String refreshToken) {
         refreshTokenDao.deleteRefreshToken(refreshToken);
