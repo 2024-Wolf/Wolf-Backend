@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dao.QuestionBoardDao;
+import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
 import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
 import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
 import com.kdt.wolf.domain.group.entity.common.BoardType;
@@ -29,6 +30,24 @@ public class QuestionBoardService {
 
     public void deleteQuestion(Long groupId, Long questionId) {
         questionBoardDao.deleteById(questionId);
+    }
+
+
+    public void createComment(Long questionId, QuestionCommentRequest request) {
+        questionBoardDao.createComment(questionId, request);
+    }
+
+    public void createComment(Long questionId, Long commentId, QuestionCommentRequest request) {
+        // questionId와 commentId에 대한 댓글 생성
+        questionBoardDao.createComment(questionId, commentId, request);
+    }
+
+    public void editComment(Long commentId, QuestionCommentRequest request) {
+        questionBoardDao.updateComment(commentId, request);
+    }
+
+    public void deleteComment(Long commentId) {
+        questionBoardDao.deleteCommentById(commentId);
     }
 }
 
