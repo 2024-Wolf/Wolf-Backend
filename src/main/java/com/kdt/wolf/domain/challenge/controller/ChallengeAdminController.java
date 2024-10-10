@@ -3,6 +3,7 @@ package com.kdt.wolf.domain.challenge.controller;
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
+import com.kdt.wolf.domain.challenge.dto.response.PaymentResponse;
 import com.kdt.wolf.domain.challenge.service.ChallengeService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
@@ -54,5 +55,8 @@ public class ChallengeAdminController {
     }
 
     // 결제 단일 조회
-
+    @GetMapping("/payments/{payId}")
+    public ApiResult<PaymentResponse> getPayment(@PathVariable Long paymentId){
+        return ApiResult.ok(challengeService.getPayment(paymentId));
+    }
 }
