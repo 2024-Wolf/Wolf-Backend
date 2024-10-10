@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
 import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
 import com.kdt.wolf.domain.challenge.entity.ChallengeRegistrationEntity;
 import lombok.RequiredArgsConstructor;
@@ -153,7 +155,7 @@ public class ChallengeService {
     }
 
     // 챌린지 인증
-    public void updateVerification(ChallengeRegistrationRequest request, Long userId){
+    public void updateVerification(ChallengeVerificationRequest request, Long userId){
         challengePostDao.updateVerification(request, userId);
     }
 
@@ -162,10 +164,19 @@ public class ChallengeService {
         challengePostDao.createChallenge(request, userId);
     }
 
-
     // 챌린지 수정
     public void updateChallenge(ChallengeCreationRequest request, Long challengePostId){
         challengePostDao.updateChallenge(request, challengePostId);
+    }
+
+    // 챌린지 삭제
+    public void deleteChallenge(Long challengePostId){
+        challengePostDao.deleteChallenge(challengePostId);
+    }
+
+    // 챌린지 결제
+    public void challengePayment(ChallengePaymentRequest request, Long userId){
+        challengePostDao.payChallenge(request, userId);
     }
 
 
