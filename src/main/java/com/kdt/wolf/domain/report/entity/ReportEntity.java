@@ -7,10 +7,9 @@ import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -59,5 +58,43 @@ public class ReportEntity extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "NUMBER(1) DEFAULT 0 CHECK (is_solved IN (0, 1))")
     private boolean isSolved = false;
 
+    // Report for a User
+    @Builder(builderMethodName = "forUser")
+    public ReportEntity(UserEntity reporter, UserEntity reportedUser, ReportCategoryEntity reportCategory, String reportReason) {
+        this.reporter = reporter;
+        this.reportedUser = reportedUser;
+        this.reportCategory = reportCategory;
+        this.reportReason = reportReason;
+        this.topic = ReportTopic.USER;
+    }
 
+    // Report for a Group Post
+    @Builder(builderMethodName = "forGroupPost")
+    public ReportEntity(UserEntity reporter, GroupPostEntity reportedGroupPost, ReportCategoryEntity reportCategory, String reportReason) {
+        this.reporter = reporter;
+        this.reportedGroupPost = reportedGroupPost;
+        this.reportCategory = reportCategory;
+        this.reportReason = reportReason;
+        this.topic = ReportTopic.GROUP;
+    }
+
+    // Report for a Reply
+    @Builder(builderMethodName = "forReply")
+    public ReportEntity(UserEntity reporter, QuestionCommentEntity reportedReply, ReportCategoryEntity reportCategory, String reportReason) {
+        this.reporter = reporter;
+        this.reportedReply = reportedReply;
+        this.reportCategory = reportCategory;
+        this.reportReason = reportReason;
+        this.topic = ReportTopic.REPLY;
+    }
+
+    // Report for a Question
+    @Builder(builderMethodName = "forQuestion")
+    public ReportEntity(UserEntity reporter, QuestionBoardEntity reportedQuestion, ReportCategoryEntity reportCategory, String reportReason) {
+        this.reporter = reporter;
+        this.reportedQuestion = reportedQuestion;
+        this.reportCategory = reportCategory;
+        this.reportReason = reportReason;
+        this.topic = ReportTopic.QUESTION;
+    }
 }
