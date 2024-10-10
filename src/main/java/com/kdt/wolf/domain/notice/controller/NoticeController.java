@@ -1,6 +1,6 @@
 package com.kdt.wolf.domain.notice.controller;
 
-import com.kdt.wolf.domain.notice.dto.response.NoticeResponseDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeResponseDto;
 import com.kdt.wolf.domain.notice.service.NoticeService;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
