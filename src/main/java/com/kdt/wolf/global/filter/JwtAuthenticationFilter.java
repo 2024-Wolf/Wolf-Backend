@@ -5,6 +5,7 @@ import static org.springframework.util.StringUtils.hasText;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
+import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.exception.UnauthorizedException;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import jakarta.servlet.FilterChain;
@@ -46,7 +47,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                 jwtTokenProvider.validateToken(jwtToken);
 
                                 Authentication authentication =
-                                        getAuthentication(jwtTokenProvider.getSubject(jwtToken));
+                                        getAuthentication(jwtTokenProvider.getSubject(jwtToken) ,
+                                                jwtTokenProvider.getUserType(jwtToken));
                                 SecurityContextHolder.getContext()
                                         .setAuthentication(authentication);
                             },
@@ -70,7 +72,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return Optional.empty();
     }
 
-    private Authentication getAuthentication(String subject) {
+    private Authentication getAuthentication(String subject, UserRoleType userType) {
         long userId;
         try {
             userId = Long.parseLong(subject);
@@ -80,7 +82,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(UnauthorizedException::new);
 
-        AuthenticatedUser authenticatedUser = new AuthenticatedUser(user);
+        AuthenticatedUser authenticatedUser = new AuthenticatedUser(user, userType);
 
         return new UsernamePasswordAuthenticationToken(
                 authenticatedUser, null, authenticatedUser.getAuthorities());

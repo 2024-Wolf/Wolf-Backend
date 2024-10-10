@@ -6,6 +6,7 @@ import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.domain.user.service.UserService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
+import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.base.ApiResult;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,23 +55,18 @@ class UserControllerTest {
     void setUp() {
         userEntity = UserEntity.builder()
                 .email("testEmail")
-                .nickname("testNickname")
+                .nickname("nickname")
                 .build();
 
         userEntity = userRepository.save(userEntity);
-        accessToken = jwtTokenProvider.generateAccessTokenValue(userEntity, System.currentTimeMillis());
-    }
-
-    @Test
-//    @WithMockUser // 인증된 유저로 동작
-    void testGetUserProfile(){
+        accessToken = jwtTokenProvider.generateAccessToken(userEntity, System.currentTimeMillis());
     }
 
     @Test
     @WithMockUser // 인증된 유저로 동작
     void testCompleteSignUpProcess() throws Exception {
         SignUpRequest request = new SignUpRequest("nickname", "jobTitle", 5, "organization", "interests");
-        AuthenticatedUser authenticatedUser = new AuthenticatedUser(userEntity);
+        AuthenticatedUser authenticatedUser = new AuthenticatedUser(userEntity, UserRoleType.USER);
 
         Mockito.doNothing().when(userService).completeSignUpProcess(eq(authenticatedUser.getUserId()), any(SignUpRequest.class));
 

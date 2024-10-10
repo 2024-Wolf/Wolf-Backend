@@ -1,6 +1,6 @@
-package com.kdt.wolf.domain.user.repository;
+package com.kdt.wolf.global.auth.repository;
 
-import com.kdt.wolf.domain.user.entity.RefreshTokenEntity;
+import com.kdt.wolf.global.auth.entity.RefreshTokenEntity;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +12,7 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshTokenEntity
 
     @Query("select r from RefreshTokenEntity r where r.refreshTokenValue = :refreshToken")
     Optional<RefreshTokenEntity> findByRefreshToken(String refreshToken);
+
+    @Query("select r from RefreshTokenEntity r where r.admin.adminId = :adminId")
+    Optional<RefreshTokenEntity> findByAdminId(long adminId);
 }

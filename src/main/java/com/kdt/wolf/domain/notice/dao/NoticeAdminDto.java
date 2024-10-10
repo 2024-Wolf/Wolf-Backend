@@ -14,7 +14,7 @@ public class NoticeAdminDto {
             this(
                 entity.getNoticeId(),
                 entity.getNoticeTitle(),
-                entity.getAdmin().getAdminNickname(),
+                entity.getAdmin().getNickname(),
                 entity.getCreatedTime()
             );
         }
@@ -35,7 +35,7 @@ public class NoticeAdminDto {
                 entity.getNoticeTitle(),
                 entity.getNoticeContent(),
                 entity.getNoticeThumbnail(),
-                entity.getAdmin().getAdminNickname(),
+                entity.getAdmin().getNickname(),
                 entity.getCreatedTime(),
                 entity.isActive()
             );

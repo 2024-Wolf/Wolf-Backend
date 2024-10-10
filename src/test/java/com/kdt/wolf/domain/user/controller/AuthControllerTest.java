@@ -6,26 +6,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginResponse;
-import com.kdt.wolf.domain.user.dto.LoginDto.ReissueAccessTokenRequest;
-import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
-import com.kdt.wolf.domain.user.entity.UserEntity;
-import com.kdt.wolf.domain.user.repository.UserRepository;
+import com.kdt.wolf.global.auth.dto.LoginDto.GoogleLoginResponse;
+import com.kdt.wolf.global.auth.dto.LoginDto.LogoutRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.ReissueAccessTokenRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.service.AuthService;
-import com.kdt.wolf.domain.user.service.RefreshTokenService;
-import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
-import com.kdt.wolf.global.base.ApiResult;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -47,15 +38,17 @@ class AuthControllerTest {
     private AuthService authService;
 
     TokenResponse tokenResponse;
+    private String fcmtoken = "fcmToken";
 
     @BeforeEach
     void setUp() {
-        GoogleLoginResponse response = authService.loginForTest();
+        GoogleLoginResponse response = authService.loginForTest(fcmtoken);
         tokenResponse = new TokenResponse(response.tokenResponse().grantType(),
                                             response.tokenResponse().accessToken(),
                                             response.tokenResponse().refreshToken(),
                                             response.tokenResponse().accessTokenExpiresIn()
         );
+
     }
 
     @Test
@@ -76,10 +69,11 @@ class AuthControllerTest {
     @Test
     @WithMockUser
     void logout() throws Exception {
+        LogoutRequest logoutRequest = new LogoutRequest(tokenResponse.refreshToken(), fcmtoken);
 
         mockMvc.perform(post("/api/v1/auth/user")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(tokenResponse)))
+                        .content(objectMapper.writeValueAsString(logoutRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }

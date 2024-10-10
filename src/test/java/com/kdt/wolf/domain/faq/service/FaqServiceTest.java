@@ -38,10 +38,10 @@ class FaqServiceTest {
     void setUp() {
         adminEntity = adminRepository.save(
                 AdminEntity.builder()
-                    .adminEmail("adminEmail")
-                    .adminPassword("adminPassword")
-                    .adminName("adminName")
-                    .adminNickname("adminNickname")
+                    .email("adminEmail")
+                    .password("adminPassword")
+                    .name("adminName")
+                    .nickname("adminNickname")
                     .build()
         );
         faqRepository.save(

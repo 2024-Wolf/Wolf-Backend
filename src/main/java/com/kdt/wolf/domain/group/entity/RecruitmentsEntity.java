@@ -1,5 +1,4 @@
 package com.kdt.wolf.domain.group.entity;
-import com.kdt.wolf.domain.group.entity.common.GroupRecruitmentId;
 
 import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import jakarta.persistence.*;

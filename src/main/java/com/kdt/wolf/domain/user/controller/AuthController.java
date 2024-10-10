@@ -1,10 +1,10 @@
 package com.kdt.wolf.domain.user.controller;
 
-import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginRequest;
-import com.kdt.wolf.domain.user.dto.LoginDto.GoogleLoginResponse;
-import com.kdt.wolf.domain.user.dto.LoginDto.LogoutRequest;
-import com.kdt.wolf.domain.user.dto.LoginDto.ReissueAccessTokenRequest;
-import com.kdt.wolf.domain.user.dto.LoginDto.TokenResponse;
+import com.kdt.wolf.global.auth.dto.LoginDto.GoogleLoginRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.GoogleLoginResponse;
+import com.kdt.wolf.global.auth.dto.LoginDto.LogoutRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.ReissueAccessTokenRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.service.AuthService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth/*")
+@RequestMapping("/api/v1/auth/")
 public class AuthController {
     private final AuthService authService;
 
@@ -40,7 +40,7 @@ public class AuthController {
 
     @PostMapping("/test-login")
     public ApiResult<GoogleLoginResponse> test() {
-        GoogleLoginResponse response = authService.loginForTest();
+        GoogleLoginResponse response = authService.loginForTest("fcmToken");
         return ApiResult.ok(response);
     }
 

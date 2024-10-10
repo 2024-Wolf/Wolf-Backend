@@ -21,16 +21,16 @@ public class AdminEntity {
     @SequenceGenerator(name = "seq_admin_id", sequenceName = "admin_sequence", allocationSize = 1)
     private Long adminId;
 
-    private String adminEmail;
-    private String adminPassword;
-    private String adminNickname;
-    private String adminName;
+    private String email;
+    private String password;
+    private String nickname;
+    private String name;
 
     @Builder
-    public AdminEntity(String adminEmail, String adminPassword, String adminNickname, String adminName) {
-        this.adminEmail = adminEmail;
-        this.adminPassword = adminPassword;
-        this.adminNickname = adminNickname;
-        this.adminName = adminName;
+    public AdminEntity(String email, String password, String nickname, String name) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.name = name;
     }
 }

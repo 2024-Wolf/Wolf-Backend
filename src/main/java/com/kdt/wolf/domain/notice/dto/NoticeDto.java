@@ -17,7 +17,7 @@ public class NoticeDto {
                 entity.getNoticeId(),
                 entity.getNoticeTitle(),
                 entity.getNoticeContent(),
-                entity.getAdmin().getAdminNickname(),
+                entity.getAdmin().getNickname(),
                 entity.getCreatedTime(),
                 entity.getModifiedTime()
             );
