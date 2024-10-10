@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.group.entity.common.BoardType;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
@@ -51,5 +52,11 @@ public class QuestionBoardEntity extends BaseTimeEntity {
         this.questionTime = questionTime;
         this.questionDetails = questionDetails;
         this.questionImageUrl = boardType == BoardType.COMMUNICATION ? questionImageUrl : null;
+    }
+
+    public void updateQuestion(QuestionRequest request) {
+        this.questionTime = request.getQuestionTime();
+        this.questionDetails = request.getQuestionDetails();
+        this.questionImageUrl = request.getQuestionImageUrl();
     }
 }

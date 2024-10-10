@@ -1,31 +1,31 @@
 package com.kdt.wolf.domain.group.controller;
 
+import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
+import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
 import com.kdt.wolf.domain.group.service.GroupMemberService;
 import com.kdt.wolf.domain.group.service.GroupPostService;
+import com.kdt.wolf.domain.group.service.QuestionBoardService;
 import com.kdt.wolf.domain.group.service.RecruitApplyService;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/post")
 public class GroupPostController {
 
     private final GroupPostService groupPostService;
     private final RecruitApplyService recruitApplyService;
     private final GroupMemberService groupMemberService;
-
-    public GroupPostController(GroupPostService groupPostService, RecruitApplyService recruitApplyService, GroupMemberService groupMemberService) {
-        this.groupPostService = groupPostService;
-        this.recruitApplyService = recruitApplyService;
-        this.groupMemberService = groupMemberService;
-    }
+    private final QuestionBoardService questionBoardService;
 
 
     @Operation(summary = "모집글 작성")
@@ -87,5 +87,34 @@ public class GroupPostController {
     public ApiResult<List<GroupMemberResponse>> getGroupMembers(@PathVariable Long groupId) {
         List<GroupMemberResponse> members = groupMemberService.getGroupMembers(groupId);
         return ApiResult.ok(members);
+    }
+
+    @Operation(summary = "질문 목록 조회")
+    @GetMapping("/{groupId}/question/{option}")
+    public ApiResult<List<QuestionResponse>> getQuestionsWithComments(
+            @PathVariable Long groupId,
+            @PathVariable String option) {
+        List<QuestionResponse> questions = questionBoardService.getQuestionList(groupId, option);
+        return ApiResult.ok(questions);
+    }
+
+    @Operation(summary = "질문 등록")
+    @PostMapping("/{groupId}/question/{option}")
+    public ApiResult<Void> registerQuestion(@PathVariable Long groupId,
+                                              @PathVariable String option,
+                                              @RequestBody QuestionRequest questionRequest) {
+        questionBoardService.insertQuestion(groupId, option, questionRequest);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "질문 수정")
+    @PutMapping("/{groupId}/question/{questionId}")
+    public ApiResult<Void> updateQuestion(
+            @PathVariable Long groupId,
+            @PathVariable Long questionId,
+            @RequestBody QuestionRequest updateRequest) {
+
+        questionBoardService.editQuestion(questionId, updateRequest);
+        return ApiResult.ok(null);
     }
 }

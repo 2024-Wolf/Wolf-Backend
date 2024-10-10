@@ -7,6 +7,7 @@ import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
 import com.kdt.wolf.domain.group.entity.common.BoardType;
 import com.kdt.wolf.domain.group.repository.QuestionBoardRepository;
 import com.kdt.wolf.domain.group.repository.QuestionCommentRepository;
+import com.kdt.wolf.global.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -47,8 +48,14 @@ public class QuestionBoardDao {
                 .build();
 
         questionBoardRepository.save(question);
+    }
 
+    public void updateQuestion(Long questionId, QuestionRequest request) {
+        QuestionBoardEntity originalQuestion = questionBoardRepository.findById(questionId)
+                .orElseThrow(NotFoundException::new);
 
+        originalQuestion.updateQuestion(request);
+        questionBoardRepository.save(originalQuestion);
     }
 
 

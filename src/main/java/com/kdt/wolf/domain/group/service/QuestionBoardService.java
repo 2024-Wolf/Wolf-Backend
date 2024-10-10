@@ -23,5 +23,8 @@ public class QuestionBoardService {
         questionBoardDao.createQuestion(groupPostId, option, request);
     }
 
+    public void editQuestion(Long questionId, QuestionRequest updateRequest) {
+        questionBoardDao.updateQuestion(questionId, updateRequest);
+    }
 }
 
