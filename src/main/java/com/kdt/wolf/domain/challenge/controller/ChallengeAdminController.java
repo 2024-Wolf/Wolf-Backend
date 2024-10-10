@@ -21,9 +21,9 @@ public class ChallengeAdminController {
     private ChallengeService challengeService;
 
     // 챌린지 목록 조회
-    @GetMapping("/challenges/{groupPostId}")
-    public ApiResult<Map<String, List<ChallengeDto.ChallengePreview>>> getAllChallenges(@PathVariable Long groupPostId, @AuthenticationPrincipal AuthenticatedUser user) {
-        return ApiResult.ok(challengeService.getAllChallenges(groupPostId, user.getUserId()));
+    @GetMapping("/challenges")
+    public ApiResult<List<ChallengeDto.ChallengePreview>> getAllChallenges() {
+        return ApiResult.ok(challengeService.getAllChallenges());
     }
 
     // 챌린지(단일) 조회

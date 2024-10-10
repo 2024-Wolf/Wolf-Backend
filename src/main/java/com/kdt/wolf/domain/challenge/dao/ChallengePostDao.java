@@ -34,7 +34,12 @@ public class ChallengePostDao {
         return challengePostRepository.findById(challengePostId).orElseThrow(NotFoundException::new);
     }
 
-    // 챌린지 목록 불러오기
+    // 챌린지 목록 불러오기(관리자)
+    public List<ChallengePostEntity> findAll(){
+        return challengePostRepository.findAll();
+    }
+
+    // 챌린지 목록 불러오기(회원)
     public List<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId) {
         return challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
     }

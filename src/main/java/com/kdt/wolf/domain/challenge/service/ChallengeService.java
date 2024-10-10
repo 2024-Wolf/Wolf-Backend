@@ -37,6 +37,20 @@ public class ChallengeService {
     }
 
     // 챌린지 목록 불러오기
+    public List<ChallengePreview> getAllChallenges(){
+        List<ChallengePostEntity> dataList = challengePostDao.findAll();
+
+        return dataList.stream().map(data -> new ChallengePreview(
+           data.getChallengePostId(),
+           data.getImg(),
+           data.getTitle(),
+           data.getCreatedTime().toLocalDate(),
+           data.getDeadline(),
+           null
+        )).toList();
+    }
+
+    // 챌린지 목록 불러오기
     public Map<String, List<ChallengePreview>> getAllChallenges(Long groupId, Long userId){
         Map<String, List<ChallengePreview>> challengesByStatus = new HashMap<>();
 
