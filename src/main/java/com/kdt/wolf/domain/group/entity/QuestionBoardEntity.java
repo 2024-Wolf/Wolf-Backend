@@ -9,6 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -33,17 +36,21 @@ public class QuestionBoardEntity extends BaseTimeEntity {
     private BoardType boardType;
 
     @Column
+    private LocalDateTime questionTime;
+
+    @Column
     private String questionDetails;
 
     @Column
     private String questionImageUrl;
 
     @Builder
-    public QuestionBoardEntity(GroupPostEntity groupPost, UserEntity user, BoardType boardType,
+    public QuestionBoardEntity(GroupPostEntity groupPost, UserEntity user, BoardType boardType, LocalDateTime questionTime,
                                String questionDetails, String questionImageUrl) {
         this.groupPost = groupPost;
         this.user = user;
         this.boardType = boardType;
+        this.questionTime = questionTime;
         this.questionDetails = questionDetails;
         this.questionImageUrl = boardType == BoardType.COMMUNICATION ? questionImageUrl : null;
     }

@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -31,16 +33,18 @@ public class QuestionCommentEntity extends BaseTimeEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity author;
 
+    private LocalDateTime createTime;
     private String commentDetails;
     private String commentImageUrl;
 
     @Builder
     public QuestionCommentEntity(QuestionBoardEntity question, QuestionCommentEntity parentComment,
-                                 UserEntity author, String commentDetails,
+                                 UserEntity author, LocalDateTime createTime, String commentDetails,
                                  String commentImageUrl) {
         this.question = question;
         this.parentComment = parentComment;
         this.author = author;
+        this.createTime = createTime;
         this.commentDetails = commentDetails;
         this.commentImageUrl = commentImageUrl;
     }
