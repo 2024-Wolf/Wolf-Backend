@@ -1,6 +1,6 @@
 package com.kdt.wolf.domain.notice.entity;
 
-import com.kdt.wolf.domain.notice.dto.request.NoticeRequestDto;
+import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity; // UserEntity 임포트
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -8,8 +8,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,25 +29,29 @@ public class NoticeEntity extends BaseTimeEntity {
     @Column(nullable = true, length = 255)
     private String noticeThumbnail;
 
-    @Column(nullable = false)
-    private LocalDate noticePostedDate = LocalDate.now();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id", nullable = false)
+    private AdminEntity admin;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
-
-    @Column(length = 1)
-    // N: 비활성화, Y: 활성화 상태
-    private char noticeIsActive;
+    @Column(columnDefinition = "CHAR(1) DEFAULT '0' CHECK(notice_is_active IN ('0', '1'))")
+    private boolean isActive = false; // false: 비활성화, true: 활성화
 
     @Builder
-    public NoticeEntity(String noticeTitle, String noticeContent, String noticeThumbnail, char noticeIsActive, UserEntity user) {
+    public NoticeEntity(String noticeTitle, String noticeContent, String noticeThumbnail, AdminEntity admin) {
         this.noticeTitle = noticeTitle;
         this.noticeContent = noticeContent;
         this.noticeThumbnail = noticeThumbnail;
-        this.noticeIsActive = noticeIsActive;
-        this.user = user; // UserEntity 초기화
+        this.admin = admin;
+    }
 
+    public boolean changeActive(boolean isActive) {
+        return this.isActive = isActive;
+    }
+
+    public void updateNotice(String title, String content, String thumbnail) {
+        this.noticeTitle = title;
+        this.noticeContent = content;
+        this.noticeThumbnail = thumbnail;
     }
 }
 

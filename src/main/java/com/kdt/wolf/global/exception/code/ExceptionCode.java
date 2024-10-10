@@ -18,6 +18,7 @@ public enum ExceptionCode implements ResultCodeProvider {
     FCM_TOKEN_SAVE_FAILED("FCM 토큰 저장에 실패하였습니다."),
     BAD_REQUEST("잘못된 요청입니다."),
     NOT_FOUND_FAQ_CATEGORY("존재하지 않는 FAQ 카테고리입니다."),
-    NOT_FOUND_ADMIN("존재하지 않는 관리자입니다.");
+    NOT_FOUND_ADMIN("존재하지 않는 관리자입니다."),
+    NOT_FOUND_NOTICE("존재하지 않는 공지사항입니다."),;
     private final String message;
 }

@@ -61,6 +61,7 @@ public class UserEntity extends BaseTimeEntity {
         this.profilePicture = profilePicture;
         this.socialType = socialType;
         this.status = status;
+        this.activityMetrics = new ActivityMetricsEntity(this);
     }
 
     public void updateDetailProfile(String jobTitle, String organization, int experience, String interests) {
@@ -72,10 +73,6 @@ public class UserEntity extends BaseTimeEntity {
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public void updateRefundAccount(String refundAccount) {
-        this.refundAccount = refundAccount;
     }
 
     public UserProfileDetailResponse toUserProfileDetailResponse() {
@@ -128,6 +125,10 @@ public class UserEntity extends BaseTimeEntity {
     }
 
     public UserDetailResponse toUserDetailResponse() {
+        String suspensionDateDto = "";
+        if(suspensionDate != null) {
+            suspensionDateDto = suspensionDate.toString();
+        }
         return UserDetailResponse.builder()
                 .id(userId)
                 .nickname(nickname)
@@ -142,7 +143,7 @@ public class UserEntity extends BaseTimeEntity {
                 .introduction(introduction)
                 .socialType(socialType.name())
                 .status(status.name())
-                .suspensionDate(suspensionDate.toString())
+                .suspensionDate(suspensionDateDto)
                 .joinDate(createdTime.toString())
                 .activityMetrics(activityMetrics.toResponse())
                 .build();

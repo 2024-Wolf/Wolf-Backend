@@ -3,7 +3,9 @@ package com.kdt.wolf.domain.challenge.controller;
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
 import com.kdt.wolf.domain.challenge.service.ChallengeService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import java.util.Map;
@@ -48,24 +50,18 @@ public class ChallengeController {
         return ApiResult.ok();
     }
 
+    // 챌린지 결제
+    @PostMapping("/payment")
+    public ApiResult<?> challengePayment(@RequestBody ChallengePaymentRequest request, @AuthenticationPrincipal AuthenticatedUser user){
+        challengeService.challengePayment(request, user.getUserId());
+        return ApiResult.ok();
+    }
+
     // 챌린지 인증
     @PostMapping("/challenge/verification")
-    public ApiResult<?> challengeVerification(@RequestBody ChallengeRegistrationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
+    public ApiResult<?> challengeVerification(@RequestBody ChallengeVerificationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.updateVerification(request, user.getUserId());
         return ApiResult.ok();
     }
 
-    // 챌린지 생성
-    @PostMapping("/challenge")
-    public ApiResult<?> registerChallenge(@RequestBody ChallengeCreationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
-        challengeService.registerChallenge(request, user.getUserId());
-        return ApiResult.ok();
-    }
-
-    // 챌린지 수정
-    @PatchMapping("/challenge/{challengePostId}")
-    public ApiResult<?> updateChallenge(@RequestBody ChallengeCreationRequest request, @RequestParam Long challengePostId){
-        challengeService.updateChallenge(request, challengePostId);
-        return ApiResult.ok();
-    }
 }

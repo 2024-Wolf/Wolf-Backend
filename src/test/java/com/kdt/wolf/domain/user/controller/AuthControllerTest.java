@@ -73,17 +73,6 @@ class AuthControllerTest {
         assertTrue(result.getResponse().getContentAsString().contains("accessToken"));
     }
 
-    //    @PostMapping("/user")
-    //    public ApiResult<?> logout(@RequestBody LogoutRequest request) {
-    //        authService.logout(request.refreshToken());
-    //        return ApiResult.ok();
-    //    }
-    //
-    //    @DeleteMapping("/user")
-    //    public ApiResult<Status> removeUser(@AuthenticationPrincipal AuthenticatedUser user) {
-    //        Status status = authService.removeUser(user.getUserId());
-    //        return ApiResult.ok(status);
-    //    }
     @Test
     @WithMockUser
     void logout() throws Exception {
