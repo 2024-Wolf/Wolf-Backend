@@ -1,7 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
 import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
-import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
