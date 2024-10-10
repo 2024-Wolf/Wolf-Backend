@@ -16,7 +16,10 @@ import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.SocialType;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.repository.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -59,6 +62,8 @@ public class GroupPostServiceIntTest {
     @Autowired
     private QuestionCommentRepository questionCommentRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Test
     void getPostsByType() {
@@ -184,7 +189,7 @@ public class GroupPostServiceIntTest {
         GroupPostRequest projectRequest = GroupPostRequest.builder()
                 .name("Project Group")
                 .leaderUser(savedLeaderUser)
-                .type("project") // GroupType은 PROJECT
+                .type("study")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
                 .recruitStartDate(LocalDate.now())
@@ -378,7 +383,7 @@ public class GroupPostServiceIntTest {
 
         // When: 지원 요청 객체 생성 및 지원 요청 수행
         RecruitApplyRequest applyRequest = RecruitApplyRequest.builder()
-                .position("Backend Developer")
+                .position("BACKEND")
                 .email("applicant@example.com")
                 .applicationReason("I am passionate about backend development and have experience in Spring Boot.")
                 .introduction("I have a solid foundation in backend technologies and am eager to contribute.")
@@ -392,7 +397,7 @@ public class GroupPostServiceIntTest {
 
         RecruitApplyEntity savedApplication = recruitApplyRepository.findAll().get(0);
         // Then: 지원 성공 여부 확인
-        Assertions.assertEquals(applyRequest.getPosition(), savedApplication.getPosition());
+        Assertions.assertEquals(RecruitRole.valueOf(applyRequest.getPosition()), savedApplication.getPosition());
         Assertions.assertEquals(applyRequest.getEmail(), savedApplication.getEmail());
         Assertions.assertEquals(applyRequest.getApplicationReason(), savedApplication.getApplicationReason());
         Assertions.assertEquals(applyRequest.getIntroduction(), savedApplication.getIntroduction());
@@ -534,7 +539,7 @@ public class GroupPostServiceIntTest {
         questionCommentRepository.save(comment2);
 
         // When: 질문 게시글과 댓글을 조회
-        List<QuestionResponse> questionWithComments = questionBoardService.getQuestionList(1L, "question");
+        List<QuestionResponse> questionWithComments = questionBoardService.getQuestionList(groupPost.getGroupPostId(), "question");
 
         // Then: 검증
         Assertions.assertEquals(1, questionWithComments.size()); // 질문 하나 존재 확인
