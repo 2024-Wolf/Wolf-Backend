@@ -30,12 +30,6 @@ public class ChallengeController {
         return ApiResult.ok(challengeService.getAllChallenges(groupPostId, user.getUserId()));
     }
 
-    // 챌린지(단일) 조회
-    @GetMapping("/challenge/{challengePostId}")
-    public ApiResult<ChallengePreview> getChallenge(@PathVariable Long challengePostId){
-        return ApiResult.ok(challengeService.getChallenge(challengePostId));
-    }
-
     // 그룹장 신청
     @PostMapping("/registration")
     public ApiResult<?> challengeRegistration(@RequestBody ChallengeRegistrationRequest request){
