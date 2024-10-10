@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.challenge.controller;
 
 
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
@@ -24,7 +25,13 @@ public class ChallengeController {
 
     private final ChallengeService challengeService;
 
-    // 챌린지 목록 조회
+    // 챌린지(단일) 조회
+    @GetMapping("/challenge/{challengePostId}")
+    public ApiResult<ChallengeDto.ChallengePreview> getChallenge(@PathVariable Long challengePostId){
+        return ApiResult.ok(challengeService.getChallenge(challengePostId));
+    }
+
+    // 챌린지 목록 조회(그룹)
     @GetMapping("/challenges/{groupPostId}")
     public ApiResult<Map<String,List<ChallengePreview>>> getAllChallenges(@PathVariable Long groupPostId, @AuthenticationPrincipal AuthenticatedUser user) {
         return ApiResult.ok(challengeService.getAllChallenges(groupPostId, user.getUserId()));

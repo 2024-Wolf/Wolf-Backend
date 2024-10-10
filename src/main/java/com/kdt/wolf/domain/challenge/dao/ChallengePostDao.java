@@ -97,13 +97,6 @@ public class ChallengePostDao {
                 .findChallengeRegistration(request.getGroupPostId(), request.getChallengePostId());
         UserEntity user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
 
-        if(request.getStatus().equals("Y")){
-            GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
-            entity.updateParticipationStatus();
-            // 아래 문장을 주석처리해도 반영이 되는지 확인. (Entity로 선언한 영속상태라면 반영이 된다고 함)
-            // groupChallengeParticipantRepository.save(entity);
-        }
-
         VerificationEntity verificationEntity = new VerificationEntity(
                 registration,
                 registration.getChallengePost(),
@@ -112,6 +105,13 @@ public class ChallengePostDao {
                 request.getInstitutionName(),
                 request.getVerificationContent()
         );
+
+        if(request.getStatus().equals("Y")) {
+            GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
+            entity.updateParticipationStatus();
+            groupChallengeParticipantRepository.save(entity);
+            verificationEntity.updateVerification();
+        }
 
         verificationRepository.save(verificationEntity);
     }
@@ -132,16 +132,8 @@ public class ChallengePostDao {
 
     // 챌린지 수정
     public void updateChallenge(ChallengeCreationRequest request,Long challengePostId){
-        ChallengePostEntity entity = new ChallengePostEntity(
-                challengePostRepository.findById(challengePostId).orElseThrow(NotFoundException::new).getChallengePostId(),
-                request.getImg(),
-                request.getTitle(),
-                request.getContent(),
-                request.getManner(),
-                request.getAwardContent(),
-                request.getDeadline()
-        );
-
+        ChallengePostEntity entity = challengePostRepository.findById(challengePostId).orElseThrow(NotFoundException::new);
+        entity.updateChallengePost(request);
         challengePostRepository.save(entity);
     }
 

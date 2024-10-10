@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.challenge.entity;
 
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,6 +38,15 @@ public class ChallengePostEntity extends BaseTimeEntity {
         this.manner = manner;
         this.awardContent = awardContent;
         this.deadline = deadline;
+    }
+
+    public void updateChallengePost(ChallengeCreationRequest request) {
+        this.img = request.getImg();
+        this.title = request.getTitle();
+        this.content = request.getTitle();
+        this.manner = request.getManner();
+        this.awardContent = request.getAwardContent();
+        this.deadline = request.getDeadline();
     }
 
 }
