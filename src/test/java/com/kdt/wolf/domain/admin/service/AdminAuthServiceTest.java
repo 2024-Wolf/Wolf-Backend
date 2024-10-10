@@ -8,8 +8,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.kdt.wolf.domain.admin.dao.AdminDao;
-import com.kdt.wolf.domain.admin.dto.AdminAuthDto.AdminLoginRequest;
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
+import com.kdt.wolf.global.auth.dto.LoginDto.AdminLoginRequest;
 import com.kdt.wolf.global.auth.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.auth.service.RefreshTokenService;

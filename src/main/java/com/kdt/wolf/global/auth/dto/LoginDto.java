@@ -5,7 +5,7 @@ import com.kdt.wolf.domain.user.dto.LoginFlag;
 public class LoginDto {
 
     public record AdminLoginRequest(
-            String loginId,
+            String email,
             String password
     ) {}
     public record GoogleLoginRequest(
@@ -30,5 +30,8 @@ public class LoginDto {
     public record LogoutRequest(
             String refreshToken,
             String fcmToken
+    ) {}
+    public record AdminLogoutRequest(
+            String refreshToken
     ) {}
 }
