@@ -19,6 +19,7 @@ public enum ExceptionCode implements ResultCodeProvider {
     BAD_REQUEST("잘못된 요청입니다."),
     NOT_FOUND_FAQ_CATEGORY("존재하지 않는 FAQ 카테고리입니다."),
     NOT_FOUND_ADMIN("존재하지 않는 관리자입니다."),
-    NOT_FOUND_NOTICE("존재하지 않는 공지사항입니다."),;
+    NOT_FOUND_NOTICE("존재하지 않는 공지사항입니다."),
+    INVALID_PASSWORD("비밀번호가 일치하지 않습니다."),;
     private final String message;
 }

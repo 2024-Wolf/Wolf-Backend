@@ -1,12 +1,22 @@
 package com.kdt.wolf.domain.admin.controller;
 
-import com.kdt.wolf.domain.admin.service.AdminService;
+import com.kdt.wolf.domain.admin.dto.AdminAuthDto.AdminLoginRequest;
+import com.kdt.wolf.domain.admin.service.AdminAuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
-//@Controller
+@Controller
+@RequestMapping("/api/v1/admin/auth/*")
 public class AdminAuthController {
-    private final AdminService adminService;
+    private final AdminAuthService adminService;
 
-
+    @PostMapping("/login")
+    public String login(@RequestBody AdminLoginRequest request) {
+        Long loginId = adminService.login(request);
+        return "redirect:/";
+    }
 }

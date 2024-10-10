@@ -47,7 +47,7 @@ public class FaqService {
                 faq.getCategory(),
                 faq.getQuestion(),
                 faq.getAnswer(),
-                faq.getAdmin().getAdminNickname(),
+                faq.getAdmin().getNickname(),
                 faq.getCreatedTime().toString(),
                 faq.getModifiedTime().toString()
         );
@@ -84,7 +84,7 @@ public class FaqService {
                 faq.getCategory(),
                 faq.getQuestion(),
                 faq.getAnswer(),
-                faq.getAdmin().getAdminNickname(),
+                faq.getAdmin().getNickname(),
                 faq.getCreatedTime().toString(),
                 faq.getModifiedTime().toString()
         );
