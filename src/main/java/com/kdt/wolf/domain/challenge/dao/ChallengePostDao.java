@@ -162,8 +162,12 @@ public class ChallengePostDao {
             groupChallengeParticipantRepository.save(participantEntity);
         }
 
-        PaymentEntity paymentEntity = new PaymentEntity(registration, user);
+        PaymentEntity paymentEntity = new PaymentEntity(registration, user, request.getAmount());
         challengePaymentRepository.save(paymentEntity);
+    }
 
+    // 결제 정보 조회
+    public PaymentEntity getPayment(Long paymentId){
+        return challengePaymentRepository.findById(paymentId).orElseThrow(NotFoundException::new);
     }
 }

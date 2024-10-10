@@ -6,5 +6,6 @@ import lombok.Getter;
 public class ChallengePaymentRequest {
     private Long challengePostId;
     private Long groupPostId;
+    private Long amount;
     private String payStatus;
 }
