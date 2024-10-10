@@ -19,25 +19,19 @@ import java.util.Map;
 @RequestMapping("/api/v1/*")
 public class ChallengeAdminController {
 
-    private ChallengeService challengeService;
-
-    // 챌린지 목록 조회
-    @GetMapping("/challenges")
-    public ApiResult<List<ChallengeDto.ChallengePreview>> getAllChallenges() {
-        return ApiResult.ok(challengeService.getAllChallenges());
-    }
-
-    // 챌린지(단일) 조회
-    @GetMapping("/challenge/{challengePostId}")
-    public ApiResult<ChallengeDto.ChallengePreview> getChallenge(@PathVariable Long challengePostId){
-        return ApiResult.ok(challengeService.getChallenge(challengePostId));
-    }
+    private final ChallengeService challengeService;
 
     // 챌린지 생성
     @PostMapping("/challenge")
     public ApiResult<?> registerChallenge(@RequestBody ChallengeCreationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.registerChallenge(request, user.getUserId());
         return ApiResult.ok();
+    }
+
+    // 챌린지 목록 조회
+    @GetMapping("/challenges")
+    public ApiResult<List<ChallengeDto.ChallengePreview>> getAllChallenges() {
+        return ApiResult.ok(challengeService.getAllChallenges());
     }
 
     // 챌린지 수정
