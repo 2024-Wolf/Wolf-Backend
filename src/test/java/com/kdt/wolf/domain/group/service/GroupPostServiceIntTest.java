@@ -1,19 +1,17 @@
 package com.kdt.wolf.domain.group.service;
 
+import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
-import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
-import com.kdt.wolf.domain.group.entity.GroupPostEntity;
-import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
-import com.kdt.wolf.domain.group.entity.RecruitRoleEntity;
+import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
+import com.kdt.wolf.domain.group.entity.*;
+import com.kdt.wolf.domain.group.entity.common.BoardType;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.entity.common.MemberRole;
-import com.kdt.wolf.domain.group.repository.GroupMemberRepository;
-import com.kdt.wolf.domain.group.repository.GroupPostRepository;
-import com.kdt.wolf.domain.group.repository.RecruitApplyRepository;
-import com.kdt.wolf.domain.group.repository.RecruitRoleRepository;
+import com.kdt.wolf.domain.group.entity.common.RecruitRole;
+import com.kdt.wolf.domain.group.repository.*;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.SocialType;
 import com.kdt.wolf.domain.user.entity.common.Status;
@@ -25,6 +23,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 @SpringBootTest
 @Transactional
@@ -45,13 +45,20 @@ public class GroupPostServiceIntTest {
     RecruitApplyRepository recruitApplyRepository;
 
     @Autowired
-    RecruitRoleRepository recruitRoleRepository;
-
-    @Autowired
     GroupMemberService groupMemberService;
 
     @Autowired
     GroupMemberRepository groupMemberRepository;
+
+    @Autowired
+    private QuestionBoardService questionBoardService;
+
+    @Autowired
+    private QuestionBoardRepository questionBoardRepository;
+
+    @Autowired
+    private QuestionCommentRepository questionCommentRepository;
+
 
     @Test
     void getPostsByType() {
@@ -67,7 +74,6 @@ public class GroupPostServiceIntTest {
 
         UserEntity savedLeaderUser = userRepository.save(leaderUser);
 
-        // 그룹 모집 요청 객체 생성 및 저장
         GroupPostRequest studyRequest = GroupPostRequest.builder()
                 .name("Study Group")
                 .leaderUser(savedLeaderUser)
@@ -84,13 +90,26 @@ public class GroupPostServiceIntTest {
                 .title("Study Group Title")
                 .description("Detailed description of the study group.")
                 .warning("Warning message.")
-                .challengeStatus('O') // 또는 'X'
+                .challengeStatus('O')
                 .build();
+
+        // Recruitment 객체를 생성 (임시 데이터 예시)
+        Recruitments recruitment1 = Recruitments.builder()
+                .recruitRole(RecruitRole.BACKEND)
+                .recruitRoleCnt(3)
+                .build();
+
+        Recruitments recruitment2 = Recruitments.builder()
+                .recruitRole(RecruitRole.FRONTEND)
+                .recruitRoleCnt(2)
+                .build();
+
+        List<Recruitments> recruitmentsList = Arrays.asList(recruitment1, recruitment2);
 
         GroupPostRequest projectRequest = GroupPostRequest.builder()
                 .name("Project Group")
                 .leaderUser(savedLeaderUser)
-                .type("project") // GroupType은 PROJECT
+                .type("project")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
                 .recruitStartDate(LocalDate.now())
@@ -104,7 +123,9 @@ public class GroupPostServiceIntTest {
                 .description("Detailed description of the project group.")
                 .warning("Project group warning message.")
                 .challengeStatus('X') // 또는 'O'
+                .recruitments(recruitmentsList) // recruitments 리스트 추가
                 .build();
+
 
         groupPostService.createPost(studyRequest);
         groupPostService.createPost(projectRequest);
@@ -355,20 +376,6 @@ public class GroupPostServiceIntTest {
 
         GroupPostEntity savedGroupPost = groupPostRepository.findAll().get(0); // 저장된 그룹 포스트 가져오기
 
-        // 직군 역할 추가
-        RecruitRoleEntity backendRole = RecruitRoleEntity.builder()
-                .recruitRoleId("Backend Developer")
-                .recruitRoleIcon("backend_icon_url")
-                .build();
-
-        RecruitRoleEntity frontendRole = RecruitRoleEntity.builder()
-                .recruitRoleId("Frontend Developer")
-                .recruitRoleIcon("frontend_icon_url")
-                .build();
-
-        recruitRoleRepository.save(backendRole);
-        recruitRoleRepository.save(frontendRole);
-
         // When: 지원 요청 객체 생성 및 지원 요청 수행
         RecruitApplyRequest applyRequest = RecruitApplyRequest.builder()
                 .position("Backend Developer")
@@ -385,7 +392,7 @@ public class GroupPostServiceIntTest {
 
         RecruitApplyEntity savedApplication = recruitApplyRepository.findAll().get(0);
         // Then: 지원 성공 여부 확인
-        Assertions.assertEquals(applyRequest.getPosition(), savedApplication.getPosition().getRecruitRoleId());
+        Assertions.assertEquals(applyRequest.getPosition(), savedApplication.getPosition());
         Assertions.assertEquals(applyRequest.getEmail(), savedApplication.getEmail());
         Assertions.assertEquals(applyRequest.getApplicationReason(), savedApplication.getApplicationReason());
         Assertions.assertEquals(applyRequest.getIntroduction(), savedApplication.getIntroduction());
@@ -458,6 +465,84 @@ public class GroupPostServiceIntTest {
         GroupMemberResponse memberResponse2 = groupMembers.get(1);
         Assertions.assertEquals(MemberRole.MEMBER, memberResponse2.getRole());
         Assertions.assertEquals("프론트엔드 개발자", memberResponse2.getPosition());
+
+    }
+
+    @Test
+    void getQuestionsWithComments() {
+        // Given: 유저 생성 및 저장
+        UserEntity author = UserEntity.builder()
+                .nickname("User1")
+                .name("User One")
+                .email("user1@example.com")
+                .profilePicture("user1_pic_url")
+                .socialType(SocialType.KAKAO)
+                .status(Status.ACTIVE)
+                .build();
+
+        userRepository.save(author);
+
+        GroupPostEntity groupPost = GroupPostEntity.builder()
+                .name("Study Group")
+                .leaderUser(author)
+                .type(GroupType.STUDY)
+                .startDate(LocalDate.now())
+                .endDate(LocalDate.now().plusWeeks(1))
+                .recruitStartDate(LocalDate.now())
+                .recruitDeadlineDate(LocalDate.now().plusDays(7))
+                .shortIntro("Short intro")
+                .tag("Study")
+                .optionalRequirements("No requirements")
+                .targetMembers(5)
+                .thumbnail("thumbnail.png")
+                .title("Group Title")
+                .description("Group Description")
+                .warning("No warnings")
+                .challengeStatus('O')
+                .build();
+        groupPostRepository.save(groupPost);
+
+        // 질문 게시글 생성 및 저장
+        QuestionBoardEntity question = QuestionBoardEntity.builder()
+                .groupPost(groupPost)
+                .user(author)
+                .boardType(BoardType.QUESTION)
+                .questionDetails("This is a test question.")
+                .questionTime(LocalDateTime.now())
+                .build();
+
+        questionBoardRepository.save(question);
+
+        // 질문 댓글 생성 및 저장
+        QuestionCommentEntity comment1 = QuestionCommentEntity.builder()
+                .question(question)
+                .author(author)
+                .commentDetails("This is a comment.")
+                .createTime(LocalDateTime.now())
+                .build();
+
+        questionCommentRepository.save(comment1);
+
+        QuestionCommentEntity comment2 = QuestionCommentEntity.builder()
+                .parentComment(comment1)
+                .question(question)
+                .author(author)
+                .commentDetails("This is another comment.")
+                .createTime(LocalDateTime.now())
+                .build();
+
+        questionCommentRepository.save(comment2);
+
+        // When: 질문 게시글과 댓글을 조회
+        List<QuestionResponse> questionWithComments = questionBoardService.getQuestionList(1L, "question");
+
+        // Then: 검증
+        Assertions.assertEquals(1, questionWithComments.size()); // 질문 하나 존재 확인
+        Assertions.assertEquals(2, questionWithComments.get(0).getComments().size()); // 댓글 두 개 존재 확인
+        Assertions.assertEquals("This is a test question.", questionWithComments.get(0).getQuestionDetails());
+        Assertions.assertEquals("This is a comment.", questionWithComments.get(0).getComments().get(0).getCommentDetails());
+        Assertions.assertEquals("This is another comment.", questionWithComments.get(0).getComments().get(1).getCommentDetails());
+        Assertions.assertEquals(questionWithComments.get(0).getComments().get(0).getCommentId(), questionWithComments.get(0).getComments().get(1).getParentsId());
 
     }
 }

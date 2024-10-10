@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -27,9 +28,7 @@ public class RecruitApplyEntity extends BaseTimeEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @ManyToOne
-    @JoinColumn(name = "recruit_role_id", nullable = false)
-    private RecruitRoleEntity position;
+    private RecruitRole position;
 
     @Column(nullable = false)
     private String email;
@@ -53,7 +52,7 @@ public class RecruitApplyEntity extends BaseTimeEntity {
     private String additionalNotes;
 
     @Builder
-    public RecruitApplyEntity(GroupPostEntity groupPost, UserEntity user, RecruitRoleEntity position, String email, String applicationReason,
+    public RecruitApplyEntity(GroupPostEntity groupPost, UserEntity user, RecruitRole position, String email, String applicationReason,
                               String introduction, String techStack, String portfolioLink, String availableDays,
                               String additionalNotes) {
         this.groupPost = groupPost;

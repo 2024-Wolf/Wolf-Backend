@@ -35,7 +35,7 @@ public class GroupPostService {
 
     public void createPost(GroupPostRequest request) {
         //예외 처리
-        if (request.getType().equals("project") && (request.getRecruitments().isEmpty())) {
+        if (request.getType().equals("project") && (request.getRecruitments() == null || request.getRecruitments().isEmpty())) {
             throw new BusinessException(ExceptionCode.BAD_REQUEST);
         }
 

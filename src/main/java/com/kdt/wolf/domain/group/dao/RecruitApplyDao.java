@@ -3,10 +3,10 @@ package com.kdt.wolf.domain.group.dao;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
-import com.kdt.wolf.domain.group.entity.RecruitRoleEntity;
+import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.group.repository.RecruitApplyRepository;
-import com.kdt.wolf.domain.group.repository.RecruitRoleRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
@@ -19,7 +19,6 @@ public class RecruitApplyDao {
     private final GroupPostRepository groupPostRepository;
     private final UserRepository userRepository;
     private final RecruitApplyRepository recruitApplyRepository;
-    private final RecruitRoleRepository recruitRoleRepository;
 
     public RecruitApplyEntity getById(Long recruitApplyId) {
         return recruitApplyRepository.findById(recruitApplyId)
@@ -31,8 +30,8 @@ public class RecruitApplyDao {
                 .orElseThrow(NotFoundException::new);
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
-        RecruitRoleEntity position = recruitRoleRepository.findById(request.getPosition())
-                .orElseThrow(NotFoundException::new);
+
+        RecruitRole position = "frontend".equals(request.getPosition()) ? RecruitRole.FRONTEND : RecruitRole.BACKEND;;
 
         RecruitApplyEntity recruitApply = RecruitApplyEntity.builder()
                 .groupPost(groupPost)

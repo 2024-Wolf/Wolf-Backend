@@ -6,11 +6,11 @@ import com.kdt.wolf.domain.group.repository.GroupMemberRepository;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class GroupMemberDao {
     private final GroupMemberRepository groupMemberRepository;
