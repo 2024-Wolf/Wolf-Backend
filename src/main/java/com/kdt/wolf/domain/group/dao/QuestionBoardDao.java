@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.dao;
 
+import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
 import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
 import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
 import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
@@ -64,5 +65,53 @@ public class QuestionBoardDao {
             throw new NotFoundException();
         }
         questionBoardRepository.deleteById(questionId);
+    }
+
+    public void createComment(Long questionId, QuestionCommentRequest request) {
+        QuestionBoardEntity questionBoard = questionBoardRepository.findById(questionId)
+                .orElseThrow(NotFoundException::new);
+
+        QuestionCommentEntity comment = QuestionCommentEntity.builder()
+                .question(questionBoard)
+                .author(request.getUser())
+                .commentDetails(request.getCommentDetails())
+                .commentImageUrl(request.getCommentImageUrl())
+                .createTime(request.getCommentTime())
+                .build();
+
+        questionCommentRepository.save(comment);
+    }
+
+    public void createComment(Long questionId, Long commentId, QuestionCommentRequest request) {
+        QuestionBoardEntity questionBoard = questionBoardRepository.findById(questionId)
+                .orElseThrow(NotFoundException::new);
+        QuestionCommentEntity parentComment = questionCommentRepository.findById(commentId)
+                .orElseThrow(NotFoundException::new);
+
+        QuestionCommentEntity comment = QuestionCommentEntity.builder()
+                .question(questionBoard)
+                .parentComment(parentComment)
+                .author(request.getUser())
+                .commentDetails(request.getCommentDetails())
+                .commentImageUrl(request.getCommentImageUrl())
+                .createTime(request.getCommentTime())
+                .build();
+
+        questionCommentRepository.save(comment);
+    }
+
+    public void updateComment(Long commentId, QuestionCommentRequest request) {
+        QuestionCommentEntity originalComment = questionCommentRepository.findById(commentId)
+                .orElseThrow(NotFoundException::new);
+
+        originalComment.updateComment(request);
+        questionCommentRepository.save(originalComment);
+    }
+
+    public void deleteCommentById(Long commentId) {
+        if (!questionCommentRepository.existsById(commentId)) {
+            throw new NotFoundException();
+        }
+        questionCommentRepository.deleteById(commentId);
     }
 }

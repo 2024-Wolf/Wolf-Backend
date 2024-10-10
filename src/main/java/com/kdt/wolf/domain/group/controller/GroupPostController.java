@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.controller;
 
+import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
 import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
@@ -125,6 +126,50 @@ public class GroupPostController {
             @PathVariable Long questionId) {
 
         questionBoardService.deleteQuestion(groupId, questionId);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "댓글 작성")
+    @PostMapping("/{groupId}/question/{questionId}/comment")
+    public ApiResult<Void> addComment(
+            @PathVariable Long groupId,
+            @PathVariable Long questionId,
+            @RequestBody QuestionCommentRequest request) {
+
+        questionBoardService.createComment(questionId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "대댓글 작성")
+    @PostMapping("/{groupId}/question/{questionId}/comment/{parentCommentId}")
+    public ApiResult<Void> addComment(
+            @PathVariable Long groupId,
+            @PathVariable Long questionId,
+            @PathVariable Long parentCommentId,
+            @RequestBody QuestionCommentRequest request) {
+
+        questionBoardService.createComment(questionId, parentCommentId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "댓글 수정")
+    @PutMapping("/{groupId}/question/{questionId}/comment/{commentId}")
+    public ApiResult<Void> updateComment(
+            @PathVariable Long groupId,
+            @PathVariable Long questionId,
+            @PathVariable Long commentId,
+            @RequestBody QuestionCommentRequest request){
+        questionBoardService.editComment(commentId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "댓글 삭제")
+    @DeleteMapping("/{groupId}/question/{questionId}/comment/{commentId}")
+    public ApiResult<Void> deleteComment(
+            @PathVariable Long groupId,
+            @PathVariable Long questionId,
+            @PathVariable Long commentId){
+        questionBoardService.deleteComment(commentId);
         return ApiResult.ok(null);
     }
 }

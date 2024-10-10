@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -47,5 +48,11 @@ public class QuestionCommentEntity extends BaseTimeEntity {
         this.createTime = createTime;
         this.commentDetails = commentDetails;
         this.commentImageUrl = commentImageUrl;
+    }
+
+    public void updateComment(QuestionCommentRequest request) {
+        this.createTime = request.getCommentTime();
+        this.commentDetails = request.getCommentDetails();
+        this.commentImageUrl = request.getCommentImageUrl();
     }
 }
