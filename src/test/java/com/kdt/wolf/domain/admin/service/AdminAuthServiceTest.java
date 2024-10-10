@@ -10,12 +10,15 @@ import static org.mockito.Mockito.when;
 import com.kdt.wolf.domain.admin.dao.AdminDao;
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.global.auth.dto.LoginDto.AdminLoginRequest;
+import com.kdt.wolf.global.auth.dto.LoginDto.AdminLogoutRequest;
 import com.kdt.wolf.global.auth.dto.LoginDto.TokenResponse;
 import com.kdt.wolf.global.auth.provider.JwtTokenProvider;
 import com.kdt.wolf.global.auth.service.RefreshTokenService;
+import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -89,5 +92,36 @@ class AdminAuthServiceTest {
         verify(adminDao, times(1)).signIn(loginRequest.email(), loginRequest.password());
         verify(tokenProvider, times(0)).createJwtTokenResponse(any(AdminEntity.class));
         verify(refreshTokenService, times(0)).saveRefreshToken(any(AdminEntity.class), anyString());
+    }
+
+
+    @Test
+    void login_Fail_InvalidPassword() {
+        AdminLoginRequest request = new AdminLoginRequest("admin@test.com", "wrongPassword");
+        when(adminDao.signIn(request.email(), request.password())).thenThrow(new BusinessException(ExceptionCode.INVALID_PASSWORD));
+
+        // when & then
+        Exception exception = assertThrows(BusinessException.class, () -> {
+            adminAuthService.login(request);
+        });
+
+        assertEquals(ExceptionCode.INVALID_PASSWORD.getMessage(), exception.getMessage());
+        verify(adminDao, times(1)).signIn(request.email(), request.password());
+
+        verify(tokenProvider, times(0)).createJwtTokenResponse(any(AdminEntity.class));
+        verify(refreshTokenService, times(0)).saveRefreshToken(any(AdminEntity.class), anyString());
+    }
+
+    @Test
+    @DisplayName("로그아웃 성공")
+    void logout_Success() {
+        // given
+        AdminLogoutRequest logoutRequest = new AdminLogoutRequest("refreshToken");
+
+        // when
+        adminAuthService.logout(logoutRequest);
+
+        // then
+        verify(refreshTokenService, times(1)).deleteRefreshToken(logoutRequest.refreshToken());
     }
 }
