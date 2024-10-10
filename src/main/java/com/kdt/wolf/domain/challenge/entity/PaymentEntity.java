@@ -27,18 +27,13 @@ public class PaymentEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    private char paymentStatus;
     private LocalDate paymentDate;
 
     @Builder
     public PaymentEntity(ChallengeRegistrationEntity registration, UserEntity user) {
         this.registration = registration;
         this.user = user;
-        this.paymentStatus = 'N';
         this.paymentDate = LocalDate.now();
     }
 
-    public void updatePaymentStatus() {
-        this.paymentStatus = 'Y';
-    }
 }

@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
 import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
 import com.kdt.wolf.domain.challenge.entity.ChallengeRegistrationEntity;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,20 @@ public class ChallengeService {
                 post.getDeadline(),
                 null
         );
+    }
+
+    // 챌린지 목록 불러오기
+    public List<ChallengePreview> getAllChallenges(){
+        List<ChallengePostEntity> dataList = challengePostDao.findAll();
+
+        return dataList.stream().map(data -> new ChallengePreview(
+           data.getChallengePostId(),
+           data.getImg(),
+           data.getTitle(),
+           data.getCreatedTime().toLocalDate(),
+           data.getDeadline(),
+           null
+        )).toList();
     }
 
     // 챌린지 목록 불러오기
@@ -153,7 +169,7 @@ public class ChallengeService {
     }
 
     // 챌린지 인증
-    public void updateVerification(ChallengeRegistrationRequest request, Long userId){
+    public void updateVerification(ChallengeVerificationRequest request, Long userId){
         challengePostDao.updateVerification(request, userId);
     }
 
@@ -162,10 +178,19 @@ public class ChallengeService {
         challengePostDao.createChallenge(request, userId);
     }
 
-
     // 챌린지 수정
     public void updateChallenge(ChallengeCreationRequest request, Long challengePostId){
         challengePostDao.updateChallenge(request, challengePostId);
+    }
+
+    // 챌린지 삭제
+    public void deleteChallenge(Long challengePostId){
+        challengePostDao.deleteChallenge(challengePostId);
+    }
+
+    // 챌린지 결제
+    public void challengePayment(ChallengePaymentRequest request, Long userId){
+        challengePostDao.payChallenge(request, userId);
     }
 
 

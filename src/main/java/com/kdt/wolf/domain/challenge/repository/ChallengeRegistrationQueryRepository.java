@@ -83,6 +83,6 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + "FROM ChallengeRegistrationEntity r "
             + "WHERE r.groupPost.groupPostId = :groupPostId "
             + "AND r.challengePost.challengePostId = :challengePostId")
-    ChallengeRegistrationEntity findByChallengeRegistration(Long groupPostId, Long challengePostId);
+    ChallengeRegistrationEntity findChallengeRegistration(Long groupPostId, Long challengePostId);
 
 }
