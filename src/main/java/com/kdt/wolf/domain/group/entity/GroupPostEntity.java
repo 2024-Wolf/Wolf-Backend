@@ -78,7 +78,7 @@ public class GroupPostEntity{
 
     public void updateGroupPost(GroupPostRequest request) {
         this.name = request.getName();
-        this.type = "study".equals(request.getType()) ? GroupType.STUDY : GroupType.PROJECT;\
+        this.type = "study".equals(request.getType()) ? GroupType.STUDY : GroupType.PROJECT;
         this.title = request.getTitle();
         this.description = request.getDescription();
         this.startDate = request.getStartDate();
