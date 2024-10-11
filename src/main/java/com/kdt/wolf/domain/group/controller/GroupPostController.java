@@ -1,11 +1,8 @@
 package com.kdt.wolf.domain.group.controller;
 
-import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
-import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
-import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
+import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
-import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
 import com.kdt.wolf.domain.group.service.GroupMemberService;
 import com.kdt.wolf.domain.group.service.GroupPostService;
@@ -170,6 +167,15 @@ public class GroupPostController {
             @PathVariable Long questionId,
             @PathVariable Long commentId){
         questionBoardService.deleteComment(commentId);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "팀원 평가 작성")
+    @PostMapping("/{groupId}/evaluate}")
+    public ApiResult<Void> postEvaluation(
+            @PathVariable Long groupId,
+            @RequestBody List<EvaluateRequest> request){
+        groupMemberService.addEvaluation(groupId, request);
         return ApiResult.ok(null);
     }
 }

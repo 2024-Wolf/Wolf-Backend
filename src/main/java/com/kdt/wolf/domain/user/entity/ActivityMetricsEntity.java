@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -67,5 +68,14 @@ public class ActivityMetricsEntity {
                 this.activityRatingSoso,
                 this.activityRatingBad
         );
+    }
+    public void addGood() {
+        this.activityRatingGood += 1;
+    }
+    public void addSoso() {
+        this.activityRatingSoso += 1;
+    }
+    public void addBad() {
+        this.activityRatingBad += 1;
     }
 }
