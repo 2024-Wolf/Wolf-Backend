@@ -14,7 +14,7 @@ public class GroupPostResponse {
     private final String optionalRequirements;
     private final int targetMembers;
     private final String thumbnail;
-    private final String title;
+    private final String topic;
     private final String description;
     private final String warning;
     private final char challengeStatus;
@@ -33,7 +33,7 @@ public class GroupPostResponse {
         this.optionalRequirements = groupPost.getOptionalRequirements();
         this.targetMembers = groupPost.getTargetMembers();
         this.thumbnail = groupPost.getThumbnail();
-        this.title = groupPost.getTitle();
+        this.topic = groupPost.getTopic();
         this.description = groupPost.getDescription();
         this.warning = groupPost.getWarning();
         this.challengeStatus = groupPost.getChallengeStatus();

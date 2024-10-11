@@ -35,7 +35,7 @@ public class GroupPostEntity{
     private String thumbnail;
 
     @Column(nullable = false)
-    private String title;
+    private String topic;
 
     @Column(nullable = false, length = 400)
     private String description;
@@ -57,7 +57,7 @@ public class GroupPostEntity{
     @Builder
     public GroupPostEntity(String name, UserEntity leaderUser, GroupType type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
                            LocalDate recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements,
-                           int targetMembers, String thumbnail, String title, String description, String warning, char challengeStatus) {
+                           int targetMembers, String thumbnail, String topic, String description, String warning, char challengeStatus) {
         this.name = name;
         this.leaderUser = leaderUser;
         this.type = type;
@@ -70,7 +70,7 @@ public class GroupPostEntity{
         this.optionalRequirements = optionalRequirements;
         this.targetMembers = targetMembers;
         this.thumbnail = thumbnail;
-        this.title = title;
+        this.topic = topic;
         this.description = description;
         this.warning = warning;
         this.challengeStatus = challengeStatus;
@@ -79,7 +79,7 @@ public class GroupPostEntity{
     public void updateGroupPost(GroupPostRequest request) {
         this.name = request.getName();
         this.type = "study".equals(request.getType()) ? GroupType.STUDY : GroupType.PROJECT;
-        this.title = request.getTitle();
+        this.topic = request.getTopic();
         this.description = request.getDescription();
         this.startDate = request.getStartDate();
         this.endDate = request.getEndDate();

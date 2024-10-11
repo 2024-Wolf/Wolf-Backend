@@ -33,7 +33,7 @@ public class GroupPostRequest {
     private int targetMembers;
     private String thumbnail;
     @NotNull
-    private String title;
+    private String topic;
     @NotNull
     private String description;
     @NotNull
@@ -43,7 +43,7 @@ public class GroupPostRequest {
     @Builder
     public GroupPostRequest(String name, UserEntity leaderUser, String type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
                             LocalDate recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements, List<Recruitments> recruitments,
-                            int targetMembers, String thumbnail, String title, String description, String warning, char challengeStatus) {
+                            int targetMembers, String thumbnail, String topic, String description, String warning, char challengeStatus) {
         this.name = name;
         this.leaderUser = leaderUser;
         this.type = type;
@@ -57,7 +57,7 @@ public class GroupPostRequest {
         this.recruitments = recruitments;
         this.targetMembers = targetMembers;
         this.thumbnail = thumbnail;
-        this.title = title;
+        this.topic = topic;
         this.description = description;
         this.warning = warning;
         this.challengeStatus = challengeStatus;

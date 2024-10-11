@@ -56,7 +56,7 @@ public class GroupPostDao {
                 .optionalRequirements(request.getOptionalRequirements())
                 .targetMembers(request.getTargetMembers())
                 .thumbnail(request.getThumbnail())
-                .title(request.getTitle())
+                .topic(request.getTopic())
                 .description(request.getDescription())
                 .warning(request.getWarning())
                 .challengeStatus(request.getChallengeStatus())
