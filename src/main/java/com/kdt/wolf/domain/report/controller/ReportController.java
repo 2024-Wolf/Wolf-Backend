@@ -4,6 +4,7 @@ import com.kdt.wolf.domain.report.dto.ReportDto.CreateReportRequest;
 import com.kdt.wolf.domain.report.service.ReportService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReportController {
     private final ReportService reportService;
 
+    @Operation(summary = "신고하기 TYPE : GROUP, REPLY, QUESTION, USER")
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResult<Long> createReport (@RequestBody CreateReportRequest request,

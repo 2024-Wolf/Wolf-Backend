@@ -11,7 +11,6 @@ import com.kdt.wolf.domain.report.entity.ReportCategoryEntity;
 import com.kdt.wolf.domain.report.entity.ReportEntity;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
-import com.kdt.wolf.global.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
