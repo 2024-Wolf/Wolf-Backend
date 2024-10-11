@@ -171,7 +171,7 @@ public class GroupPostController {
     }
 
     @Operation(summary = "팀원 평가 작성")
-    @PostMapping("/{groupId}/evaluate}")
+    @PostMapping("/{groupId}/evaluate")
     public ApiResult<Void> postEvaluation(
             @PathVariable Long groupId,
             @RequestBody List<EvaluateRequest> request){
