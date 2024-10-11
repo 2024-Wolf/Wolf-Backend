@@ -5,12 +5,14 @@ import com.kdt.wolf.domain.group.dao.QuestionBoardDao;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
 import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
+import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportPreviewDto;
 import com.kdt.wolf.domain.report.dao.ReportDao;
 import com.kdt.wolf.domain.report.dto.ReportDto.CreateReportRequest;
 import com.kdt.wolf.domain.report.entity.ReportCategoryEntity;
 import com.kdt.wolf.domain.report.entity.ReportEntity;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -66,5 +68,19 @@ public class ReportService {
         };
 
         return reportDao.save(report).getReportId();
+    }
+
+    public List<ReportPreviewDto> findAllReports() {
+        List<ReportEntity> reports = reportDao.findAll();
+        return reports.stream()
+                .map(report -> new ReportPreviewDto(
+                        report.getReportId(),
+                        report.getReporter().getNickname(),
+                        report.getReportReason(),
+                        report.getTopic().name(),
+                        report.getCreatedTime().toString(),
+                        report.isSolved()
+                ))
+                .toList();
     }
 }

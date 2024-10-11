@@ -6,6 +6,7 @@ import com.kdt.wolf.domain.report.repository.ReportCategoryRepository;
 import com.kdt.wolf.domain.report.repository.ReportRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,5 +22,9 @@ public class ReportDao {
 
     public ReportCategoryEntity findReportCategoryById(Long categoryId) {
         return reportCategoryRepository.findById(categoryId).orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_REPORT_CATEGORY));
+    }
+
+    public List<ReportEntity> findAll() {
+        return reportRepository.findAll();
     }
 }
