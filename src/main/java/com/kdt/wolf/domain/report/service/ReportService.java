@@ -5,6 +5,7 @@ import com.kdt.wolf.domain.group.dao.QuestionBoardDao;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
 import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
+import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportDetailDto;
 import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportPreviewDto;
 import com.kdt.wolf.domain.report.dao.ReportDao;
 import com.kdt.wolf.domain.report.dto.ReportDto.CreateReportRequest;
@@ -82,5 +83,23 @@ public class ReportService {
                         report.isSolved()
                 ))
                 .toList();
+    }
+
+    public ReportDetailDto findReport(Long reportId) {
+        ReportEntity report = reportDao.findById(reportId);
+        return new ReportDetailDto(
+                report.getReportId(),
+                report.getReporter().getNickname(),
+                report.getReportReason(),
+                report.getTopic().name(),
+                switch (report.getTopic()) {
+                    case USER -> report.getReportedUser().getNickname();
+                    case GROUP -> report.getReportedGroupPost().getTitle();
+                    case REPLY -> report.getReportedReply().getCommentDetails();
+                    case QUESTION -> report.getReportedQuestion().getQuestionDetails();
+                },
+                report.getCreatedTime().toString(),
+                report.isSolved()
+        );
     }
 }
