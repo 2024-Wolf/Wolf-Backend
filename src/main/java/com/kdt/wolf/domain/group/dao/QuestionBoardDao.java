@@ -114,4 +114,14 @@ public class QuestionBoardDao {
         }
         questionCommentRepository.deleteById(commentId);
     }
+
+    public QuestionCommentEntity findCommentById(Long commentId) {
+        return questionCommentRepository.findById(commentId)
+                .orElseThrow(NotFoundException::new);
+    }
+
+    public QuestionBoardEntity findQuestionById(Long questionId) {
+        return questionBoardRepository.findById(questionId)
+                .orElseThrow(NotFoundException::new);
+    }
 }

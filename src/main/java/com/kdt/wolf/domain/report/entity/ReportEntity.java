@@ -46,8 +46,6 @@ public class ReportEntity extends BaseTimeEntity {
     @JoinColumn(name = "question_id")
     private QuestionBoardEntity reportedQuestion;
 
-    private Long replyId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private ReportCategoryEntity reportCategory;
