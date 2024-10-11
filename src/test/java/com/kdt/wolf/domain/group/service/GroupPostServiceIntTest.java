@@ -92,7 +92,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("No specific requirements")
                 .targetMembers(10)
                 .thumbnail("thumbnail_url")
-                .title("Study Group Title")
+                .topic("Study Group Title")
                 .description("Detailed description of the study group.")
                 .warning("Warning message.")
                 .challengeStatus('O')
@@ -124,7 +124,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("Specific skills needed for the project")
                 .targetMembers(5)
                 .thumbnail("project_thumbnail_url")
-                .title("Project Group Title")
+                .topic("Project Group Title")
                 .description("Detailed description of the project group.")
                 .warning("Project group warning message.")
                 .challengeStatus('X') // 또는 'O'
@@ -180,7 +180,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("No specific requirements")
                 .targetMembers(10)
                 .thumbnail("thumbnail_url")
-                .title("Study Group Title")
+                .topic("Study Group Title")
                 .description("Detailed description of the study group.")
                 .warning("Warning message.")
                 .challengeStatus('O') // 또는 'X'
@@ -199,7 +199,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("Specific skills needed for the project")
                 .targetMembers(5)
                 .thumbnail("project_thumbnail_url")
-                .title("Project Group Title")
+                .topic("Project Group Title")
                 .description("Detailed description of the project group.")
                 .warning("Project group warning message.")
                 .challengeStatus('X') // 또는 'O'
@@ -252,7 +252,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("No specific requirements")
                 .targetMembers(10)
                 .thumbnail("thumbnail_url")
-                .title("Original Title")
+                .topic("Original Title")
                 .description("Original description.")
                 .warning("Original warning.")
                 .challengeStatus('O') // 또는 'X'
@@ -264,7 +264,7 @@ public class GroupPostServiceIntTest {
 
         // When: 그룹 포스트 수정 요청
         GroupPostRequest updateRequest = GroupPostRequest.builder()
-                .title("Updated Title") // 수정할 제목
+                .topic("Updated Title") // 수정할 제목
                 .description("Updated description.") // 수정할 설명
                 .startDate(LocalDate.now().plusDays(2)) // 수정할 시작 날짜
                 .endDate(LocalDate.now().plusDays(3)) // 수정할 종료 날짜
@@ -282,7 +282,7 @@ public class GroupPostServiceIntTest {
 
         // Then: 수정된 그룹 포스트 검증
         GroupPostEntity updatedGroupPost = groupPostRepository.findById(savedGroupPost.getGroupPostId()).orElseThrow();
-        Assertions.assertEquals("Updated Title", updatedGroupPost.getTitle());
+        Assertions.assertEquals("Updated Title", updatedGroupPost.getTopic());
         Assertions.assertEquals("Updated description.", updatedGroupPost.getDescription());
         Assertions.assertEquals(LocalDate.now().plusDays(2), updatedGroupPost.getStartDate());
         Assertions.assertEquals(LocalDate.now().plusDays(3), updatedGroupPost.getEndDate());
@@ -323,7 +323,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("No specific requirements")
                 .targetMembers(10)
                 .thumbnail("thumbnail_url")
-                .title("Study Group Title")
+                .topic("Study Group Title")
                 .description("Detailed description of the study group.")
                 .warning("Warning message.")
                 .challengeStatus('O') // 또는 'X'
@@ -371,7 +371,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("No specific requirements")
                 .targetMembers(10)
                 .thumbnail("thumbnail_url")
-                .title("Study Group Title")
+                .topic("Study Group Title")
                 .description("Detailed description of the study group.")
                 .warning("Warning message.")
                 .challengeStatus('O') // 또는 'X'
@@ -433,7 +433,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("No requirements")
                 .targetMembers(5)
                 .thumbnail("thumbnail.png")
-                .title("Group Title")
+                .topic("Group Title")
                 .description("Group Description")
                 .warning("No warnings")
                 .challengeStatus('O')
@@ -500,7 +500,7 @@ public class GroupPostServiceIntTest {
                 .optionalRequirements("No requirements")
                 .targetMembers(5)
                 .thumbnail("thumbnail.png")
-                .title("Group Title")
+                .topic("Group Title")
                 .description("Group Description")
                 .warning("No warnings")
                 .challengeStatus('O')

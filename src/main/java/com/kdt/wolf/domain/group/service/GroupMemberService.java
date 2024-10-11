@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dao.GroupMemberDao;
+import com.kdt.wolf.domain.group.dto.request.EvaluateRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,12 @@ public class GroupMemberService {
         return memberEntities.stream()
                 .map(GroupMemberResponse::new)
                 .toList();
+    }
+
+    public void addEvaluation(Long groupId, List<EvaluateRequest> requests) {
+        for (EvaluateRequest request : requests) {
+            GroupMemberEntity member = groupMemberDao.findByGroupIdAndMemberId(groupId, request.getMemberId());
+            groupMemberDao.addEvaluation(member, request);
+        }
     }
 }
