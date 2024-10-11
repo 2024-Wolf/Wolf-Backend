@@ -13,6 +13,9 @@ import com.kdt.wolf.domain.report.entity.ReportCategoryEntity;
 import com.kdt.wolf.domain.report.entity.ReportEntity;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.global.fcm.service.FcmService;
+import com.kdt.wolf.global.fcm.service.dto.FCMNotificationRequestDto;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ public class ReportService {
     private final ReportDao reportDao;
     private final GroupPostDao groupPostDao;
     private final QuestionBoardDao questionBoardDao;
+    private final FcmService fcmService;
 
     public Long createReport(CreateReportRequest request, Long reporterId) {
         UserEntity reporter = userDao.findById(reporterId);
@@ -101,5 +105,21 @@ public class ReportService {
                 report.getCreatedTime().toString(),
                 report.isSolved()
         );
+    }
+
+    @Transactional
+    public void processReport(Long reportId) {
+        ReportEntity report = reportDao.findById(reportId);
+        // 알림 보내기
+        fcmService.sendNotificationByToken(
+                FCMNotificationRequestDto.builder()
+                        .targetUserId(report.getReporter().getUserId())
+                        .title("신고 처리 완료")
+                        .body("신고가 처리되었습니다.")
+                        .build()
+                );
+        //TODO : 신고 당한 사람한테는 뭐라 보내지 ?
+
+        report.solveReport();
     }
 }

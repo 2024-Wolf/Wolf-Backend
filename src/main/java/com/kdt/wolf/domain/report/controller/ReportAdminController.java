@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.report.controller;
 
+import com.kdt.wolf.domain.report.dao.ReportAdminDto.ProcessReportRequest;
 import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportDetailDto;
 import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportPreviewDto;
 import com.kdt.wolf.domain.report.service.ReportService;
@@ -7,7 +8,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
@@ -30,5 +33,10 @@ public class ReportAdminController {
         return "";
     }
 
-
+     @PatchMapping("/{reportId}")
+    public String processReport(@PathVariable Long reportId,
+                                @RequestBody ProcessReportRequest request) {
+         reportService.processReport(reportId);
+         return "";
+     }
 }

@@ -21,6 +21,8 @@ public class ReportAdminDto {
             String createdAt,
             boolean isProcessed
     ) { }
-
+    public record ProcessReportRequest(
+            String processContent
+    ) { }
 
 }

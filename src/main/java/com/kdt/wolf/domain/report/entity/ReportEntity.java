@@ -95,4 +95,8 @@ public class ReportEntity extends BaseTimeEntity {
         this.reportReason = reportReason;
         this.topic = ReportTopic.QUESTION;
     }
+
+    public void solveReport() {
+        this.isSolved = true;
+    }
 }
