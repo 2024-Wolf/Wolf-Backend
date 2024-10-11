@@ -35,6 +35,7 @@ public class QuestionCommentEntity extends BaseTimeEntity {
     private UserEntity author;
 
     private LocalDateTime createTime;
+    @Column(length = 1000)
     private String commentDetails;
     private String commentImageUrl;
 
