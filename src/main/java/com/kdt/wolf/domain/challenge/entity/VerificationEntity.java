@@ -1,15 +1,15 @@
 package com.kdt.wolf.domain.challenge.entity;
 
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDate;
 
 @Getter
 @Entity
 @RequiredArgsConstructor
 @Table(name = "verification")
-public class VerificationEntity {
+public class VerificationEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_verification_id")
@@ -36,10 +36,9 @@ public class VerificationEntity {
     private String verificationContent;
 
     // 기본값 'N' 설정
-    @Column(columnDefinition = "VARCHAR2(1) DEFAULT 'N'")
-    private char verificationStatus = 'N';
+    @Column(columnDefinition = "NUMBER(1) DEFAULT 0", nullable = false)
+    private boolean isVerification = false;
 
-    private LocalDate verificationDate;
 
     @Builder
     public VerificationEntity(ChallengeRegistrationEntity registration, ChallengePostEntity challengePost, UserEntity user, String certificationNo, String institutionName, String verificationContent) {
@@ -49,10 +48,9 @@ public class VerificationEntity {
         this.certificationNo = certificationNo;
         this.institutionName = institutionName;
         this.verificationContent = verificationContent;
-        this.verificationDate = LocalDate.now();
     }
 
     public void updateVerification() {
-        this.verificationStatus = 'Y';
+        this.isVerification = true;
     }
 }
