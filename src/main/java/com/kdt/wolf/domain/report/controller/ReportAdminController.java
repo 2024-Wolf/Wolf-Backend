@@ -45,7 +45,15 @@ public class ReportAdminController {
     @Operation(summary = "경고 / 테스트 X")
     @PatchMapping("/warning/{reportId}")
     public String warningReport(@PathVariable Long reportId) {
-        Long response = reportService.WarningReport(reportId);
+        Long response = reportService.processWarningReport(reportId);
+        return "";
+    }
+
+    //TODO : 3일 정지, 영구 정지
+    @Operation(summary = "3일 정지 / 테스트 X")
+    @PatchMapping("/suspension/{reportId}")
+    public String suspensionReport(@PathVariable Long reportId) {
+        Long response = reportService.processSuspendReport(reportId);
         return "";
     }
 
