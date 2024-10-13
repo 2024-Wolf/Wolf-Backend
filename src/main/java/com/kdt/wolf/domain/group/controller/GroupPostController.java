@@ -3,11 +3,9 @@ package com.kdt.wolf.domain.group.controller;
 import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
+import com.kdt.wolf.domain.group.dto.response.LinkResponse;
 import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
-import com.kdt.wolf.domain.group.service.GroupMemberService;
-import com.kdt.wolf.domain.group.service.GroupPostService;
-import com.kdt.wolf.domain.group.service.QuestionBoardService;
-import com.kdt.wolf.domain.group.service.RecruitApplyService;
+import com.kdt.wolf.domain.group.service.*;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +22,7 @@ public class GroupPostController {
     private final RecruitApplyService recruitApplyService;
     private final GroupMemberService groupMemberService;
     private final QuestionBoardService questionBoardService;
+    private final LinkService linkService;
 
 
     @Operation(summary = "모집글 작성")
@@ -177,5 +176,13 @@ public class GroupPostController {
             @RequestBody List<EvaluateRequest> request){
         groupMemberService.addEvaluation(groupId, request);
         return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "외부 링크 조회")
+    @GetMapping("/{groupId}/links")
+    public ApiResult<List<LinkResponse>> getLinks(
+            @PathVariable Long groupId){
+        List<LinkResponse> response = linkService.getLinks(groupId);
+        return ApiResult.ok(response);
     }
 }
