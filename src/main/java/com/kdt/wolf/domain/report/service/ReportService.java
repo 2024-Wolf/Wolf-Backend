@@ -98,7 +98,7 @@ public class ReportService {
                 report.getTopic().name(),
                 switch (report.getTopic()) {
                     case USER -> report.getReportedUser().getNickname();
-                    case GROUP -> report.getReportedGroupPost().getTitle();
+                    case GROUP -> report.getReportedGroupPost().getGroupPostId().toString();
                     case REPLY -> report.getReportedReply().getCommentDetails();
                     case QUESTION -> report.getReportedQuestion().getQuestionDetails();
                 },
