@@ -6,12 +6,14 @@ import com.kdt.wolf.domain.group.dao.QuestionBoardDao;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
 import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
-import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportDetailDto;
-import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportPreviewDto;
+import com.kdt.wolf.domain.report.dao.ReportProcessDao;
+import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportDetailDto;
+import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPreviewDto;
 import com.kdt.wolf.domain.report.dao.ReportDao;
 import com.kdt.wolf.domain.report.dto.ReportDto.CreateReportRequest;
 import com.kdt.wolf.domain.report.entity.ReportCategoryEntity;
 import com.kdt.wolf.domain.report.entity.ReportEntity;
+import com.kdt.wolf.domain.report.entity.ReportProcessEntity;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.exception.NotFoundException;
@@ -32,9 +34,10 @@ public class ReportService {
     private final GroupMemberDao groupMemberDao;
     private final QuestionBoardDao questionBoardDao;
     private final FcmService fcmService;
+    private final ReportProcessDao reportProcessDao;
 
     /* 신고 경고, 정지, 영구정지 처리 통합 메서드 */
-    public Long processReport(Long reportId, ReportAction action) {
+    public Long processReport(Long reportId, ReportAction action, String processContent) {
         ReportEntity report = getReport(reportId);
         if(action == ReportAction.NOTHING) {
             processReport(report);
@@ -48,7 +51,16 @@ public class ReportService {
         }
 
         processReport(report);
+        saveReportProcess(report, action.name() +" / "+  processContent);
         return report.getReportId();
+    }
+
+    private void saveReportProcess(ReportEntity report, String processContent) {
+        ReportProcessEntity processEntity = ReportProcessEntity.builder()
+                .report(report)
+                .reportProcessContent(processContent)
+                .build();
+        reportProcessDao.save(processEntity);
     }
 
     /* 사용자에 대한 신고 처리 */
