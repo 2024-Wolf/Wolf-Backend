@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.report.service;
 
+import com.kdt.wolf.domain.group.dao.GroupMemberDao;
 import com.kdt.wolf.domain.group.dao.GroupPostDao;
 import com.kdt.wolf.domain.group.dao.QuestionBoardDao;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
@@ -11,6 +12,7 @@ import com.kdt.wolf.domain.report.dao.ReportDao;
 import com.kdt.wolf.domain.report.dto.ReportDto.CreateReportRequest;
 import com.kdt.wolf.domain.report.entity.ReportCategoryEntity;
 import com.kdt.wolf.domain.report.entity.ReportEntity;
+import com.kdt.wolf.domain.report.entity.ReportTopic;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.exception.NotFoundException;
@@ -27,6 +29,7 @@ public class ReportService {
     private final UserDao userDao;
     private final ReportDao reportDao;
     private final GroupPostDao groupPostDao;
+    private final GroupMemberDao groupMemberDao;
     private final QuestionBoardDao questionBoardDao;
     private final FcmService fcmService;
 
@@ -34,6 +37,35 @@ public class ReportService {
         ReportEntity report = createReportEntity(request, reporterId);
 
         return reportDao.save(report).getReportId();
+    }
+
+    @Transactional
+    public Long WarningReport(Long reportId) {
+        ReportEntity report = reportDao.findById(reportId);
+        //유저 : 경고 알림 / 그룹 : 삭제 및 알림 / 댓글 : 삭제 및 알림
+        //TODO : 리팩토링 필요
+        if(report.getTopic() == ReportTopic.USER){
+            // 경고 알림 보내기
+            sendNotification(report.getReportedUser().getUserId(), "신고를 받아 경고를 받았습니다.");
+        }else if(report.getTopic() == ReportTopic.GROUP){
+            // 그룹원들에게 메세지 보내기
+            groupMemberDao.findAllByGroupId(report.getReportedGroupPost().getGroupPostId())
+                    .forEach(groupMember -> {
+                        sendNotification(groupMember.getUser().getUserId(), "신고를 받아 그룹이 삭제되었습니다.");
+                    });
+            // 그룹 삭제
+            groupPostDao.delete(report.getReportedGroupPost());
+        } else if(report.getTopic() == ReportTopic.REPLY){
+            // 댓글 삭제
+            report.getReportedReply().updateCommentDetail("삭제된 댓글입니다.");
+            // 댓글 작성자에게 알림 보내기
+            sendNotification(report.getReportedReply().getAuthor().getUserId(), "신고를 받아 댓글이 삭제되었습니다.");
+        } else if (report.getTopic() == ReportTopic.QUESTION){
+            // 질문 삭제
+            report.getReportedQuestion().updateQuestionDetail("삭제된 질문입니다.");
+        }
+        processReport(report);
+        return reportId;
     }
 
     public List<ReportPreviewDto> findAllReports() {
@@ -71,17 +103,23 @@ public class ReportService {
     @Transactional
     public void processReport(Long reportId) {
         ReportEntity report = reportDao.findById(reportId);
-        // 알림 보내기
+        processReport(report);
+    }
+
+    @Transactional
+    public void processReport(ReportEntity report) {
+        report.solveReport();
+    }
+
+    @Transactional
+    protected void sendNotification(Long reporterId, String body) {
         fcmService.sendNotificationByToken(
                 FCMNotificationRequestDto.builder()
-                        .targetUserId(report.getReporter().getUserId())
-                        .title("신고 처리 완료")
-                        .body("신고가 처리되었습니다.")
+                        .targetUserId(reporterId)
+                        .title("신고")
+                        .body(body)
                         .build()
         );
-        //TODO : 신고 당한 사람한테는 뭐라 보내지 ?
-
-        report.solveReport();
     }
 
     private ReportEntity createReportEntity(CreateReportRequest request, Long reporterId) {

@@ -34,12 +34,19 @@ public class ReportAdminController {
         return "";
     }
 
-    @Operation(summary = "신고 상태 변경 / 수정 필요")
+    @Operation(summary = "신고 처리 상태만 변경")
     @PatchMapping("/{reportId}")
     public String processReport(@PathVariable Long reportId,
                                 @RequestBody ProcessReportRequest request) {
-         reportService.processReport(reportId);
-         return "";
-     }
+        reportService.processReport(reportId);
+        return "";
+    }
+
+    @Operation(summary = "경고 / 테스트 X")
+    @PatchMapping("/warning/{reportId}")
+    public String warningReport(@PathVariable Long reportId) {
+        Long response = reportService.WarningReport(reportId);
+        return "";
+    }
 
 }

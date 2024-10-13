@@ -51,12 +51,19 @@ public class QuestionBoardEntity extends BaseTimeEntity {
         this.boardType = boardType;
         this.questionTime = questionTime;
         this.questionDetails = questionDetails;
-        this.questionImageUrl = boardType == BoardType.COMMUNICATION ? questionImageUrl : null;
+        this.questionImageUrl = (boardType == BoardType.COMMUNICATION) ? questionImageUrl : null;
     }
 
     public void updateQuestion(QuestionRequest request) {
         this.questionTime = request.getQuestionTime();
         this.questionDetails = request.getQuestionDetails();
         this.questionImageUrl = request.getQuestionImageUrl();
+    }
+
+    public void updateQuestionDetail(String questionDetails) {
+        this.questionDetails = questionDetails;
+        if(questionImageUrl != null) {
+            this.questionImageUrl = null;
+        }
     }
 }
