@@ -13,6 +13,7 @@ import com.kdt.wolf.domain.report.entity.ReportCategoryEntity;
 import com.kdt.wolf.domain.report.entity.ReportEntity;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.fcm.service.FcmService;
 import com.kdt.wolf.global.fcm.service.dto.FCMNotificationRequestDto;
 import jakarta.transaction.Transactional;
@@ -30,47 +31,7 @@ public class ReportService {
     private final FcmService fcmService;
 
     public Long createReport(CreateReportRequest request, Long reporterId) {
-        UserEntity reporter = userDao.findById(reporterId);
-        ReportCategoryEntity reportCategory = reportDao.findReportCategoryById(request.reportCategoryId());
-
-        ReportEntity report = switch (request.reportTopic()) {
-            case USER -> {
-                UserEntity reportedUser = userDao.findById(request.targetId());
-                yield ReportEntity.forUser()
-                        .reporter(reporter)
-                        .reportedUser(reportedUser)
-                        .reportCategory(reportCategory)
-                        .reportReason(request.reportReason())
-                        .build();
-            }
-            case GROUP -> {
-                GroupPostEntity reportedGroupPost = groupPostDao.findById(request.targetId());
-                yield ReportEntity.forGroupPost()
-                        .reporter(reporter)
-                        .reportedGroupPost(reportedGroupPost)
-                        .reportCategory(reportCategory)
-                        .reportReason(request.reportReason())
-                        .build();
-            }
-            case REPLY -> {
-                QuestionCommentEntity reportedReply = questionBoardDao.findCommentById(request.targetId());
-                yield ReportEntity.forReply()
-                        .reporter(reporter)
-                        .reportedReply(reportedReply)
-                        .reportCategory(reportCategory)
-                        .reportReason(request.reportReason())
-                        .build();
-            }
-            case QUESTION -> {
-                QuestionBoardEntity reportedQuestion = questionBoardDao.findQuestionById(request.targetId());
-                yield ReportEntity.forQuestion()
-                        .reporter(reporter)
-                        .reportedQuestion(reportedQuestion)
-                        .reportCategory(reportCategory)
-                        .reportReason(request.reportReason())
-                        .build();
-            }
-        };
+        ReportEntity report = createReportEntity(request, reporterId);
 
         return reportDao.save(report).getReportId();
     }
@@ -117,9 +78,53 @@ public class ReportService {
                         .title("신고 처리 완료")
                         .body("신고가 처리되었습니다.")
                         .build()
-                );
+        );
         //TODO : 신고 당한 사람한테는 뭐라 보내지 ?
 
         report.solveReport();
+    }
+
+    private ReportEntity createReportEntity(CreateReportRequest request, Long reporterId) {
+        UserEntity reporter = userDao.findById(reporterId);
+        ReportCategoryEntity reportCategory = reportDao.findReportCategoryById(request.reportCategoryId());
+        switch (request.reportTopic()) {
+            case USER -> {
+                UserEntity reportedUser = userDao.findById(request.targetId());
+                return ReportEntity.forUser()
+                        .reporter(reporter)
+                        .reportedUser(reportedUser)
+                        .reportCategory(reportCategory)
+                        .reportReason(request.reportReason())
+                        .build();
+            }
+            case GROUP -> {
+                GroupPostEntity reportedGroupPost = groupPostDao.findById(request.targetId());
+                return ReportEntity.forGroupPost()
+                        .reporter(reporter)
+                        .reportedGroupPost(reportedGroupPost)
+                        .reportCategory(reportCategory)
+                        .reportReason(request.reportReason())
+                        .build();
+            }
+            case REPLY -> {
+                QuestionCommentEntity reportedReply = questionBoardDao.findCommentById(request.targetId());
+                return ReportEntity.forReply()
+                        .reporter(reporter)
+                        .reportedReply(reportedReply)
+                        .reportCategory(reportCategory)
+                        .reportReason(request.reportReason())
+                        .build();
+            }
+            case QUESTION -> {
+                QuestionBoardEntity reportedQuestion = questionBoardDao.findQuestionById(request.targetId());
+                return ReportEntity.forQuestion()
+                        .reporter(reporter)
+                        .reportedQuestion(reportedQuestion)
+                        .reportCategory(reportCategory)
+                        .reportReason(request.reportReason())
+                        .build();
+            }
+            default -> throw new NotFoundException();
+        }
     }
 }
