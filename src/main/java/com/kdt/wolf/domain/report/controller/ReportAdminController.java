@@ -3,6 +3,7 @@ package com.kdt.wolf.domain.report.controller;
 import com.kdt.wolf.domain.report.dao.ReportAdminDto.ProcessReportRequest;
 import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportDetailDto;
 import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportPreviewDto;
+import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.report.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
@@ -34,26 +35,11 @@ public class ReportAdminController {
         return "";
     }
 
-    @Operation(summary = "신고 처리 상태만 변경")
+    @Operation(summary = "신고 처리 / ACTION : NOTHING, WARNING, SUSPEND, BAN")
     @PatchMapping("/{reportId}")
-    public String processReport(@PathVariable Long reportId,
-                                @RequestBody ProcessReportRequest request) {
-        reportService.processReport(reportId);
-        return "";
-    }
-
-    @Operation(summary = "경고 / 테스트 X")
-    @PatchMapping("/warning/{reportId}")
-    public String warningReport(@PathVariable Long reportId) {
-        Long response = reportService.processWarningReport(reportId);
-        return "";
-    }
-
-    //TODO : 3일 정지, 영구 정지
-    @Operation(summary = "3일 정지 / 테스트 X")
-    @PatchMapping("/suspension/{reportId}")
-    public String suspensionReport(@PathVariable Long reportId) {
-        Long response = reportService.processSuspendReport(reportId);
+    public String processReportAndNotify(@PathVariable Long reportId,
+                                         @RequestBody ReportAction request) {
+        Long response = reportService.processReport(reportId, request);
         return "";
     }
 
