@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.challenge.dao;
 
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
@@ -171,10 +172,24 @@ public class ChallengePostDao {
                                 verification.getVerificationId(),
                                 verification.getUser().getNickname(),
                                 verification.getChallengePost().getTitle(),
-                                "그룹명",
+                                verification.getRegistration().getChallengePost().getTitle(),
                                 verification.getCreatedTime().toString(),
                                 verification.isVerification()
                         )
                 ).toList();
+    }
+
+    public VerificationDetail getVerification(Long verificationId) {
+        VerificationEntity verification = verificationRepository.findById(verificationId).orElseThrow(NotFoundException::new);
+        return new VerificationDetail(
+                verification.getVerificationId(),
+                verification.getUser().getNickname(),
+                verification.getChallengePost().getTitle(),
+                verification.getRegistration().getGroupPost().getName(),
+                verification.getCertificationNo(),
+                verification.getInstitutionName(),
+                verification.getVerificationContent(),
+                verification.isVerification()
+        );
     }
 }

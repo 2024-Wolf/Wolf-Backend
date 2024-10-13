@@ -9,4 +9,15 @@ public class ChallengeAdminDto {
             String createdAt,
             boolean isVerified
     ) { }
+
+    public record VerificationDetail(
+            Long id,
+            String userNickname,
+            String challengeTitle,
+            String certificationNo,
+            String institutionName,
+            String verificationContent,
+            String createdAt,
+            boolean isVerified
+    ) { }
 }

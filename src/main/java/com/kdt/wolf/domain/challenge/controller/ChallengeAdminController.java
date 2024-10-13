@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.challenge.controller;
 
 
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
@@ -61,6 +62,13 @@ public class ChallengeAdminController {
     @GetMapping("/verifications")
     public String getAllVerifications(){
         List<VerificationPreview> response = challengeService.getAllVerifications();
+        return "";
+    }
+
+    // 인증 단일 조회
+    @GetMapping("/verification/{verificationId}")
+    public String getVerification(@PathVariable Long verificationId){
+        VerificationDetail response = challengeService.getVerification(verificationId);
         return "";
     }
 
