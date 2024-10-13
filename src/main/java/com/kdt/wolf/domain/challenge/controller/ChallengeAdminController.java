@@ -1,6 +1,8 @@
 package com.kdt.wolf.domain.challenge.controller;
 
 
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
 import com.kdt.wolf.domain.challenge.dto.response.PaymentResponse;
@@ -9,17 +11,19 @@ import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/*")
+@RequestMapping("/api/v1/admin")
 public class ChallengeAdminController {
 
     private final ChallengeService challengeService;
+    //TODO : 리턴값 ApiResult<?> -> String 변경 필요
 
     // 챌린지 생성
     @PostMapping("/challenge")
@@ -49,8 +53,23 @@ public class ChallengeAdminController {
     }
 
     // 결제 단일 조회
-    @GetMapping("/payment/{payId}")
+    @GetMapping("/payment/{paymentId}")
     public ApiResult<PaymentResponse> getPayment(@PathVariable Long paymentId){
         return ApiResult.ok(challengeService.getPayment(paymentId));
     }
+
+    // 인증 전체 조회
+    @GetMapping("/verifications")
+    public String getAllVerifications(){
+        List<VerificationPreview> response = challengeService.getAllVerifications();
+        return "";
+    }
+
+    // 인증 단일 조회
+    @GetMapping("/verification/{verificationId}")
+    public String getVerification(@PathVariable Long verificationId){
+        VerificationDetail response = challengeService.getVerification(verificationId);
+        return "";
+    }
+
 }

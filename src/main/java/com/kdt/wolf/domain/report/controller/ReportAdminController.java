@@ -1,8 +1,9 @@
 package com.kdt.wolf.domain.report.controller;
 
-import com.kdt.wolf.domain.report.dao.ReportAdminDto.ProcessReportRequest;
-import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportDetailDto;
-import com.kdt.wolf.domain.report.dao.ReportAdminDto.ReportPreviewDto;
+import com.kdt.wolf.domain.report.dto.ReportAdminDto.ProcessReportRequest;
+import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportDetailDto;
+import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPreviewDto;
+import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.report.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
@@ -34,12 +35,12 @@ public class ReportAdminController {
         return "";
     }
 
-    @Operation(summary = "신고 상태 변경 / 수정 필요")
+    @Operation(summary = "신고 처리 / ACTION : NOTHING, WARNING, SUSPEND, BAN")
     @PatchMapping("/{reportId}")
-    public String processReport(@PathVariable Long reportId,
-                                @RequestBody ProcessReportRequest request) {
-         reportService.processReport(reportId);
-         return "";
-     }
+    public String processReportAndNotify(@PathVariable Long reportId,
+                                         @RequestBody ProcessReportRequest request) {
+        Long response = reportService.processReport(reportId, request.action(), request.processContent());
+        return "";
+    }
 
 }

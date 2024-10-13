@@ -1,4 +1,6 @@
-package com.kdt.wolf.domain.report.dao;
+package com.kdt.wolf.domain.report.dto;
+
+import com.kdt.wolf.domain.report.service.ReportAction;
 
 public class ReportAdminDto {
     public record ReportPreviewDto(
@@ -22,7 +24,8 @@ public class ReportAdminDto {
             boolean isProcessed
     ) { }
     public record ProcessReportRequest(
-            String processContent
+            String processContent,
+            ReportAction action
     ) { }
 
 }
