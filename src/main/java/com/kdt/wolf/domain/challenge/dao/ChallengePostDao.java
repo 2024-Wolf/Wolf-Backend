@@ -2,6 +2,8 @@ package com.kdt.wolf.domain.challenge.dao;
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
@@ -42,29 +44,42 @@ public class ChallengePostDao {
     }
 
     // 챌린지 목록 불러오기(회원)
-    public List<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
-    }
+//    public List<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
+//    }
+//
+//    public List<ChallengeRegistrationEntity> findCertifiedChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId);
+//    }
+//
+//    public List<ChallengeRegistrationEntity> findCompletedChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
+//    }
+//
+//    public List<ChallengeRegistrationEntity> findPayableChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
+//    }
+//
+//    public List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
+//    }
 
-    public List<ChallengeRegistrationEntity> findCertifiedChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId);
-    }
-
-    public List<ChallengeRegistrationEntity> findCompletedChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
-    }
-
-    public List<ChallengeRegistrationEntity> findPayableChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
-    }
-
-    public List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
+    public List<ChallengeRegistrationEntity> findChallengesByStatus(Long groupId, Long userId, ChallengeStatus status) {
+        return switch (status) {
+            case CERTIFICATION -> challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
+            case CERTIFICATION_COMPLETE -> challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId);
+            case RESULT_CONFIRM -> challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
+            case PAY -> challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
+            case PARTICIPATE -> challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
+            default -> throw new IllegalArgumentException("Unexpected status: " + status);
+        };
     }
 
     public List<ChallengePostEntity> findAvailableChallenges(Long groupId) {
+        //ChallengeStatus.APPLY
         return challengeRegistrationQueryRepository.findApplicableChallenges(groupId);
     }
+
 
     // 챌린지 신청(그룹장)
     public void createChallengeRegistration(ChallengeRegistrationRequest request) {

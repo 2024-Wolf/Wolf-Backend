@@ -3,13 +3,13 @@ package com.kdt.wolf.domain.challenge.controller;
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
-import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
+import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
 import com.kdt.wolf.domain.challenge.service.ChallengeService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
-import java.util.Map;
+import io.swagger.v3.oas.annotations.Operation;
 
 import com.kdt.wolf.global.base.ApiResult;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +31,12 @@ public class ChallengeController {
         return ApiResult.ok(challengeService.getChallenge(challengePostId));
     }
 
-    // 챌린지 목록 조회(그룹)
-    @GetMapping("/challenges/{groupPostId}")
-    public ApiResult<Map<String,List<ChallengePreview>>> getAllChallenges(@PathVariable Long groupPostId, @AuthenticationPrincipal AuthenticatedUser user) {
-        return ApiResult.ok(challengeService.getAllChallenges(groupPostId, user.getUserId()));
+    // 챌린지 상태별 목록 조회
+    @Operation(summary = "챌린지 상태별 목록 조회 / status : CERTIFICATION, CERTIFICATION_COMPLETE, RESULT_CONFIRM, APPLY, PARTICIPATE, PAY")
+    @GetMapping("/challenges/{groupPostId}/{status}")
+    public ApiResult<List<ChallengePreview>> getChallengesByStatus(@PathVariable Long groupPostId, @PathVariable String status, @AuthenticationPrincipal AuthenticatedUser user){
+        ChallengeStatus challengeStatus = ChallengeStatus.valueOf(status);
+        return ApiResult.ok(challengeService.getChallengesByStatus(challengeStatus, groupPostId, user.getUserId()));
     }
 
     // 그룹장 신청

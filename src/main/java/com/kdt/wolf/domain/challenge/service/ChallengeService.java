@@ -56,112 +56,32 @@ public class ChallengeService {
         )).toList();
     }
 
-    // 챌린지 목록 불러오기
-    public Map<String, List<ChallengePreview>> getAllChallenges(Long groupId, Long userId){
-        Map<String, List<ChallengePreview>> challengesByStatus = new HashMap<>();
-
-        challengesByStatus.put(ChallengeStatus.CERTIFICATION.getDescription(),
-                challengePostDao.findCertifiableChallenges(groupId, userId)
-                        .stream()
-                        .map(post -> {
-                            ChallengeStatus status = ChallengeStatus.CERTIFICATION;
-                            return new ChallengePreview(
-                                    post.getChallengePost().getChallengePostId(),
-                                    post.getChallengePost().getImg(),
-                                    post.getChallengePost().getTitle(),
-                                    post.getRegistrationDate(),
-                                    post.getChallengePost().getDeadline(),
-                                    status
-                            );
-                        })
-                        .toList()
-        );
-
-        challengesByStatus.put(ChallengeStatus.PAY.getDescription(),
-                challengePostDao.findPayableChallenges(groupId, userId)
-                        .stream()
-                        .map(post -> {
-                            ChallengeStatus status = ChallengeStatus.PAY;
-                            return new ChallengePreview(
-                                    post.getChallengePost().getChallengePostId(),
-                                    post.getChallengePost().getImg(),
-                                    post.getChallengePost().getTitle(),
-                                    post.getRegistrationDate(),
-                                    post.getChallengePost().getDeadline(),
-                                    status
-                            );
-                        })
-                        .toList()
-            );
-
-        challengesByStatus.put(ChallengeStatus.CERTIFICATION_COMPLETE.getDescription(),
-                challengePostDao.findCertifiedChallenges(groupId, userId)
-                        .stream()
-                        .map(post -> {
-                            ChallengeStatus status = ChallengeStatus.APPLY;
-                            return new ChallengePreview(
-                                    post.getChallengePost().getChallengePostId(),
-                                    post.getChallengePost().getImg(),
-                                    post.getChallengePost().getTitle(),
-                                    post.getRegistrationDate(),
-                                    post.getChallengePost().getDeadline(),
-                                    status
-                            );
-                        })
-                        .toList()
-        );
-
-        challengesByStatus.put(ChallengeStatus.RESULT_CONFIRM.getDescription(),
-                challengePostDao.findCompletedChallenges(groupId, userId)
-                        .stream()
-                        .map(post -> {
-                            ChallengeStatus status = ChallengeStatus.RESULT_CONFIRM;
-                            return new ChallengePreview(
-                                    post.getChallengePost().getChallengePostId(),
-                                    post.getChallengePost().getImg(),
-                                    post.getChallengePost().getTitle(),
-                                    post.getRegistrationDate(),
-                                    post.getChallengePost().getDeadline(),
-                                    status
-                            );
-                        })
-                        .toList()
-        );
-
-        challengesByStatus.put(ChallengeStatus.APPLY.getDescription(),
-                challengePostDao.findAvailableChallenges(groupId)
-                        .stream()
-                        .map(post -> {
-                            ChallengeStatus status = ChallengeStatus.APPLY;
-                            return new ChallengePreview(
-                                    post.getChallengePostId(),
-                                    post.getImg(),
-                                    post.getTitle(),
-                                    post.getCreatedTime().toLocalDate(),
-                                    post.getDeadline(),
-                                    status
-                            );
-                        })
-                        .toList()
-        );
-
-        challengesByStatus.put(ChallengeStatus.PARTICIPATE.getDescription(),
-                challengePostDao.findJoinableChallenges(groupId, userId)
-                        .stream()
-                        .map(post -> {
-                            ChallengeStatus status = ChallengeStatus.PARTICIPATE;
-                            return new ChallengePreview(
-                                    post.getChallengePost().getChallengePostId(),
-                                    post.getChallengePost().getImg(),
-                                    post.getChallengePost().getTitle(),
-                                    post.getRegistrationDate(),
-                                    post.getChallengePost().getDeadline(),
-                                    status
-                            );
-                        })
-                        .toList()
-        );
-        return challengesByStatus;
+    // 챌린지 목록 불러오기(그룹)
+    public List<ChallengePreview> getChallengesByStatus(ChallengeStatus status, Long groupId, Long userId){
+        if(status == ChallengeStatus.APPLY) {
+            return challengePostDao.findAvailableChallenges(groupId)
+                    .stream()
+                    .map(post -> new ChallengePreview(
+                            post.getChallengePostId(),
+                            post.getImg(),
+                            post.getTitle(),
+                            post.getCreatedTime().toLocalDate(),
+                            post.getDeadline(),
+                            status
+                    ))
+                    .toList();
+        }
+        return challengePostDao.findChallengesByStatus(groupId, userId, status)
+                .stream()
+                .map(post -> new ChallengePreview(
+                        post.getChallengePost().getChallengePostId(),
+                        post.getChallengePost().getImg(),
+                        post.getChallengePost().getTitle(),
+                        post.getRegistrationDate(),
+                        post.getChallengePost().getDeadline(),
+                        status
+                ))
+                .toList();
     }
 
     // 챌린지 신청
