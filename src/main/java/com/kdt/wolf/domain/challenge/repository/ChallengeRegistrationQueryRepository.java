@@ -5,6 +5,8 @@ import com.kdt.wolf.domain.challenge.entity.ChallengeRegistrationEntity;
 import java.util.List;
 
 import com.kdt.wolf.domain.challenge.entity.GroupChallengeParticipantEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,7 +24,7 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + "AND cp.user.userId = :userId "
             + "AND cp.paymentStatus = 'Y' "  // 결제 완료
             + "AND cp.participationStatus = 'N'") // 인증 미완료
-    List<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId);
+    Page<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId, Pageable pageable);
 
 
     @Query("SELECT r "
@@ -33,7 +35,7 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + "AND cp.user.userId = :userId "
             + "AND cp.paymentStatus = 'Y'"
             + "AND cp.participationStatus = 'Y'") // 인증 완료
-    List<ChallengeRegistrationEntity> findCertifiedChallenges(Long groupId, Long userId);
+    Page<ChallengeRegistrationEntity> findCertifiedChallenges(Long groupId, Long userId, Pageable pageable);
 
     /**  완료된 챌린지: 신청 O, 결제 O, 마감 O */
     @Query("SELECT r "
@@ -43,7 +45,7 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + "AND r.challengePost.deadline < CURRENT_DATE "
             + "AND cp.user.userId = :userId "
             + "AND cp.paymentStatus = 'Y' ")  // 결제 완료
-    List<ChallengeRegistrationEntity> findCompletedChallenges(Long groupId, Long userId);
+    Page<ChallengeRegistrationEntity> findCompletedChallenges(Long groupId, Long userId, Pageable pageable);
 
 
     // 참여 가능
@@ -55,7 +57,7 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
                 + "FROM GroupChallengeParticipantEntity cp "
                 + "WHERE cp.user.userId = :userId"
             + ")")
-    List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId);
+    Page<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId, Pageable pageable);
 
     // 신청 가능
     @Query("SELECT p "
@@ -66,7 +68,7 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
                 + "WHERE r.groupPost.groupPostId = :groupId "
                 + "AND r.challengePost.challengePostId = p.challengePostId"
             + ")")
-    List<ChallengePostEntity> findApplicableChallenges(Long groupId);
+    Page<ChallengePostEntity> findApplicableChallenges(Long groupId, Pageable pageable);
 
     // 결제 가능
     @Query(
@@ -76,7 +78,7 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + "AND cp.user.userId = :userId "
             + "AND cp.paymentStatus = 'N'"
             )
-    List<ChallengeRegistrationEntity> findPayableChallenge(Long groupId, Long userId);
+    Page<ChallengeRegistrationEntity> findPayableChallenge(Long groupId, Long userId, Pageable pageable);
 
     // 챌린지 신청 정보 조회
     @Query("SELECT r "

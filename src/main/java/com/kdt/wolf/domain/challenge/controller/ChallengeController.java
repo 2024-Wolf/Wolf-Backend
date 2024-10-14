@@ -2,7 +2,7 @@ package com.kdt.wolf.domain.challenge.controller;
 
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
-import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePageResponse;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
@@ -13,10 +13,10 @@ import io.swagger.v3.oas.annotations.Operation;
 
 import com.kdt.wolf.global.base.ApiResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,9 +34,13 @@ public class ChallengeController {
     // 챌린지 상태별 목록 조회
     @Operation(summary = "챌린지 상태별 목록 조회 / status : CERTIFICATION, CERTIFICATION_COMPLETE, RESULT_CONFIRM, APPLY, PARTICIPATE, PAY")
     @GetMapping("/challenges/{groupPostId}/{status}")
-    public ApiResult<List<ChallengePreview>> getChallengesByStatus(@PathVariable Long groupPostId, @PathVariable String status, @AuthenticationPrincipal AuthenticatedUser user){
+    public ApiResult<ChallengePageResponse> getChallengesByStatus(@PathVariable Long groupPostId,
+                                                                  @PathVariable String status,
+                                                                  @AuthenticationPrincipal AuthenticatedUser user,
+                                                                  @PageableDefault(size = 5) Pageable pageable){
         ChallengeStatus challengeStatus = ChallengeStatus.valueOf(status);
-        return ApiResult.ok(challengeService.getChallengesByStatus(challengeStatus, groupPostId, user.getUserId()));
+        ChallengePageResponse response = challengeService.getChallengesByStatus(challengeStatus, groupPostId, user.getUserId(), pageable);
+        return ApiResult.ok(response);
     }
 
     // 그룹장 신청

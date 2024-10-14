@@ -3,10 +3,9 @@ package com.kdt.wolf.domain.challenge.service;
 import com.kdt.wolf.domain.challenge.dao.ChallengePostDao;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePageResponse;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
@@ -14,10 +13,13 @@ import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
 import com.kdt.wolf.domain.challenge.dto.response.PaymentResponse;
 import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
-import com.kdt.wolf.domain.challenge.entity.ChallengeRegistrationEntity;
 import com.kdt.wolf.domain.challenge.entity.PaymentEntity;
 import com.kdt.wolf.domain.challenge.repository.ChallengePaymentRepository;
+import com.kdt.wolf.global.dto.PageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,9 +59,12 @@ public class ChallengeService {
     }
 
     // 챌린지 목록 불러오기(그룹)
-    public List<ChallengePreview> getChallengesByStatus(ChallengeStatus status, Long groupId, Long userId){
+    public ChallengePageResponse getChallengesByStatus(ChallengeStatus status, Long groupId, Long userId,
+                                                       Pageable pageable){
+        Page<ChallengePreview> challenges;
+        List<ChallengePreview> challengePreview;
         if(status == ChallengeStatus.APPLY) {
-            return challengePostDao.findAvailableChallenges(groupId)
+            challengePreview = challengePostDao.findAvailableChallenges(groupId, pageable)
                     .stream()
                     .map(post -> new ChallengePreview(
                             post.getChallengePostId(),
@@ -68,20 +73,25 @@ public class ChallengeService {
                             post.getCreatedTime().toLocalDate(),
                             post.getDeadline(),
                             status
+                    )).toList();
+        } else {
+            challengePreview = challengePostDao.findChallengesByStatus(groupId, userId, status, pageable)
+                    .stream()
+                    .map(post -> new ChallengePreview(
+                            post.getChallengePost().getChallengePostId(),
+                            post.getChallengePost().getImg(),
+                            post.getChallengePost().getTitle(),
+                            post.getRegistrationDate(),
+                            post.getChallengePost().getDeadline(),
+                            status
                     ))
                     .toList();
         }
-        return challengePostDao.findChallengesByStatus(groupId, userId, status)
-                .stream()
-                .map(post -> new ChallengePreview(
-                        post.getChallengePost().getChallengePostId(),
-                        post.getChallengePost().getImg(),
-                        post.getChallengePost().getTitle(),
-                        post.getRegistrationDate(),
-                        post.getChallengePost().getDeadline(),
-                        status
-                ))
-                .toList();
+        if(challengePreview.isEmpty()){
+            return new ChallengePageResponse(List.of(), new PageResponse(Page.empty()));
+        }
+        challenges = new PageImpl<>(challengePreview, pageable, challengePreview.size());
+        return new ChallengePageResponse(challenges.toList(), new PageResponse(challenges));
     }
 
     // 챌린지 신청

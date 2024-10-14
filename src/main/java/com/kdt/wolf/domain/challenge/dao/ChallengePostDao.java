@@ -17,6 +17,8 @@ import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -64,20 +66,20 @@ public class ChallengePostDao {
 //        return challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
 //    }
 
-    public List<ChallengeRegistrationEntity> findChallengesByStatus(Long groupId, Long userId, ChallengeStatus status) {
+    public Page<ChallengeRegistrationEntity> findChallengesByStatus(Long groupId, Long userId, ChallengeStatus status, Pageable pageable) {
         return switch (status) {
-            case CERTIFICATION -> challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
-            case CERTIFICATION_COMPLETE -> challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId);
-            case RESULT_CONFIRM -> challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
-            case PAY -> challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
-            case PARTICIPATE -> challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
+            case CERTIFICATION -> challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId, pageable);
+            case CERTIFICATION_COMPLETE -> challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId, pageable);
+            case RESULT_CONFIRM -> challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId, pageable);
+            case PAY -> challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId, pageable);
+            case PARTICIPATE -> challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId, pageable);
             default -> throw new IllegalArgumentException("Unexpected status: " + status);
         };
     }
 
-    public List<ChallengePostEntity> findAvailableChallenges(Long groupId) {
+    public Page<ChallengePostEntity> findAvailableChallenges(Long groupId, Pageable pageable) {
         //ChallengeStatus.APPLY
-        return challengeRegistrationQueryRepository.findApplicableChallenges(groupId);
+        return challengeRegistrationQueryRepository.findApplicableChallenges(groupId, pageable);
     }
 
 

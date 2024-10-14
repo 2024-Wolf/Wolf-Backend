@@ -1,9 +1,11 @@
 package com.kdt.wolf.domain.challenge.dto;
 
 
+import com.kdt.wolf.global.dto.PageResponse;
 import java.time.LocalDate;
 
 import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
+import java.util.List;
 import lombok.Getter;
 
 public class ChallengeDto {
@@ -25,4 +27,10 @@ public class ChallengeDto {
             this.status = status;
         }
     }
+
+    @Getter
+    public record ChallengePageResponse(
+            List<ChallengePreview> challenges,
+            PageResponse page
+    ) { }
 }
