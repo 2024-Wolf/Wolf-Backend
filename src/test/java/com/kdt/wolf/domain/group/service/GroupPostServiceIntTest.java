@@ -23,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -136,9 +137,10 @@ public class GroupPostServiceIntTest {
         groupPostService.createPost(projectRequest);
 
         // When: 옵션에 따라 모집 글 조회
-        List<GroupPostResponse> allPosts = groupPostService.getPostsByOption("all");
-        List<GroupPostResponse> studyPosts = groupPostService.getPostsByOption("study");
-        List<GroupPostResponse> projectPosts = groupPostService.getPostsByOption("project");
+        Pageable pageable = Pageable.ofSize(20);
+        List<GroupPostResponse> allPosts = groupPostService.getPostsByOption("all", pageable).groupPostResponseList();
+        List<GroupPostResponse> studyPosts = groupPostService.getPostsByOption("study", pageable).groupPostResponseList();
+        List<GroupPostResponse> projectPosts = groupPostService.getPostsByOption("project", pageable).groupPostResponseList();
 
         // Then: 조회된 모집 글 검증
         Assertions.assertEquals(1, studyPosts.size());

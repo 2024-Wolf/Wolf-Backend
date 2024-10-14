@@ -12,7 +12,8 @@ import java.time.LocalDate;
 public class MeetingEntity extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "meeting_seq_id")
+    @SequenceGenerator(name = "meeting_seq_id", sequenceName = "meeting_seq", allocationSize = 1)
     @Column(name = "meeting_id")
     private Long meetingId;
 
