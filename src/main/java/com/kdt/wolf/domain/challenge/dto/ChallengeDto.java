@@ -28,7 +28,6 @@ public class ChallengeDto {
         }
     }
 
-    @Getter
     public record ChallengePageResponse(
             List<ChallengePreview> challenges,
             PageResponse page
