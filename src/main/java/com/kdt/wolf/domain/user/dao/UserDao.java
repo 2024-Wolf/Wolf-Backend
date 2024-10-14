@@ -88,4 +88,14 @@ public class UserDao {
         user.suspend();
         saveUser(user);
     }
+
+    @Transactional
+    public void activateUser(UserEntity user) {
+        user.activate();
+    }
+
+    @Transactional
+    public void banUser(UserEntity user) {
+        user.ban();
+    }
 }

@@ -81,4 +81,8 @@ public class GroupPostDao {
         }
         groupPostRepository.deleteById(groupPostId);
     }
+
+    public void delete(GroupPostEntity reportedGroupPost) {
+        groupPostRepository.delete(reportedGroupPost);
+    }
 }

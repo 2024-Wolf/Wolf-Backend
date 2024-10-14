@@ -1,6 +1,8 @@
 package com.kdt.wolf.domain.challenge.service;
 
 import com.kdt.wolf.domain.challenge.dao.ChallengePostDao;
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import java.util.HashMap;
@@ -211,4 +213,11 @@ public class ChallengeService {
     }
 
 
+    public List<VerificationPreview> getAllVerifications() {
+        return challengePostDao.getAllVerifications();
+    }
+
+    public VerificationDetail getVerification(Long verificationId) {
+        return challengePostDao.getVerification(verificationId);
+    }
 }

@@ -157,4 +157,13 @@ public class UserEntity extends BaseTimeEntity {
         this.status = Status.SUSPENDED;
         this.suspensionDate = LocalDate.now().plusDays(3);
     }
+
+    public void activate() {
+        this.status = Status.ACTIVE;
+        this.suspensionDate = null;
+    }
+
+    public void ban() {
+        this.status = Status.BANNED;
+    }
 }

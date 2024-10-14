@@ -1,5 +1,7 @@
 package com.kdt.wolf.domain.challenge.dao;
 
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
@@ -161,5 +163,33 @@ public class ChallengePostDao {
     // 결제 정보 조회
     public PaymentEntity getPayment(Long paymentId){
         return challengePaymentRepository.findById(paymentId).orElseThrow(NotFoundException::new);
+    }
+
+    public List<VerificationPreview> getAllVerifications() {
+        return verificationRepository.findAll()
+                .stream().map(
+                        verification -> new VerificationPreview(
+                                verification.getVerificationId(),
+                                verification.getUser().getNickname(),
+                                verification.getChallengePost().getTitle(),
+                                verification.getRegistration().getChallengePost().getTitle(),
+                                verification.getCreatedTime().toString(),
+                                verification.isVerification()
+                        )
+                ).toList();
+    }
+
+    public VerificationDetail getVerification(Long verificationId) {
+        VerificationEntity verification = verificationRepository.findById(verificationId).orElseThrow(NotFoundException::new);
+        return new VerificationDetail(
+                verification.getVerificationId(),
+                verification.getUser().getNickname(),
+                verification.getChallengePost().getTitle(),
+                verification.getRegistration().getGroupPost().getName(),
+                verification.getCertificationNo(),
+                verification.getInstitutionName(),
+                verification.getVerificationContent(),
+                verification.isVerification()
+        );
     }
 }
