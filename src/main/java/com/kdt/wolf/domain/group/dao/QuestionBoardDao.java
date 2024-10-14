@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.group.dao;
 
 import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
 import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
+import com.kdt.wolf.domain.group.dto.response.QuestionPageResponse;
 import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
 import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
 import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
@@ -10,6 +11,8 @@ import com.kdt.wolf.domain.group.repository.QuestionBoardRepository;
 import com.kdt.wolf.domain.group.repository.QuestionCommentRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,20 +25,12 @@ public class QuestionBoardDao {
     private final QuestionCommentRepository questionCommentRepository;
     private final GroupPostDao groupPostDao;
 
-    public List<QuestionResponse> getQuestionsList(Long groupId, BoardType option) {
-        List<QuestionBoardEntity> questionEntities = questionBoardRepository.findByGroupPostIdAndBoardType(groupId, option);
-        if (questionEntities == null || questionEntities.isEmpty()) {
-            return new ArrayList<>();
-        }
-        return questionEntities.stream()
-                .map(question -> {
-                    List<QuestionCommentEntity> comments = questionCommentRepository.findByQuestionQuestionId(question.getQuestionId());
-                    if (comments == null) {
-                        comments = new ArrayList<>();
-                    }
-                    return new QuestionResponse(question, comments);
-                })
-                .toList();
+    public Page<QuestionBoardEntity> getQuestions(Long groupPostId, BoardType boardType, Pageable pageable) {
+        return questionBoardRepository.findByGroupPostIdAndBoardType(groupPostId, boardType, pageable);
+    }
+
+    public List<QuestionCommentEntity> getComments(Long questionId) {
+        return questionCommentRepository.findByQuestionQuestionId(questionId);
     }
 
     public void createQuestion(Long groupId,String option, QuestionRequest request) {
