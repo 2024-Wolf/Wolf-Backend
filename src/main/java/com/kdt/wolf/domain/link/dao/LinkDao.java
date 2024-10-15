@@ -1,12 +1,13 @@
-package com.kdt.wolf.domain.group.dao;
+package com.kdt.wolf.domain.link.dao;
 
-import com.kdt.wolf.domain.group.dto.request.LinkRequest;
-import com.kdt.wolf.domain.group.entity.ExternalLinksEntity;
+import com.kdt.wolf.domain.link.dto.LinkRequest;
+import com.kdt.wolf.domain.link.entity.ExternalLinksEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.LinkType;
-import com.kdt.wolf.domain.group.repository.ExternalLinksRepository;
-import com.kdt.wolf.domain.group.repository.GroupPostRepository;
+import com.kdt.wolf.domain.link.repository.ExternalLinksRepository;
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.exception.NotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,26 +15,36 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Transactional
 public class LinkDao {
-    private final GroupPostRepository groupPostRepository;
     private final ExternalLinksRepository externalLinksRepository;
 
-    public List<ExternalLinksEntity> findAllByGroupId(Long groupId) {
-        GroupPostEntity group = groupPostRepository.findById(groupId)
-                .orElseThrow(NotFoundException::new);
+    public List<ExternalLinksEntity> findAll(GroupPostEntity group) {
         return externalLinksRepository.findALLByGroupPost(group);
     }
 
-    public void createLink(Long groupId, LinkRequest request) {
-        GroupPostEntity group = groupPostRepository.findById(groupId)
-                .orElseThrow(NotFoundException::new);
+    public List<ExternalLinksEntity> findAll(UserEntity user) {
+        return externalLinksRepository.findALLByUser(user);
+    }
 
-        ExternalLinksEntity link = ExternalLinksEntity.builder()
+    public void createLink(GroupPostEntity group, LinkRequest request) {
+
+        ExternalLinksEntity link = ExternalLinksEntity.groupBuilder()
                 .groupPost(group)
                 .linkType(LinkType.valueOf(request.getLinkType().toUpperCase()))
                 .linkUrl(request.getLinkUrl())
                 .build();
         externalLinksRepository.save(link);
+    }
+
+    public Long createLink(UserEntity user, LinkRequest request) {
+        ExternalLinksEntity link = ExternalLinksEntity.userBuilder()
+                .user(user)
+                .linkType(LinkType.valueOf(request.getLinkType().toUpperCase()))
+                .linkUrl(request.getLinkUrl())
+                .build();
+        externalLinksRepository.save(link);
+        return link.getLinkId();
     }
 
     public void updateLink(Long linkId, LinkRequest request) {
