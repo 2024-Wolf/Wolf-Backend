@@ -17,9 +17,6 @@ public class GroupPostRequest {
     private String name;
 
     @NotNull
-    private UserEntity leaderUser;
-
-    @NotNull
     private String type;
 
     private LocalDate startDate;
@@ -41,11 +38,10 @@ public class GroupPostRequest {
     private char challengeStatus;
 
     @Builder
-    public GroupPostRequest(String name, UserEntity leaderUser, String type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
+    public GroupPostRequest(String name, String type, LocalDate startDate, LocalDate endDate, LocalDate recruitStartDate,
                             LocalDate recruitDeadlineDate, String shortIntro, String tag, String optionalRequirements, List<Recruitments> recruitments,
                             int targetMembers, String thumbnail, String topic, String description, String warning, char challengeStatus) {
         this.name = name;
-        this.leaderUser = leaderUser;
         this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;
