@@ -1,11 +1,8 @@
 package com.kdt.wolf.domain.group.service;
 
-import com.kdt.wolf.domain.group.dao.LinkDao;
 import com.kdt.wolf.domain.group.dao.TaskDao;
 import com.kdt.wolf.domain.group.dto.request.TaskRequest;
-import com.kdt.wolf.domain.group.dto.response.LinkResponse;
 import com.kdt.wolf.domain.group.dto.response.TaskResponse;
-import com.kdt.wolf.domain.group.entity.ExternalLinksEntity;
 import com.kdt.wolf.domain.group.entity.TaskEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

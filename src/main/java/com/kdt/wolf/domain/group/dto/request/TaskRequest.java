@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.group.dto.request;
 
-import com.kdt.wolf.domain.group.entity.common.TaskStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.group.dto.response;
 
-import com.kdt.wolf.domain.group.entity.ExternalLinksEntity;
 import com.kdt.wolf.domain.group.entity.TaskEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 
