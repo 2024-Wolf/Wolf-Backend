@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.dto.request.LinkRequest;
 import com.kdt.wolf.domain.group.entity.common.LinkType;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
@@ -24,7 +25,7 @@ public class ExternalLinksEntity extends BaseTimeEntity {
     private GroupPostEntity groupPost;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @Column(length = 50)
@@ -39,5 +40,10 @@ public class ExternalLinksEntity extends BaseTimeEntity {
         this.user = user;
         this.linkType = linkType;
         this.linkUrl = linkUrl;
+    }
+
+    public void updateLink(LinkRequest request) {
+        this.linkType = LinkType.valueOf(request.getLinkType().toUpperCase());
+        this.linkUrl = request.getLinkUrl();
     }
 }
