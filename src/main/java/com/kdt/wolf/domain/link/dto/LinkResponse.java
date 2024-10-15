@@ -1,6 +1,6 @@
-package com.kdt.wolf.domain.group.dto.response;
+package com.kdt.wolf.domain.link.dto;
 
-import com.kdt.wolf.domain.group.entity.ExternalLinksEntity;
+import com.kdt.wolf.domain.link.entity.ExternalLinksEntity;
 
 public class LinkResponse {
     private final String linkType;

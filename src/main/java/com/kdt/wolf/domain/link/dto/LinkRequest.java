@@ -1,4 +1,4 @@
-package com.kdt.wolf.domain.group.dto.request;
+package com.kdt.wolf.domain.link.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
