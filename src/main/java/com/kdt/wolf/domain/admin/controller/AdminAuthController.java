@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/api/v1/admin/auth/*")
+@RequestMapping("/api/v1/admin/auth/")
 public class AdminAuthController {
     private final AdminAuthService adminService;
 

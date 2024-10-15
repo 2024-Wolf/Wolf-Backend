@@ -20,7 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupPostDao {
     private final GroupPostRepository groupPostRepository;
-    private final UserRepository userRepository;
 
     public GroupPostEntity findById(Long groupPostId) {
         return groupPostRepository.findById(groupPostId)
@@ -40,10 +39,7 @@ public class GroupPostDao {
         return groupPostRepository.findByKeyword(keyword);
     }
 
-    public GroupPostEntity createPost(GroupPostRequest request) {
-        UserEntity leaderUser = userRepository.findById(request.getLeaderUser().getUserId())
-                .orElseThrow(UserNotFoundException::new);
-
+    public GroupPostEntity createPost(GroupPostRequest request, UserEntity user) {
         GroupType type = "study".equals(request.getType()) ? GroupType.STUDY : GroupType.PROJECT;
 
         // GroupPostEntity 생성
@@ -63,19 +59,10 @@ public class GroupPostDao {
                 .description(request.getDescription())
                 .warning(request.getWarning())
                 .challengeStatus(request.getChallengeStatus())
-                .leaderUser(leaderUser)
+                .leaderUser(user)
                 .build();
 
         return groupPostRepository.save(groupPost); // DB에 저장
-    }
-
-    public void updateGroupPost(Long groupPostId, GroupPostRequest request) {
-        GroupPostEntity existingGroupPost = groupPostRepository.findById(groupPostId)
-                .orElseThrow(NotFoundException::new);
-
-        existingGroupPost.updateGroupPost(request);
-        groupPostRepository.save(existingGroupPost);
-
     }
 
     public void deleteById(Long groupPostId) {

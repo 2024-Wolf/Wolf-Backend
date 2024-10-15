@@ -10,9 +10,12 @@ import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitmentsEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupStatus;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.domain.user.dao.UserDao;
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +29,7 @@ public class GroupPostService {
 
     private final GroupPostDao groupPostDao;
     private final RecruitmentsDao recruitmentsDao;
+    private final UserDao userDao;
 
     public  GroupPostResponse getGroupPostById(Long groupPostId) {
         GroupPostEntity groupPostEntity = groupPostDao.findById(groupPostId);
@@ -45,13 +49,15 @@ public class GroupPostService {
         );
     }
 
-    public void createPost(GroupPostRequest request) {
+    public void createPost(GroupPostRequest request, Long userId) {
+        UserEntity user = findUserById(userId);
+
         //예외 처리
         if (request.getType().equals("project") && (request.getRecruitments() == null || request.getRecruitments().isEmpty())) {
             throw new BusinessException(ExceptionCode.BAD_REQUEST);
         }
 
-        GroupPostEntity post = groupPostDao.createPost(request);
+        GroupPostEntity post = groupPostDao.createPost(request, user);
 
         //프로젝트면 Recruitments 저장
         if (request.getType().equals("project")) {
@@ -69,15 +75,23 @@ public class GroupPostService {
         }
     }
 
+    private UserEntity findUserById(Long userId) {
+        return userDao.findById(userId);
+    }
+
     public List<GroupPostResponse> searchPosts(String keyword) {
         List<GroupPostEntity> posts = groupPostDao.findByKeyword(keyword);
         return posts.stream()
                 .map(GroupPostResponse::new)
                 .toList();
     }
-
-    public void editGroupPost(Long postId, GroupPostRequest request) {
-        groupPostDao.updateGroupPost(postId, request);
+    @Transactional
+    public void editGroupPost(Long postId, GroupPostRequest request, Long userId) {
+        GroupPostEntity groupPost = groupPostDao.findById(postId);
+        if(!groupPost.getLeaderUser().getUserId().equals(userId)) {
+            throw new BusinessException(ExceptionCode.ACCESS_DENIED);
+        }
+        groupPost.updateGroupPost(request);
     }
 
     public void deleteGroupPost(Long postId) {

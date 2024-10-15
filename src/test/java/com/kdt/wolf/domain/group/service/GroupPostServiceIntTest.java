@@ -83,7 +83,6 @@ public class GroupPostServiceIntTest {
 
         GroupPostRequest studyRequest = GroupPostRequest.builder()
                 .name("Study Group")
-                .leaderUser(savedLeaderUser)
                 .type("study")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
@@ -115,7 +114,6 @@ public class GroupPostServiceIntTest {
 
         GroupPostRequest projectRequest = GroupPostRequest.builder()
                 .name("Project Group")
-                .leaderUser(savedLeaderUser)
                 .type("project")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
@@ -134,8 +132,8 @@ public class GroupPostServiceIntTest {
                 .build();
 
 
-        groupPostService.createPost(studyRequest);
-        groupPostService.createPost(projectRequest);
+        groupPostService.createPost(studyRequest, savedLeaderUser.getUserId());
+        groupPostService.createPost(projectRequest, savedLeaderUser.getUserId());
 
         // When: 옵션에 따라 모집 글 조회
         Pageable pageable = Pageable.ofSize(20);
@@ -172,7 +170,6 @@ public class GroupPostServiceIntTest {
         // 그룹 모집 요청 객체 생성 및 저장
         GroupPostRequest studyRequest = GroupPostRequest.builder()
                 .name("Study Group")
-                .leaderUser(savedLeaderUser)
                 .type("study")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
@@ -191,7 +188,6 @@ public class GroupPostServiceIntTest {
 
         GroupPostRequest projectRequest = GroupPostRequest.builder()
                 .name("Project Group")
-                .leaderUser(savedLeaderUser)
                 .type("study")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
@@ -208,8 +204,8 @@ public class GroupPostServiceIntTest {
                 .challengeStatus('X') // 또는 'O'
                 .build();
 
-        groupPostService.createPost(studyRequest);
-        groupPostService.createPost(projectRequest);
+        groupPostService.createPost(studyRequest, savedLeaderUser.getUserId());
+        groupPostService.createPost(projectRequest, savedLeaderUser.getUserId());
 
         // When: 검색 기능을 통해 모집 글 조회
         List<GroupPostResponse> searchStudyPosts = groupPostService.searchPosts("Study");
@@ -244,7 +240,6 @@ public class GroupPostServiceIntTest {
         // 기존 그룹 포스트 생성 및 저장
         GroupPostRequest originalRequest = GroupPostRequest.builder()
                 .name("Original Study Group")
-                .leaderUser(savedLeaderUser)
                 .type("study")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
@@ -261,7 +256,7 @@ public class GroupPostServiceIntTest {
                 .challengeStatus('O') // 또는 'X'
                 .build();
 
-        groupPostService.createPost(originalRequest);
+        groupPostService.createPost(originalRequest, savedLeaderUser.getUserId());
 
         GroupPostEntity savedGroupPost = groupPostRepository.findAll().get(0); // 저장된 그룹 포스트 가져오기
 
@@ -280,7 +275,7 @@ public class GroupPostServiceIntTest {
                 .warning("Updated warning.") // 수정할 경고
                 .build();
 
-        groupPostService.editGroupPost(savedGroupPost.getGroupPostId(), updateRequest); // 업데이트 요청 수행
+        groupPostService.editGroupPost(savedGroupPost.getGroupPostId(), updateRequest, savedLeaderUser.getUserId()); // 업데이트 요청 수행
         System.out.println(savedGroupPost.getGroupPostId());
 
         // Then: 수정된 그룹 포스트 검증
@@ -315,7 +310,6 @@ public class GroupPostServiceIntTest {
         // 그룹 모집 요청 객체 생성 및 저장
         GroupPostRequest studyRequest = GroupPostRequest.builder()
                 .name("Study Group")
-                .leaderUser(savedLeaderUser)
                 .type("study")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
@@ -332,7 +326,7 @@ public class GroupPostServiceIntTest {
                 .challengeStatus('O') // 또는 'X'
                 .build();
 
-        groupPostService.createPost(studyRequest); // 포스트 생성
+        groupPostService.createPost(studyRequest, savedLeaderUser.getUserId()); // 포스트 생성
 
         // When: 그룹 포스트 삭제 요청
         List<GroupPostEntity> beforeDeletePosts = groupPostRepository.findAll();
@@ -363,7 +357,6 @@ public class GroupPostServiceIntTest {
         // 그룹 모집 요청 객체 생성 및 저장
         GroupPostRequest studyRequest = GroupPostRequest.builder()
                 .name("Study Group")
-                .leaderUser(savedLeaderUser)
                 .type("study")
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(1))
@@ -380,7 +373,7 @@ public class GroupPostServiceIntTest {
                 .challengeStatus('O') // 또는 'X'
                 .build();
 
-        groupPostService.createPost(studyRequest);
+        groupPostService.createPost(studyRequest, savedLeaderUser.getUserId());
 
         GroupPostEntity savedGroupPost = groupPostRepository.findAll().get(0); // 저장된 그룹 포스트 가져오기
 

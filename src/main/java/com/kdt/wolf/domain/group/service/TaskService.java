@@ -14,8 +14,8 @@ import java.util.List;
 public class TaskService {
     private final TaskDao taskDao;
 
-    public Long addTask(Long groupId, TaskRequest request) {
-        return taskDao.createTask(groupId, request);
+    public Long addTask(Long groupId, TaskRequest request, Long userId) {
+        return taskDao.createTask(groupId, request, userId);
     }
 
     public List<TaskResponse> getTask(Long groupId) {
