@@ -4,11 +4,13 @@ import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
 import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
 import com.kdt.wolf.domain.group.dto.response.QuestionPageResponse;
 import com.kdt.wolf.domain.group.service.QuestionBoardService;
+import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +41,9 @@ public class GroupQuestionBoardController {
     @PostMapping("/{groupId}/question/{option}")
     public ApiResult<Void> registerQuestion(@PathVariable Long groupId,
                                             @PathVariable String option,
-                                            @RequestBody QuestionRequest questionRequest) {
-        questionBoardService.insertQuestion(groupId, option, questionRequest);
+                                            @RequestBody QuestionRequest questionRequest,
+                                            @AuthenticationPrincipal AuthenticatedUser user) {
+        questionBoardService.insertQuestion(groupId, option, questionRequest, user.getUserId());
         return ApiResult.ok(null);
     }
 
@@ -49,9 +52,10 @@ public class GroupQuestionBoardController {
     public ApiResult<Void> updateQuestion(
             @PathVariable Long groupId,
             @PathVariable Long questionId,
-            @RequestBody QuestionRequest updateRequest) {
+            @RequestBody QuestionRequest updateRequest,
+            @AuthenticationPrincipal AuthenticatedUser user) {
 
-        questionBoardService.editQuestion(questionId, updateRequest);
+        questionBoardService.editQuestion(questionId, updateRequest, user.getUserId());
         return ApiResult.ok(null);
     }
 

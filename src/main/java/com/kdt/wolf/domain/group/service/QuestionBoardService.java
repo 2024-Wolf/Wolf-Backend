@@ -8,6 +8,8 @@ import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
 import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
 import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
 import com.kdt.wolf.domain.group.entity.common.BoardType;
+import com.kdt.wolf.domain.user.dao.UserDao;
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.dto.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionBoardService {
     private final QuestionBoardDao questionBoardDao;
+    private final UserDao userDao;
 
     public QuestionPageResponse getQuestions(Long groupPostId, String option, Pageable pageable) {
         Page<QuestionBoardEntity> questions = Page.empty();
@@ -42,12 +45,13 @@ public class QuestionBoardService {
         );
     }
 
-    public void insertQuestion(Long groupPostId, String option, QuestionRequest request) {
-        questionBoardDao.createQuestion(groupPostId, option, request);
+    public void insertQuestion(Long groupPostId, String option, QuestionRequest request, Long userId) {
+        UserEntity user = userDao.findById(userId);
+        questionBoardDao.createQuestion(groupPostId, option, request, user);
     }
 
-    public void editQuestion(Long questionId, QuestionRequest updateRequest) {
-        questionBoardDao.updateQuestion(questionId, updateRequest);
+    public void editQuestion(Long questionId, QuestionRequest updateRequest, Long userId) {
+        questionBoardDao.updateQuestion(questionId, updateRequest, userId);
     }
 
     public void deleteQuestion(Long groupId, Long questionId) {
