@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class TaskRequest {
-    @NotNull
-    private Long authorId;
-
     private String details;
     private String status;
 }
