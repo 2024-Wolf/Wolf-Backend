@@ -5,13 +5,16 @@ import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.dto.response.LinkResponse;
-import com.kdt.wolf.domain.group.dto.response.QuestionPageResponse;
+import com.kdt.wolf.domain.group.entity.common.GroupStatus;
+import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.service.*;
+import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +23,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/post")
 public class GroupPostController {
-
     private final GroupPostService groupPostService;
     private final RecruitApplyService recruitApplyService;
     private final GroupMemberService groupMemberService;
-    private final QuestionBoardService questionBoardService;
     private final LinkService linkService;
 
 
@@ -50,6 +51,33 @@ public class GroupPostController {
         return ApiResult.ok(responses);
     }
 
+    @Operation(summary = "유저별 그룹 검색")
+    @GetMapping("/{type}/{status}")
+    public ApiResult<GroupPostPageResponse> getPostsByUser( @AuthenticationPrincipal AuthenticatedUser user,
+                                                            @PathVariable GroupType type,
+                                                            @PathVariable GroupStatus status,
+                                                            @PageableDefault(size = 20) Pageable pageable) {
+
+
+
+        if(status.equals(GroupStatus.APPLYING)) {
+            //RecruitApplyDao
+            GroupPostPageResponse response = recruitApplyService.getAppliedGroupsByUserIdAndType(user.getUserId(), type, pageable);
+            return ApiResult.ok(response);
+        }
+        if(status.equals(GroupStatus.ONGOING)) {
+            //GroupMemberDao
+            GroupPostPageResponse response = groupMemberService.getOngoingPostsByUserIdAndType(user.getUserId(), type, pageable);
+            return ApiResult.ok(response);
+        }
+        if(status.equals(GroupStatus.COMPLETED)) {
+            //GroupMemberDao
+            GroupPostPageResponse response = groupMemberService.getCompletedPostsByUserIdAndType(user.getUserId(), type, pageable);
+            return ApiResult.ok(response);
+        }
+        throw new IllegalArgumentException("잘못된 status 값입니다.");
+    }
+
     @Operation(summary = "그룹 정보 조회")
     @GetMapping("/{postId}")
     public ApiResult<GroupPostResponse> getGroupPost(@PathVariable Long postId) {
@@ -59,9 +87,8 @@ public class GroupPostController {
 
     @Operation(summary = "그룹 정보 수정")
     @PutMapping("/{postId}")
-    public ApiResult<Void> updateGroupPost(
-            @PathVariable Long postId,
-            @RequestBody GroupPostRequest request) {
+    public ApiResult<Void> updateGroupPost( @PathVariable Long postId,
+                                            @RequestBody GroupPostRequest request) {
         groupPostService.editGroupPost(postId, request);
         return ApiResult.ok(null);
     }

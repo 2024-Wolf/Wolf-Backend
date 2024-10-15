@@ -20,11 +20,11 @@ public class RecruitApplyEntity extends BaseTimeEntity {
     @SequenceGenerator(name = "seq_recruit_apply_id", sequenceName = "recruit_apply_sequence", allocationSize = 1)
     private Long recruitApplyId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_post_id", nullable = false)
     private GroupPostEntity groupPost;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
