@@ -9,6 +9,9 @@ import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,11 +27,11 @@ public class GroupPostDao {
                 .orElseThrow(NotFoundException::new);
     }
 
-    public List<GroupPostEntity> findByType(String option) {
+    public Page<GroupPostEntity> findByType(String option, Pageable pageable) {
         return switch (option) {
-            case "all" -> groupPostRepository.findAll();
-            case "study" -> groupPostRepository.findByType(GroupType.STUDY);
-            case "project" -> groupPostRepository.findByType(GroupType.PROJECT);
+            case "all" -> groupPostRepository.findAll(pageable);
+            case "study" -> groupPostRepository.findByType(GroupType.STUDY, pageable);
+            case "project" -> groupPostRepository.findByType(GroupType.PROJECT, pageable);
             default -> throw new NotFoundException();
         };
     }

@@ -6,18 +6,18 @@ import com.kdt.wolf.domain.faq.dao.FaqDao;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqCreateRequest;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqItems;
-import com.kdt.wolf.domain.faq.dto.FaqDto.FaqResponse;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqUpdateRequest;
+import com.kdt.wolf.domain.faq.dto.response.FaqPageResponse;
 import com.kdt.wolf.domain.faq.entity.FaqCategory;
 import com.kdt.wolf.domain.faq.entity.FaqEntity;
+import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,19 +26,24 @@ public class FaqService {
     private final FaqDao faqDao;
     private final AdminDao AdminDao;
 
-    public FaqResponse getFaqs() {
-        List<FaqEntity> faqs = faqDao.findAll();
-        Map<String, List<FaqItems>> response = new HashMap<>();
+    public FaqPageResponse getFaqsByCategory(FaqCategory category, Pageable pageable) {
+        Page<FaqEntity> faqsByCategory = findFaqsByCategory(category, pageable);
 
-        for (FaqEntity faq : faqs) {
-            String category = faq.getCategory().getName();
-            FaqItems faqItem = new FaqItems(faq.getQuestion(), faq.getAnswer());
-
-            // 카테고리별로 faqItems 추가
-            response.computeIfAbsent(category, k -> new ArrayList<>()).add(faqItem);
+        if(faqsByCategory.isEmpty()) {
+            return new FaqPageResponse(new ArrayList<>(), new PageResponse(Page.empty()));
         }
 
-        return new FaqResponse(response);
+        return new FaqPageResponse(
+                faqsByCategory.getContent().stream()
+                        .map(faqEntity -> new FaqItems(faqEntity.getQuestion(), faqEntity.getAnswer()))
+                        .toList(),
+                new PageResponse(faqsByCategory)
+        );
+
+    }
+
+    private Page<FaqEntity> findFaqsByCategory(FaqCategory category, Pageable pageable) {
+        return faqDao.findByCategory(category, pageable);
     }
 
     public FaqDetail getFaqDetail (Long faqId) {

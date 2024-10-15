@@ -19,10 +19,11 @@ import com.kdt.wolf.domain.user.repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 @SpringBootTest
+@ActiveProfiles("test")
 @Transactional
 public class GroupPostServiceIntTest {
     @Autowired
@@ -136,9 +138,10 @@ public class GroupPostServiceIntTest {
         groupPostService.createPost(projectRequest);
 
         // When: 옵션에 따라 모집 글 조회
-        List<GroupPostResponse> allPosts = groupPostService.getPostsByOption("all");
-        List<GroupPostResponse> studyPosts = groupPostService.getPostsByOption("study");
-        List<GroupPostResponse> projectPosts = groupPostService.getPostsByOption("project");
+        Pageable pageable = Pageable.ofSize(20);
+        List<GroupPostResponse> allPosts = groupPostService.getPostsByOption("all", pageable).groupPostResponseList();
+        List<GroupPostResponse> studyPosts = groupPostService.getPostsByOption("study", pageable).groupPostResponseList();
+        List<GroupPostResponse> projectPosts = groupPostService.getPostsByOption("project", pageable).groupPostResponseList();
 
         // Then: 조회된 모집 글 검증
         Assertions.assertEquals(1, studyPosts.size());
@@ -539,7 +542,8 @@ public class GroupPostServiceIntTest {
         questionCommentRepository.save(comment2);
 
         // When: 질문 게시글과 댓글을 조회
-        List<QuestionResponse> questionWithComments = questionBoardService.getQuestionList(groupPost.getGroupPostId(), "question");
+        Pageable pageable = Pageable.ofSize(20);
+        List<QuestionResponse> questionWithComments = questionBoardService.getQuestions(groupPost.getGroupPostId(), "question", pageable) .questionResponses();
 
         // Then: 검증
         Assertions.assertEquals(1, questionWithComments.size()); // 질문 하나 존재 확인

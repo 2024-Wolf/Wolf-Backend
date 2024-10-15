@@ -2,13 +2,18 @@ package com.kdt.wolf.domain.group.controller;
 
 import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
+import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.dto.response.LinkResponse;
+import com.kdt.wolf.domain.group.dto.response.QuestionPageResponse;
 import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
 import com.kdt.wolf.domain.group.service.*;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +39,9 @@ public class GroupPostController {
 
     @Operation(summary = "모집글 Type별 View")
     @GetMapping("/{option}")
-    public ApiResult<List<GroupPostResponse>> getPosts(@PathVariable String option) {
-        List<GroupPostResponse> responses = groupPostService.getPostsByOption(option);
+    public ApiResult<GroupPostPageResponse> getPosts(@PathVariable String option,
+                                                     @PageableDefault(page = 0, size = 20) Pageable pageable) {
+        GroupPostPageResponse responses = groupPostService.getPostsByOption(option, pageable);
         return ApiResult.ok(responses);
     }
 
@@ -88,10 +94,11 @@ public class GroupPostController {
 
     @Operation(summary = "질문 목록 조회")
     @GetMapping("/{groupId}/question/{option}")
-    public ApiResult<List<QuestionResponse>> getQuestionsWithComments(
+    public ApiResult<QuestionPageResponse> getQuestionsWithComments(
             @PathVariable Long groupId,
-            @PathVariable String option) {
-        List<QuestionResponse> questions = questionBoardService.getQuestionList(groupId, option);
+            @PathVariable String option,
+            @PageableDefault(page = 0, size = 20) Pageable pageable) {
+        QuestionPageResponse questions = questionBoardService.getQuestions(groupId, option, pageable);
         return ApiResult.ok(questions);
     }
 

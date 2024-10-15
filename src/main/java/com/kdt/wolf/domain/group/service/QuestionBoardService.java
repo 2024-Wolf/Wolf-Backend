@@ -3,9 +3,16 @@ package com.kdt.wolf.domain.group.service;
 import com.kdt.wolf.domain.group.dao.QuestionBoardDao;
 import com.kdt.wolf.domain.group.dto.request.QuestionCommentRequest;
 import com.kdt.wolf.domain.group.dto.request.QuestionRequest;
+import com.kdt.wolf.domain.group.dto.response.QuestionPageResponse;
 import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
+import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
+import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
 import com.kdt.wolf.domain.group.entity.common.BoardType;
+import com.kdt.wolf.global.dto.PageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +22,24 @@ import java.util.List;
 public class QuestionBoardService {
     private final QuestionBoardDao questionBoardDao;
 
-    public List<QuestionResponse> getQuestionList(Long groupPostId, String option) {
-        BoardType boardType = "question".equals(option) ? BoardType.QUESTION : BoardType.COMMUNICATION;
-        return questionBoardDao.getQuestionsList(groupPostId, boardType);
+    public QuestionPageResponse getQuestions(Long groupPostId, String option, Pageable pageable) {
+        Page<QuestionBoardEntity> questions = Page.empty();
+        if(option.equals("question")) {
+            questions = questionBoardDao.getQuestions(groupPostId, BoardType.QUESTION, pageable);
+        } else if (option.equals("communication")) {
+            questions =  questionBoardDao.getQuestions(groupPostId, BoardType.COMMUNICATION, pageable);
+        }
+        
+        if(questions.isEmpty()) {
+            return new QuestionPageResponse(List.of(), new PageResponse(Page.empty()));
+        }
+        return new QuestionPageResponse(
+                questions.stream().map( question -> {
+                    List<QuestionCommentEntity> comments = questionBoardDao.getComments(question.getQuestionId());
+                    return new QuestionResponse(question, comments);
+                }).toList(),
+                new PageResponse(questions)
+        );
     }
 
     public void insertQuestion(Long groupPostId, String option, QuestionRequest request) {
