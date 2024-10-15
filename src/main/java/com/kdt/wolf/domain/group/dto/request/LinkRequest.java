@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.group.dto.request;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

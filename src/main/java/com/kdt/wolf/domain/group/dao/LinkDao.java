@@ -6,10 +6,7 @@ import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.LinkType;
 import com.kdt.wolf.domain.group.repository.ExternalLinksRepository;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
-import com.kdt.wolf.domain.user.entity.UserEntity;
-import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
-import com.kdt.wolf.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +17,6 @@ import java.util.List;
 public class LinkDao {
     private final GroupPostRepository groupPostRepository;
     private final ExternalLinksRepository externalLinksRepository;
-    private final UserRepository userRepository;
 
     public List<ExternalLinksEntity> findAllByGroupId(Long groupId) {
         GroupPostEntity group = groupPostRepository.findById(groupId)
