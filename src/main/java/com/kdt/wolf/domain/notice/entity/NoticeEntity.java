@@ -33,7 +33,7 @@ public class NoticeEntity extends BaseTimeEntity {
     @JoinColumn(name = "admin_id", nullable = false)
     private AdminEntity admin;
 
-    @Column(columnDefinition = "CHAR(1) DEFAULT '0' CHECK(notice_is_active IN ('0', '1'))")
+    @Column(columnDefinition = "CHAR(1) DEFAULT '0' CHECK(is_active IN ('0', '1'))")
     private boolean isActive = false; // false: 비활성화, true: 활성화
 
     @Builder

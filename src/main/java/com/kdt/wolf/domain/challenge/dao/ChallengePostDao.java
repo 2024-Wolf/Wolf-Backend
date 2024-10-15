@@ -2,6 +2,8 @@ package com.kdt.wolf.domain.challenge.dao;
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
@@ -15,6 +17,8 @@ import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -42,29 +46,42 @@ public class ChallengePostDao {
     }
 
     // 챌린지 목록 불러오기(회원)
-    public List<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
+//    public List<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
+//    }
+//
+//    public List<ChallengeRegistrationEntity> findCertifiedChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId);
+//    }
+//
+//    public List<ChallengeRegistrationEntity> findCompletedChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
+//    }
+//
+//    public List<ChallengeRegistrationEntity> findPayableChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
+//    }
+//
+//    public List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId) {
+//        return challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
+//    }
+
+    public Page<ChallengeRegistrationEntity> findChallengesByStatus(Long groupId, Long userId, ChallengeStatus status, Pageable pageable) {
+        return switch (status) {
+            case CERTIFICATION -> challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId, pageable);
+            case CERTIFICATION_COMPLETE -> challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId, pageable);
+            case RESULT_CONFIRM -> challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId, pageable);
+            case PAY -> challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId, pageable);
+            case PARTICIPATE -> challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId, pageable);
+            default -> throw new IllegalArgumentException("Unexpected status: " + status);
+        };
     }
 
-    public List<ChallengeRegistrationEntity> findCertifiedChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId);
+    public Page<ChallengePostEntity> findAvailableChallenges(Long groupId, Pageable pageable) {
+        //ChallengeStatus.APPLY
+        return challengeRegistrationQueryRepository.findApplicableChallenges(groupId, pageable);
     }
 
-    public List<ChallengeRegistrationEntity> findCompletedChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
-    }
-
-    public List<ChallengeRegistrationEntity> findPayableChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
-    }
-
-    public List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId) {
-        return challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
-    }
-
-    public List<ChallengePostEntity> findAvailableChallenges(Long groupId) {
-        return challengeRegistrationQueryRepository.findApplicableChallenges(groupId);
-    }
 
     // 챌린지 신청(그룹장)
     public void createChallengeRegistration(ChallengeRegistrationRequest request) {

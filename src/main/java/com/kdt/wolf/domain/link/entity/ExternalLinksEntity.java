@@ -1,5 +1,7 @@
-package com.kdt.wolf.domain.group.entity;
+package com.kdt.wolf.domain.link.entity;
 
+import com.kdt.wolf.domain.link.dto.LinkRequest;
+import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.LinkType;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
@@ -19,12 +21,12 @@ public class ExternalLinksEntity extends BaseTimeEntity {
     @SequenceGenerator(name = "seq_link_link_id", sequenceName = "link_sequence", allocationSize = 1)
     private Long linkId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_post_id", nullable = false)
     private GroupPostEntity groupPost;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @Column(length = 50)
@@ -33,11 +35,22 @@ public class ExternalLinksEntity extends BaseTimeEntity {
 
     private String linkUrl;
 
-    @Builder
-    public ExternalLinksEntity(GroupPostEntity groupPost, UserEntity user, LinkType linkType, String linkUrl) {
+    @Builder(builderMethodName = "groupBuilder")
+    public ExternalLinksEntity(GroupPostEntity groupPost, LinkType linkType, String linkUrl) {
         this.groupPost = groupPost;
+        this.linkType = linkType;
+        this.linkUrl = linkUrl;
+    }
+
+    @Builder(builderMethodName = "userBuilder")
+    public ExternalLinksEntity(UserEntity user, LinkType linkType, String linkUrl) {
         this.user = user;
         this.linkType = linkType;
         this.linkUrl = linkUrl;
+    }
+
+    public void updateLink(LinkRequest request) {
+        this.linkType = LinkType.valueOf(request.getLinkType().toUpperCase());
+        this.linkUrl = request.getLinkUrl();
     }
 }

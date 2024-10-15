@@ -20,11 +20,11 @@ public class GroupMemberEntity extends BaseTimeEntity {
     @SequenceGenerator(name = "seq_group_member_id", sequenceName = "group_member_sequence", allocationSize = 1)
     private Long groupMemberId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_post_id", nullable = false)
     private GroupPostEntity groupPost;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 

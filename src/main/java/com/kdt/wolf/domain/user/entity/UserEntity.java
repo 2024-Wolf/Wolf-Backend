@@ -75,32 +75,6 @@ public class UserEntity extends BaseTimeEntity {
         this.nickname = nickname;
     }
 
-    public UserProfileDetailResponse toUserProfileDetailResponse() {
-        return new UserProfileDetailResponse(
-                userId,
-                nickname,
-                name,
-                email,
-                profilePicture,
-                activityMetrics.toResponse(),
-                jobTitle,
-                organization,
-                experience,
-                interests,
-                refundAccount,
-                introduction
-        );
-    }
-
-    public UserProfileResponse toUserProfileResponse() {
-        return new UserProfileResponse(
-                userId,
-                nickname,
-                profilePicture,
-                activityMetrics.toResponse()
-        );
-    }
-
     public UserEntity updateProfile(UserUpdateRequest request) {
         this.nickname = request.nickname();
         this.name = request.name();

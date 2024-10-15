@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.dto.request.TaskRequest;
 import com.kdt.wolf.domain.group.entity.common.TaskStatus;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import jakarta.persistence.*;
@@ -40,5 +41,10 @@ public class TaskEntity {
         this.user = user;
         this.details = details;
         this.status = status;
+    }
+
+    public void updateTask(TaskRequest request) {
+        this.details = request.getDetails();
+        this.status = TaskStatus.valueOf(request.getStatus().toUpperCase());
     }
 }

@@ -4,12 +4,18 @@ import com.kdt.wolf.domain.group.dao.GroupPostDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
 import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
+import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitmentsEntity;
+import com.kdt.wolf.domain.group.entity.common.GroupStatus;
+import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +32,17 @@ public class GroupPostService {
         return new GroupPostResponse(groupPostEntity);
     }
 
-    public List<GroupPostResponse> getPostsByOption(String option) {
-        List<GroupPostEntity> posts = groupPostDao.findByType(option);
-        return posts.stream()
-                .map(GroupPostResponse::new)
-                .toList();
+    public GroupPostPageResponse getPostsByOption(String option, Pageable pageable) {
+        Page<GroupPostEntity> posts = groupPostDao.findByType(option, pageable);
+
+        if(posts.isEmpty()) {
+            return new GroupPostPageResponse(List.of(), new PageResponse(Page.empty()));
+        }
+
+        return new GroupPostPageResponse(
+                posts.getContent().stream().map(GroupPostResponse::new).toList(),
+                new PageResponse(posts)
+        );
     }
 
     public void createPost(GroupPostRequest request) {

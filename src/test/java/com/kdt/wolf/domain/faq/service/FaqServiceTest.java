@@ -7,18 +7,17 @@ import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.admin.repository.AdminRepository;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqCreateRequest;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
-import com.kdt.wolf.domain.faq.dto.FaqDto.FaqItems;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqUpdateRequest;
+import com.kdt.wolf.domain.faq.dto.response.FaqPageResponse;
 import com.kdt.wolf.domain.faq.entity.FaqCategory;
 import com.kdt.wolf.domain.faq.entity.FaqEntity;
 import com.kdt.wolf.domain.faq.repository.FaqRepository;
-import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
@@ -55,7 +54,7 @@ class FaqServiceTest {
     }
 
     @Test
-    @DisplayName("모든 FAQ를 조회한다.")
+    @DisplayName("카테고리별 FAQ를 조회한다.")
     void getAllFaq() {
         //given
         faqRepository.save(
@@ -74,9 +73,10 @@ class FaqServiceTest {
                 .admin(adminEntity)
                 .build());
         //when
-        Map<String, List<FaqItems>> response = faqService.getFaqs().faqItems();
+        Pageable pageable = Pageable.ofSize(20);
+        FaqPageResponse response = faqService.getFaqsByCategory(FaqCategory.STUDY, pageable);
         //then
-        assertEquals(3, response.get("스터디").size());
+        assertEquals(3, response.faqItems().size());
     }
 
     @Test

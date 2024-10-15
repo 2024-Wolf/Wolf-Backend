@@ -1,11 +1,14 @@
 package com.kdt.wolf.domain.faq.dao;
 
 
+import com.kdt.wolf.domain.faq.entity.FaqCategory;
 import com.kdt.wolf.domain.faq.entity.FaqEntity;
 import com.kdt.wolf.domain.faq.repository.FaqRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,8 +20,8 @@ public class FaqDao {
         return faqRepository.save(faqEntity).getId();
     }
 
-    public List<FaqEntity> findAll() {
-        List<FaqEntity> faqs = faqRepository.findAll();
+    public Page<FaqEntity> findAll(Pageable pageable) {
+        Page<FaqEntity> faqs = faqRepository.findAll(pageable);
         if(faqs.isEmpty()) {
             throw new NotFoundException();
         }
@@ -32,5 +35,9 @@ public class FaqDao {
     public Long deleteById(Long faqId) {
         faqRepository.deleteById(faqId);
         return faqId;
+    }
+
+    public Page<FaqEntity> findByCategory(FaqCategory category, Pageable pageable) {
+        return faqRepository.findByCategory(category, pageable);
     }
 }
