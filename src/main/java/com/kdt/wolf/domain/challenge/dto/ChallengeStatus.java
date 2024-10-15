@@ -8,10 +8,8 @@ public enum ChallengeStatus {
     CERTIFICATION_COMPLETE("CERTIFICATION_COMPLETE", "인증완료"),
     RESULT_CONFIRM("RESULT_CONFIRM", "결과 확인"),
     APPLY("APPLY", "신청하기"),
-    GROUP_LEADER_ONLY("GROUP_LEADER_ONLY", "그룹장만 신청 가능"),
     PARTICIPATE("PARTICIPATE", "참여하기"),
     PAY("PAY", "결제하기");
-
     private final String status;
     private final String description;
 
