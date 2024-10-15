@@ -2,6 +2,8 @@ package com.kdt.wolf.domain.group.controller;
 
 import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.*;
+import com.kdt.wolf.domain.group.entity.common.GroupStatus;
+import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.service.*;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
