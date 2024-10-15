@@ -1,12 +1,7 @@
 package com.kdt.wolf.domain.group.controller;
 
 import com.kdt.wolf.domain.group.dto.request.*;
-import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
-import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
-import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
-import com.kdt.wolf.domain.group.dto.response.LinkResponse;
-import com.kdt.wolf.domain.group.dto.response.QuestionPageResponse;
-import com.kdt.wolf.domain.group.dto.response.QuestionResponse;
+import com.kdt.wolf.domain.group.dto.response.*;
 import com.kdt.wolf.domain.group.service.*;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,6 +23,7 @@ public class GroupPostController {
     private final GroupMemberService groupMemberService;
     private final QuestionBoardService questionBoardService;
     private final LinkService linkService;
+    private final TaskService taskService;
 
 
     @Operation(summary = "모집글 작성")
@@ -191,5 +187,41 @@ public class GroupPostController {
             @PathVariable Long groupId){
         List<LinkResponse> response = linkService.getLinks(groupId);
         return ApiResult.ok(response);
+    }
+
+    @Operation(summary = "할일 등록")
+    @PostMapping("/{groupId}/task")
+    public ApiResult<Void> addTask(
+            @PathVariable Long groupId,
+            @RequestBody TaskRequest request){
+        taskService.addTask(groupId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "할일 조회")
+    @GetMapping("/{groupId}/task")
+    public ApiResult<List<TaskResponse>> getTask(
+            @PathVariable Long groupId){
+        List<TaskResponse> responses = taskService.getTask(groupId);
+        return ApiResult.ok(responses);
+    }
+
+    @Operation(summary = "할일 수정")
+    @PutMapping("/{groupId}/task/{taskId}")
+    public ApiResult<Void> updateTask(
+            @PathVariable Long groupId,
+            @PathVariable Long taskId,
+            @RequestBody TaskRequest request){
+        taskService.editTask(taskId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "할일 삭제")
+    @DeleteMapping("/{groupId}/task/{taskId}")
+    public ApiResult<Void> deleteTask(
+            @PathVariable Long groupId,
+            @PathVariable Long taskId){
+        taskService.deleteTask(taskId);
+        return ApiResult.ok(null);
     }
 }
