@@ -3,12 +3,13 @@ package com.kdt.wolf.domain.group.controller;
 import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.*;
 import com.kdt.wolf.domain.group.service.*;
+import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +18,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/post")
 public class GroupPostController {
-
     private final GroupPostService groupPostService;
     private final RecruitApplyService recruitApplyService;
     private final GroupMemberService groupMemberService;
-    private final QuestionBoardService questionBoardService;
     private final LinkService linkService;
     private final TaskService taskService;
 
@@ -48,6 +47,33 @@ public class GroupPostController {
         return ApiResult.ok(responses);
     }
 
+    @Operation(summary = "유저별 그룹 검색")
+    @GetMapping("/{type}/{status}")
+    public ApiResult<GroupPostPageResponse> getPostsByUser( @AuthenticationPrincipal AuthenticatedUser user,
+                                                            @PathVariable GroupType type,
+                                                            @PathVariable GroupStatus status,
+                                                            @PageableDefault(size = 20) Pageable pageable) {
+
+
+
+        if(status.equals(GroupStatus.APPLYING)) {
+            //RecruitApplyDao
+            GroupPostPageResponse response = recruitApplyService.getAppliedGroupsByUserIdAndType(user.getUserId(), type, pageable);
+            return ApiResult.ok(response);
+        }
+        if(status.equals(GroupStatus.ONGOING)) {
+            //GroupMemberDao
+            GroupPostPageResponse response = groupMemberService.getOngoingPostsByUserIdAndType(user.getUserId(), type, pageable);
+            return ApiResult.ok(response);
+        }
+        if(status.equals(GroupStatus.COMPLETED)) {
+            //GroupMemberDao
+            GroupPostPageResponse response = groupMemberService.getCompletedPostsByUserIdAndType(user.getUserId(), type, pageable);
+            return ApiResult.ok(response);
+        }
+        throw new IllegalArgumentException("잘못된 status 값입니다.");
+    }
+
     @Operation(summary = "그룹 정보 조회")
     @GetMapping("/{postId}")
     public ApiResult<GroupPostResponse> getGroupPost(@PathVariable Long postId) {
@@ -57,9 +83,8 @@ public class GroupPostController {
 
     @Operation(summary = "그룹 정보 수정")
     @PutMapping("/{postId}")
-    public ApiResult<Void> updateGroupPost(
-            @PathVariable Long postId,
-            @RequestBody GroupPostRequest request) {
+    public ApiResult<Void> updateGroupPost( @PathVariable Long postId,
+                                            @RequestBody GroupPostRequest request) {
         groupPostService.editGroupPost(postId, request);
         return ApiResult.ok(null);
     }
@@ -86,90 +111,6 @@ public class GroupPostController {
     public ApiResult<List<GroupMemberResponse>> getGroupMembers(@PathVariable Long groupId) {
         List<GroupMemberResponse> members = groupMemberService.getGroupMembers(groupId);
         return ApiResult.ok(members);
-    }
-
-    @Operation(summary = "질문 목록 조회")
-    @GetMapping("/{groupId}/question/{option}")
-    public ApiResult<QuestionPageResponse> getQuestionsWithComments(
-            @PathVariable Long groupId,
-            @PathVariable String option,
-            @PageableDefault(page = 0, size = 20) Pageable pageable) {
-        QuestionPageResponse questions = questionBoardService.getQuestions(groupId, option, pageable);
-        return ApiResult.ok(questions);
-    }
-
-    @Operation(summary = "질문 등록")
-    @PostMapping("/{groupId}/question/{option}")
-    public ApiResult<Void> registerQuestion(@PathVariable Long groupId,
-                                              @PathVariable String option,
-                                              @RequestBody QuestionRequest questionRequest) {
-        questionBoardService.insertQuestion(groupId, option, questionRequest);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "질문 수정")
-    @PutMapping("/{groupId}/question/{questionId}")
-    public ApiResult<Void> updateQuestion(
-            @PathVariable Long groupId,
-            @PathVariable Long questionId,
-            @RequestBody QuestionRequest updateRequest) {
-
-        questionBoardService.editQuestion(questionId, updateRequest);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "질문 삭제")
-    @DeleteMapping("/{groupId}/question/{questionId}")
-    public ApiResult<Void> deleteQuestion(
-            @PathVariable Long groupId,
-            @PathVariable Long questionId) {
-
-        questionBoardService.deleteQuestion(groupId, questionId);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "댓글 작성")
-    @PostMapping("/{groupId}/question/{questionId}/comment")
-    public ApiResult<Void> addComment(
-            @PathVariable Long groupId,
-            @PathVariable Long questionId,
-            @RequestBody QuestionCommentRequest request) {
-
-        questionBoardService.createComment(questionId, request);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "대댓글 작성")
-    @PostMapping("/{groupId}/question/{questionId}/comment/{parentCommentId}")
-    public ApiResult<Void> addComment(
-            @PathVariable Long groupId,
-            @PathVariable Long questionId,
-            @PathVariable Long parentCommentId,
-            @RequestBody QuestionCommentRequest request) {
-
-        questionBoardService.createComment(questionId, parentCommentId, request);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "댓글 수정")
-    @PutMapping("/{groupId}/question/{questionId}/comment/{commentId}")
-    public ApiResult<Void> updateComment(
-            @PathVariable Long groupId,
-            @PathVariable Long questionId,
-            @PathVariable Long commentId,
-            @RequestBody QuestionCommentRequest request){
-        questionBoardService.editComment(commentId, request);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "댓글 삭제")
-    @DeleteMapping("/{groupId}/question/{questionId}/comment/{commentId}")
-    public ApiResult<Void> deleteComment(
-            @PathVariable Long groupId,
-            @PathVariable Long questionId,
-            @PathVariable Long commentId){
-        questionBoardService.deleteComment(commentId);
-        return ApiResult.ok(null);
     }
 
     @Operation(summary = "팀원 평가 작성")

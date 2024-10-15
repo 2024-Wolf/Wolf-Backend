@@ -8,6 +8,8 @@ import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitmentsEntity;
+import com.kdt.wolf.domain.group.entity.common.GroupStatus;
+import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
