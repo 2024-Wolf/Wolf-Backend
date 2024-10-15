@@ -5,9 +5,6 @@ import com.kdt.wolf.domain.group.dto.response.*;
 import com.kdt.wolf.domain.group.entity.common.GroupStatus;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.service.*;
-import com.kdt.wolf.domain.link.dto.LinkRequest;
-import com.kdt.wolf.domain.link.dto.LinkResponse;
-import com.kdt.wolf.domain.link.service.LinkService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +23,6 @@ public class GroupPostController {
     private final GroupPostService groupPostService;
     private final RecruitApplyService recruitApplyService;
     private final GroupMemberService groupMemberService;
-    private final LinkService linkService;
     private final TaskService taskService;
 
 
@@ -124,42 +120,6 @@ public class GroupPostController {
             @PathVariable Long groupId,
             @RequestBody List<EvaluateRequest> request){
         groupMemberService.addEvaluation(groupId, request);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "공유 링크 조회")
-    @GetMapping("/{groupId}/links")
-    public ApiResult<List<LinkResponse>> getLinks(
-            @PathVariable Long groupId){
-        List<LinkResponse> response = linkService.getLinks(groupId);
-        return ApiResult.ok(response);
-    }
-
-    @Operation(summary = "공유 링크 등록")
-    @PostMapping("/{groupId}/links")
-    public ApiResult<Void> addLinks(
-            @PathVariable Long groupId,
-            @RequestBody LinkRequest request){
-        linkService.addLink(groupId, request);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "공유 링크 수정")
-    @PutMapping("/{groupId}/links/{linkId}")
-    public ApiResult<Void> updateLinks(
-            @PathVariable Long groupId,
-            @PathVariable Long linkId,
-            @RequestBody LinkRequest request){
-        linkService.editLink(linkId, request);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "공유 링크 삭제")
-    @DeleteMapping("/{groupId}/links/{linkId}")
-    public ApiResult<Void> deleteLinks(
-            @PathVariable Long groupId,
-            @PathVariable Long linkId){
-        linkService.deleteLink(linkId);
         return ApiResult.ok(null);
     }
 
