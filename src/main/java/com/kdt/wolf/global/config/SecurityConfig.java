@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -37,10 +38,12 @@ public class SecurityConfig {
         http.authorizeHttpRequests(
                         authz ->
                                 authz.requestMatchers("/api/v1/auth/google", "/api/v1/auth/login", "/api/v1/auth/test-login",
-                                                "/api/v1/auth/reissue")
-                                        .permitAll()
+                                                "/api/v1/auth/reissue").permitAll()
+                                        .requestMatchers(HttpMethod.GET, "/api/v1/post/{options}").permitAll()
+
                                         .anyRequest()
-                                        .authenticated())
+                                        .permitAll()
+                )
                 .addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
