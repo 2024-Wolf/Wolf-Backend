@@ -1,12 +1,7 @@
 package com.kdt.wolf.domain.group.controller;
 
 import com.kdt.wolf.domain.group.dto.request.*;
-import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
-import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
-import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
-import com.kdt.wolf.domain.group.dto.response.LinkResponse;
-import com.kdt.wolf.domain.group.entity.common.GroupStatus;
-import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.domain.group.dto.response.*;
 import com.kdt.wolf.domain.group.service.*;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
@@ -27,6 +22,7 @@ public class GroupPostController {
     private final RecruitApplyService recruitApplyService;
     private final GroupMemberService groupMemberService;
     private final LinkService linkService;
+    private final TaskService taskService;
 
 
     @Operation(summary = "모집글 작성")
@@ -126,11 +122,75 @@ public class GroupPostController {
         return ApiResult.ok(null);
     }
 
-    @Operation(summary = "외부 링크 조회")
+    @Operation(summary = "공유 링크 조회")
     @GetMapping("/{groupId}/links")
     public ApiResult<List<LinkResponse>> getLinks(
             @PathVariable Long groupId){
         List<LinkResponse> response = linkService.getLinks(groupId);
         return ApiResult.ok(response);
+    }
+
+    @Operation(summary = "공유 링크 등록")
+    @PostMapping("/{groupId}/links")
+    public ApiResult<Void> addLinks(
+            @PathVariable Long groupId,
+            @RequestBody LinkRequest request){
+        linkService.addLink(groupId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "공유 링크 수정")
+    @PutMapping("/{groupId}/links/{linkId}")
+    public ApiResult<Void> updateLinks(
+            @PathVariable Long groupId,
+            @PathVariable Long linkId,
+            @RequestBody LinkRequest request){
+        linkService.editLink(linkId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "공유 링크 삭제")
+    @DeleteMapping("/{groupId}/links/{linkId}")
+    public ApiResult<Void> deleteLinks(
+            @PathVariable Long groupId,
+            @PathVariable Long linkId){
+        linkService.deleteLink(linkId);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "할일 등록")
+    @PostMapping("/{groupId}/task")
+    public ApiResult<Long> addTask(
+            @PathVariable Long groupId,
+            @RequestBody TaskRequest request){
+        Long taskId = taskService.addTask(groupId, request);
+        return ApiResult.ok(taskId);
+    }
+
+    @Operation(summary = "할일 조회")
+    @GetMapping("/{groupId}/task")
+    public ApiResult<List<TaskResponse>> getTask(
+            @PathVariable Long groupId){
+        List<TaskResponse> responses = taskService.getTask(groupId);
+        return ApiResult.ok(responses);
+    }
+
+    @Operation(summary = "할일 수정")
+    @PutMapping("/{groupId}/task/{taskId}")
+    public ApiResult<Void> updateTask(
+            @PathVariable Long groupId,
+            @PathVariable Long taskId,
+            @RequestBody TaskRequest request){
+        taskService.editTask(taskId, request);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "할일 삭제")
+    @DeleteMapping("/{groupId}/task/{taskId}")
+    public ApiResult<Void> deleteTask(
+            @PathVariable Long groupId,
+            @PathVariable Long taskId){
+        taskService.deleteTask(taskId);
+        return ApiResult.ok(null);
     }
 }
