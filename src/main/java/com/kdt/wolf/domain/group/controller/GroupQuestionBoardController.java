@@ -74,9 +74,10 @@ public class GroupQuestionBoardController {
     public ApiResult<Void> addComment(
             @PathVariable Long groupId,
             @PathVariable Long questionId,
-            @RequestBody QuestionCommentRequest request) {
+            @RequestBody QuestionCommentRequest request,
+            @AuthenticationPrincipal AuthenticatedUser user) {
 
-        questionBoardService.createComment(questionId, request);
+        questionBoardService.createComment(questionId, request, user.getUserId());
         return ApiResult.ok(null);
     }
 
@@ -86,29 +87,30 @@ public class GroupQuestionBoardController {
             @PathVariable Long groupId,
             @PathVariable Long questionId,
             @PathVariable Long parentCommentId,
-            @RequestBody QuestionCommentRequest request) {
+            @RequestBody QuestionCommentRequest request,
+            @AuthenticationPrincipal AuthenticatedUser user) {
 
-        questionBoardService.createComment(questionId, parentCommentId, request);
+        questionBoardService.createComment(questionId, parentCommentId, request, user.getUserId());
         return ApiResult.ok(null);
     }
 
     @Operation(summary = "댓글 수정")
     @PutMapping("/{groupId}/question/{questionId}/comment/{commentId}")
-    public ApiResult<Void> updateComment(
-            @PathVariable Long groupId,
-            @PathVariable Long questionId,
-            @PathVariable Long commentId,
-            @RequestBody QuestionCommentRequest request){
+    public ApiResult<Void> updateComment( @PathVariable Long groupId,
+                                          @PathVariable Long questionId,
+                                          @PathVariable Long commentId,
+                                          @RequestBody QuestionCommentRequest request,
+                                          @AuthenticationPrincipal AuthenticatedUser user){
         questionBoardService.editComment(commentId, request);
         return ApiResult.ok(null);
     }
 
     @Operation(summary = "댓글 삭제")
     @DeleteMapping("/{groupId}/question/{questionId}/comment/{commentId}")
-    public ApiResult<Void> deleteComment(
-            @PathVariable Long groupId,
-            @PathVariable Long questionId,
-            @PathVariable Long commentId){
+    public ApiResult<Void> deleteComment( @PathVariable Long groupId,
+                                          @PathVariable Long questionId,
+                                          @PathVariable Long commentId,
+                                          @AuthenticationPrincipal AuthenticatedUser user){
         questionBoardService.deleteComment(commentId);
         return ApiResult.ok(null);
     }

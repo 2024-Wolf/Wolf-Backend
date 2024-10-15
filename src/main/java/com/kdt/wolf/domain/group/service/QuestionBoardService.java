@@ -46,7 +46,7 @@ public class QuestionBoardService {
     }
 
     public void insertQuestion(Long groupPostId, String option, QuestionRequest request, Long userId) {
-        UserEntity user = userDao.findById(userId);
+        UserEntity user = findUserById(userId);
         questionBoardDao.createQuestion(groupPostId, option, request, user);
     }
 
@@ -59,13 +59,15 @@ public class QuestionBoardService {
     }
 
 
-    public void createComment(Long questionId, QuestionCommentRequest request) {
-        questionBoardDao.createComment(questionId, request);
+    public void createComment(Long questionId, QuestionCommentRequest request, Long userId) {
+        UserEntity user = findUserById(userId);
+        questionBoardDao.createComment(questionId, request, user);
     }
 
-    public void createComment(Long questionId, Long commentId, QuestionCommentRequest request) {
+    public void createComment(Long questionId, Long commentId, QuestionCommentRequest request, Long userId) {
         // questionId와 commentId에 대한 댓글 생성
-        questionBoardDao.createComment(questionId, commentId, request);
+        UserEntity user = findUserById(userId);
+        questionBoardDao.createComment(questionId, commentId, request, user);
     }
 
     public void editComment(Long commentId, QuestionCommentRequest request) {
@@ -74,6 +76,10 @@ public class QuestionBoardService {
 
     public void deleteComment(Long commentId) {
         questionBoardDao.deleteCommentById(commentId);
+    }
+
+    private UserEntity findUserById(Long userId) {
+        return userDao.findById(userId);
     }
 }
 

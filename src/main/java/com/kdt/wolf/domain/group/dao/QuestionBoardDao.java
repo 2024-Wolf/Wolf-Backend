@@ -67,13 +67,13 @@ public class QuestionBoardDao {
         questionBoardRepository.deleteById(questionId);
     }
 
-    public void createComment(Long questionId, QuestionCommentRequest request) {
+    public void createComment(Long questionId, QuestionCommentRequest request, UserEntity user) {
         QuestionBoardEntity questionBoard = questionBoardRepository.findById(questionId)
                 .orElseThrow(NotFoundException::new);
 
         QuestionCommentEntity comment = QuestionCommentEntity.builder()
                 .question(questionBoard)
-                .author(request.getUser())
+                .author(user)
                 .commentDetails(request.getCommentDetails())
                 .commentImageUrl(request.getCommentImageUrl())
                 .createTime(request.getCommentTime())
@@ -82,7 +82,7 @@ public class QuestionBoardDao {
         questionCommentRepository.save(comment);
     }
 
-    public void createComment(Long questionId, Long commentId, QuestionCommentRequest request) {
+    public void createComment(Long questionId, Long commentId, QuestionCommentRequest request, UserEntity user) {
         QuestionBoardEntity questionBoard = questionBoardRepository.findById(questionId)
                 .orElseThrow(NotFoundException::new);
         QuestionCommentEntity parentComment = questionCommentRepository.findById(commentId)
@@ -91,7 +91,7 @@ public class QuestionBoardDao {
         QuestionCommentEntity comment = QuestionCommentEntity.builder()
                 .question(questionBoard)
                 .parentComment(parentComment)
-                .author(request.getUser())
+                .author(user)
                 .commentDetails(request.getCommentDetails())
                 .commentImageUrl(request.getCommentImageUrl())
                 .createTime(request.getCommentTime())
