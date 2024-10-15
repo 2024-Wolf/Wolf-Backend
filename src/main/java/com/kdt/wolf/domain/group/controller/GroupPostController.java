@@ -127,8 +127,9 @@ public class GroupPostController {
     @PostMapping("/{groupId}/task")
     public ApiResult<Long> addTask(
             @PathVariable Long groupId,
-            @RequestBody TaskRequest request){
-        Long taskId = taskService.addTask(groupId, request);
+            @RequestBody TaskRequest request,
+            @AuthenticationPrincipal AuthenticatedUser user){
+        Long taskId = taskService.addTask(groupId, request, user.getUserId());
         return ApiResult.ok(taskId);
     }
 

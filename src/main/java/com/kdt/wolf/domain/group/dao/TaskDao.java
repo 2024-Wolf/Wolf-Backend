@@ -22,8 +22,8 @@ public class TaskDao {
     private final UserRepository userRepository;
     private final GroupPostRepository groupPostRepository;
 
-    public Long createTask(Long groupId, TaskRequest request) {
-        UserEntity author = userRepository.findById(request.getAuthorId())
+    public Long createTask(Long groupId, TaskRequest request, Long userId) {
+        UserEntity author = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
         GroupPostEntity group = groupPostRepository.findById(groupId)
                 .orElseThrow(NotFoundException::new);
