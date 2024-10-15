@@ -28,8 +28,9 @@ public class GroupPostController {
 
     @Operation(summary = "모집글 작성")
     @PostMapping
-    public ApiResult<Void> createPost(@RequestBody GroupPostRequest request) {
-        groupPostService.createPost(request);
+    public ApiResult<Void> createPost(@RequestBody GroupPostRequest request,
+                                      @AuthenticationPrincipal AuthenticatedUser user) {
+        groupPostService.createPost(request, user.getUserId());
         return ApiResult.ok(null);
     }
 
@@ -54,8 +55,6 @@ public class GroupPostController {
                                                             @PathVariable GroupType type,
                                                             @PathVariable GroupStatus status,
                                                             @PageableDefault(size = 20) Pageable pageable) {
-
-
 
         if(status.equals(GroupStatus.APPLYING)) {
             //RecruitApplyDao
@@ -85,8 +84,9 @@ public class GroupPostController {
     @Operation(summary = "그룹 정보 수정")
     @PutMapping("/{postId}")
     public ApiResult<Void> updateGroupPost( @PathVariable Long postId,
-                                            @RequestBody GroupPostRequest request) {
-        groupPostService.editGroupPost(postId, request);
+                                            @RequestBody GroupPostRequest request,
+                                            @AuthenticationPrincipal AuthenticatedUser user) {
+        groupPostService.editGroupPost(postId, request, user.getUserId());
         return ApiResult.ok(null);
     }
 
