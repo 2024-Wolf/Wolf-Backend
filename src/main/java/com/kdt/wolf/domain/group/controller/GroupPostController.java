@@ -214,11 +214,11 @@ public class GroupPostController {
 
     @Operation(summary = "할일 등록")
     @PostMapping("/{groupId}/task")
-    public ApiResult<Void> addTask(
+    public ApiResult<Long> addTask(
             @PathVariable Long groupId,
             @RequestBody TaskRequest request){
-        taskService.addTask(groupId, request);
-        return ApiResult.ok(null);
+        Long taskId = taskService.addTask(groupId, request);
+        return ApiResult.ok(taskId);
     }
 
     @Operation(summary = "할일 조회")

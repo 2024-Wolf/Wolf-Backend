@@ -22,7 +22,7 @@ public class TaskDao {
     private final UserRepository userRepository;
     private final GroupPostRepository groupPostRepository;
 
-    public void createTask(Long groupId, TaskRequest request) {
+    public Long createTask(Long groupId, TaskRequest request) {
         UserEntity author = userRepository.findById(request.getAuthorId())
                 .orElseThrow(UserNotFoundException::new);
         GroupPostEntity group = groupPostRepository.findById(groupId)
@@ -34,7 +34,8 @@ public class TaskDao {
                 .details(request.getDetails())
                 .status(TaskStatus.valueOf(request.getStatus().toUpperCase()))
                 .build();
-        taskRepository.save(task);
+        TaskEntity savedTask = taskRepository.save(task);
+        return savedTask.getTaskId();
     }
 
     public List<TaskEntity> findAllByGroupId(Long groupId) {
