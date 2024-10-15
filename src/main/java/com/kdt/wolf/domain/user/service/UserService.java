@@ -1,5 +1,8 @@
 package com.kdt.wolf.domain.user.service;
 
+import com.kdt.wolf.domain.link.dao.LinkDao;
+import com.kdt.wolf.domain.link.dto.LinkResponse;
+import com.kdt.wolf.domain.link.entity.ExternalLinksEntity;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
@@ -20,15 +23,37 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserDao userDao;
+    private final LinkDao linkDao;
 
     public UserProfileDetailResponse getUserProfileDetail(Long userId) {
         UserEntity user = userDao.findById(userId);
-        return user.toUserProfileDetailResponse();
+        List<ExternalLinksEntity> links = getExternalLinks(user);
+
+        return new UserProfileDetailResponse(
+                user.getUserId(),
+                user.getNickname(),
+                user.getName(),
+                user.getEmail(),
+                user.getProfilePicture(),
+                user.getActivityMetrics().toResponse(),
+                user.getJobTitle(),
+                user.getOrganization(),
+                user.getExperience(),
+                user.getInterests(),
+                user.getRefundAccount(),
+                user.getIntroduction(),
+                links.stream().map(LinkResponse::new).toList()
+        );
     }
 
     public UserProfileResponse getUserProfile(Long userId) {
         UserEntity user = userDao.findById(userId);
-        return user.toUserProfileResponse();
+        return new UserProfileResponse(
+                user.getUserId(),
+                user.getNickname(),
+                user.getProfilePicture(),
+                user.getActivityMetrics().toResponse()
+        );
     }
 
     public void completeSignUpProcess(long userId, SignUpRequest request) {
@@ -41,8 +66,23 @@ public class UserService {
             throw new BusinessException(ExceptionCode.ACCESS_DENIED);
         }
         UserEntity user = userDao.findById(userId);
+        List<ExternalLinksEntity> links = getExternalLinks(user);
         userDao.updateUser(user.updateProfile(request));
-        return user.toUserProfileDetailResponse();
+        return new UserProfileDetailResponse(
+                user.getUserId(),
+                user.getNickname(),
+                user.getName(),
+                user.getEmail(),
+                user.getProfilePicture(),
+                user.getActivityMetrics().toResponse(),
+                user.getJobTitle(),
+                user.getOrganization(),
+                user.getExperience(),
+                user.getInterests(),
+                user.getRefundAccount(),
+                user.getIntroduction(),
+                links.stream().map(LinkResponse::new).toList()
+        );
     }
 
     public List<UserPreviewResponse> getUserList() {
@@ -53,13 +93,10 @@ public class UserService {
         return userDao.findUserDetail(userId);
     }
 
-    public Long warningUser(Long userId) {
-        //경고는 ?
-        return null;
-    }
     public Status banUser(Long userId) {
         return userDao.changeUserStatus(userId, Status.BANNED);
     }
+
     public Status unbanUser(Long userId) {
         return userDao.changeUserStatus(userId, Status.ACTIVE);
     }
@@ -72,4 +109,7 @@ public class UserService {
         return status;
     }
 
+    private List<ExternalLinksEntity> getExternalLinks(UserEntity user) {
+        return linkDao.findAll(user);
+    }
 }

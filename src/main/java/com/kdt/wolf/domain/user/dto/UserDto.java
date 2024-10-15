@@ -1,5 +1,8 @@
 package com.kdt.wolf.domain.user.dto;
 
+import com.kdt.wolf.domain.link.dto.LinkResponse;
+import java.util.List;
+
 public class UserDto {
     public record UserProfileResponse(
             Long id,
@@ -20,7 +23,8 @@ public class UserDto {
             int experience,
             String interests,
             String refundAccount,
-            String introduction
+            String introduction,
+            List<LinkResponse> links
     ) {}
 
     public record UserUpdateRequest(
