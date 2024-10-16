@@ -18,7 +18,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/api/v1/admin/*")
 public class ChallengeAdminController {
 
     private final ChallengeService challengeService;
