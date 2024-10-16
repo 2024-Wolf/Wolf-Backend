@@ -9,6 +9,7 @@ import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.service.AuthService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,6 +33,7 @@ public class AuthController {
         return ApiResult.ok();
     }
 
+    @Operation(summary = "구글 로그인")
     @PostMapping("/google")
     public ApiResult<GoogleLoginResponse> google(@RequestBody GoogleLoginRequest request) {
         GoogleLoginResponse response = authService.googleLogin(request.idToken(), request.fcmToken());
@@ -44,18 +46,21 @@ public class AuthController {
         return ApiResult.ok(response);
     }
 
+    @Operation(summary = "액세스 토큰 재발급")
     @PostMapping("/reissue")
     public ApiResult<TokenResponse> reissueAccessToken(@RequestBody ReissueAccessTokenRequest request) {
         TokenResponse response = authService.reissueAccessToken(request.accessToken(), request.refreshToken());
         return ApiResult.ok(response);
     }
 
+    @Operation(summary = "로그아웃")
     @PostMapping("/user")
     public ApiResult<?> logout(@RequestBody LogoutRequest request) {
         authService.logout(request.refreshToken(), request.fcmToken());
         return ApiResult.ok();
     }
 
+    @Operation(summary = "회원 탈퇴")
     @DeleteMapping("/user")
     public ApiResult<Status> removeUser(@AuthenticationPrincipal AuthenticatedUser user) {
         Status status = authService.removeUser(user.getUserId());
