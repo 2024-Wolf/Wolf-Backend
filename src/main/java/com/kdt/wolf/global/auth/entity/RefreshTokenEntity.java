@@ -59,7 +59,7 @@ public class RefreshTokenEntity {
     public static RefreshTokenEntity createOf(UserEntity user, String refreshTokenValue) {
         RefreshTokenEntity refreshToken = new RefreshTokenEntity();
         refreshToken.user = user;
-        refreshToken.userRoleType = UserRoleType.USER;
+        refreshToken.userRoleType = UserRoleType.ROLE_USER;
         refreshToken.refreshTokenValue = refreshTokenValue;
         refreshToken.issuedDatetime = LocalDateTime.now();
         return refreshToken;
@@ -68,7 +68,7 @@ public class RefreshTokenEntity {
     public static RefreshTokenEntity createOf(AdminEntity admin, String refreshTokenValue) {
         RefreshTokenEntity refreshToken = new RefreshTokenEntity();
         refreshToken.admin = admin;
-        refreshToken.userRoleType = UserRoleType.ADMIN;
+        refreshToken.userRoleType = UserRoleType.ROLE_ADMIN;
         refreshToken.refreshTokenValue = refreshTokenValue;
         refreshToken.issuedDatetime = LocalDateTime.now();
         return refreshToken;

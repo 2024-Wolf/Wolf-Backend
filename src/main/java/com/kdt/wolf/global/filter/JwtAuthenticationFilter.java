@@ -46,18 +46,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         HttpSession session = request.getSession(false);
         String token = null;
+//        AdminEntity admin = null;
 
         if (session != null) {
             token = (String) session.getAttribute("JWT");
+//            admin = (AdminEntity) session.getAttribute("admin");
         }
-
+        // && admin != null
         if (token != null) {
             jwtTokenProvider.validateToken(token);
             try {
                 processTokenAuthentication(token);
+
+//                AuthenticatedAdmin authenticatedAdmin = new AuthenticatedAdmin(admin, UserRoleType.ROLE_ADMIN);
+//                Authentication authentication = new UsernamePasswordAuthenticationToken(
+//                        authenticatedAdmin, null, authenticatedAdmin.getAuthorities()
+//                );
+//
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
+
             } catch (UnauthorizedException e) {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
             }
+            filterChain.doFilter(request, response);
             return;
         }
 
@@ -94,14 +105,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
 
-        if(userType == UserRoleType.USER) {
+        if(userType == UserRoleType.ROLE_USER) {
             UserEntity user = userRepository.findById(userId)
                     .orElseThrow(UnauthorizedException::new);
 
             AuthenticatedUser authenticatedUser = new AuthenticatedUser(user, userType);
             return new UsernamePasswordAuthenticationToken(authenticatedUser, null, authenticatedUser.getAuthorities());
 
-        } else if(userType == UserRoleType.ADMIN) {
+        } else if(userType == UserRoleType.ROLE_ADMIN) {
             AdminEntity admin = adminRepository.findAdminById(userId)
                     .orElseThrow(UnauthorizedException::new);
 

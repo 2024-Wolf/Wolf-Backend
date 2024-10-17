@@ -46,10 +46,10 @@ public class MainController {
         return "report"; // report.jsp를 반환
     }
     
-    @GetMapping("/user")
-    public String userPage() {
-        return "user"; // user.jsp를 반환
-    }
+//    @GetMapping("/user")
+//    public String userPage() {
+//        return "user"; // user.jsp를 반환
+//    }
     
 
 }

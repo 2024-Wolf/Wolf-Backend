@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 public interface AdminRepository extends JpaRepository<AdminEntity, Long> {
     Optional<AdminEntity> findByEmail(String email);
 
-    @Query("SELECT a FROM AdminEntity a WHERE a.id = :userId")
+    @Query("SELECT a FROM AdminEntity a WHERE a.adminId = :userId")
     Optional<AdminEntity> findAdminById(long userId);
+
+    @Query("SELECT a FROM AdminEntity a WHERE a.name = :username")
+    Optional<AdminEntity> findByUsername(String username);
 }

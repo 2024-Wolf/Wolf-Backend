@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.admin.controller;
 
+import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.admin.service.AdminAuthService;
 import com.kdt.wolf.global.auth.dto.LoginDto.AdminLoginRequest;
 import com.kdt.wolf.global.auth.dto.LoginDto.AdminLogoutRequest;
@@ -29,11 +30,14 @@ public class AdminAuthController {
         session.setAttribute("JWT", tokenResponse.accessToken());
         session.setAttribute("REFRESH_TOKEN", tokenResponse.refreshToken());
 
+//        AdminEntity admin = adminService.getAdminByUsername(username);
+//        session.setAttribute("admin", admin);
+
         System.out.println("JWT: " + tokenResponse.accessToken());
         System.out.println("REFRESH_TOKEN: " + tokenResponse.refreshToken());
 
 
-        return "redirect:/notice";
+        return "redirect:/api/v1/admin/users";
     }
 
     @PostMapping("/logout")
