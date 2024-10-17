@@ -55,7 +55,8 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + "AND NOT EXISTS("
                 + "SELECT 1 "
                 + "FROM GroupChallengeParticipantEntity cp "
-                + "WHERE cp.user.userId = :userId"
+                + "WHERE cp.user.userId = :userId "
+                + "AND r.challengePost = cp.challengeRegistration.challengePost "
             + ")")
     Page<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId, Pageable pageable);
 

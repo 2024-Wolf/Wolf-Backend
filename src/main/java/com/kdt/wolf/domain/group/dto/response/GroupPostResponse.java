@@ -46,7 +46,7 @@ public class GroupPostResponse {
         this.recruitDeadlineDate = groupPost.getRecruitDeadlineDate() != null ? groupPost.getRecruitDeadlineDate() : null;
     }
 
-    public class GroupLeader {
+    public  class GroupLeader {
         private final Long userId;
         private final String userNickname;
         private final String userProfileImg;
