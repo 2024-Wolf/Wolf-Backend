@@ -49,7 +49,7 @@ public class UserEntity extends BaseTimeEntity {
     // 정지 날짜를 저장할 필드 (3일 정지 시 사용)
     private LocalDate suspensionDate;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private ActivityMetricsEntity activityMetrics;
 
     @Builder
