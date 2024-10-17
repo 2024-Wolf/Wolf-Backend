@@ -55,4 +55,8 @@ public class AdminAuthService {
             throw new BusinessException(ExceptionCode.REFRESH_TOKEN_VALIDATION_FAILED);
         }
     }
+
+    public AdminEntity getAdminByUsername(String username) {
+        return adminDao.findByUsername(username);
+    }
 }

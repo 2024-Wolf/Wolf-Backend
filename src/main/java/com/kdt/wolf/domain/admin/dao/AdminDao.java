@@ -33,4 +33,9 @@ public class AdminDao {
         }
         return admin;
     }
+
+    public AdminEntity findByUsername(String username) {
+        return adminRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_ADMIN));
+    }
 }

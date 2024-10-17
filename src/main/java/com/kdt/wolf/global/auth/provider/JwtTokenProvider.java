@@ -55,11 +55,11 @@ public class JwtTokenProvider {
     }
 
     public String generateAccessToken(UserEntity user, long now) {
-        return buildAccessToken(user.getUserId(), now, UserRoleType.USER);
+        return buildAccessToken(user.getUserId(), now, UserRoleType.ROLE_USER);
     }
 
     public String generateAccessToken(AdminEntity admin, long now) {
-        return buildAccessToken(admin.getAdminId(), now, UserRoleType.ADMIN);
+        return buildAccessToken(admin.getAdminId(), now, UserRoleType.ROLE_ADMIN);
     }
 
     private String buildAccessToken(long id, long now, UserRoleType userType) {
