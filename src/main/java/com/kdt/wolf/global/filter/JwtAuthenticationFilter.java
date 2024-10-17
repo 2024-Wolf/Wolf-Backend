@@ -12,6 +12,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -38,20 +39,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
 
+        HttpSession session = request.getSession(false);
+        String token = null;
+
+        if (session != null) {
+            token = (String) session.getAttribute("JWT");
+        }
+
+        if (token != null) {
+            jwtTokenProvider.validateToken(token);
+            try {
+                processTokenAuthentication(token);
+            } catch (UnauthorizedException e) {
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            }
+            return;
+        }
+
+        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         try {
             extractToken(authorization)
                     .ifPresentOrElse(
-                            jwtToken -> {
-                                jwtTokenProvider.validateToken(jwtToken);
-
-                                Authentication authentication =
-                                        getAuthentication(jwtTokenProvider.getSubject(jwtToken) ,
-                                                jwtTokenProvider.getUserType(jwtToken));
-                                SecurityContextHolder.getContext()
-                                        .setAuthentication(authentication);
-                            },
+                            this::processTokenAuthentication,
                             () -> {
                                 // TODO :  토큰이 없는 경우 동작 처리 해야할까?
                             });
@@ -86,5 +96,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         return new UsernamePasswordAuthenticationToken(
                 authenticatedUser, null, authenticatedUser.getAuthorities());
+    }
+
+    private void processTokenAuthentication(String token) {
+        jwtTokenProvider.validateToken(token);
+
+        Authentication authentication = getAuthentication(
+                jwtTokenProvider.getSubject(token),
+                jwtTokenProvider.getUserType(token));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }
