@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/api/v1/admin/users")
+@RequestMapping("/admin/users")
 public class UserAdminController {
     private final UserService userService;
     private static final Logger log = LoggerFactory.getLogger(UserAdminController.class);
@@ -41,9 +41,10 @@ public class UserAdminController {
 
     @Operation(summary = "회원 단일 정보 조회")
     @GetMapping("/{userId}")
-    public String getUser(@PathVariable Long userId) {
+    public String getUser(@PathVariable Long userId, Model model) {
         UserDetailResponse user = userService.getUserDetail(userId);
-        return "user";
+        model.addAttribute("user", user);
+        return "userDetail";
     }
 
     @Operation(summary = "회원 경고")

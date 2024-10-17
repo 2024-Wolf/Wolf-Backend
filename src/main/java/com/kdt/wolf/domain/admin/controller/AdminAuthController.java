@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.admin.controller;
 
-import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.admin.service.AdminAuthService;
 import com.kdt.wolf.global.auth.dto.LoginDto.AdminLoginRequest;
 import com.kdt.wolf.global.auth.dto.LoginDto.AdminLogoutRequest;
@@ -9,7 +8,6 @@ import com.kdt.wolf.global.auth.dto.LoginDto.TokenResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/api/v1/admin/auth/")
+@RequestMapping("/admin/auth")
 public class AdminAuthController {
     private final AdminAuthService adminService;
 
@@ -37,7 +35,7 @@ public class AdminAuthController {
         System.out.println("REFRESH_TOKEN: " + tokenResponse.refreshToken());
 
 
-        return "redirect:/api/v1/admin/users";
+        return "redirect:/admin/users";
     }
 
     @PostMapping("/logout")

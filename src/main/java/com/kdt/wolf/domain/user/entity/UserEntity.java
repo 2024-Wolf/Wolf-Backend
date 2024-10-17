@@ -94,7 +94,7 @@ public class UserEntity extends BaseTimeEntity {
                 jobTitle,
                 organization,
                 experience,
-                createdTime.toString()
+                createdTime.toLocalDate().toString()
         );
     }
 
@@ -118,7 +118,7 @@ public class UserEntity extends BaseTimeEntity {
                 .socialType(socialType.name())
                 .status(status.name())
                 .suspensionDate(suspensionDateDto)
-                .joinDate(createdTime.toString())
+                .joinDate(createdTime.toLocalDate().toString())
                 .activityMetrics(activityMetrics.toResponse())
                 .build();
     }

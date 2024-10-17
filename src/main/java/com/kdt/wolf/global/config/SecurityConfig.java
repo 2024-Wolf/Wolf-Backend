@@ -41,8 +41,8 @@ public class SecurityConfig {
                                 authz.requestMatchers("/api/v1/auth/google", "/api/v1/auth/login", "/api/v1/auth/test-login",
                                                 "/api/v1/auth/reissue").permitAll()
                                         .requestMatchers(HttpMethod.GET, "/api/v1/post/{options}").permitAll()
-                                        .requestMatchers(HttpMethod.POST, "/api/v1/admin/auth/login").permitAll()
-                                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                                        .requestMatchers(HttpMethod.POST, "/admin/auth/login").permitAll()
+                                        .requestMatchers("/admin/**").hasRole("ADMIN")
                                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(

@@ -28,7 +28,7 @@
                                     <span>&nbsp환영합니다.</span>
                                 </p>
                             </div>
-                            <form class="loginForm" action="/api/v1/admin/auth/login" method="post">
+                            <form class="loginForm" action="/admin/auth/login" method="post">
                                 <input id="username" type="text" class="loginInput loginDescription" placeholder="아이디"
                                     aria-label="아이디" name="username">
                                 <input id="password" type="password" class="loginInput loginDescription"
