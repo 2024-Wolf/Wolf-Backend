@@ -97,9 +97,9 @@ class FaqServiceTest {
         //given
         Long adminId = adminRepository.findAll().get(0).getAdminId();
         FaqCreateRequest request = new FaqCreateRequest(
-                "스터디", "question", "answer", adminId);
+                "스터디", "question", "answer");
         //when
-        Long resultId = faqService.createFaq(request);
+        Long resultId = faqService.createFaq(adminId, request);
         //then
         assertThat(resultId).isNotNull();
     }
@@ -110,8 +110,8 @@ class FaqServiceTest {
         //given
         Long faqId = faqRepository.findAll().get(0).getId();
         FaqCreateRequest request = new FaqCreateRequest(
-                "스터디", "question", "answer", adminRepository.findAll().get(0).getAdminId());
-        Long resultId = faqService.createFaq(request);
+                "스터디", "question", "answer");
+        Long resultId = faqService.createFaq(adminRepository.findAll().get(0).getAdminId(), request);
         //when
         FaqUpdateRequest updateRequest = new FaqUpdateRequest("스터디", "updateQuestion", "updateAnswer");
         faqService.updateFaq(resultId, updateRequest);

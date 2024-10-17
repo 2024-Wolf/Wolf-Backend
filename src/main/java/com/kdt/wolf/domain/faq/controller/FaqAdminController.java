@@ -1,31 +1,28 @@
 package com.kdt.wolf.domain.faq.controller;
 
+import com.kdt.wolf.domain.admin.repository.AdminRepository;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqCreateRequest;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqDetail;
-import com.kdt.wolf.domain.faq.dto.FaqDto.FaqResponse;
 import com.kdt.wolf.domain.faq.dto.FaqDto.FaqUpdateRequest;
-import com.kdt.wolf.domain.faq.dto.response.FaqPageResponse;
-import com.kdt.wolf.domain.faq.entity.FaqCategory;
+import com.kdt.wolf.domain.faq.dto.response.FaqAdminPageResponse;
 import com.kdt.wolf.domain.faq.service.FaqService;
+import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/admin/faqs")
 public class FaqAdminController {
     private final FaqService faqService;
+    private final AdminRepository adminRepository;
+
     /**
      * **FAQ 전체 목록 조회**: `GET /faqs`
      * **FAQ 단일 조회**: `GET /faqs/{faqId}`
@@ -34,39 +31,50 @@ public class FaqAdminController {
      * **FAQ 삭제**: `DELETE /faqs/{faqId}`
      */
     @Operation(summary = "FAQ 전체 목록 조회")
-    @GetMapping("/{category}")
-    public String getFaqs(@PathVariable String category,
-                          @PageableDefault(page = 0, size = 20) Pageable pageable) {
-        FaqCategory faqCategory = FaqCategory.valueOf(category);
-        FaqPageResponse response = faqService.getFaqsByCategory(faqCategory, pageable);
+    @GetMapping
+    public String getFaqs(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+        FaqAdminPageResponse response = faqService.getFaqs(pageable);
+        System.out.println(response.faqItems());
+        model.addAttribute("faqList", response);
         return "faq";
     }
 
     @Operation(summary = "FAQ 단일 조회")
     @GetMapping("/{faqId}")
-    public String getFaq(@RequestParam Long faqId) {
+    public String getFaq(@PathVariable Long faqId, Model model) {
         FaqDetail faqDetail = faqService.getFaqDetail(faqId);
-        return "";
+        model.addAttribute("faqContent", faqDetail);
+        return "faqDetail";
+    }
+
+    @Operation(summary = "FAQ 수정 화면")
+    @GetMapping("/faqEdit/{faqId}")
+    public String editFaqView(@PathVariable Long faqId, Model model) {
+        FaqDetail faqDetail = faqService.getFaqDetail(faqId);
+        model.addAttribute("faqContent", faqDetail);
+        return "faqEdit";
     }
 
     @Operation(summary = "FAQ 등록")
-    @PostMapping("")
-    public String createFaq(@RequestBody FaqCreateRequest request) {
-        Long id = faqService.createFaq(request);
-        return "redirect:/";
+    @PostMapping
+    public String createFaq(@AuthenticationPrincipal AuthenticatedUser author, @ModelAttribute FaqCreateRequest request) {
+        Long id = faqService.createFaq(adminRepository.findAll().get(0).getAdminId(), request);
+        System.out.println("컨트롤러 반환 성공" + id);
+        return "redirect:/admin/faqs/" + id;
     }
 
     @Operation(summary = "FAQ 수정")
     @PatchMapping("/{faqId}")
-    public String updateFaq(@RequestParam Long faqId, @RequestBody FaqUpdateRequest request) {
+    public String updateFaq(@PathVariable Long faqId, @ModelAttribute FaqUpdateRequest request, Model model) {
         FaqDetail faqDetail = faqService.updateFaq(faqId, request);
-        return "redirect:/";
+        model.addAttribute("faqContent", faqDetail);
+        return "redirect:/admin/faqs/{faqId}";
     }
 
     @Operation(summary = "FAQ 삭제")
     @DeleteMapping("/{faqId}")
-    public String deleteFaq(@RequestParam Long faqId) {
+    public String deleteFaq(@PathVariable Long faqId) {
         Long deleteId = faqService.deleteFaq(faqId);
-        return "redirect:/";
+        return "redirect:/admin/faqs";
     }
 }

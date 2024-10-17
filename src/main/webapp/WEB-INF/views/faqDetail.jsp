@@ -24,32 +24,34 @@
 							<jsp:include page="components/button/backButton.jsp" />
 						</div>
 						<!-- 수정 및 삭제 버튼 -->
-						<jsp:include page="components/button/editDeleteButton.jsp" />
+						<jsp:include page="components/button/editDeleteButton.jsp">
+							<jsp:param name="faq_id" value="${faqContent.faqId()}" />
+						</jsp:include>
 
 						<div class="inputSection scrollArea">
 							<!-- 등록일 필드 -->
 							<jsp:include page="components/inputDate/registrationDate.jsp">
-								<jsp:param name="registrationDate" value="2024-09-29" />
+								<jsp:param name="createdDate" value="${faqContent.createdAt()}" />
 							</jsp:include>
 
 							<!-- 등록자 필드 -->
 							<jsp:include page="components/inputText/registrarName.jsp">
-								<jsp:param name="registrarName" value="우두머리 늑대" />
+								<jsp:param name="author" value="${faqContent.author()}" />
 							</jsp:include>
 
 							<!-- 카테고리 필드 -->
 							<jsp:include page="components/select/faqCategory.jsp">
-								<jsp:param name="faqCategory" value="계정" />
+								<jsp:param name="category" value="${faqContent.category()}" />
 							</jsp:include>
 
 							<!-- 제목 입력 필드 -->
 							<jsp:include page="components/inputText/title.jsp">
-								<jsp:param name="title" value="회원가입은 어떻게 하나요?" />
+								<jsp:param name="question" value="${faqContent.question()}" />
 							</jsp:include>
 
 							<!-- 내용 입력 필드 -->
 							<jsp:include page="components/textarea/content.jsp">
-								<jsp:param name="content" value="로그인 화면의 “구글로 로그인하기”를 클릭하신 후, 회원가입 절차를 진행하시면 됩니다!" />
+								<jsp:param name="answer" value="${faqContent.answer()}" />
 							</jsp:include>
 						</div>
 
