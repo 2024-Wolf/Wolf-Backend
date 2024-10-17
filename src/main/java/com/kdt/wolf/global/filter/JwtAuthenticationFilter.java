@@ -2,8 +2,11 @@ package com.kdt.wolf.global.filter;
 
 import static org.springframework.util.StringUtils.hasText;
 
+import com.kdt.wolf.domain.admin.entity.AdminEntity;
+import com.kdt.wolf.domain.admin.repository.AdminRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
+import com.kdt.wolf.global.auth.dto.AuthenticatedAdmin;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.auth.dto.UserRoleType;
 import com.kdt.wolf.global.exception.UnauthorizedException;
@@ -34,6 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
     @Override
     protected void doFilterInternal(
@@ -65,11 +69,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             () -> {
                                 // TODO :  토큰이 없는 경우 동작 처리 해야할까?
                             });
-
-            filterChain.doFilter(request, response);
         } catch (UnauthorizedException e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }
+        filterChain.doFilter(request, response);
     }
 
     private Optional<String> extractToken(String authorization) { // resolve AccessToken
@@ -89,13 +92,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (NumberFormatException e) {
             throw new UnauthorizedException();
         }
-        UserEntity user = userRepository.findById(userId)
-                .orElseThrow(UnauthorizedException::new);
 
-        AuthenticatedUser authenticatedUser = new AuthenticatedUser(user, userType);
 
-        return new UsernamePasswordAuthenticationToken(
-                authenticatedUser, null, authenticatedUser.getAuthorities());
+        if(userType == UserRoleType.USER) {
+            UserEntity user = userRepository.findById(userId)
+                    .orElseThrow(UnauthorizedException::new);
+
+            AuthenticatedUser authenticatedUser = new AuthenticatedUser(user, userType);
+            return new UsernamePasswordAuthenticationToken(authenticatedUser, null, authenticatedUser.getAuthorities());
+
+        } else if(userType == UserRoleType.ADMIN) {
+            AdminEntity admin = adminRepository.findAdminById(userId)
+                    .orElseThrow(UnauthorizedException::new);
+
+            AuthenticatedAdmin authenticatedAdmin = new AuthenticatedAdmin(admin, userType);
+            return new UsernamePasswordAuthenticationToken(authenticatedAdmin, null, authenticatedAdmin.getAuthorities());
+        } else {
+            throw new UnauthorizedException();
+        }
     }
 
     private void processTokenAuthentication(String token) {
