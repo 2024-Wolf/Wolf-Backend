@@ -5,15 +5,12 @@ import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
-import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.NotFoundException;
-import com.kdt.wolf.global.exception.UserNotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

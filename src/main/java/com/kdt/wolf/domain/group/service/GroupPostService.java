@@ -8,8 +8,6 @@ import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitmentsEntity;
-import com.kdt.wolf.domain.group.entity.common.GroupStatus;
-import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.dto.PageResponse;
