@@ -213,7 +213,7 @@ public class ReportService {
                         report.getReporter().getNickname(),
                         report.getReportReason(),
                         report.getTopic().name(),
-                        report.getCreatedTime().toString(),
+                        report.getCreatedTime().toLocalDate().toString(),
                         report.isSolved()
                 ))
                 .toList();
