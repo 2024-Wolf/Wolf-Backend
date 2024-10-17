@@ -1,6 +1,5 @@
 package com.kdt.wolf.initializer;
 
-import com.kdt.wolf.domain.admin.entity.AdminEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.SocialType;
 import com.kdt.wolf.domain.user.entity.common.Status;
@@ -31,7 +30,8 @@ public class UserDataInitializer  implements CommandLineRunner {
 
     @Transactional
     protected void insertRandomUsers() {
-        List<UserEntity> users = Arrays.asList(
+        List<UserEntity> users = List.of(
+                new UserEntity("testNickname", "testName", "testEmail", "testImageUrl", SocialType.GOOGLE, Status.ACTIVE),
                 new UserEntity("하늘빛", "이하늘", "skyblue@example.com", "profile1.jpg", SocialType.GOOGLE, Status.ACTIVE),
                 new UserEntity("맑은봄", "김봄", "springclear@example.com", "profile2.jpg", SocialType.GOOGLE, Status.ACTIVE),
                 new UserEntity("여름밤", "박여름", "summernight@example.com", "profile3.jpg", SocialType.GOOGLE, Status.ACTIVE),
