@@ -36,7 +36,14 @@ public class UserDto {
             int experience,
             String interests,
             String refundAccount,
-            String introduction
+            String introduction,
+            List<UserLinkUpdateRequest> links
+
+    ) {}
+    public record UserLinkUpdateRequest(
+            Long id,
+            String linkType,
+            String linkUrl
     ) {}
 
     public record ActivityMetric(

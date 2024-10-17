@@ -3,6 +3,7 @@ package com.kdt.wolf.domain.link.entity;
 import com.kdt.wolf.domain.link.dto.LinkRequest;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.LinkType;
+import com.kdt.wolf.domain.user.dto.UserDto.UserLinkUpdateRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -52,5 +53,10 @@ public class ExternalLinksEntity extends BaseTimeEntity {
     public void updateLink(LinkRequest request) {
         this.linkType = LinkType.valueOf(request.getLinkType().toUpperCase());
         this.linkUrl = request.getLinkUrl();
+    }
+
+    public void updateLink(UserLinkUpdateRequest request) {
+        this.linkType = LinkType.valueOf(request.linkType().toUpperCase());
+        this.linkUrl = request.linkUrl();
     }
 }

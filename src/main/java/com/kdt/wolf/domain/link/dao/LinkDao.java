@@ -61,4 +61,12 @@ public class LinkDao {
         }
         externalLinksRepository.deleteById(linkId);
     }
+
+    public void createLink(ExternalLinksEntity linkEnt) {
+        externalLinksRepository.save(linkEnt);
+    }
+
+    public void saveAll(List<ExternalLinksEntity> newLinks) {
+        externalLinksRepository.saveAll(newLinks);
+    }
 }
