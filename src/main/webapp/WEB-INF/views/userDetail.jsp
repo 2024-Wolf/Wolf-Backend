@@ -22,60 +22,54 @@
 						<form method="get" action="/user" onsubmit="alert('저장완료');" class="inputSection scrollArea">
 							<!-- 가입일 입력 필드 -->
 							<jsp:include page="components/inputDate/userCreatedDate.jsp">
-								<jsp:param name="userCreatedDate" value="2024-09-19" />
+								<jsp:param name="userCreatedDate" value="${user.joinDate()}" />
 							</jsp:include>
 
 							<!-- 닉네임 입력 필드 -->
 							<jsp:include page="components/inputText/nickname.jsp">
-								<jsp:param name="nickname" value="니유비 늑대" />
+								<jsp:param name="nickname" value="${user.nickname()}" />
 							</jsp:include>
 
 							<!-- 직무 입력 필드 -->
 							<jsp:include page="components/inputText/jobTitle.jsp">
-								<jsp:param name="jobTitle" value="백엔드 엔지니어" />
+								<jsp:param name="jobTitle" value="${user.jobTitle()}" />
 							</jsp:include>
 
 							<!-- 소속 입력 필드 -->
 							<jsp:include page="components/inputText/organization.jsp">
-								<jsp:param name="organization" value="LG CNS" />
+								<jsp:param name="organization" value="${user.organization()}" />
 							</jsp:include>
 
 							<!-- 경력 입력 필드 -->
 							<jsp:include page="components/inputText/experience.jsp">
-								<jsp:param name="experience" value="3년" />
+								<jsp:param name="experience" value="${user.experience()}" />
 							</jsp:include>
 
 							<!-- 스터디 입력 필드 -->
 							<jsp:include page="components/inputRange/studyRatio.jsp">
-								<jsp:param name="studyRatio" value="90" />
+								<jsp:param name="studyRatio" value="${user.activityMetrics().totalStudyParticipation()}" />
 							</jsp:include>
 
 							<!-- 프로젝트 입력 필드 -->
 							<jsp:include page="components/inputRange/projectRatio.jsp">
-								<jsp:param name="projectRatio" value="50" />
+								<jsp:param name="projectRatio" value="${user.activityMetrics().leaderExperienceCount()}" />
 							</jsp:include>
 
 							<!-- 챌린지 입력 필드 -->
 							<jsp:include page="components/inputRange/challengeRatio.jsp">
-								<jsp:param name="challengeRatio" value="100" />
-							</jsp:include>
-
-							<!-- 신고 입력 필드 -->
-							<jsp:include page="components/inputRange/reportRatio.jsp">
-								<jsp:param name="reportRatio" value="70" />
+								<jsp:param name="challengeRatio" value="${user.activityMetrics().challengeSuccessCount()}" />
 							</jsp:include>
 
 							<!-- 활동지표 입력 필드 -->
 							<jsp:include page="components/inputRange/activityRatio.jsp">
-								<jsp:param name="good" value="5" />
-								<jsp:param name="soso" value="85" />
-								<jsp:param name="bad" value="10" />
+								<jsp:param name="good" value="${user.activityMetrics().activityRatingGood()}" />
+								<jsp:param name="soso" value="${user.activityMetrics().activityRatingSoso()}" />
+								<jsp:param name="bad" value="${user.activityMetrics().activityRatingBad()}" />
 							</jsp:include>
 
 							<!-- 자기 소개 입력 필드 -->
 							<jsp:include page="components/textarea/introduction.jsp">
-								<jsp:param name="introduction"
-									value="안녕하세요. 저는 나유비 늑대 입니다. 현재는 LG CNS에서 백엔드 엔지니어로서 일하고 있지만, 프론트 개발도 공부해서 풀스택 개발자가 되는 것이 꿈입니다!" />
+								<jsp:param name="introduction" value="${user.introduction()}" />
 							</jsp:include>
 
 							<hr style="border: 1px solid var(--black200);">

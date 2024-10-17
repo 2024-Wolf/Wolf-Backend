@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -37,15 +38,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- 회원 테이블 tr -->
-                                        <jsp:include page="components/table/userTableTr.jsp">
-                                            <jsp:param name="user_id" value="5" />
-                                            <jsp:param name="nickname" value="닉네임" />
-                                            <jsp:param name="job_title" value="풀스택 개발자" />
-                                            <jsp:param name="organization" value="LG CNS" />
-                                            <jsp:param name="experience" value="1년" />
-                                            <jsp:param name="created_date" value="2024.09.19" />
-                                        </jsp:include>
+                                        <c:forEach var="user" items="${users}">
+                                            <!-- 회원 테이블 tr -->
+                                            <jsp:include page="components/table/userTableTr.jsp">
+                                                <jsp:param name="user_id" value="${user.id()}" />
+                                                <jsp:param name="nickname" value="${user.nickname()}" />
+                                                <jsp:param name="job_title" value="${user.jobTitle()}" />
+                                                <jsp:param name="organization" value="${user.organization()}" />
+                                                <jsp:param name="experience" value="${user.experience()}" />
+                                                <jsp:param name="created_date" value="${user.joinDate()}" />
+                                            </jsp:include>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
