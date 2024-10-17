@@ -3,6 +3,7 @@ package com.kdt.wolf.domain.challenge.service;
 import com.kdt.wolf.domain.challenge.dao.ChallengePostDao;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePageResponse;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
@@ -32,15 +33,16 @@ public class ChallengeService {
     private final ChallengePaymentRepository challengePaymentRepository;
 
     //챌린지 불러오기
-    public ChallengePreview getChallenge(Long challengePostId){
+    public ChallengeDto.ChallengeDetail getChallenge(Long challengePostId){
         ChallengePostEntity post = challengePostDao.findById(challengePostId);
-        return new ChallengePreview(
+        return new ChallengeDto.ChallengeDetail(
                 post.getChallengePostId(),
-                post.getImg(),
                 post.getTitle(),
                 post.getCreatedTime().toLocalDate(),
                 post.getDeadline(),
-                null
+                post.getContent(),
+                post.getManner(),
+                post.getAwardContent()
         );
     }
 
@@ -95,8 +97,8 @@ public class ChallengeService {
     }
 
     // 챌린지 신청
-    public void createChallengeRegistration(ChallengeRegistrationRequest request){
-        challengePostDao.createChallengeRegistration(request);
+    public void createChallengeRegistration(ChallengeRegistrationRequest request, Long userId){
+        challengePostDao.createChallengeRegistration(request, userId);
     }
 
     // 챌린지 참여
@@ -106,6 +108,7 @@ public class ChallengeService {
 
     // 챌린지 인증
     public void updateVerification(ChallengeVerificationRequest request, Long userId){
+
         challengePostDao.updateVerification(request, userId);
     }
 

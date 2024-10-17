@@ -61,7 +61,6 @@ dependencies {
 	// Jackson Data Bind
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
 
-
 }
 
 tasks.named('test') {
