@@ -36,6 +36,12 @@ public class GroupDataInitializer implements CommandLineRunner {
     @Transactional
     @Override
     public void run(String... args) throws Exception {
+
+        if(groupPostRepository.count() > 0) {
+            System.out.println("Group 더미 데이터가 이미 존재합니다.");
+            return;
+        }
+
         // 유저 데이터 불러오기
         List<UserEntity> users = userRepository.findAll();
 
@@ -43,10 +49,7 @@ public class GroupDataInitializer implements CommandLineRunner {
             System.out.println("충분한 유저 데이터가 필요합니다.");
             return;
         }
-        if(groupPostRepository.count() > 0) {
-            System.out.println("Group 더미 데이터가 이미 존재합니다.");
-            return;
-        }
+
         List<GroupPostEntity> groupPosts = insertGroupPostData(users);  // 그룹 포스트 데이터 삽입
         insertProjectRecruitmentData(groupPosts);  // 프로젝트 모집 데이터 삽입
         List<RecruitApplyEntity> recruitApplies = insertRecruitApplyData(groupPosts, users);  // 지원서 데이터 삽입
