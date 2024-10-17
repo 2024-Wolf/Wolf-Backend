@@ -4,6 +4,8 @@ import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 public class GroupPostResponse {
     private final Long groupPostId;
@@ -19,10 +21,10 @@ public class GroupPostResponse {
     private final String warning;
     private final char challengeStatus;
     private final String type;
-    private final String startDate;
-    private final String endDate;
-    private final String recruitStartDate;
-    private final String recruitDeadlineDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final LocalDate recruitStartDate;
+    private final LocalDate recruitDeadlineDate;
 
     public GroupPostResponse(GroupPostEntity groupPost) {
         this.groupPostId = groupPost.getGroupPostId();
@@ -37,11 +39,11 @@ public class GroupPostResponse {
         this.description = groupPost.getDescription();
         this.warning = groupPost.getWarning();
         this.challengeStatus = groupPost.getChallengeStatus();
-        this.type = groupPost.getType() != null ? groupPost.getType().name() : null; // GroupType을 String으로 변환
-        this.startDate = groupPost.getStartDate() != null ? groupPost.getStartDate().toString() : null;
-        this.endDate = groupPost.getEndDate() != null ? groupPost.getEndDate().toString() : null;
-        this.recruitStartDate = groupPost.getRecruitStartDate() != null ? groupPost.getRecruitStartDate().toString() : null;
-        this.recruitDeadlineDate = groupPost.getRecruitDeadlineDate() != null ? groupPost.getRecruitDeadlineDate().toString() : null;
+        this.type = groupPost.getType() != null ? groupPost.getType().toString().toLowerCase() : null; // GroupType을 String으로 변환
+        this.startDate = groupPost.getStartDate() != null ? groupPost.getStartDate() : null;
+        this.endDate = groupPost.getEndDate() != null ? groupPost.getEndDate() : null;
+        this.recruitStartDate = groupPost.getRecruitStartDate() != null ? groupPost.getRecruitStartDate() : null;
+        this.recruitDeadlineDate = groupPost.getRecruitDeadlineDate() != null ? groupPost.getRecruitDeadlineDate() : null;
     }
 
     public  class GroupLeader {

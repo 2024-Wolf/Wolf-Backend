@@ -5,13 +5,12 @@ import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
-import com.kdt.wolf.domain.user.repository.UserRepository;
+import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.NotFoundException;
-import com.kdt.wolf.global.exception.UserNotFoundException;
+import com.kdt.wolf.global.exception.code.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,12 +25,12 @@ public class GroupPostDao {
                 .orElseThrow(NotFoundException::new);
     }
 
-    public Page<GroupPostEntity> findByType(String option, Pageable pageable) {
-        return switch (option) {
+    public Page<GroupPostEntity> findByType(String type, Pageable pageable) {
+        return switch (type) {
             case "all" -> groupPostRepository.findAll(pageable);
             case "study" -> groupPostRepository.findByType(GroupType.STUDY, pageable);
             case "project" -> groupPostRepository.findByType(GroupType.PROJECT, pageable);
-            default -> throw new NotFoundException();
+            default -> throw new BusinessException(ExceptionCode.BAD_REQUEST);
         };
     }
 
