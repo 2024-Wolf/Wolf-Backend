@@ -8,3 +8,4 @@ public record FaqPageResponse (
         List<FaqItems> faqItems,
         PageResponse page
 ){}
+

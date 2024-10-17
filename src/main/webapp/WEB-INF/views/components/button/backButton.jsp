@@ -1,17 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<% 
+<%
     String currentUrl = request.getRequestURI(); // 현재 URL을 가져옴
     String redirectUrl = ""; // 빈 문자열로 초기화
 
     if (currentUrl.startsWith("/WEB-INF/views/notice")) {
-        redirectUrl = "/notice";
+        redirectUrl = "/admin/notices";
     } else if (currentUrl.startsWith("/WEB-INF/views/faq")) {
-        redirectUrl = "/faq";
+        redirectUrl = "/admin/faqs";
     } else if (currentUrl.startsWith("/WEB-INF/views/challenge")) {
-        redirectUrl = "/challenge";
+        redirectUrl = "/admin/challenges";
     } else if (currentUrl.startsWith("/WEB-INF/views/group")) {
-		redirectUrl = "/group";
-	} 
+		redirectUrl = "/admin/groups";
+	}
 	else {
         redirectUrl = "/";
     }

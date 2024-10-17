@@ -4,7 +4,7 @@
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/notice") ? "active" : "" %>"
 	       href="/notice">공지사항</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/faq") ? "active" : "" %>"
-	       href="/faq">FAQ</a>
+	       href="/admin/faqs">FAQ</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/user") ? "active" : "" %>"
 	       href="/user">회원</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/group") ? "active" : "" %>"

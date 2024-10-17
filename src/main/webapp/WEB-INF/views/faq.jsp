@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -40,46 +41,15 @@
 									</thead>
 									<tbody>
 										<!-- FAQ 테이블 tr -->
-										<jsp:include page="components/table/faqTableTr.jsp">
-											<jsp:param name="faq_id" value="7" />
-											<jsp:param name="category_id" value="계정" />
-											<jsp:param name="question"
-												value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
-											<jsp:param name="author_id" value="등록자" />
-											<jsp:param name="created_date" value="2024.09.12" />
-										</jsp:include>
-										<jsp:include page="components/table/faqTableTr.jsp">
-											<jsp:param name="faq_id" value="7" />
-											<jsp:param name="category_id" value="스터디" />
-											<jsp:param name="question"
-												value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
-											<jsp:param name="author_id" value="등록자" />
-											<jsp:param name="created_date" value="2024.09.12" />
-										</jsp:include>
-										<jsp:include page="components/table/faqTableTr.jsp">
-											<jsp:param name="faq_id" value="7" />
-											<jsp:param name="category_id" value="프로젝트" />
-											<jsp:param name="question"
-												value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
-											<jsp:param name="author_id" value="등록자" />
-											<jsp:param name="created_date" value="2024.09.12" />
-										</jsp:include>
-										<jsp:include page="components/table/faqTableTr.jsp">
-											<jsp:param name="faq_id" value="7" />
-											<jsp:param name="category_id" value="챌린지" />
-											<jsp:param name="question"
-												value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
-											<jsp:param name="author_id" value="등록자" />
-											<jsp:param name="created_date" value="2024.09.12" />
-										</jsp:include>
-										<jsp:include page="components/table/faqTableTr.jsp">
-											<jsp:param name="faq_id" value="7" />
-											<jsp:param name="category_id" value="Etc" />
-											<jsp:param name="question"
-												value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다.제목입니다. 제목입니다." />
-											<jsp:param name="author_id" value="등록자" />
-											<jsp:param name="created_date" value="2024.09.12" />
-										</jsp:include>
+										<c:forEach var="faq" items="${faqList.faqItems()}">
+											<jsp:include page="components/table/faqTableTr.jsp">
+												<jsp:param name="faq_id" value="${faq.Id()}" />
+												<jsp:param name="category_id" value="${faq.category()}" />
+												<jsp:param name="question" value="${faq.question()}" />
+												<jsp:param name="author_id" value="${faq.author()}" />
+												<jsp:param name="created_date" value="${faq.createDate()}" />
+											</jsp:include>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

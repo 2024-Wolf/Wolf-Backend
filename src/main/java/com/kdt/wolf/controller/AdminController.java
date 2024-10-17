@@ -36,16 +36,6 @@ public class AdminController {
         return "faqCreate";
     }
 
-    @GetMapping("/faqDetail")
-    public String faqDetail() {
-        return "faqDetail";
-    }
-
-    @GetMapping("/faqEdit")
-    public String faqEdit() {
-        return "faqEdit";
-    }
-
     @GetMapping("/groupDetail")
     public String groupDetail() {
         return "groupDetail";
