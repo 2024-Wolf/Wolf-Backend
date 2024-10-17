@@ -104,7 +104,6 @@ public class ChallengePostDao {
         UserEntity user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
 
         GroupChallengeParticipantEntity entity = new GroupChallengeParticipantEntity(registration, user);
-        entity.updatePaymentStatus();
         groupChallengeParticipantRepository.save(entity);
     }
 
