@@ -36,8 +36,8 @@ public class GroupPostService {
         return new GroupPostResponse(groupPostEntity);
     }
 
-    public GroupPostPageResponse getPostsByOption(String option, Pageable pageable) {
-        Page<GroupPostEntity> posts = groupPostDao.findByType(option, pageable);
+    public GroupPostPageResponse getPostsByType(String type, Pageable pageable) {
+        Page<GroupPostEntity> posts = groupPostDao.findByType(type, pageable);
 
         if(posts.isEmpty()) {
             return new GroupPostPageResponse(List.of(), new PageResponse(Page.empty()));

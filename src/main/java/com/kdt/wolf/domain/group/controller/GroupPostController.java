@@ -35,10 +35,10 @@ public class GroupPostController {
     }
 
     @Operation(summary = "모집글 Type별 View")
-    @GetMapping("/{option}")
-    public ApiResult<GroupPostPageResponse> getPosts(@PathVariable String option,
+    @GetMapping("/view/{type}")
+    public ApiResult<GroupPostPageResponse> getPosts(@PathVariable String type,
                                                      @PageableDefault(page = 0, size = 20) Pageable pageable) {
-        GroupPostPageResponse responses = groupPostService.getPostsByOption(option, pageable);
+        GroupPostPageResponse responses = groupPostService.getPostsByType(type, pageable);
         return ApiResult.ok(responses);
     }
 
