@@ -22,7 +22,7 @@ public class ExternalLinksEntity extends BaseTimeEntity {
     private Long linkId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_post_id", nullable = false)
+    @JoinColumn(name = "group_post_id")
     private GroupPostEntity groupPost;
 
     @ManyToOne(fetch = FetchType.LAZY)

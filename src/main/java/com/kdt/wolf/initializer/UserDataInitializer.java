@@ -1,5 +1,8 @@
 package com.kdt.wolf.initializer;
 
+import com.kdt.wolf.domain.group.entity.common.LinkType;
+import com.kdt.wolf.domain.link.entity.ExternalLinksEntity;
+import com.kdt.wolf.domain.link.repository.ExternalLinksRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.SocialType;
 import com.kdt.wolf.domain.user.entity.common.Status;
@@ -8,15 +11,19 @@ import jakarta.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+@Order(1)
 @Component
 @Profile("dev")  // 개발 환경에서만 실행
 @RequiredArgsConstructor
 public class UserDataInitializer  implements CommandLineRunner {
     private final UserRepository userRepository;
+    private final ExternalLinksRepository externalLinksRepository;
 
     @Transactional
     @Override
@@ -55,6 +62,25 @@ public class UserDataInitializer  implements CommandLineRunner {
         );
 
         userRepository.saveAll(users);
+        userRepository.flush();
+
+        UserEntity user = userRepository.findByEmail("testEmail").orElseThrow();
+        insertExternalLink(user);
+        System.out.println("링크 넣기 완료");
     }
 
+    @Transactional
+    protected void insertExternalLink(UserEntity user) {
+
+        System.out.println("User ID: " + user.getUserId());
+        List<ExternalLinksEntity> externalLinks = Arrays.asList(
+                new ExternalLinksEntity(user, LinkType.GITHUB, "https://github.com/" + user.getNickname()),
+                new ExternalLinksEntity(user, LinkType.FIGMA, "https://figma.com/" + user.getNickname()),
+                new ExternalLinksEntity(user, LinkType.NOTION, "https://notion.so/" + user.getNickname()),
+                new ExternalLinksEntity(user, LinkType.VELOG, "https://velog.io/@" + user.getNickname())
+        );
+
+        externalLinksRepository.saveAll(externalLinks);
+        externalLinksRepository.flush();
+    }
 }
