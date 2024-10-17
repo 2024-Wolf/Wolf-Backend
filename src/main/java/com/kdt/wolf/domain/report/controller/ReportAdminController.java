@@ -31,9 +31,10 @@ public class ReportAdminController {
 
     @Operation(summary = "신고 단일 조회")
     @GetMapping("/{reportId}")
-    public String findReport(@PathVariable Long reportId) {
+    public String findReport(@PathVariable Long reportId, Model model) {
         ReportDetailDto response = reportService.findReport(reportId);
-        return "report";
+        model.addAttribute("report", response);
+        return "reportDetail"; //reportDetail.jsp
     }
 
     @Operation(summary = "신고 처리 / ACTION : NOTHING, WARNING, SUSPEND, BAN")
