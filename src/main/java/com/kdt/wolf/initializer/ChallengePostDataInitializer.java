@@ -55,5 +55,4 @@ public class ChallengePostDataInitializer  implements CommandLineRunner {
 
         challengePostRepository.saveAll(challengePosts); // challengePosts 리스트를 데이터베이스에 저장
     }
-
 }
