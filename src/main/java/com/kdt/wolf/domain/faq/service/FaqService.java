@@ -81,22 +81,18 @@ public class FaqService {
     @Transactional
     public Long createFaq(Long authorId, FaqCreateRequest request) {
         AdminEntity admin = AdminDao.findById(authorId);
-        System.out.println("관리자 찾기 성공");
         FaqEntity faqEntity = FaqEntity.builder()
                 .category(findCategory(request.category()))
                 .question(request.question())
                 .answer(request.answer())
                 .admin(admin)
                 .build();
-        System.out.println("엔티티 빌더 성공");
         return faqDao.save(faqEntity);
     }
 
     private FaqCategory findCategory(String category) {
         for (FaqCategory faqCategory : FaqCategory.values()) {
-            System.out.println(faqCategory);
             if (faqCategory.getName().equals(category)) {
-                System.out.println("findCatefory 성공 : " + faqCategory);
                 return faqCategory;
             }
         }
@@ -107,9 +103,7 @@ public class FaqService {
     @Transactional
     public FaqDetail updateFaq(Long faqId, FaqUpdateRequest request) {
         FaqEntity faq = faqDao.findById(faqId);
-        System.out.println("findById 성공" );
         faq.update(findCategory(request.category()), request.question(), request.answer());
-        System.out.println("update 성공");
         return new FaqDetail(
                 faqId,
                 faq.getCategory(),

@@ -31,29 +31,9 @@ public class AdminController {
         return "challengeEdit";
     }
 
-    @GetMapping("/faqCreate")
-    public String faqCreate() {
-        return "faqCreate";
-    }
-
     @GetMapping("/groupDetail")
     public String groupDetail() {
         return "groupDetail";
-    }
-
-    @GetMapping("/noticeCreate")
-    public String noticeCreate() {
-        return "noticeCreate";
-    }
-
-    @GetMapping("/noticeDetail")
-    public String noticeDetail() {
-        return "noticeDetail";
-    }
-
-    @GetMapping("/noticeEdit")
-    public String noticeEdit() {
-        return "noticeEdit";
     }
 
     @GetMapping("/reportDetail")
