@@ -28,6 +28,27 @@ public class ChallengeDto {
         }
     }
 
+    @Getter
+    public static class ChallengeDetail{
+        private final Long challengeId;
+        private final String title;
+        private final String registrationDate;
+        private final String deadline;
+        private final String content;
+        private final String manner;
+        private final String awardContent;
+
+        public ChallengeDetail(Long challengeId, String title, LocalDate registrationDate, LocalDate deadline, String content, String manner, String awardContent) {
+            this.challengeId = challengeId;
+            this.title = title;
+            this.registrationDate = registrationDate.toString();
+            this.deadline = deadline.toString();
+            this.content = content;
+            this.manner = manner;
+            this.awardContent = awardContent;
+        }
+    }
+
     public record ChallengePageResponse(
             List<ChallengePreview> challenges,
             PageResponse page
