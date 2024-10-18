@@ -4,7 +4,7 @@ import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
-import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
@@ -140,24 +140,24 @@ public class ChallengePostDao {
     }
 
     // 챌린지 생성
-    public void createChallenge(ChallengeCreationRequest request,Long userId){
-        ChallengePostEntity entity = new ChallengePostEntity(
-                userId,
-                request.getImg(),
-                request.getTitle(),
-                request.getContent(),
-                request.getManner(),
-                request.getAwardContent(),
-                request.getDeadline()
-        );
-        challengePostRepository.save(entity);
+    public Long createChallenge(ChallengeCreateRequest request,Long userId){
+        ChallengePostEntity entity = ChallengePostEntity.builder()
+                .userId(userId)
+                .img(request.img())
+                .title(request.title())
+                .content(request.content())
+                .manner(request.manner())
+                .awardContent(request.awardContent())
+                .deadline(request.deadline())
+                .build();
+        return challengePostRepository.save(entity).getChallengePostId();
     }
 
     // 챌린지 수정
-    public void updateChallenge(ChallengeCreationRequest request,Long challengePostId){
+    public Long updateChallenge(ChallengeCreateRequest request,Long challengePostId){
         ChallengePostEntity entity = challengePostRepository.findById(challengePostId).orElseThrow(NotFoundException::new);
         entity.updateChallengePost(request);
-        challengePostRepository.save(entity);
+        return challengePostRepository.save(entity).getChallengePostId();
     }
 
     // 챌린지 삭제

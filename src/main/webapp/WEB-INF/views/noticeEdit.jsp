@@ -47,6 +47,8 @@
 							<jsp:param name="inputFile" value="/resources/img/thumbnail_challenge1.png" />
 						</jsp:include>
 
+						<input type="hidden" name="_method" value="PUT">
+
 						<!-- 취소 & 완료(submit) 버튼 -->
 						<jsp:include page="components/button/cancelCompleteButton.jsp" />
 					</form>

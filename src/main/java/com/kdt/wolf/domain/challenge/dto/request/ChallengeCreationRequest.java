@@ -4,12 +4,15 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 
-@Getter
 public class ChallengeCreationRequest {
-    private String img;
-    private String title;
-    private String content;
-    private String manner;
-    private String awardContent;
-    private LocalDate deadline;
+    public record ChallengeCreateRequest(
+             String img,
+             String title,
+             String content,
+             String manner,
+             String awardContent,
+             LocalDate registrationDate,
+             LocalDate deadline
+    ){}
+
 }

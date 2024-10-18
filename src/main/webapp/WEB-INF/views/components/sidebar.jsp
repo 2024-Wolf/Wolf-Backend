@@ -10,7 +10,7 @@
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/group") ? "active" : "" %>"
 	       href="/group">그룹</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/challenge") ? "active" : "" %>"
-	       href="/challenge">챌린지</a>
+	       href="/admin/challenges">챌린지</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/report") ? "active" : "" %>"
 	       href="/admin/reports">신고</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/auth") ? "active" : "" %>"

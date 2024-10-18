@@ -11,7 +11,7 @@
 		editUrl = "/admin/faqs/faqEdit/" + request.getParameter("faq_id");
 		deleteUrl = "/admin/faqs/" + request.getParameter("faq_id");
 	} else if (currentUrl.startsWith("/WEB-INF/views/challenge")) {
-		editUrl = "/challengeEdit/" + request.getParameter("challenge_id");
+		editUrl = "/admin/challenges/challengeEdit/" + request.getParameter("challenge_id");
 		deleteUrl = "/admin/challenges/" + request.getParameter("challenge_id");
 	} else {
 		editUrl = "/";
