@@ -44,12 +44,9 @@ public class ReportAdminController {
                                          @RequestParam("processContent") String processContent,
                                          Model model) {
         Long response = reportService.processReport(reportId, ReportAction.valueOf(action), processContent);
+        model.addAttribute("reportId", response);
 
-        model.addAttribute("response", response);
-        model.addAttribute("action", action);
-        model.addAttribute("processContent", processContent);
-
-        return "redirect:/admin/reports"; //redirect to report.jsp
+        return "redirect:/admin/reports/" + response; //redirect to reportDetail.jsp
     }
 
 }

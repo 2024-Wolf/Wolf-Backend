@@ -69,7 +69,7 @@ public class ReportService {
             case WARNING -> sendNotification(report.getReportedUser().getUserId(), "신고를 받아 경고를 받았습니다.");
             case SUSPEND -> {
                 sendNotification(report.getReportedUser().getUserId(), "신고를 받아 3일 정지되었습니다.");
-                userDao.suspendUser(report.getReportedUser().getUserId());
+                userDao.suspendUser(report.getReportedUser());
             }
             case BAN -> {
                 sendNotification(report.getReportedUser().getUserId(), "신고를 받아 영구 정지되었습니다.");
@@ -103,7 +103,7 @@ public class ReportService {
 
     private void applyUserWarningAction(UserEntity user, ReportAction action) {
         if (action == ReportAction.SUSPEND) {
-            userDao.suspendUser(user.getUserId());
+            userDao.suspendUser(user);
         } else if (action == ReportAction.BAN) {
             userDao.banUser(user);
         }

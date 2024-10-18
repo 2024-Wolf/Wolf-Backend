@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.user.dao;
 
+import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.user.dto.LoginFlag;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
@@ -77,25 +78,29 @@ public class UserDao {
     }
 
     @Transactional
-    public Long warningUser(Long userId) {
-        //경고는 ?
-        return null;
-    }
-
-    @Transactional
-    public void suspendUser(Long userId) {
-        UserEntity user = findById(userId);
+    public void suspendUser(UserEntity user) {
         user.suspend();
         saveUser(user);
     }
 
     @Transactional
-    public void activateUser(UserEntity user) {
+    public Long activateUser(UserEntity user) {
         user.activate();
+        return user.getUserId();
     }
 
     @Transactional
     public void banUser(UserEntity user) {
         user.ban();
+    }
+
+    @Transactional
+    public Long panaltyUser(UserEntity user, ReportAction reportAction) {
+        if(reportAction == ReportAction.SUSPEND) {
+            suspendUser(user);
+        } else if(reportAction == ReportAction.BAN) {
+            banUser(user);
+        }
+        return user.getUserId();
     }
 }

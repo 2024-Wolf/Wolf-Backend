@@ -4,6 +4,10 @@ import com.kdt.wolf.domain.group.entity.common.LinkType;
 import com.kdt.wolf.domain.link.dao.LinkDao;
 import com.kdt.wolf.domain.link.dto.LinkResponse;
 import com.kdt.wolf.domain.link.entity.ExternalLinksEntity;
+import com.kdt.wolf.domain.report.dao.ReportProcessDao;
+import com.kdt.wolf.domain.report.entity.ReportEntity;
+import com.kdt.wolf.domain.report.entity.ReportProcessEntity;
+import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
@@ -158,12 +162,23 @@ public class UserService {
     public Status suspendUser(Long userId) {
         Status status = userDao.changeUserStatus(userId, Status.SUSPENDED);
         if(status == Status.SUSPENDED) {
-            userDao.suspendUser(userId);
+            userDao.suspendUser(userDao.findById(userId));
         }
         return status;
     }
 
     private List<ExternalLinksEntity> getExternalLinks(UserEntity user) {
         return linkDao.findAll(user);
+    }
+
+    public Long penaltyUser(Long userId, ReportAction reportAction, String processContent) {
+        //TODO : processContent는 어디에 저장 ? 알림 기능도 연결 X
+        UserEntity user = userDao.findById(userId);
+
+        if(reportAction == ReportAction.NOTHING) {
+            return userDao.activateUser(user);
+        }
+
+        return  userDao.panaltyUser(user, reportAction);
     }
 }

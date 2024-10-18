@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.user.controller;
 
+import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPreviewResponse;
 import com.kdt.wolf.domain.user.entity.common.Status;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -47,12 +50,6 @@ public class UserAdminController {
         return "userDetail";
     }
 
-    @Operation(summary = "회원 경고")
-    @GetMapping("/{userId}/warning")
-    public String warningUser() {
-        return "user";
-    }
-
     @Operation(summary = "회원 정지")
     @GetMapping("/{userId}/ban")
     public String banUser(@PathVariable Long userId) {
@@ -65,6 +62,16 @@ public class UserAdminController {
     public String unbanUser() {
 
         return "user";
+    }
+
+    @Operation(summary = "회원 제재 ACTION : NOTHING, WARNING, SUSPEND, BAN")
+    @PostMapping("/{userId}/penalty")
+    public String penaltyUser(@PathVariable Long userId,
+                              @RequestParam("action") String action,
+                              @RequestParam("processContent") String processContent,
+                              Model model) {
+        Long response = userService.penaltyUser(userId, ReportAction.valueOf(action), processContent);
+        return "redirect:/admin/users/" + response;
     }
 
 }

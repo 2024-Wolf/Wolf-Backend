@@ -19,7 +19,7 @@
 				<%@ include file="components/sidebar.jsp" %>
 					<div class="infoCard">
 						<h2 class="title">회원 정보</h2>
-						<form method="get" action="/user" onsubmit="alert('저장완료');" class="inputSection scrollArea">
+						<form method="post" action="/admin/users/${user.id()}/penalty" onsubmit="alert('저장완료');" class="inputSection scrollArea">
 							<!-- 가입일 입력 필드 -->
 							<jsp:include page="components/inputDate/userCreatedDate.jsp">
 								<jsp:param name="userCreatedDate" value="${user.joinDate()}" />
@@ -76,8 +76,8 @@
 
 							<!-- 정지 상태 입력 필드 -->
 							<jsp:include page="components/select/userStatus.jsp">
-								<jsp:param name="userStatus" value="정지 상태" />
-								<jsp:param name="RemainingTime" value="1일 12시간 남음" />
+								<jsp:param name="userStatus" value="${user.status()}" />
+								<jsp:param name="RemainingTime" value="${user.suspensionDate()}" />
 							</jsp:include>
 
 							<!-- 대상 제재 입력 필드 -->
