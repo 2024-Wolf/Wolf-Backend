@@ -18,6 +18,7 @@ public class ReportAdminDto {
             Long id,
             String reporter,
             String content,
+            String category,
             String target,
             String targetContent,
             String createdAt,

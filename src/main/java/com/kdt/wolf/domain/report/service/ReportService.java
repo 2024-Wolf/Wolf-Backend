@@ -69,7 +69,7 @@ public class ReportService {
             case WARNING -> sendNotification(report.getReportedUser().getUserId(), "신고를 받아 경고를 받았습니다.");
             case SUSPEND -> {
                 sendNotification(report.getReportedUser().getUserId(), "신고를 받아 3일 정지되었습니다.");
-                userDao.suspendUser(report.getReportedUser().getUserId());
+                userDao.suspendUser(report.getReportedUser());
             }
             case BAN -> {
                 sendNotification(report.getReportedUser().getUserId(), "신고를 받아 영구 정지되었습니다.");
@@ -103,7 +103,7 @@ public class ReportService {
 
     private void applyUserWarningAction(UserEntity user, ReportAction action) {
         if (action == ReportAction.SUSPEND) {
-            userDao.suspendUser(user.getUserId());
+            userDao.suspendUser(user);
         } else if (action == ReportAction.BAN) {
             userDao.banUser(user);
         }
@@ -120,13 +120,16 @@ public class ReportService {
     /* 알림 전송 */
     @Transactional
     protected void sendNotification(Long userId, String body) {
-        fcmService.sendNotificationByToken(
-                FCMNotificationRequestDto.builder()
-                        .targetUserId(userId)
-                        .title("신고")
-                        .body(body)
-                        .build()
-        );
+        try {
+            fcmService.sendNotificationByToken(
+                    FCMNotificationRequestDto.builder()
+                            .targetUserId(userId)
+                            .title("신고")
+                            .body(body)
+                            .build()
+            );
+        } catch (Exception e) {
+        }
     }
 
     /* 신고 생성 */
@@ -193,14 +196,16 @@ public class ReportService {
                 report.getReportId(),
                 report.getReporter().getNickname(),
                 report.getReportReason(),
+                report.getReportCategory().getReportCategoryContent(),
                 report.getTopic().name(),
+
                 switch (report.getTopic()) {
                     case USER -> report.getReportedUser().getNickname();
                     case GROUP -> report.getReportedGroupPost().getGroupPostId().toString();
                     case REPLY -> report.getReportedReply().getCommentDetails();
                     case QUESTION -> report.getReportedQuestion().getQuestionDetails();
                 },
-                report.getCreatedTime().toString(),
+                report.getCreatedTime().toLocalDate().toString(),
                 report.isSolved()
         );
     }
@@ -213,7 +218,7 @@ public class ReportService {
                         report.getReporter().getNickname(),
                         report.getReportReason(),
                         report.getTopic().name(),
-                        report.getCreatedTime().toString(),
+                        report.getCreatedTime().toLocalDate().toString(),
                         report.isSolved()
                 ))
                 .toList();

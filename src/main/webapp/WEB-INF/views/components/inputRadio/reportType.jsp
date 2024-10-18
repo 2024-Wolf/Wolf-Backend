@@ -8,19 +8,24 @@
     <label class="subtitle" for="reportType">구분</label>
     <div class="nowrapLeftContainer">
         <input id="user" type="radio" name="reportType" value="유저" disabled
-        <%= "유저".equals(request.getParameter("reportType")) ? "checked" : "" %>>
+        <%= "USER".equals(request.getParameter("reportType")) ? "checked" : "" %>>
         <label for="user" class="textContent">유저</label>
 
-        <input id="comment" type="radio" name="reportType" value="댓글" disabled
-        <%= "댓글".equals(request.getParameter("reportType")) ? "checked" : "" %>>
-        <label for="comment" class="textContent">댓글</label>
-        
         <input id="group" type="radio" name="reportType" value="그룹" disabled
-        <%= "그룹".equals(request.getParameter("reportType")) ? "checked" : "" %>>
+        <%= "GROUP".equals(request.getParameter("reportType")) ? "checked" : "" %>>
         <label for="group" class="textContent">그룹</label>
+
+        <input id="question" type="radio" name="reportType" value="질문" disabled
+        <%= "QUESTION".equals(request.getParameter("reportType")) ? "checked" : "" %>>
+        <label for="question" class="textContent">질문</label>
+
+        <input id="comment" type="radio" name="reportType" value="댓글" disabled
+            <%= "REPLY".equals(request.getParameter("reportType")) ? "checked" : "" %>>
+        <label for="comment" class="textContent">댓글</label>
+
     </div>
 </div>
-
+<%--GROUP, REPLY, QUESTION, USER--%>
 <!-- 신고 대상 -->
 <jsp:include page="../inputText/reportTarget.jsp">
 	<jsp:param name="reportTarget" value="<%= reportTarget %>" />

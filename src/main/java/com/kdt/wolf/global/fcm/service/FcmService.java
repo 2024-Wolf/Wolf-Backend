@@ -20,7 +20,7 @@ public class FcmService {
     public String sendNotificationByToken(FCMNotificationRequestDto requestDto) {
         List<String> tokens = fcmRepository.findTokensByUserId(requestDto.getTargetUserId());
         if (tokens.isEmpty()) {
-            throw new BusinessException(ExceptionCode.NOT_FOUND);
+//            throw new BusinessException(ExceptionCode.NOT_FOUND);
         }
         Message message = Message.builder()
                 .putData("title", requestDto.getTitle())
