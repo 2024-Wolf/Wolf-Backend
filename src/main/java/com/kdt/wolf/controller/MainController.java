@@ -33,20 +33,11 @@ public class MainController {
         return "challenge"; // challenge.jsp를 반환
     }
     
-//    @GetMapping("/faq")
-//    public String faqPage() {
-//        return "faq"; // faq.jsp를 반환
-//    }
-    
     @GetMapping("/group")
     public String groupPage() {
         return "group"; // group.jsp를 반환
     }
-    
-    @GetMapping("/notice")
-    public String notice() {
-        return "notice"; // notice.jsp를 반환
-    }
+
     
     @GetMapping("/report")
     public String reportPage() {
