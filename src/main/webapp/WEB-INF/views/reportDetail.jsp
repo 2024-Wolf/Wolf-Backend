@@ -22,7 +22,7 @@
 						<form method="get" action="/report" onsubmit="alert('저장완료');" class="inputSection scrollArea">
 							<!-- 신고일 입력 필드 -->
 							<jsp:include page="components/inputDate/reportDate.jsp">
-								<jsp:param name="reportDate" value="${report.id()}" />
+								<jsp:param name="reportDate" value="${report.createdAt()}" />
 							</jsp:include>
 
 							<!-- 신고자 입력 필드 -->
@@ -38,13 +38,13 @@
 
 							<!-- 신고 카테고리 입력 필드 -->
 							<jsp:include page="components/select/reportCategory.jsp">
-								<jsp:param name="reportCategory" value="${report.content()}" />
+								<jsp:param name="reportCategory" value="${report.category()}" />
 							</jsp:include>
 
 							<!-- 신고 구분 & 신고 대상 & 신고 댓글 입력 필드 -->
 							<jsp:include page="components/inputRadio/reportType.jsp">
 								<jsp:param name="reportType" value="${report.target()}" />
-								<jsp:param name="reportTarget" value="${report.target()}" />
+								<jsp:param name="reportTarget" value="${report.targetContent()}" />
 								<jsp:param name="reportComment"
 									value="${report.targetContent()}" />
 							</jsp:include>
