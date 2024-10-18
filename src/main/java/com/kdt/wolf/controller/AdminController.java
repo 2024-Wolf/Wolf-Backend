@@ -21,14 +21,9 @@ public class AdminController {
         return "challengeCreate";
     }
 
-    @GetMapping("/challengeDetail")
-    public String challengeDetail() {
-        return "challengeDetail";
-    }
-
-    @GetMapping("/challengeEdit")
-    public String challengeEdit() {
-        return "challengeEdit";
+    @GetMapping("/faqCreate")
+    public String faqCreate() {
+        return "faqCreate";
     }
 
     @GetMapping("/groupDetail")
@@ -36,6 +31,10 @@ public class AdminController {
         return "groupDetail";
     }
 
+    @GetMapping("/noticeCreate")
+    public String noticeCreate() {
+        return "noticeCreate";
+    }
     @GetMapping("/reportDetail")
     public String reportDetail() {
         return "reportDetail";

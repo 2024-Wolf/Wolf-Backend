@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -33,7 +34,6 @@
 										<tr>
 											<th>ID</th>
 											<th>이름</th>
-											<th>인증 주체</th>
 											<th>시작일</th>
 											<th>종료일</th>
 											<th>상태</th>
@@ -41,30 +41,16 @@
 									</thead>
 									<tbody>
 										<!-- 챌린지 테이블 tr -->
-										<jsp:include page="components/table/challengeTableTr.jsp">
-											<jsp:param name="challenge_post_id" value="8" />
-											<jsp:param name="challenge_title" value="너도 자격증 딸 수 있어!" />
-											<jsp:param name="verification_agent" value="시스템" />
-											<jsp:param name="challenge_startDate" value="2024.10.13" />
-											<jsp:param name="challenge_endDate" value="2025.04.13" />
-											<jsp:param name="challenge_status" value="진행 후" />
-										</jsp:include>
-										<jsp:include page="components/table/challengeTableTr.jsp">
-											<jsp:param name="challenge_post_id" value="7" />
-											<jsp:param name="challenge_title" value="너도 자격증 딸 수 있어!" />
-											<jsp:param name="verification_agent" value="시스템" />
-											<jsp:param name="challenge_startDate" value="2024.10.13" />
-											<jsp:param name="challenge_endDate" value="2025.04.13" />
-											<jsp:param name="challenge_status" value="완료" />
-										</jsp:include>
-										<jsp:include page="components/table/challengeTableTr.jsp">
-											<jsp:param name="challenge_post_id" value="6" />
-											<jsp:param name="challenge_title" value="너도 자격증 딸 수 있어!" />
-											<jsp:param name="verification_agent" value="시스템" />
-											<jsp:param name="challenge_startDate" value="2024.10.13" />
-											<jsp:param name="challenge_endDate" value="2025.04.13" />
-											<jsp:param name="challenge_status" value="진행 전" />
-										</jsp:include>
+										<c:forEach var="challenge" items="${challenges}">
+											<jsp:include page="components/table/challengeTableTr.jsp">
+												<jsp:param name="challenge_post_id" value="${challenge.challengePostId}" />
+												<jsp:param name="challenge_title" value="${challenge.title}" />
+												<jsp:param name="challenge_startDate" value="${challenge.registrationDate}" />
+												<jsp:param name="challenge_endDate" value="${challenge.deadline}" />
+												<jsp:param name="challenge_status" value="${challenge.status}" />
+											</jsp:include>
+										</c:forEach>
+
 									</tbody>
 								</table>
 							</div>
