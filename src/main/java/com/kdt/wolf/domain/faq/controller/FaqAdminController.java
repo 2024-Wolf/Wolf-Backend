@@ -64,7 +64,6 @@ public class FaqAdminController {
     @Operation(summary = "FAQ 수정")
     @PutMapping("/{faqId}")
     public String updateFaq(@PathVariable Long faqId, @ModelAttribute FaqUpdateRequest request, Model model) {
-        System.out.println(request);
         FaqDetail faqDetail = faqService.updateFaq(faqId, request);
         model.addAttribute("faqContent", faqDetail);
         return "redirect:/admin/faqs/{faqId}";
