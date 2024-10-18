@@ -4,8 +4,8 @@ package com.kdt.wolf.domain.challenge.controller;
 import com.kdt.wolf.domain.admin.repository.AdminRepository;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeDetail;
-import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.response.PaymentResponse;
 import com.kdt.wolf.domain.challenge.service.ChallengeService;
@@ -33,7 +33,7 @@ public class ChallengeAdminController {
     @Operation(summary = "챌린지 목록 조회")
     @GetMapping
     public String getAllChallenges(Model model) {
-        List<ChallengePreview> challenges = challengeService.getAllChallenges();
+        List<ChallengeAdminPreview> challenges = challengeService.getAllChallenges();
         model.addAttribute("challenges", challenges);
         return "challenge";
     }
@@ -59,9 +59,7 @@ public class ChallengeAdminController {
     @Operation(summary = "챌린지 수정 페이지")
     @GetMapping("/challengeEdit/{challengeId}")
     public String getEditChallengeView(@PathVariable Long challengeId, Model model) {
-        System.out.println("request id" + challengeId);
         ChallengeDetail challenge = challengeService.getChallengeDetail(challengeId);
-        System.out.println("response id" + challenge.getChallengePostId());
         model.addAttribute("challenge", challenge);
         return "challengeEdit";
     }
