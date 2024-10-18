@@ -10,13 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class MainController {
-	
-	@RequestMapping("/notice")
-    @PostMapping
-    public ResponseEntity<String> handleLogin(@RequestParam String username, @RequestParam String password) {
-        // 로그인 처리 로직
-        return ResponseEntity.ok("로그인 성공");
-    }
 
     @GetMapping("/")
     public String adminLoginPage() {
@@ -38,10 +31,10 @@ public class MainController {
         return "report"; // report.jsp를 반환
     }
     
-    @GetMapping("/user")
-    public String userPage() {
-        return "user"; // user.jsp를 반환
-    }
+//    @GetMapping("/user")
+//    public String userPage() {
+//        return "user"; // user.jsp를 반환
+//    }
     
 
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -36,15 +37,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- 신고 테이블 tr -->
-                                        <jsp:include page="components/table/reportTableTr.jsp">
-                                            <jsp:param name="report_id" value="5" />
-                                            <jsp:param name="reporter_id" value="늑대소년" />
-                                            <jsp:param name="report_content" value="스터디 무단 추방" />
-                                            <jsp:param name="reported_user_id" value="늑대소녀" />
-                                            <jsp:param name="report_date" value="2024.09.13" />
-                                            <jsp:param name="is_solved" value="신고 접수" />
-                                        </jsp:include>
+                                        <c:forEach var="report" items="${reports}">
+                                            <!-- 신고 테이블 tr -->
+                                            <jsp:include page="components/table/reportTableTr.jsp">
+                                                <jsp:param name="report_id" value="${report.id()}" />
+                                                <jsp:param name="reporter_id" value="${report.reporter()}" />
+                                                <jsp:param name="report_content" value="${report.content()}" />
+                                                <jsp:param name="reported_user_id" value="${report.target()}" />
+                                                <jsp:param name="report_date" value="${report.createdAt()}" />
+                                                <jsp:param name="is_solved" value="${report.isProcessed()}" />
+                                            </jsp:include>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

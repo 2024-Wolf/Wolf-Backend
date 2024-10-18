@@ -4,6 +4,7 @@ import com.kdt.wolf.domain.group.entity.common.LinkType;
 import com.kdt.wolf.domain.link.dao.LinkDao;
 import com.kdt.wolf.domain.link.dto.LinkResponse;
 import com.kdt.wolf.domain.link.entity.ExternalLinksEntity;
+import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
@@ -17,15 +18,12 @@ import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import jakarta.transaction.Transactional;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -110,7 +108,7 @@ public class UserService {
 
         // 새 링크 추가
         List<ExternalLinksEntity> newLinks = linkRequests.stream()
-                .filter(linkRequest -> linkRequest.id() == null)
+                .filter(linkRequest -> linkRequest.linkId() == null)
                 .map(linkRequest -> new ExternalLinksEntity(
                         user,
                         LinkType.valueOf(linkRequest.linkType().toUpperCase()),
@@ -120,13 +118,13 @@ public class UserService {
 
         // 기존 링크 업데이트
         Set<Long> requestLinkIds = linkRequests.stream()
-                .filter(linkRequest -> linkRequest.id() != null)
+                .filter(linkRequest -> linkRequest.linkId() != null)
                 .map(linkRequest -> {
-                    ExternalLinksEntity link = existingLinks.get(linkRequest.id());
+                    ExternalLinksEntity link = existingLinks.get(linkRequest.linkId());
                     if (link != null) {
                         link.updateLink(linkRequest);
                     }
-                    return linkRequest.id();
+                    return linkRequest.linkId();
                 })
                 .collect(Collectors.toSet());
 
@@ -158,12 +156,23 @@ public class UserService {
     public Status suspendUser(Long userId) {
         Status status = userDao.changeUserStatus(userId, Status.SUSPENDED);
         if(status == Status.SUSPENDED) {
-            userDao.suspendUser(userId);
+            userDao.suspendUser(userDao.findById(userId));
         }
         return status;
     }
 
     private List<ExternalLinksEntity> getExternalLinks(UserEntity user) {
         return linkDao.findAll(user);
+    }
+
+    public Long penaltyUser(Long userId, ReportAction reportAction, String processContent) {
+        //TODO : processContent는 어디에 저장 ? 알림 기능도 연결 X
+        UserEntity user = userDao.findById(userId);
+
+        if(reportAction == ReportAction.NOTHING) {
+            return userDao.activateUser(user);
+        }
+
+        return  userDao.panaltyUser(user, reportAction);
     }
 }

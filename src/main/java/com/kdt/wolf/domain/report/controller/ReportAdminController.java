@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.report.controller;
 
-import com.kdt.wolf.domain.report.dto.ReportAdminDto.ProcessReportRequest;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportDetailDto;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPreviewDto;
 import com.kdt.wolf.domain.report.service.ReportAction;
@@ -9,11 +8,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -23,24 +23,30 @@ public class ReportAdminController {
 
     @Operation(summary = "신고 전체 조회")
     @GetMapping("")
-    public String findAllReports() {
+    public String findAllReports(Model model) {
         List<ReportPreviewDto> response = reportService.findAllReports();
-        return "";
+        model.addAttribute("reports", response);
+        return "report"; //report.jsp
     }
 
     @Operation(summary = "신고 단일 조회")
     @GetMapping("/{reportId}")
-    public String findReport(@PathVariable Long reportId) {
+    public String findReport(@PathVariable Long reportId, Model model) {
         ReportDetailDto response = reportService.findReport(reportId);
-        return "";
+        model.addAttribute("report", response);
+        return "reportDetail"; //reportDetail.jsp
     }
 
     @Operation(summary = "신고 처리 / ACTION : NOTHING, WARNING, SUSPEND, BAN")
-    @PatchMapping("/{reportId}")
+    @PostMapping("/{reportId}")
     public String processReportAndNotify(@PathVariable Long reportId,
-                                         @RequestBody ProcessReportRequest request) {
-        Long response = reportService.processReport(reportId, request.action(), request.processContent());
-        return "";
+                                         @RequestParam("action") String action,
+                                         @RequestParam("processContent") String processContent,
+                                         Model model) {
+        Long response = reportService.processReport(reportId, ReportAction.valueOf(action), processContent);
+        model.addAttribute("reportId", response);
+
+        return "redirect:/admin/reports/" + response; //redirect to reportDetail.jsp
     }
 
 }

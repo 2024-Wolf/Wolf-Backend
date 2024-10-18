@@ -41,7 +41,7 @@ public class UserDto {
 
     ) {}
     public record UserLinkUpdateRequest(
-            Long id,
+            Long linkId,
             String linkType,
             String linkUrl
     ) {}

@@ -84,17 +84,22 @@ public class ChallengePostDao {
 
 
     // 챌린지 신청(그룹장)
-    public void createChallengeRegistration(ChallengeRegistrationRequest request) {
+    public void createChallengeRegistration(ChallengeRegistrationRequest request, Long userId) {
         GroupPostEntity group = groupPostRepository.findById(request.getGroupPostId()).orElseThrow(NotFoundException::new);
         ChallengePostEntity challengePost = challengePostRepository.findById(request.getChallengePostId()).orElseThrow(NotFoundException::new);
+        UserEntity user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
 
-        ChallengeRegistrationEntity entity = new ChallengeRegistrationEntity(
+        ChallengeRegistrationEntity registration = new ChallengeRegistrationEntity(
                 challengePost,
                 group,
                 Long.parseLong(request.getChallengeAmount() == null ? "0" :request.getChallengeAmount())
         );
 
-        challengeRegistrationQueryRepository.save(entity);
+        challengeRegistrationQueryRepository.save(registration);
+
+        GroupChallengeParticipantEntity participantEntity = new GroupChallengeParticipantEntity(registration, user);
+        participantEntity.updatePaymentStatus();
+        groupChallengeParticipantRepository.save(participantEntity);
     }
 
     // 챌린지 참여
