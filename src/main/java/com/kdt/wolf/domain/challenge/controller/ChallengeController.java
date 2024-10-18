@@ -27,7 +27,7 @@ public class ChallengeController {
 
     // 챌린지(단일) 조회
     @GetMapping("/challenge/{challengePostId}")
-    public ApiResult<ChallengeDto.ChallengePreview> getChallenge(@PathVariable Long challengePostId){
+    public ApiResult<ChallengeDto.ChallengeDetail> getChallenge(@PathVariable Long challengePostId){
         return ApiResult.ok(challengeService.getChallenge(challengePostId));
     }
 
@@ -45,8 +45,8 @@ public class ChallengeController {
 
     // 그룹장 신청
     @PostMapping("/registration")
-    public ApiResult<?> challengeRegistration(@RequestBody ChallengeRegistrationRequest request){
-        challengeService.createChallengeRegistration(request);
+    public ApiResult<?> challengeRegistration(@RequestBody ChallengeRegistrationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
+        challengeService.createChallengeRegistration(request, user.getUserId());
         return ApiResult.ok();
     }
 
