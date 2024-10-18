@@ -25,10 +25,10 @@ public class NoticeDataInitializer implements CommandLineRunner {
         if (noticeRepository.count() > 0) return;
         // Admin 데이터가 없을 경우 생성
         AdminEntity admin = adminRepository.save(AdminEntity.builder()
-                .email("admin1@example.com")
-                .password("password1")
-                .nickname("admin1")
-                .name("Admin One")
+                .email("admin2@example.com")
+                .password("password2")
+                .nickname("admin2")
+                .name("Admin Two")
                 .build());
         insertNoticeData(admin);
         System.out.println("Notice 더미 데이터가 성공적으로 삽입되었습니다.");
