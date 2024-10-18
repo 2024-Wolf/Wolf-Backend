@@ -3,6 +3,7 @@ package com.kdt.wolf.domain.report.controller;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ProcessReportRequest;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportDetailDto;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPreviewDto;
+import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.report.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
@@ -12,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -38,11 +41,18 @@ public class ReportAdminController {
     }
 
     @Operation(summary = "신고 처리 / ACTION : NOTHING, WARNING, SUSPEND, BAN")
-    @PatchMapping("/{reportId}")
+    @PostMapping("/{reportId}")
     public String processReportAndNotify(@PathVariable Long reportId,
-                                         @RequestBody ProcessReportRequest request) {
-        Long response = reportService.processReport(reportId, request.action(), request.processContent());
-        return "report";
+                                         @RequestParam("action") String action,
+                                         @RequestParam("processContent") String processContent,
+                                         Model model) {
+        Long response = reportService.processReport(reportId, ReportAction.valueOf(action), processContent);
+
+        model.addAttribute("response", response);
+        model.addAttribute("action", action);
+        model.addAttribute("processContent", processContent);
+
+        return "redirect:/admin/reports"; //redirect to report.jsp
     }
 
 }

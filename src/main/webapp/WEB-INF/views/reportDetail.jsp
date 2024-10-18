@@ -19,7 +19,7 @@
 				<%@ include file="components/sidebar.jsp" %>
 					<div class="infoCard">
 						<h2 class="title">신고 정보</h2>
-						<form method="get" action="/report" onsubmit="alert('저장완료');" class="inputSection scrollArea">
+						<form method="post" action="/admin/reports/${report.id()}" onsubmit="alert('저장완료');" class="inputSection scrollArea">
 							<!-- 신고일 입력 필드 -->
 							<jsp:include page="components/inputDate/reportDate.jsp">
 								<jsp:param name="reportDate" value="${report.createdAt()}" />
