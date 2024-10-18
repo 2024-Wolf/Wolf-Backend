@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -41,13 +42,14 @@
                                         </thead>
                                         <tbody>
                                             <!-- 공지사항 테이블 tr -->
-                                            <jsp:include page="components/table/noticeTableTr.jsp">
-                                                <jsp:param name="notice_id" value="6" />
-                                                <jsp:param name="notice_title"
-                                                    value="제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다. 제목입니다." />
-                                                <jsp:param name="registrarName" value="등록자" />
-                                                <jsp:param name="registrationDate" value="2024.09.24" />
-                                            </jsp:include>
+                                            <c:forEach var="notice" items="${notices}">
+                                                <jsp:include page="components/table/noticeTableTr.jsp">
+                                                    <jsp:param name="notice_id" value="${notice.noticeId()}" />
+                                                    <jsp:param name="notice_title" value="${notice.title()}" />
+                                                    <jsp:param name="registrarName" value="${notice.author()}" />
+                                                    <jsp:param name="registrationDate" value="${notice.createdAt().toLocalDate()}" />
+                                                </jsp:include>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>

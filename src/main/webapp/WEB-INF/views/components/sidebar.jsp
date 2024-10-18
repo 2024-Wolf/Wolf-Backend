@@ -2,7 +2,7 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/sidebar.css">
 	<nav class="sidebar">
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/notice") ? "active" : "" %>"
-	       href="/notice">공지사항</a>
+	       href="/admin/notices">공지사항</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/faq") ? "active" : "" %>"
 	       href="/admin/faqs">FAQ</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/user") ? "active" : "" %>"
