@@ -40,7 +40,7 @@ public class AuthService {
 
     private final JwtTokenProvider tokenProvider;
 
-    public GoogleLoginResponse googleLogin(String idToken, String fcmToken) {
+    public GoogleLoginResponse googleLogin(String idToken) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
                                             .Builder(new NetHttpTransport(), new GsonFactory())
                                             .setAudience(List.of(googleClientId))
@@ -55,13 +55,13 @@ public class AuthService {
                 OAuth2UserInfo userInfo = new GoogleOAuth2UserInfo(googleIdToken.getPayload());
                 UserLoginResult userLoginResult = userDao.signUpOrSignIn(userInfo);
                 TokenResponse response = generateJwtTokenResponse(userLoginResult.user());
-                saveFcmToken(userLoginResult.user(), fcmToken);
                 return new GoogleLoginResponse(response, userLoginResult.flag());
             }
         } catch (IllegalArgumentException | HttpClientErrorException | GeneralSecurityException | IOException e) {
             throw new BusinessException(ExceptionCode.ID_TOKEN_VALIDATION_FAILED);
         }
     }
+
 
     private void saveFcmToken(UserEntity user, String fcmToken) {
         if( fcmService.saveFcmToken(user, fcmToken).isEmpty() ) {
@@ -121,5 +121,10 @@ public class AuthService {
         // 유저 삭제 우선 safe delete로 구현
         refreshTokenService.deleteRefreshTokenByUserId(userId);
         return userDao.changeUserStatus(userId, Status.WITHDRAWN);
+    }
+
+    public void registerFcmToken(Long userId, String fcmToken) {
+        UserEntity user = userDao.findById(userId);
+        saveFcmToken(user, fcmToken);
     }
 }

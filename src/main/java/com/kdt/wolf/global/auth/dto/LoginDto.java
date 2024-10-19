@@ -9,8 +9,7 @@ public class LoginDto {
             String password
     ) {}
     public record GoogleLoginRequest(
-            String idToken,
-            String fcmToken
+            String idToken
     ) {}
     public record ReissueAccessTokenRequest(
             String accessToken,
