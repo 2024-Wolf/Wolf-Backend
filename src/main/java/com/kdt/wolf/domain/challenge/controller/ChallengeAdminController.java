@@ -1,10 +1,12 @@
 package com.kdt.wolf.domain.challenge.controller;
 
 
+import com.kdt.wolf.domain.admin.repository.AdminRepository;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
-import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
-import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeDetail;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.response.PaymentResponse;
 import com.kdt.wolf.domain.challenge.service.ChallengeService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
@@ -13,47 +15,74 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/admin/*")
+@RequestMapping("/admin/challenges")
 public class ChallengeAdminController {
 
     private final ChallengeService challengeService;
+    private final AdminRepository adminRepository;
     //TODO : 리턴값 ApiResult<?> -> String 변경 필요
-
-    // 챌린지 생성
-    @Operation(summary = "챌린지 생성")
-    @PostMapping("/challenge")
-    public ApiResult<?> registerChallenge(@RequestBody ChallengeCreationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
-        challengeService.registerChallenge(request, user.getUserId());
-        return ApiResult.ok();
-    }
 
     // 챌린지 목록 조회
     @Operation(summary = "챌린지 목록 조회")
-    @GetMapping("/challenges")
-    public ApiResult<List<ChallengeDto.ChallengePreview>> getAllChallenges() {
-        return ApiResult.ok(challengeService.getAllChallenges());
+    @GetMapping
+    public String getAllChallenges(Model model) {
+        List<ChallengeAdminPreview> challenges = challengeService.getAllChallenges();
+        model.addAttribute("challenges", challenges);
+        return "challenge";
+    }
+
+    // 챌린지 단일 정보 조회
+    @Operation(summary = "챌린지 단일 정보 조회")
+    @GetMapping("/{challengeId}")
+    public String getChallenges(@PathVariable Long challengeId, Model model) {
+        ChallengeDetail challenge = challengeService.getChallengeDetail(challengeId);
+        model.addAttribute("challenge", challenge);
+        return "challengeDetail";
+    }
+
+    // 챌린지 생성
+    @Operation(summary = "챌린지 생성")
+    @PostMapping
+    public String registerChallenge(@ModelAttribute ChallengeCreateRequest request, @AuthenticationPrincipal AuthenticatedUser user){
+        Long challengeId = challengeService.registerChallenge(request, adminRepository.findAll().get(0).getAdminId());
+        return "redirect:/admin/challenges/" + challengeId;
+    }
+
+    // 챌린지 목록 조회
+    @Operation(summary = "챌린지 수정 페이지")
+    @GetMapping("/challengeEdit/{challengeId}")
+    public String getEditChallengeView(@PathVariable Long challengeId, Model model) {
+        ChallengeDetail challenge = challengeService.getChallengeDetail(challengeId);
+        model.addAttribute("challenge", challenge);
+        return "challengeEdit";
     }
 
     // 챌린지 수정
     @Operation(summary = "챌린지 수정")
-    @PatchMapping("/challenge/{challengePostId}")
-    public ApiResult<?> updateChallenge(@RequestBody ChallengeCreationRequest request, @PathVariable Long challengePostId){
-        challengeService.updateChallenge(request, challengePostId);
-        return ApiResult.ok();
+    @PutMapping("/{challengeId}")
+    public String  updateChallenge(@ModelAttribute ChallengeCreateRequest request,
+                                   @PathVariable Long challengeId,
+                                   Model model){
+        System.out.println(request);
+        Long updatedChallengeId = challengeService.updateChallenge(request, challengeId);
+        ChallengeDetail challenge = challengeService.getChallengeDetail(updatedChallengeId);
+        model.addAttribute("challenge", challenge);
+        return "redirect:/admin/challenges/{challengeId}";
     }
 
     // 챌린지 삭제
     @Operation(summary = "챌린지 삭제")
-    @DeleteMapping("/challenge/{challengeId}")
-    public ApiResult<?> deleteChallenge(@PathVariable Long challengeId){
+    @DeleteMapping("/{challengeId}")
+    public String deleteChallenge(@PathVariable Long challengeId){
         challengeService.deleteChallenge(challengeId);
-        return ApiResult.ok();
+        return "redirect:/admin/challenges";
     }
 
     // 결제 단일 조회

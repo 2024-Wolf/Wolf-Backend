@@ -47,7 +47,7 @@
 						</jsp:include>
 
 						<!--patch 설정 -->
-						<input type="hidden" name="_method" value="PATCH">
+						<input type="hidden" name="_method" value="PUT">
 						<!-- 취소 & 완료(submit) 버튼 -->
 						<jsp:include page="components/button/cancelCompleteButton.jsp" />
 					</form>

@@ -36,8 +36,15 @@ public class AuthController {
     @Operation(summary = "구글 로그인")
     @PostMapping("/google")
     public ApiResult<GoogleLoginResponse> google(@RequestBody GoogleLoginRequest request) {
-        GoogleLoginResponse response = authService.googleLogin(request.idToken(), request.fcmToken());
+        GoogleLoginResponse response = authService.googleLogin(request.idToken());
         return ApiResult.ok(response);
+    }
+
+    @Operation(summary = "FCM 토큰 등록")
+    @PostMapping("/fcm")
+    public ApiResult<?> registerFcmToken(@RequestBody String fcmToken, @AuthenticationPrincipal AuthenticatedUser user) {
+        authService.registerFcmToken(user.getUserId(), fcmToken);
+        return ApiResult.ok();
     }
 
     @PostMapping("/test-login")

@@ -24,26 +24,28 @@
 							<jsp:include page="components/button/backButton.jsp" />
 						</div>
 						<!-- 수정 및 삭제 버튼 -->
-						<jsp:include page="components/button/editDeleteButton.jsp" />
+						<jsp:include page="components/button/editDeleteButton.jsp">
+							<jsp:param name="notice_id" value="${notice.noticeId()}" />
+						</jsp:include>
 						<div class="inputSection scrollArea">
 							<!-- 등록일 필드 -->
 							<jsp:include page="components/inputDate/registrationDate.jsp">
-								<jsp:param name="registrationDate" value="2024-09-29" />
+								<jsp:param name="createdDate" value="${notice.createdAt().toLocalDate()}" />
 							</jsp:include>
 
 							<!-- 등록자 필드 -->
 							<jsp:include page="components/inputText/registrarName.jsp">
-								<jsp:param name="registrarName" value="우두머리 늑대" />
+								<jsp:param name="author" value="${notice.author()}" />
 							</jsp:include>
 
 							<!-- 제목 입력 필드 -->
 							<jsp:include page="components/inputText/title.jsp">
-								<jsp:param name="title" value="울프 서비스가 시작되었습니다." />
+								<jsp:param name="title" value="${notice.title()}" />
 							</jsp:include>
 
 							<!-- 내용 입력 필드 -->
 							<jsp:include page="components/textarea/content.jsp">
-								<jsp:param name="content" value="지금 2조에서 울프 서비스 개발을 완료했습니다. 많은 관심 부탁드립니다." />
+								<jsp:param name="content" value="${notice.content()}" />
 							</jsp:include>
 
 							<!-- 첨부파일 입력 필드 -->

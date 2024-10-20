@@ -1,3 +1,4 @@
+<%@ page import="java.time.LocalDate" %>
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,6 +10,10 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 	<link rel="stylesheet" href="/resources/css/globalstyle.css">
 	<link rel="stylesheet" href="/resources/css/mainContents.css">
+	<%
+		// 현재 날짜와 시간을 가져오고 원하는 포맷으로 변환
+		LocalDate now = LocalDate.now();
+	%>
 </head>
 
 <body>
@@ -19,19 +24,19 @@
 			<%@ include file="components/sidebar.jsp" %>
 				<div class="infoCard">
 					<h2 class="title">챌린지 작성</h2>
-					<form method="get" action="/challenge" onsubmit="alert('작성완료');" class="inputSection scrollArea">
+					<form method="POST" action="/admin/challenges" onsubmit="alert('작성완료');" class="inputSection scrollArea">
 						<!-- 인증 주체 입력 필드 -->
 						<jsp:include page="components/inputRadio/verificationAgent.jsp" />
 
 						<!-- 챌린지 기간 입력 필드 -->
 						<jsp:include page="components/inputDate/startEndDate.jsp">
-							<jsp:param name="startDate" value="" />
-							<jsp:param name="endDate" value="" />
+							<jsp:param name="registrationDate" value="" />
+							<jsp:param name="deadline" value="" />
 						</jsp:include>
 
 						<!-- 챌린지 이름 입력 필드 -->
 						<jsp:include page="components/inputText/challengeName.jsp">
-							<jsp:param name="challengeName" value="" />
+							<jsp:param name="title" value="" />
 						</jsp:include>
 
 						<!-- 챌린지 내용 필드 -->
@@ -41,17 +46,17 @@
 
 						<!-- 유의사항 입력 필드 -->
 						<jsp:include page="components/textarea/challengeWarning.jsp">
-							<jsp:param name="challengeWarning" value="" />
+							<jsp:param name="manner" value="" />
 						</jsp:include>
 
 						<!-- 보상 입력 필드 -->
 						<jsp:include page="components/textarea/challengeAwardContent.jsp">
-							<jsp:param name="challengeAwardContent" value="" />
+							<jsp:param name="awardContent" value="" />
 						</jsp:include>
 
 						<!-- 첨부파일 입력 필드 -->
 						<jsp:include page="components/inputFile/inputFile.jsp">
-							<jsp:param name="inputFile" value="" />
+							<jsp:param name="img" value="" />
 						</jsp:include>
 
 						<!-- 취소 & 완료(submit) 버튼 -->

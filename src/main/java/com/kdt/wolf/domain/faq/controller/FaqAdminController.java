@@ -34,7 +34,6 @@ public class FaqAdminController {
     @GetMapping
     public String getFaqs(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable) {
         FaqAdminPageResponse response = faqService.getFaqs(pageable);
-        System.out.println(response.faqItems());
         model.addAttribute("faqList", response);
         return "faq";
     }
@@ -59,12 +58,11 @@ public class FaqAdminController {
     @PostMapping
     public String createFaq(@AuthenticationPrincipal AuthenticatedUser author, @ModelAttribute FaqCreateRequest request) {
         Long id = faqService.createFaq(adminRepository.findAll().get(0).getAdminId(), request);
-        System.out.println("컨트롤러 반환 성공" + id);
         return "redirect:/admin/faqs/" + id;
     }
 
     @Operation(summary = "FAQ 수정")
-    @PatchMapping("/{faqId}")
+    @PutMapping("/{faqId}")
     public String updateFaq(@PathVariable Long faqId, @ModelAttribute FaqUpdateRequest request, Model model) {
         FaqDetail faqDetail = faqService.updateFaq(faqId, request);
         model.addAttribute("faqContent", faqDetail);

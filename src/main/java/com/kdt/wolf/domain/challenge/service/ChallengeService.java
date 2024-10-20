@@ -3,12 +3,13 @@ package com.kdt.wolf.domain.challenge.service;
 import com.kdt.wolf.domain.challenge.dao.ChallengePostDao;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
-import com.kdt.wolf.domain.challenge.dto.ChallengeDto;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePageResponse;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 
-import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,31 +34,63 @@ public class ChallengeService {
     private final ChallengePostDao challengePostDao;
     private final ChallengePaymentRepository challengePaymentRepository;
 
+    public String CheckStatus(ChallengePostEntity post){
+        LocalDateTime now = LocalDateTime.now();
+
+        // 시작 시간, 종료 시간을 기준으로 상태 결정
+        if (now.isBefore(post.getCreatedTime())) {
+            return  "진행 전";
+        } else if (now.isAfter(post.getDeadline().atStartOfDay())) {
+            return  "종료";
+        } else {
+            return  "진행 중";
+        }
+    }
     //챌린지 불러오기
-    public ChallengeDto.ChallengeDetail getChallenge(Long challengePostId){
+    public ChallengeDetail getChallenge(Long challengePostId){
         ChallengePostEntity post = challengePostDao.findById(challengePostId);
-        return new ChallengeDto.ChallengeDetail(
+        return new ChallengeDetail(
                 post.getChallengePostId(),
+                post.getImg(),
                 post.getTitle(),
-                post.getCreatedTime().toLocalDate(),
-                post.getDeadline(),
                 post.getContent(),
                 post.getManner(),
-                post.getAwardContent()
+                post.getAwardContent(),
+                post.getCreatedTime().toLocalDate(),
+                post.getDeadline(),
+                CheckStatus(post)
+
+
+        );
+    }
+
+    //챌린지 단일 조회(관리자)
+    public ChallengeDetail getChallengeDetail(Long challengePostId){
+        ChallengePostEntity post = challengePostDao.findById(challengePostId);
+        return new ChallengeDetail(
+                challengePostId,
+                post.getImg(),
+                post.getTitle(),
+                post.getContent(),
+                post.getManner(),
+                post.getAwardContent(),
+                post.getCreatedTime().toLocalDate(),
+                post.getDeadline(),
+                CheckStatus(post)
         );
     }
 
     // 챌린지 목록 불러오기
-    public List<ChallengePreview> getAllChallenges(){
+    public List<ChallengeAdminPreview> getAllChallenges(){
         List<ChallengePostEntity> dataList = challengePostDao.findAll();
 
-        return dataList.stream().map(data -> new ChallengePreview(
+        return dataList.stream().map(data -> new ChallengeAdminPreview(
            data.getChallengePostId(),
            data.getImg(),
            data.getTitle(),
            data.getCreatedTime().toLocalDate(),
            data.getDeadline(),
-           null
+           CheckStatus(data)
         )).toList();
     }
 
@@ -113,13 +147,13 @@ public class ChallengeService {
     }
 
     // 챌린지 생성
-    public void registerChallenge(ChallengeCreationRequest request, Long userId){
-        challengePostDao.createChallenge(request, userId);
+    public Long  registerChallenge(ChallengeCreateRequest request, Long userId){
+        return challengePostDao.createChallenge(request, userId);
     }
 
     // 챌린지 수정
-    public void updateChallenge(ChallengeCreationRequest request, Long challengePostId){
-        challengePostDao.updateChallenge(request, challengePostId);
+    public Long updateChallenge(ChallengeCreateRequest request, Long challengePostId){
+        return challengePostDao.updateChallenge(request, challengePostId);
     }
 
     // 챌린지 삭제

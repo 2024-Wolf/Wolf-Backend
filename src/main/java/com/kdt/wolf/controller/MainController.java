@@ -20,27 +20,12 @@ public class MainController {
     public String authPage() {
         return "auth"; // auth.jsp를 반환
     }
-    
-    @GetMapping("/challenge")
-    public String challengePage() {
-        return "challenge"; // challenge.jsp를 반환
-    }
-    
-//    @GetMapping("/faq")
-//    public String faqPage() {
-//        return "faq"; // faq.jsp를 반환
-//    }
-    
+
     @GetMapping("/group")
     public String groupPage() {
         return "group"; // group.jsp를 반환
     }
 
-    @GetMapping("/notice")
-    public String notice() {
-        return "notice"; // notice.jsp를 반환
-    }
-    
     @GetMapping("/report")
     public String reportPage() {
         return "report"; // report.jsp를 반환

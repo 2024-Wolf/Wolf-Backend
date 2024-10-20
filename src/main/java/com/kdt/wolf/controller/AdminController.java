@@ -21,16 +21,6 @@ public class AdminController {
         return "challengeCreate";
     }
 
-    @GetMapping("/challengeDetail")
-    public String challengeDetail() {
-        return "challengeDetail";
-    }
-
-    @GetMapping("/challengeEdit")
-    public String challengeEdit() {
-        return "challengeEdit";
-    }
-
     @GetMapping("/faqCreate")
     public String faqCreate() {
         return "faqCreate";
@@ -45,17 +35,6 @@ public class AdminController {
     public String noticeCreate() {
         return "noticeCreate";
     }
-
-    @GetMapping("/noticeDetail")
-    public String noticeDetail() {
-        return "noticeDetail";
-    }
-
-    @GetMapping("/noticeEdit")
-    public String noticeEdit() {
-        return "noticeEdit";
-    }
-
     @GetMapping("/reportDetail")
     public String reportDetail() {
         return "reportDetail";
