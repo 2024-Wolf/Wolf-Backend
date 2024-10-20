@@ -7,6 +7,7 @@ import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeDetail;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest.VerificationRequest;
 import com.kdt.wolf.domain.challenge.dto.response.PaymentResponse;
 import com.kdt.wolf.domain.challenge.service.ChallengeService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
@@ -70,7 +71,6 @@ public class ChallengeAdminController {
     public String  updateChallenge(@ModelAttribute ChallengeCreateRequest request,
                                    @PathVariable Long challengeId,
                                    Model model){
-        System.out.println(request);
         Long updatedChallengeId = challengeService.updateChallenge(request, challengeId);
         ChallengeDetail challenge = challengeService.getChallengeDetail(updatedChallengeId);
         model.addAttribute("challenge", challenge);
@@ -95,17 +95,29 @@ public class ChallengeAdminController {
     // 인증 전체 조회
     @Operation(summary = "인증 전체 조회")
     @GetMapping("/verifications")
-    public String getAllVerifications(){
+    public String getAllVerifications(Model model){
         List<VerificationPreview> response = challengeService.getAllVerifications();
-        return "";
+        model.addAttribute("verifications", response);
+        return "auth";
     }
 
     // 인증 단일 조회
     @Operation(summary = "인증 단일 조회")
     @GetMapping("/verification/{verificationId}")
-    public String getVerification(@PathVariable Long verificationId){
+    public String getVerification(@PathVariable Long verificationId, Model model){
         VerificationDetail response = challengeService.getVerification(verificationId);
-        return "";
+        model.addAttribute("verification", response);
+        return "authDetail";
+    }
+
+    // 인증 상태 변경
+    @Operation(summary = "인증 상태 변경")
+    @PutMapping("/verification/{verificationId}")
+    public String editVerificationStatus(@PathVariable Long verificationId, @ModelAttribute VerificationRequest request, Model model){
+        Long id = challengeService.updateVerification(request, verificationId);
+        VerificationDetail response = challengeService.getVerification(id);
+        model.addAttribute("verification", response);
+        return "redirect:/admin/challenges/verifications";
     }
 
 }

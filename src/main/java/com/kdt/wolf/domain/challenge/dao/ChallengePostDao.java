@@ -7,7 +7,7 @@ import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
-import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest.VerificationRequest;
 import com.kdt.wolf.domain.challenge.entity.*;
 import com.kdt.wolf.domain.challenge.repository.*;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
@@ -15,6 +15,7 @@ import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
+import com.kdt.wolf.global.exception.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -115,28 +116,30 @@ public class ChallengePostDao {
 
     // 챌린지 인증
     @Transactional
-    public void updateVerification(ChallengeVerificationRequest request, long userId) {
+    public Long updateVerification(VerificationRequest request, long id) {
         ChallengeRegistrationEntity registration = challengeRegistrationQueryRepository
-                .findChallengeRegistration(request.getGroupPostId(), request.getChallengePostId());
-        UserEntity user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
+                .findChallengeRegistration(request.groupPostId(), request.challengePostId());
+        VerificationEntity verificationEntity = verificationRepository.findById(id).orElseThrow(NotFoundException::new);
+        UserEntity user = userRepository.findByNickname(request.nickname()).orElseThrow(UserNotFoundException::new);
 
-        VerificationEntity verificationEntity = new VerificationEntity(
-                registration,
-                registration.getChallengePost(),
-                user,
-                request.getCertificationNo(),
-                request.getInstitutionName(),
-                request.getVerificationContent()
-        );
+//        VerificationEntity verificationEntity = new VerificationEntity(
+//                registration,
+//                registration.getChallengePost(),
+//                user,
+//                request.getCertificationNo(),
+//                request.getInstitutionName(),
+//                request.getVerificationContent()
+//        );
+        boolean status = request.status().equals("success");
+        verificationEntity.updateVerification(status);
+//        if(request.status().equals("success")) {
+//            GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
+//            entity.updateParticipationStatus();
+//            groupChallengeParticipantRepository.save(entity);
+//            verificationEntity.updateVerification();
+//        };
 
-        if(request.getStatus().equals("Y")) {
-            GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
-            entity.updateParticipationStatus();
-            groupChallengeParticipantRepository.save(entity);
-            verificationEntity.updateVerification();
-        }
-
-        verificationRepository.save(verificationEntity);
+        return verificationRepository.save(verificationEntity).getVerificationId();
     }
 
     // 챌린지 생성
@@ -193,9 +196,9 @@ public class ChallengePostDao {
                                 verification.getVerificationId(),
                                 verification.getUser().getNickname(),
                                 verification.getChallengePost().getTitle(),
-                                verification.getRegistration().getChallengePost().getTitle(),
-                                verification.getCreatedTime().toString(),
-                                verification.isVerification()
+                                verification.getRegistration().getGroupPost().getName(),
+                                verification.getCreatedTime().toLocalDate().toString(),
+                                verification.isVerification() ? "인증 성공" : "인증 실패"
                         )
                 ).toList();
     }
@@ -204,13 +207,15 @@ public class ChallengePostDao {
         VerificationEntity verification = verificationRepository.findById(verificationId).orElseThrow(NotFoundException::new);
         return new VerificationDetail(
                 verification.getVerificationId(),
+                verification.getRegistration().getGroupPost().getGroupPostId(),
+                verification.getChallengePost().getChallengePostId(),
                 verification.getUser().getNickname(),
                 verification.getChallengePost().getTitle(),
-                verification.getRegistration().getGroupPost().getName(),
                 verification.getCertificationNo(),
                 verification.getInstitutionName(),
                 verification.getVerificationContent(),
-                verification.isVerification()
+                verification.getCreatedTime().toLocalDate().toString(),
+                verification.isVerification() ? "인증 성공" : "인증 실패"
         );
     }
 }

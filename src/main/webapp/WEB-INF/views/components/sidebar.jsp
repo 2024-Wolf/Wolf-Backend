@@ -14,6 +14,6 @@
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/report") ? "active" : "" %>"
 	       href="/admin/reports">신고</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/auth") ? "active" : "" %>"
-	       href="/auth">인증</a>
+	       href="/admin/challenges/verifications">인증</a>
 	</nav>
 	<div class="sidebarSection"></div>

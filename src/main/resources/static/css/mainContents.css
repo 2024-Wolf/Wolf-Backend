@@ -1,7 +1,7 @@
 .mainContents {
     display: flex;
     justify-content: start;
-    align-items: left;
+    align-items: start;
     height: auto;
     width: 100%;
     max-width: 1500px;
@@ -361,6 +361,10 @@ select.input {
     background: var(--violet200);
     color: var(--black500);
 }
+.input[readonly] {
+    background: var(--violet200);
+    color: var(--black500);
+}
 
 
 
@@ -380,6 +384,10 @@ select.input {
 }
 
 .textarea:disabled {
+    background: var(--violet200);
+    color: var(--black500);
+}
+.textarea[readonly] {
     background: var(--violet200);
     color: var(--black500);
 }
