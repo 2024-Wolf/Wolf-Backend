@@ -131,11 +131,11 @@ public class ChallengePostDao {
 //                request.getVerificationContent()
 //        );
         boolean status = request.status().equals("success");
+        GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
+        entity.updateParticipationStatus();
+        groupChallengeParticipantRepository.save(entity);
         verificationEntity.updateVerification(status);
 //        if(request.status().equals("success")) {
-//            GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
-//            entity.updateParticipationStatus();
-//            groupChallengeParticipantRepository.save(entity);
 //            verificationEntity.updateVerification();
 //        };
 
