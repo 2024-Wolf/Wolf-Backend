@@ -50,7 +50,8 @@ public class UserDao {
                 request.jobTitle(),
                 request.organization(),
                 request.experience(),
-                request.interests()
+                request.interests(),
+                request.currentStatus()
         );
         saveUser(user);
     }

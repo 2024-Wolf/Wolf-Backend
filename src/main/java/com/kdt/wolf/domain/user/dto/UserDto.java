@@ -42,6 +42,7 @@ public class UserDto {
             String organization,
             int experience,
             String interests,
+            String currentStatus,
             String refundAccount,
             String introduction,
             List<UserLinkUpdateRequest> links

@@ -6,6 +6,7 @@ public class SignUpDto {
             String organization,
             int experience,
 
+            String currentStatus,
             String interests,
             String nickname
     ) {
