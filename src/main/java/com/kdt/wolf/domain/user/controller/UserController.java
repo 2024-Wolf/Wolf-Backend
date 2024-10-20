@@ -49,6 +49,12 @@ public class UserController {
         return ApiResult.ok(response);
     }
 
+    @Operation(summary = "사용 가능한 닉네임 조회 / true : 사용 가능")
+    public ApiResult<Boolean> isNicknameAvailable (@RequestBody String nickname) {
+        boolean isAvailable = userService.isNicknameAvailable(nickname);
+        return ApiResult.ok(isAvailable);
+    }
+
     @PostMapping("/sign-up")
     public ApiResult<?> completeSignUpProcess(@RequestBody SignUpRequest request,
                                               @AuthenticationPrincipal AuthenticatedUser user) {

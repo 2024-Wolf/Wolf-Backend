@@ -107,4 +107,9 @@ public class UserDao {
         }
         return user.getUserId();
     }
+
+    public boolean isNicknameAvailable(String nickname) {
+        //이미 존재하면 ? userRepository.existsByNickname(nickname) -> true
+        return !userRepository.existsByNickname(nickname);
+    }
 }
