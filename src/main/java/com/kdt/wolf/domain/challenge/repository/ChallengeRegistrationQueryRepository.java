@@ -67,8 +67,10 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
                 + "SELECT 1 "
                 + "FROM ChallengeRegistrationEntity r "
                 + "WHERE r.groupPost.groupPostId = :groupId "
-                + "AND r.challengePost.challengePostId = p.challengePostId"
-            + ")")
+                + "AND r.challengePost.challengePostId = p.challengePostId "
+            + ")"
+            + " AND p.deadline >= CURRENT_DATE"
+            )
     Page<ChallengePostEntity> findApplicableChallenges(Long groupId, Pageable pageable);
 
     // 결제 가능
