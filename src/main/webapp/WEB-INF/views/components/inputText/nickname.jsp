@@ -3,5 +3,5 @@
     <label class="subtitle" for="nickname">닉네임</label>
     <input class="textContent input" type="text" name="nickname" id="nickname"
         value="<%= request.getParameter("nickname") %>"
-		<%= request.getRequestURI().contains("Detail") ? "disabled" : "required" %>>
+		<%= request.getRequestURI().contains("Detail") ? "readonly" : "required" %>>
 </div>

@@ -4,20 +4,22 @@ public class ChallengeAdminDto {
     public record VerificationPreview(
             Long id,
             String userNickname,
-            String challengeTitle,
+            String title,
             String groupTitle,
             String createdAt,
-            boolean isVerified
+            String isVerified
     ) { }
 
     public record VerificationDetail(
             Long id,
+            Long challengePostId,
+            Long groupId,
             String userNickname,
-            String challengeTitle,
+            String title,
             String certificationNo,
             String institutionName,
             String verificationContent,
             String createdAt,
-            boolean isVerified
+            String isVerified
     ) { }
 }

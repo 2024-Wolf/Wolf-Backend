@@ -54,4 +54,10 @@ public class AlertService {
     public String sendAlert(AlertRequest request) {
         return fcmService.sendNotificationByToken(request.toFCMNotificationRequestDto());
     }
+
+    public Long readAlarm(Long alertId) {
+        AlertEntity alert = alertDao.getAlarm(alertId);
+        alert.makeRead();
+        return alert.getAlertId();
+    }
 }

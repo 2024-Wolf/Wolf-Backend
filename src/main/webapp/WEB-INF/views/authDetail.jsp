@@ -19,38 +19,39 @@
 				<%@ include file="components/sidebar.jsp" %>
 					<div class="infoCard">
 						<h2 class="title">인증 정보</h2>
-						<form method="get" action="/auth" onsubmit="alert('저장완료');" class="inputSection scrollArea">
+						<form method="POST" action="/admin/challenges/verification/${verification.id()}" onsubmit="console.log('폼 제출: ', this); alert('저장완료');" class="inputSection scrollArea">
 
 							<!-- 인증일 입력 필드 -->
 							<jsp:include page="components/inputDate/authDate.jsp">
-								<jsp:param name="authDate" value="2024-09-29" />
+								<jsp:param name="authDate" value="${verification.createdAt()}" />
 							</jsp:include>
+
+							<input type="hidden" name="challengePostId" id="challengePostId" value="${verification.challengePostId()}">
+
+							<input type="hidden" name="groupPostId" id="groupPostId" value="${verification.groupId()}">
 
 							<!-- 닉네임 입력 필드 -->
 							<jsp:include page="components/inputText/nickname.jsp">
-								<jsp:param name="nickname" value="힙합 늑대" />
+								<jsp:param name="nickname" value="${verification.userNickname()}" />
 							</jsp:include>
 
 							<!-- 챌린지 이름 입력 필드 -->
 							<jsp:include page="components/inputText/challengeName.jsp">
-								<jsp:param name="challengeName" value="야, 너도 자격증 딸 수 있어! (정처기)" />
+								<jsp:param name="title" value="${verification.title()}" />
 							</jsp:include>
 
 							<!-- 내용 입력 필드 -->
 							<jsp:include page="components/textarea/content.jsp">
-								<jsp:param name="content" value="인증 기관 : 한국산업인력공단
-자격증 코드 : 123123123
-인증자 이름 : 김늑대
-실패 이유 : 이미 인증된 자격증 코드" />
+								<jsp:param name="content" value="${verification.verificationContent()}" />
 							</jsp:include>
 
 							<hr style="border: 1px solid var(--black200);">
 							<!-- 인증 상태 입력 필드 -->
 							<jsp:include page="components/select/authStatus.jsp">
-								<jsp:param name="authStatus" value="인증 성공" />
+								<jsp:param name="status" value="${verification.isVerified()}" />
 							</jsp:include>
 
-
+							<input type="hidden" name="_method" value="PUT">
 							<!-- 취소 & 완료(submit) 버튼 -->
 							<jsp:include page="components/button/cancelCompleteButton.jsp" />
 						</form>

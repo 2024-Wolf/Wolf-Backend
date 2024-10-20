@@ -66,7 +66,7 @@ public class ChallengeController {
 
     // 챌린지 인증
     @PostMapping("/challenge/verification")
-    public ApiResult<?> challengeVerification(@RequestBody ChallengeVerificationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
+    public ApiResult<?> challengeVerification(@RequestBody ChallengeVerificationRequest.VerificationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.updateVerification(request, user.getUserId());
         return ApiResult.ok();
     }

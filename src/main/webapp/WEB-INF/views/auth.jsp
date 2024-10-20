@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,14 +39,16 @@
 									</thead>
 									<tbody>
 										<!-- 인증 테이블 tr -->
-										<jsp:include page="components/table/authTableTr.jsp">
-											<jsp:param name="auth_id" value="6" />
-											<jsp:param name="nickname" value="늑대소녀" />
-											<jsp:param name="challenge_title" value="야 너도 자격증 딸 수 있어!" />
-											<jsp:param name="group_title" value="늑대들" />
-											<jsp:param name="verification_date" value="2024.09.13" />
-											<jsp:param name="auth_status" value="인증 실패" />
-										</jsp:include>
+										<c:forEach var="verification" items="${verifications}">
+											<jsp:include page="components/table/authTableTr.jsp">
+												<jsp:param name="auth_id" value="${verification.id()}" />
+												<jsp:param name="nickname" value="${verification.userNickname()}" />
+												<jsp:param name="challenge_title" value="${verification.title()}" />
+												<jsp:param name="group_title" value="${verification.groupTitle()}" />
+												<jsp:param name="verification_date" value="${verification.createdAt()}" />
+												<jsp:param name="auth_status" value="${verification.isVerified()}" />
+											</jsp:include>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

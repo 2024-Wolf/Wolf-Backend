@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class AlertDto {
 
     public record AlertResponse(
+            String alertType,
             String alertContent,
             String alertLink,
             LocalDateTime alertTime
