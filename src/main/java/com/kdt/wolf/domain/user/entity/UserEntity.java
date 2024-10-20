@@ -36,6 +36,9 @@ public class UserEntity extends BaseTimeEntity {
     private String jobTitle;
     private String organization;
     private int experience;
+
+    // 사용자 현재 상태 (예: 스터디 그룹을 찾고 있어요)
+    private String currentStatus;
     private String interests;
     private String refundAccount;
     private String introduction;
@@ -64,11 +67,12 @@ public class UserEntity extends BaseTimeEntity {
         this.activityMetrics = new ActivityMetricsEntity(this);
     }
 
-    public void updateDetailProfile(String jobTitle, String organization, int experience, String interests) {
+    public void updateDetailProfile(String jobTitle, String organization, int experience, String interests, String currentStatus) {
         this.jobTitle = jobTitle;
         this.organization = organization;
         this.experience = experience;
         this.interests = interests;
+        this.currentStatus = currentStatus;
     }
 
     public void updateNickname(String nickname) {
@@ -82,7 +86,8 @@ public class UserEntity extends BaseTimeEntity {
                 request.jobTitle(),
                 request.organization(),
                 request.experience(),
-                request.interests()
+                request.interests(),
+                request.currentStatus()
         );
         return this;
     }

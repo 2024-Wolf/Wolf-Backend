@@ -7,7 +7,14 @@ public class UserDto {
     public record UserProfileResponse(
             Long id,
             String nickname,
+            String name,
             String profilePicture,
+
+            String jobTitle,
+            String organization,
+            int experience,
+
+            String introduction,
             ActivityMetric activityMetric
     ) {}
 
@@ -35,6 +42,7 @@ public class UserDto {
             String organization,
             int experience,
             String interests,
+            String currentStatus,
             String refundAccount,
             String introduction,
             List<UserLinkUpdateRequest> links

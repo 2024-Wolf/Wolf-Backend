@@ -32,8 +32,12 @@ public class UserDao {
     public UserLoginResult signUpOrSignIn(OAuth2UserInfo userInfo) {
         Optional<UserEntity> user = userRepository.findByEmail(userInfo.getEmail());
         if(user.isPresent()) {
+            if(user.get().getNickname().isEmpty()) {
+                return new UserLoginResult(user.get(), LoginFlag.SIGNUP);
+            }
             return new UserLoginResult(user.get(), LoginFlag.LOGIN);
         }
+
         UserEntity newUser = userRepository.save(userInfo.toEntity());
         return new UserLoginResult(newUser, LoginFlag.SIGNUP);
     }
@@ -46,7 +50,8 @@ public class UserDao {
                 request.jobTitle(),
                 request.organization(),
                 request.experience(),
-                request.interests()
+                request.interests(),
+                request.currentStatus()
         );
         saveUser(user);
     }
@@ -102,5 +107,10 @@ public class UserDao {
             banUser(user);
         }
         return user.getUserId();
+    }
+
+    public boolean isNicknameAvailable(String nickname) {
+        //이미 존재하면 ? userRepository.existsByNickname(nickname) -> true
+        return !userRepository.existsByNickname(nickname);
     }
 }

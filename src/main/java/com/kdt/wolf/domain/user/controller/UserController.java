@@ -49,6 +49,12 @@ public class UserController {
         return ApiResult.ok(response);
     }
 
+    @Operation(summary = "사용 가능한 닉네임 조회 / true : 사용 가능")
+    public ApiResult<Boolean> isNicknameAvailable (@RequestBody String nickname) {
+        boolean isAvailable = userService.isNicknameAvailable(nickname);
+        return ApiResult.ok(isAvailable);
+    }
+
     @PostMapping("/sign-up")
     public ApiResult<?> completeSignUpProcess(@RequestBody SignUpRequest request,
                                               @AuthenticationPrincipal AuthenticatedUser user) {
@@ -69,6 +75,13 @@ public class UserController {
     public ApiResult<List<AlertResponse>> getAlarmsPreview(@AuthenticationPrincipal AuthenticatedUser user) {
         List<AlertResponse> response = alertService.getAlarmsPreview(user.getUserId());
         return ApiResult.ok(response);
+    }
+
+    @Operation(summary = "알람 읽음 처리")
+    @PostMapping("/alarms/{alertId}")
+    public ApiResult<Long> readAlarm(@PathVariable Long alertId) {
+        Long alarmId = alertService.readAlarm(alertId);
+        return ApiResult.ok(alarmId);
     }
 
 }
