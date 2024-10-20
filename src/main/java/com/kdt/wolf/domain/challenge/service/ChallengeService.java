@@ -12,7 +12,7 @@ import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
-import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest;
+import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest.VerificationRequest;
 import com.kdt.wolf.domain.challenge.dto.response.PaymentResponse;
 import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
 import com.kdt.wolf.domain.challenge.entity.PaymentEntity;
@@ -141,9 +141,9 @@ public class ChallengeService {
     }
 
     // 챌린지 인증
-    public void updateVerification(ChallengeVerificationRequest request, Long userId){
+    public Long updateVerification(VerificationRequest request, Long id){
 
-        challengePostDao.updateVerification(request, userId);
+        return challengePostDao.updateVerification(request, id);
     }
 
     // 챌린지 생성

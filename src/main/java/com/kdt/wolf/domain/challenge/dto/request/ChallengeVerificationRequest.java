@@ -1,15 +1,16 @@
 package com.kdt.wolf.domain.challenge.dto.request;
 
-import lombok.Getter;
 
-@Getter
 public class ChallengeVerificationRequest {
-    private Long challengePostId;
-    private Long groupPostId;
-    private String status;
+    public record VerificationRequest(
+            Long challengePostId,
+            Long groupPostId,
+            String nickname,
+            String status,
+            String certificationNo,
+            String institutionName,
+            String content
+    ) {}
 
-    private String certificationNo;
-    private String institutionName;
-    private String verificationContent;
 
 }

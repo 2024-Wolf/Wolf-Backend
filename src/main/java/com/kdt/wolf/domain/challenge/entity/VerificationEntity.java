@@ -50,7 +50,7 @@ public class VerificationEntity extends BaseTimeEntity {
         this.verificationContent = verificationContent;
     }
 
-    public void updateVerification() {
-        this.isVerification = true;
+    public void updateVerification(boolean status) {
+        this.isVerification = status;
     }
 }

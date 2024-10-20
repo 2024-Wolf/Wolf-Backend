@@ -15,6 +15,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @EntityGraph(attributePaths = {"activityMetrics"})
     Optional<UserEntity> findByEmail(String email);
 
+    Optional<UserEntity> findByNickname(String nickname);
+
     @Override
     @EntityGraph(attributePaths = {"activityMetrics"})
     @NonNull
