@@ -32,7 +32,7 @@ public class UserDao {
     public UserLoginResult signUpOrSignIn(OAuth2UserInfo userInfo) {
         Optional<UserEntity> user = userRepository.findByEmail(userInfo.getEmail());
         if(user.isPresent()) {
-            if(user.get().getNickname().isEmpty()) {
+            if(user.get().getNickname() == null) {
                 return new UserLoginResult(user.get(), LoginFlag.SIGNUP);
             }
             return new UserLoginResult(user.get(), LoginFlag.LOGIN);

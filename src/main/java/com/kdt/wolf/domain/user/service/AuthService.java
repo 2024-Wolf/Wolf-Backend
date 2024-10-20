@@ -70,7 +70,7 @@ public class AuthService {
     }
 
     private TokenResponse generateJwtTokenResponse(UserEntity user) {
-        refreshTokenService.deleteRefreshTokenByUserId(user.getUserId());
+//        refreshTokenService.deleteRefreshTokenByUserId(user.getUserId());
 
         TokenResponse tokenResponse = tokenProvider.createJwtTokenResponse(user);
         refreshTokenService.saveRefreshToken(user, tokenResponse.refreshToken());
