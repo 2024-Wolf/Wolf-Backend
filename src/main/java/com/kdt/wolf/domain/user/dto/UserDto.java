@@ -7,7 +7,14 @@ public class UserDto {
     public record UserProfileResponse(
             Long id,
             String nickname,
+            String name,
             String profilePicture,
+
+            String jobTitle,
+            String organization,
+            int experience,
+
+            String introduction,
             ActivityMetric activityMetric
     ) {}
 

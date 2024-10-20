@@ -58,7 +58,14 @@ public class UserService {
         return new UserProfileResponse(
                 user.getUserId(),
                 user.getNickname(),
+                user.getName(),
                 user.getProfilePicture(),
+
+                user.getJobTitle(),
+                user.getOrganization(),
+                user.getExperience(),
+
+                user.getIntroduction(),
                 user.getActivityMetrics().toResponse()
         );
     }
