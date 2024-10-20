@@ -32,8 +32,12 @@ public class UserDao {
     public UserLoginResult signUpOrSignIn(OAuth2UserInfo userInfo) {
         Optional<UserEntity> user = userRepository.findByEmail(userInfo.getEmail());
         if(user.isPresent()) {
+            if(user.get().getNickname().isEmpty()) {
+                return new UserLoginResult(user.get(), LoginFlag.SIGNUP);
+            }
             return new UserLoginResult(user.get(), LoginFlag.LOGIN);
         }
+
         UserEntity newUser = userRepository.save(userInfo.toEntity());
         return new UserLoginResult(newUser, LoginFlag.SIGNUP);
     }
