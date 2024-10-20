@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface GroupChallengeParticipantRepository  extends JpaRepository<GroupChallengeParticipantEntity, Long> {
 
-    @Query("Select P "
-            + "FROM GroupChallengeParticipantEntity P "
-            + "WHERE P.challengeRegistration = :registration "
-            + "AND P.user = :user")
+    @Query("Select cp "
+            + "FROM GroupChallengeParticipantEntity cp "
+            + "WHERE cp.challengeRegistration = :registration "
+            + "AND cp.user = :user")
     GroupChallengeParticipantEntity findGroupChallengeParticipantEntity(ChallengeRegistrationEntity registration, UserEntity user);
 }

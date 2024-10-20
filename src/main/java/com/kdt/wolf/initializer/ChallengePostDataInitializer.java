@@ -31,6 +31,7 @@ public class ChallengePostDataInitializer  implements CommandLineRunner {
     @Transactional
     public void insertChallengePostData(Long adminUserId) {
         List<ChallengePostEntity> challengePosts = Arrays.asList(
+                new ChallengePostEntity(adminUserId, "img0.png", "웅진 자격증 대비", "웅진 자격증을 목표로 공부하는 챌린지입니다.", "열심히 참여하기", "월마다 지원비 입금!", LocalDate.now().minusDays(30)),
                 new ChallengePostEntity(adminUserId, "img1.png", "정보처리기사 자격증 대비", "정보처리기사 자격증을 목표로 공부하는 챌린지입니다.", "꾸준히 학습하기", "합격자에게 자격증 시험 응시료 환급!", LocalDate.now().plusDays(30)),
                 new ChallengePostEntity(adminUserId, "img2.png", "컴퓨터 활용능력 1급 챌린지", "컴퓨터 활용능력 1급 시험을 준비하는 챌린지입니다.", "실습 위주로 학습하기", "합격자에게 엑셀/워드 강의 무료 제공", LocalDate.now().plusDays(25)),
                 new ChallengePostEntity(adminUserId, "img3.png", "네트워크 관리사 2급 도전", "네트워크 관리사 2급을 준비하는 도전입니다.", "기출 문제 반복 학습", "합격자에게 네트워크 관련 서적 증정", LocalDate.now().plusDays(20)),
