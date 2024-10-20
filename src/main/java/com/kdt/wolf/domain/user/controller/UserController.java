@@ -71,4 +71,11 @@ public class UserController {
         return ApiResult.ok(response);
     }
 
+    @Operation(summary = "알람 읽음 처리")
+    @PostMapping("/alarms/{alertId}")
+    public ApiResult<Long> readAlarm(@PathVariable Long alertId) {
+        Long alarmId = alertService.readAlarm(alertId);
+        return ApiResult.ok(alarmId);
+    }
+
 }
