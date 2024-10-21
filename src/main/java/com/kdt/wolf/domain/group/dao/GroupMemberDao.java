@@ -61,4 +61,8 @@ public class GroupMemberDao {
     public Page<GroupPostEntity> findCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
         return groupMemberRepository.findCompletedPostsByUserIdAndType(userId, type, pageable);
     }
+
+    public Long countByGroupPostId(Long groupPostId) {
+        return groupMemberRepository.countByGroupPostId(groupPostId);
+    }
 }

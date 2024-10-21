@@ -26,4 +26,10 @@ public interface GroupMemberRepository extends JpaRepository<GroupMemberEntity, 
             + "WHERE m.user.userId = :userId AND m.groupPost.type = :type AND m.groupPost.endDate < CURRENT_DATE"
     )
     Page<GroupPostEntity> findCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable);
+
+    @Query("SELECT COUNT(m) "
+            + "FROM GroupMemberEntity m "
+            + "WHERE m.groupPost.groupPostId = :groupPostId"
+    )
+    Long countByGroupPostId(Long groupPostId);
 }

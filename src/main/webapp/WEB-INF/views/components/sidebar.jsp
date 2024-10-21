@@ -8,7 +8,7 @@
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/user") ? "active" : "" %>"
 	       href="/admin/users">회원</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/group") ? "active" : "" %>"
-	       href="/group">그룹</a>
+	       href="/admin/groups">그룹</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/challenge") ? "active" : "" %>"
 	       href="/admin/challenges">챌린지</a>
 	    <a class="sidebar-item <%= request.getRequestURI().startsWith("/WEB-INF/views/report") ? "active" : "" %>"

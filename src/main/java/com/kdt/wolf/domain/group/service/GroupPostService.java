@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dao.GroupPostDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
+import com.kdt.wolf.domain.group.dto.GroupAdminDto.GroupPreviewPageResponse;
 import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
