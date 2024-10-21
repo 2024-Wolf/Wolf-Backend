@@ -26,6 +26,7 @@ public class ChallengeController {
     private final ChallengeService challengeService;
 
     // 챌린지(단일) 조회
+    @Operation(summary = "챌린지 단일 조회")
     @GetMapping("/challenge/{challengePostId}")
     public ApiResult<ChallengeDto.ChallengeDetail> getChallenge(@PathVariable Long challengePostId){
         return ApiResult.ok(challengeService.getChallenge(challengePostId));
@@ -44,6 +45,7 @@ public class ChallengeController {
     }
 
     // 그룹장 신청
+    @Operation(summary = "그룹장 신청")
     @PostMapping("/registration")
     public ApiResult<?> challengeRegistration(@RequestBody ChallengeRegistrationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.createChallengeRegistration(request, user.getUserId());
@@ -51,6 +53,7 @@ public class ChallengeController {
     }
 
     // 그룹원 참여
+    @Operation(summary = "그룹원 참여")
     @PostMapping("/registrations")
     public ApiResult<?> challengeRegistrations(@RequestBody ChallengeRegistrationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.createChallengeRegistrations(request, user.getUserId());
@@ -58,6 +61,7 @@ public class ChallengeController {
     }
 
     // 챌린지 결제
+    @Operation(summary = "챌린지 결제")
     @PostMapping("/payment")
     public ApiResult<?> challengePayment(@RequestBody ChallengePaymentRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.challengePayment(request, user.getUserId());
@@ -65,6 +69,7 @@ public class ChallengeController {
     }
 
     // 챌린지 인증
+    @Operation(summary = "챌린지 인증")
     @PostMapping("/challenge/verification")
     public ApiResult<?> challengeVerification(@RequestBody ChallengeVerificationRequest.VerificationRequest request, @AuthenticationPrincipal AuthenticatedUser user){
         challengeService.updateVerification(request, user.getUserId());

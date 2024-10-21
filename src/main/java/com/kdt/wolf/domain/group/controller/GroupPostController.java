@@ -133,7 +133,7 @@ public class GroupPostController {
         return ApiResult.ok(taskId);
     }
 
-    @Operation(summary = "할일 조회")
+    @Operation(summary = "할일 조회 / status : NOT_STARTED, IN_PROGRESS, COMPLETED")
     @GetMapping("/{groupId}/task")
     public ApiResult<List<TaskResponse>> getTask(
             @PathVariable Long groupId){
@@ -142,9 +142,8 @@ public class GroupPostController {
     }
 
     @Operation(summary = "할일 수정")
-    @PutMapping("/{groupId}/task/{taskId}")
+    @PutMapping("/task/{taskId}")
     public ApiResult<Void> updateTask(
-            @PathVariable Long groupId,
             @PathVariable Long taskId,
             @RequestBody TaskRequest request){
         taskService.editTask(taskId, request);
@@ -152,9 +151,8 @@ public class GroupPostController {
     }
 
     @Operation(summary = "할일 삭제")
-    @DeleteMapping("/{groupId}/task/{taskId}")
+    @DeleteMapping("/task/{taskId}")
     public ApiResult<Void> deleteTask(
-            @PathVariable Long groupId,
             @PathVariable Long taskId){
         taskService.deleteTask(taskId);
         return ApiResult.ok(null);

@@ -47,6 +47,7 @@ public class QuestionBoardService {
 
     public void insertQuestion(Long groupPostId, String option, QuestionRequest request, Long userId) {
         UserEntity user = findUserById(userId);
+
         questionBoardDao.createQuestion(groupPostId, option, request, user);
     }
 

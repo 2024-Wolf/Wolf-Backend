@@ -32,7 +32,7 @@ public class VerificationDataInitializer implements CommandLineRunner {
         if (verificationRepository.count() > 0) {
             return;
         }
-        insertVerificationData();
+        //insertVerificationData();
         System.out.println("Verification 더미 데이터가 성공적으로 삽입되었습니다.");
     }
 
