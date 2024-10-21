@@ -4,12 +4,14 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 import com.kdt.wolf.global.base.ApiResult;
 import com.kdt.wolf.global.base.ValidationErrorResponse;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.NotFoundException;
+import com.kdt.wolf.global.exception.UnauthorizedException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -43,7 +45,13 @@ public class GlobalExceptionHandler {
         return ApiResult.of(e);
     }
 
-
+    @ResponseStatus(code = UNAUTHORIZED)
+    @ExceptionHandler(UnauthorizedException.class)
+    public ApiResult<?> handleUnauthorizedException(final UnauthorizedException e) {
+        log.error(e.getMessage(), e);
+        ExceptionMDCBuilder.getStringStringMap(e);
+        return ApiResult.of(e);
+    }
 
     // =================================================================================================================================================
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -50,7 +51,8 @@ public class UserController {
     }
 
     @Operation(summary = "사용 가능한 닉네임 조회 / true : 사용 가능")
-    public ApiResult<Boolean> isNicknameAvailable (@RequestBody String nickname) {
+    @GetMapping("/nickname")
+    public ApiResult<Boolean> isNicknameAvailable (@RequestParam String nickname) {
         boolean isAvailable = userService.isNicknameAvailable(nickname);
         return ApiResult.ok(isAvailable);
     }

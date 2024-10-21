@@ -80,10 +80,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             () -> {
                                 // TODO :  토큰이 없는 경우 동작 처리 해야할까?
                             });
+        filterChain.doFilter(request, response);
         } catch (UnauthorizedException e) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }
-        filterChain.doFilter(request, response);
     }
 
     private Optional<String> extractToken(String authorization) { // resolve AccessToken

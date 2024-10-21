@@ -40,6 +40,7 @@ public class SecurityConfig {
                         authz ->
                                 authz.requestMatchers("/api/v1/auth/google", "/api/v1/auth/login", "/api/v1/auth/test-login",
                                                 "/api/v1/auth/reissue").permitAll()
+                                        .requestMatchers("/api/v1/**").authenticated()
                                         .requestMatchers(HttpMethod.GET, "/api/v1/post/{options}").permitAll()
                                         .requestMatchers(HttpMethod.POST, "/admin/auth/login").permitAll()
                                         .requestMatchers("/admin/**").hasRole("ADMIN")

@@ -9,6 +9,7 @@ import com.kdt.wolf.global.fcm.entity.FcmEntity;
 import com.kdt.wolf.global.fcm.repository.FcmRepository;
 import com.kdt.wolf.global.fcm.service.dto.FCMNotificationRequestDto;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,8 +46,10 @@ public class FcmService {
     }
 
     public void deleteFcmToken(String fcmToken) {
-        FcmEntity fcmEntity = fcmRepository.findByFcmToken(fcmToken)
-                .orElseThrow(() -> new BusinessException(ExceptionCode.NOT_FOUND));
-        fcmRepository.delete(fcmEntity);
+        Optional<FcmEntity> fcmEntity = fcmRepository.findByFcmToken(fcmToken);
+        if(fcmEntity.isEmpty()) {
+            return;
+        }
+        fcmRepository.delete(fcmEntity.get());
     }
 }

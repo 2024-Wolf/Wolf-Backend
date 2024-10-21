@@ -21,6 +21,7 @@ public class AlertDao {
                 .map(alert -> {
                     alert.makeRead();
                     return new AlertResponse(
+                            alert.getAlertId(),
                             alert.getType().getType(),
                             alert.getAlertContent(),
                             alert.getAlertLink(),
@@ -35,6 +36,7 @@ public class AlertDao {
         return alerts
                 .stream()
                 .map(alert -> new AlertResponse(
+                        alert.getAlertId(),
                         alert.getType().getType(),
                         alert.getAlertContent(),
                         alert.getAlertLink(),
