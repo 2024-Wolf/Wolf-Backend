@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
     String groupType = request.getParameter("groupType");
-    String challengeName = request.getParameter("challengeName");
+//    String challengeName = request.getParameter("challengeName");
     String challengeCount = request.getParameter("challengeCount");
 
     // 입력 유효성 검사
-    if (groupType == null || challengeName == null || challengeCount == null) {
+    if (groupType == null || challengeCount == null) {
         // 기본값 또는 오류 메시지 처리
         groupType = "";
-        challengeName = "";
+//        challengeName = "";
         challengeCount = "";
     }
 %>
@@ -20,12 +20,12 @@
 </div>
 
 <%
-    if("스터디".equals(groupType)) {
+    if("STUDY".equals(groupType)) {
 %>
-<!-- 진행했던 챌린지 입력 필드 -->
-<jsp:include page="../inputText/challengeName.jsp">
-    <jsp:param name="challengeName" value="<%= challengeName %>" />
-</jsp:include>
+<%--<!-- 진행했던 챌린지 입력 필드 -->--%>
+<%--<jsp:include page="../inputText/challengeName.jsp">--%>
+<%--    <jsp:param name="challengeName" value="<%= challengeName %>" />--%>
+<%--</jsp:include>--%>
 
 <!-- 챌린지 횟수 입력 필드 -->
 <jsp:include page="../inputText/challengeCount.jsp">

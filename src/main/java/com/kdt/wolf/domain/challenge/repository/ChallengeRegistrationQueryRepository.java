@@ -90,4 +90,8 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + "AND r.challengePost.challengePostId = :challengePostId")
     ChallengeRegistrationEntity findChallengeRegistration(Long groupPostId, Long challengePostId);
 
+    @Query("SELECT COUNT(cp)"
+            + "FROM GroupChallengeParticipantEntity cp "
+            + "WHERE cp.challengeRegistration.groupPost.groupPostId = :groupId AND cp.paymentStatus = 'Y'")
+    Long countByGroupPostId(Long groupId);
 }

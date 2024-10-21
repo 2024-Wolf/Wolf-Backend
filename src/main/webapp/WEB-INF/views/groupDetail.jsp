@@ -24,45 +24,44 @@
 						<form method="get" action="/group" onsubmit="alert('저장완료');" class="inputSection scrollArea">
 							<!-- 모집 상태 입력 필드 -->
 							<jsp:include page="components/select/recruitmentStatus.jsp">
-								<jsp:param name="recruitmentStatus" value="모집 중" />
+								<jsp:param name="recruitmentStatus" value="${groupDetail.status()}" />
 							</jsp:include>
 
 							<!-- 기간 입력 필드 -->
 							<jsp:include page="components/inputDate/startEndDate.jsp">
-								<jsp:param name="startDate" value="2024-09-01" />
-								<jsp:param name="endDate" value="2024-09-30" />
+								<jsp:param name="startDate" value="${groupDetail.startDate()}" />
+								<jsp:param name="endDate" value="${groupDetail.endDate()}" />
 							</jsp:include>
 
 							<!-- 구분 & 진행했던 챌린지 & 챌린지 횟수 입력 필드 -->
 							<jsp:include page="components/inputText/groupType.jsp">
-								<jsp:param name="groupType" value="스터디" />
-								<jsp:param name="challengeName" value="야, 너도 자격증 딸 수 있어! (정처기)" />
-								<jsp:param name="challengeCount" value="50개" />
+								<jsp:param name="groupType" value="${groupDetail.type()}" />
+								<jsp:param name="challengeCount" value="${groupDetail.ChallengeCount()}개" />
 							</jsp:include>
 
 							<!-- 그룹명 입력 필드 -->
 							<jsp:include page="components/inputText/groupName.jsp">
-								<jsp:param name="groupName" value="Grooby Room" />
+								<jsp:param name="groupName" value="${groupDetail.name()}" />
 							</jsp:include>
 
 							<!-- 그룹장 입력 필드 -->
 							<jsp:include page="components/inputText/groupLeader.jsp">
-								<jsp:param name="groupLeader" value="힙합 늑대" />
+								<jsp:param name="groupLeader" value="${groupDetail.GroupLeader()}" />
 							</jsp:include>
 
 							<!-- 인원 입력 필드 -->
 							<jsp:include page="components/inputText/numberOfMember.jsp">
-								<jsp:param name="numberOfMember" value="5명" />
+								<jsp:param name="numberOfMember" value="${groupDetail.memberCount()}명" />
 							</jsp:include>
 
 							<!-- 그룹원 입력 필드 -->
 							<jsp:include page="components/inputText/groupMember.jsp">
-								<jsp:param name="groupMember" value="늑대1/늑대2" />
+								<jsp:param name="groupMember" value="${groupDetail.groupMembers()}" />
 							</jsp:include>
 
 							<!-- 태그 입력 필드 -->
 							<jsp:include page="components/inputText/tag.jsp">
-								<jsp:param name="tag" value="#프론트엔드 #백엔드 #풀스택" />
+								<jsp:param name="tag" value="${groupDetail.tag()}" />
 							</jsp:include>
 
 							<hr style="border: 1px solid var(--black200);">

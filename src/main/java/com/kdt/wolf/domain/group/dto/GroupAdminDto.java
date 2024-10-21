@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.group.dto;
 
-import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import java.util.List;
 
 public class GroupAdminDto {
@@ -18,5 +17,18 @@ public class GroupAdminDto {
             int page,
             int size,
             int totalPage
+    ) { }
+    public record GroupDetailResponse(
+            Long id,
+            String status,
+            String startDate,
+            String endDate,
+            String type,
+            int ChallengeCount,
+            String name,
+            String GroupLeader,
+            int memberCount,
+            String groupMembers,
+            String tag
     ) { }
 }

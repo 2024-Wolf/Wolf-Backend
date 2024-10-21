@@ -46,27 +46,6 @@ public class ChallengePostDao {
         return challengePostRepository.findAll();
     }
 
-    // 챌린지 목록 불러오기(회원)
-//    public List<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
-//    }
-//
-//    public List<ChallengeRegistrationEntity> findCertifiedChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId);
-//    }
-//
-//    public List<ChallengeRegistrationEntity> findCompletedChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
-//    }
-//
-//    public List<ChallengeRegistrationEntity> findPayableChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
-//    }
-//
-//    public List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
-//    }
-
     public Page<ChallengeRegistrationEntity> findChallengesByStatus(Long groupId, Long userId, ChallengeStatus status, Pageable pageable) {
         return switch (status) {
             case CERTIFICATION -> challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId, pageable);
@@ -212,5 +191,9 @@ public class ChallengePostDao {
                 verification.getCreatedTime().toLocalDate().toString(),
                 verification.isVerification() ? "인증 성공" : "인증 실패"
         );
+    }
+
+    public Long countByGroupPostId(Long groupId) {
+        return challengeRegistrationQueryRepository.countByGroupPostId(groupId);
     }
 }

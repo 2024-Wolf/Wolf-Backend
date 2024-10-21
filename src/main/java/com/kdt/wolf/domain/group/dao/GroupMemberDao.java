@@ -65,4 +65,12 @@ public class GroupMemberDao {
     public Long countByGroupPostId(Long groupPostId) {
         return groupMemberRepository.countByGroupPostId(groupPostId);
     }
+
+    public String findGroupMembers(GroupPostEntity group) {
+        List<GroupMemberEntity> members = groupMemberRepository.findAllByGroupPost(group);
+        return members.stream()
+                .map(member -> member.getUser().getName())
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("");
+    }
 }
