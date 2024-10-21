@@ -97,7 +97,7 @@ public class AuthService {
         validateRefreshToken(refreshToken);
 
         // 토큰에서 유저 정보 확인
-        long userId = Long.parseLong(tokenProvider.getSubject(accessToken));
+        long userId = Long.parseLong(tokenProvider.extractUserIdFromExpiredToken(accessToken));
         UserEntity user = userDao.findById(userId);
 
         return generateJwtTokenResponse(user);
