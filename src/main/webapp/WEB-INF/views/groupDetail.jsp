@@ -66,6 +66,11 @@
 
 							<hr style="border: 1px solid var(--black200);">
 
+							<!-- 챌린지 현황 필드 -->
+
+
+							<hr style="border: 1px solid var(--black200);">
+
 							<!-- 정지 상태 입력 필드 -->
 							<jsp:include page="components/select/userStatus.jsp">
 								<jsp:param name="userStatus" value="활성 상태" />

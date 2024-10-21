@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.repository;
 
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.ChallengeParticipantMember;
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
@@ -32,4 +33,10 @@ public interface GroupMemberRepository extends JpaRepository<GroupMemberEntity, 
             + "WHERE m.groupPost.groupPostId = :groupPostId"
     )
     Long countByGroupPostId(Long groupPostId);
+
+    @Query("SELECT m "
+            + "FROM GroupMemberEntity m "
+            + "WHERE m.groupPost = :groupPost"
+    )
+    List<GroupMemberEntity> findGroupMembers(GroupPostEntity groupPost);
 }

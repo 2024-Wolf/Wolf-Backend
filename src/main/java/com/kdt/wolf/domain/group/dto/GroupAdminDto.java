@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.dto;
 
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.ChallengePreviewByGroup;
 import java.util.List;
 
 public class GroupAdminDto {
@@ -29,6 +30,7 @@ public class GroupAdminDto {
             String GroupLeader,
             int memberCount,
             String groupMembers,
-            String tag
+            String tag,
+            List<ChallengePreviewByGroup> challenges
     ) { }
 }

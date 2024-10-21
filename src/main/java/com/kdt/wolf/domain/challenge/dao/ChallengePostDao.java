@@ -2,7 +2,6 @@ package com.kdt.wolf.domain.challenge.dao;
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
-import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
@@ -10,6 +9,7 @@ import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest.VerificationRequest;
 import com.kdt.wolf.domain.challenge.entity.*;
 import com.kdt.wolf.domain.challenge.repository.*;
+import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
@@ -195,5 +195,14 @@ public class ChallengePostDao {
 
     public Long countByGroupPostId(Long groupId) {
         return challengeRegistrationQueryRepository.countByGroupPostId(groupId);
+    }
+
+    public List<ChallengePostEntity> findByGroupPost(GroupPostEntity groupPost) {
+        return challengeRegistrationQueryRepository.findByGroupPost(groupPost);
+    }
+
+
+    public List<GroupChallengeParticipantEntity> findParticipants(GroupMemberEntity user, ChallengePostEntity challenge, GroupPostEntity groupPost) {
+        return groupChallengeParticipantRepository.findMemberByGroupPost(user, challenge, groupPost);
     }
 }
