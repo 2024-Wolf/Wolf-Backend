@@ -1,28 +1,29 @@
 package com.kdt.wolf.domain.group.dto.response;
 
 import com.kdt.wolf.domain.group.entity.TaskEntity;
-import com.kdt.wolf.domain.user.entity.UserEntity;
+import lombok.Getter;
 
+@Getter
 public class TaskResponse {
-    private final Author author;
+    private final Long id;
     private final String details;
     private final String status;
 
     public TaskResponse(TaskEntity taskEntity) {
-        this.author = new Author(taskEntity.getUser());
+        this.id = taskEntity.getTaskId();
         this.details = taskEntity.getDetails();
-        this.status = taskEntity.getStatus().toString().toLowerCase();
-    }
 
-    public class Author {
-        private final Long userId;
-        private final String userNickname;
-        private final String userProfileImg;
-
-        public Author(UserEntity user) {
-            this.userId = user.getUserId();
-            this.userNickname = user.getNickname();
-            this.userProfileImg = user.getProfilePicture();
+        switch(taskEntity.getStatus().toString()){
+            case "NOT_STARTED":
+                this.status = "기획 중";
+                break;
+            case "IN_PROGRESS":
+                this.status = "진행 중";
+                break;
+            default:
+                this.status = "완료";
+                break;
         }
     }
+
 }

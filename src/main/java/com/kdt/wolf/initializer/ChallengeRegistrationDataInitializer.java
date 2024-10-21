@@ -31,7 +31,7 @@ public class ChallengeRegistrationDataInitializer implements CommandLineRunner {
         if (challengeRegistrationRepository.count() > 0) {
             return;
         }
-        insertChallengeRegistrationData();
+        //insertChallengeRegistrationData();
         System.out.println("ChallengeRegistration 더미 데이터가 성공적으로 삽입되었습니다.");
     }
 
