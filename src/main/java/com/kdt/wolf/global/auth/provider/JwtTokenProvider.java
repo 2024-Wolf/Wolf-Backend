@@ -130,4 +130,19 @@ public class JwtTokenProvider {
 
         return jws.getPayload().getSubject();
     }
+
+    public String extractUserIdFromExpiredToken(String token) {
+        try {
+            // 만료된 토큰이더라도 페이로드만 추출할 수 있음
+            Claims claims = Jwts.parser()
+                    .verifyWith(key)  // 시크릿 키를 사용
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+            return claims.getSubject();  // 유저 ID 추출
+        } catch (ExpiredJwtException e) {
+            // 만료된 토큰에서 유저 ID 추출
+            return e.getClaims().getSubject();  // 만료된 토큰이어도 subject를 읽을 수 있음
+        }
+    }
 }

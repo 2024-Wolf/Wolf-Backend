@@ -17,6 +17,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -45,28 +47,39 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
-        String token = null;
-//        AdminEntity admin = null;
+        String token = null, refreshToken = null;
 
         if (session != null) {
             token = (String) session.getAttribute("JWT");
-//            admin = (AdminEntity) session.getAttribute("admin");
+            refreshToken = (String) session.getAttribute("REFRESH_TOKEN");
         }
         // && admin != null
         if (token != null) {
-            jwtTokenProvider.validateToken(token);
             try {
+                jwtTokenProvider.validateToken(token);
                 processTokenAuthentication(token);
-
-//                AuthenticatedAdmin authenticatedAdmin = new AuthenticatedAdmin(admin, UserRoleType.ROLE_ADMIN);
-//                Authentication authentication = new UsernamePasswordAuthenticationToken(
-//                        authenticatedAdmin, null, authenticatedAdmin.getAuthorities()
-//                );
-//
-//                SecurityContextHolder.getContext().setAuthentication(authentication);
-
             } catch (UnauthorizedException e) {
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                if (refreshToken != null) {
+                    jwtTokenProvider.validateToken(refreshToken);
+
+                    long adminId = Long.parseLong(jwtTokenProvider.extractUserIdFromExpiredToken(token));
+                    AdminEntity admin = adminRepository.findAdminById(adminId)
+                            .orElseThrow(UnauthorizedException::new);
+
+                    long now = new Date(System.currentTimeMillis()).getTime();
+                    String newAccessToken = jwtTokenProvider.generateAccessToken(admin, now);
+                    String newRefreshToken = jwtTokenProvider.createRefreshToken(now);
+
+                    session.setAttribute("JWT", newAccessToken); // 세션에 새로운 액세스 토큰 저장
+                    session.setAttribute("refreshToken", refreshToken); // 세션에 리프레시 토큰 저장
+
+                    processTokenAuthentication(newAccessToken); // 새로운 토큰으로 인증 처리
+                } else {
+                    session.invalidate();  // 세션 무효화
+                    response.setStatus(HttpStatus.UNAUTHORIZED.value());  // 401 Unauthorized 반환
+                    response.sendRedirect("/");  // 로그인 페이지로 리다이렉트
+                    return;
+                }
             }
             filterChain.doFilter(request, response);
             return;
@@ -132,4 +145,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
+
 }
