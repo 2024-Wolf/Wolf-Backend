@@ -25,9 +25,9 @@ import org.springframework.stereotype.Component;
 @Component
 @NoArgsConstructor
 public class JwtTokenProvider {
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 5;
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
     private static final String BEARER_TYPE = "bearer";
-    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 5;
 
     @Value("${security.access-token.jwt-secret-key}")
     private String signatureSecretKey;
@@ -141,7 +141,6 @@ public class JwtTokenProvider {
                     .getPayload();
             return claims.getSubject();  // 유저 ID 추출
         } catch (ExpiredJwtException e) {
-            // 만료된 토큰에서 유저 ID 추출
             return e.getClaims().getSubject();  // 만료된 토큰이어도 subject를 읽을 수 있음
         }
     }
