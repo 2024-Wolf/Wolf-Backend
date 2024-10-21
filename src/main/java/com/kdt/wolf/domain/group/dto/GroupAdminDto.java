@@ -12,19 +12,7 @@ public class GroupAdminDto {
             String endDate,
             int memberCount,
             char challengeStatus
-    ) {
-        public GroupPreviewResponse(GroupPostEntity entity, Long memberCount) {
-            this(
-                    entity.getGroupPostId(),
-                    entity.getName(),
-                    entity.getType().name(),
-                    entity.getStartDate().toString(),
-                    entity.getEndDate().toString(),
-                    memberCount.intValue(),
-                    entity.getChallengeStatus()
-            );
-        }
-    }
+    ) { }
     public record GroupPreviewPageResponse(
             List<GroupPreviewResponse> groups,
             int page,

@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -43,14 +43,13 @@
                                         <!-- 그룹 테이블 tr -->
                                         <c:forEach var="group" items="${groups}">
                                             <jsp:include page="components/table/groupTableTr.jsp">
-                                                <jsp:param name="group_id" value="group.id()" />
-                                                <jsp:param name="group_title" value="group.name()" />
-                                                <jsp:param name="group_type" value="group.type()" />
-                                                <jsp:param name="start_date" value="group.startDate()" />
-                                                <jsp:param name="end_date" value="group.endDate()" />
-                                                <jsp:param name="member_cnt" value="group.memberCount()" />
-<%--                                                <jsp:param name="challenge_title" value="너도 자격증 딸 수 있어!" />--%>
-                                                <jsp:param name="challenge_status" value="group.challengeStatus()" />
+                                                <jsp:param name="group_id" value="${group.id()}" />
+                                                <jsp:param name="group_title" value="${group.name()}" />
+                                                <jsp:param name="group_type" value="${group.type()}" />
+                                                <jsp:param name="start_date" value="${group.startDate()}" />
+                                                <jsp:param name="end_date" value="${group.endDate()}" />
+                                                <jsp:param name="member_cnt" value="${group.memberCount()}" />
+                                                <jsp:param name="challenge_status" value="${group.challengeStatus()}" />
                                             </jsp:include>
                                         </c:forEach>
 

@@ -3,11 +3,13 @@ package com.kdt.wolf.domain.group.controller;
 import com.kdt.wolf.domain.group.dto.GroupAdminDto.GroupPreviewPageResponse;
 import com.kdt.wolf.domain.group.service.GroupAdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -16,8 +18,10 @@ public class GroupAdminController {
     private final GroupAdminService groupAdminService;
 
     @GetMapping("")
-    public String getPosts(Model model) {
-        Pageable pageable = Pageable.ofSize(10);
+    public String getPosts(@RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "15") int size,
+                           Model model) {
+        Pageable pageable = PageRequest.of(page, size);
         GroupPreviewPageResponse response = groupAdminService.getPosts(pageable);
         model.addAttribute("groups", response.groups());
         model.addAttribute("currentPage", response.page());           // 현재 페이지

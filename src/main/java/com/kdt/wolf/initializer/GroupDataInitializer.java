@@ -37,7 +37,7 @@ public class GroupDataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if(groupPostRepository.count() > 0) {
+        if(groupPostRepository.count() > 1) {
             System.out.println("Group 더미 데이터가 이미 존재합니다.");
             return;
         }
