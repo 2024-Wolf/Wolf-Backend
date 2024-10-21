@@ -71,7 +71,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     String newRefreshToken = jwtTokenProvider.createRefreshToken(now);
 
                     session.setAttribute("JWT", newAccessToken); // 세션에 새로운 액세스 토큰 저장
-                    session.setAttribute("refreshToken", refreshToken); // 세션에 리프레시 토큰 저장
+                    session.setAttribute("refreshToken", newRefreshToken); // 세션에 리프레시 토큰 저장
 
                     processTokenAuthentication(newAccessToken); // 새로운 토큰으로 인증 처리
                 } else {
