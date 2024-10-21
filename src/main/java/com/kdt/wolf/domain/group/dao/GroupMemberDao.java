@@ -1,8 +1,7 @@
 package com.kdt.wolf.domain.group.dao;
 
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.ChallengeParticipantMember;
 import com.kdt.wolf.domain.group.dto.request.EvaluateRequest;
-import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
-import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
@@ -11,7 +10,6 @@ import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.ActivityMetricsEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.ActivityMetricsRepository;
-import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
@@ -60,5 +58,21 @@ public class GroupMemberDao {
 
     public Page<GroupPostEntity> findCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
         return groupMemberRepository.findCompletedPostsByUserIdAndType(userId, type, pageable);
+    }
+
+    public Long countByGroupPostId(Long groupPostId) {
+        return groupMemberRepository.countByGroupPostId(groupPostId);
+    }
+
+    public String findGroupMembersNickName(GroupPostEntity group) {
+        List<GroupMemberEntity> members = groupMemberRepository.findAllByGroupPost(group);
+        return members.stream()
+                .map(member -> member.getUser().getName())
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("");
+    }
+
+    public List<GroupMemberEntity> findGroupMembers(GroupPostEntity groupPost) {
+        return groupMemberRepository.findGroupMembers(groupPost);
     }
 }

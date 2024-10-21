@@ -139,10 +139,8 @@ public class JwtTokenProvider {
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();
-
             return claims.getSubject();  // 유저 ID 추출
         } catch (ExpiredJwtException e) {
-            // 만료된 토큰에서 유저 ID 추출
             return e.getClaims().getSubject();  // 만료된 토큰이어도 subject를 읽을 수 있음
         }
     }

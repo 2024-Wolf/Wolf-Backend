@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.challenge.repository;
 
 import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
 import com.kdt.wolf.domain.challenge.entity.ChallengeRegistrationEntity;
+import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import java.util.List;
 
 import com.kdt.wolf.domain.challenge.entity.GroupChallengeParticipantEntity;
@@ -90,4 +91,13 @@ public interface ChallengeRegistrationQueryRepository extends JpaRepository<Chal
             + "AND r.challengePost.challengePostId = :challengePostId")
     ChallengeRegistrationEntity findChallengeRegistration(Long groupPostId, Long challengePostId);
 
+    @Query("SELECT COUNT(cp)"
+            + "FROM GroupChallengeParticipantEntity cp "
+            + "WHERE cp.challengeRegistration.groupPost.groupPostId = :groupId AND cp.paymentStatus = 'Y'")
+    Long countByGroupPostId(Long groupId);
+
+    @Query("SELECT cr.challengePost "
+            + "FROM  ChallengeRegistrationEntity cr "
+            + "WHERE cr.groupPost = :groupPost")
+    List<ChallengePostEntity> findByGroupPost(GroupPostEntity groupPost);
 }

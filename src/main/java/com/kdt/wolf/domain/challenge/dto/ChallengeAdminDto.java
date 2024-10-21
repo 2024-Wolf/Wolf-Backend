@@ -1,5 +1,7 @@
 package com.kdt.wolf.domain.challenge.dto;
 
+import java.util.List;
+
 public class ChallengeAdminDto {
     public record VerificationPreview(
             Long id,
@@ -21,5 +23,17 @@ public class ChallengeAdminDto {
             String verificationContent,
             String createdAt,
             String isVerified
+    ) { }
+    public record ChallengePreviewByGroup(
+            Long challengePostId,
+            String challengeName,
+            List<ChallengeParticipantMember> members
+    ) {}
+
+    public record ChallengeParticipantMember(
+            Long userId,
+            String nickname,
+            char status,
+            char isPayment
     ) { }
 }

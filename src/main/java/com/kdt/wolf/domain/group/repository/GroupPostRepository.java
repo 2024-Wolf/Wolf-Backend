@@ -8,11 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface GroupPostRepository extends JpaRepository<GroupPostEntity, Long> {
     Page<GroupPostEntity> findByType(GroupType type, Pageable pageable);
 
     @Query("SELECT g FROM GroupPostEntity g WHERE g.topic LIKE %:keyword% OR g.description LIKE %:keyword% OR g.tag LIKE %:keyword% OR g.name LIKE %:keyword%")
     List<GroupPostEntity> findByKeyword(String keyword);
+
 }
