@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dao.RecruitApplyDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
+import com.kdt.wolf.domain.group.dto.RecruitApplyDto.RecruitApplyDetail;
 import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
@@ -22,9 +23,22 @@ public class RecruitApplyService {
     private final RecruitApplyDao recruitApplyDao;
     private final RecruitmentsDao recruitmentsDao;
 
-    public RecruitApplyEntity getApplicationsById(Long recruitApplyId) {
-        return recruitApplyDao.getById(recruitApplyId);
+    public RecruitApplyDetail getApplicationsById(Long recruitApplyId) {
+        RecruitApplyEntity recruitApply =  recruitApplyDao.getById(recruitApplyId);
+        return new RecruitApplyDetail(
+                recruitApply.getRecruitApplyId(),
+                recruitApply.getUser().getName(),
+                recruitApply.getEmail(),
+                recruitApply.getPosition().name(),
+                recruitApply.getApplicationReason(),
+                recruitApply.getIntroduction(),
+                recruitApply.getTechStack(),
+                recruitApply.getPortfolioLink(),
+                recruitApply.getAvailableDays(),
+                recruitApply.getAdditionalNotes()
+        );
     }
+
 
 
     public void recruitApply(Long postId, Long userId, RecruitApplyRequest request){
