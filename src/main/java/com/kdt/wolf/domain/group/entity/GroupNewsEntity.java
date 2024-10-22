@@ -11,11 +11,12 @@ import lombok.NoArgsConstructor;
 public class GroupNewsEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_news_seq_gen")
+    @SequenceGenerator(name = "group_news_seq_gen", sequenceName = "group_news_seq", allocationSize = 1)
+    private Long groupNewsId;
 
     @Column(nullable = false)
-    private String newsContent; // 한줄소식 내용
+    private String newsContent;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "group_post_id", nullable = false)

@@ -1,8 +1,10 @@
 package com.kdt.wolf.domain.group.service;
 
+import com.kdt.wolf.domain.group.dao.GroupNewsDao;
 import com.kdt.wolf.domain.group.dao.GroupPostDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
 import com.kdt.wolf.domain.group.dto.GroupAdminDto.GroupPreviewPageResponse;
+import com.kdt.wolf.domain.group.dto.GroupNewsDto.GroupNews;
 import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
@@ -29,6 +31,7 @@ public class GroupPostService {
     private final GroupPostDao groupPostDao;
     private final RecruitmentsDao recruitmentsDao;
     private final UserDao userDao;
+    private final GroupNewsDao groupNewsDao;
 
     public  GroupPostResponse getGroupPostById(Long groupPostId) {
         GroupPostEntity groupPostEntity = groupPostDao.findById(groupPostId);
@@ -115,5 +118,15 @@ public class GroupPostService {
 
     public void deleteGroupPost(Long postId) {
         groupPostDao.deleteById(postId);
+    }
+
+    public List<GroupNews> getGroupNews(Long groupId) {
+        return groupNewsDao.getGroupNews(groupId).stream().map(
+                groupNewsEntity -> new GroupNews(
+                        groupNewsEntity.getGroupNewsId(),
+                        groupNewsEntity.getNewsContent()
+                )
+        ).toList(
+        );
     }
 }
