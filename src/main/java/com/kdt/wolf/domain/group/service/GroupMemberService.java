@@ -1,6 +1,8 @@
 package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dao.GroupMemberDao;
+import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
+import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.EvaluateRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupMemberService {
     private final GroupMemberDao groupMemberDao;
+    private final RecruitmentsDao recruitmentsDao;
 
     public List<GroupMemberResponse> getGroupMembers(Long groupId) {
         List<GroupMemberEntity> memberEntities = groupMemberDao.findAllByGroupId(groupId);
@@ -44,7 +47,17 @@ public class GroupMemberService {
         }
 
         return new GroupPostPageResponse(
-                posts.getContent().stream().map(GroupPostResponse::new).toList(),
+                posts.getContent().stream().map(
+                        post -> new GroupPostResponse(
+                                post,
+                                recruitmentsDao.findByGroupPost(post).stream()
+                                        .map(recruitment -> new Recruitments(
+                                                recruitment.getRecruitRole(),
+                                                recruitment.getRecruitRoleCnt()
+                                        ))
+                                        .toList()
+                        )
+                ).toList(),
                 new PageResponse(posts)
         );
     }
@@ -57,7 +70,17 @@ public class GroupMemberService {
         }
 
         return new GroupPostPageResponse(
-                posts.getContent().stream().map(GroupPostResponse::new).toList(),
+                posts.getContent().stream().map(
+                        post -> new GroupPostResponse(
+                                post,
+                                recruitmentsDao.findByGroupPost(post).stream()
+                                        .map(recruitment -> new Recruitments(
+                                                recruitment.getRecruitRole(),
+                                                recruitment.getRecruitRoleCnt()
+                                        ))
+                                        .toList()
+                        )
+                ).toList(),
                 new PageResponse(posts)
         );
     }

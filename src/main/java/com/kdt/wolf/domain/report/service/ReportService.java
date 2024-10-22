@@ -10,6 +10,7 @@ import com.kdt.wolf.domain.report.dao.ReportProcessDao;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportDetailDto;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPreviewDto;
 import com.kdt.wolf.domain.report.dao.ReportDao;
+import com.kdt.wolf.domain.report.dto.ReportCategoryDto.ReportCategory;
 import com.kdt.wolf.domain.report.dto.ReportDto.CreateReportRequest;
 import com.kdt.wolf.domain.report.entity.ReportCategoryEntity;
 import com.kdt.wolf.domain.report.entity.ReportEntity;
@@ -221,6 +222,12 @@ public class ReportService {
                         report.getCreatedTime().toLocalDate().toString(),
                         report.isSolved()
                 ))
+                .toList();
+    }
+
+    public List<ReportCategory> getReportCategories() {
+        return reportDao.findAllReportCategories().stream()
+                .map(category -> new ReportCategory(category.getReportCategoryId(), category.getReportCategoryContent()))
                 .toList();
     }
 }

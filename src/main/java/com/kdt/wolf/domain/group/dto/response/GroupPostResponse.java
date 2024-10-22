@@ -1,7 +1,9 @@
 package com.kdt.wolf.domain.group.dto.response;
 
+import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import java.util.List;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -21,12 +23,16 @@ public class GroupPostResponse {
     private final String warning;
     private final char challengeStatus;
     private final String type;
+
     private final LocalDate startDate;
     private final LocalDate endDate;
+
     private final LocalDate recruitStartDate;
     private final LocalDate recruitDeadlineDate;
 
-    public GroupPostResponse(GroupPostEntity groupPost) {
+    private final List<Recruitments> recruitments;
+
+    public GroupPostResponse(GroupPostEntity groupPost, List<Recruitments> recruitments) {
         this.groupPostId = groupPost.getGroupPostId();
         this.leaderUser = new GroupLeader(groupPost.getLeaderUser());
         this.name = groupPost.getName();
@@ -44,6 +50,7 @@ public class GroupPostResponse {
         this.endDate = groupPost.getEndDate() != null ? groupPost.getEndDate() : null;
         this.recruitStartDate = groupPost.getRecruitStartDate() != null ? groupPost.getRecruitStartDate() : null;
         this.recruitDeadlineDate = groupPost.getRecruitDeadlineDate() != null ? groupPost.getRecruitDeadlineDate() : null;
+        this.recruitments = recruitments;
     }
 
     @Getter
