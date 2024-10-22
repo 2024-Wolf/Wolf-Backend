@@ -23,8 +23,6 @@ public class GroupPostController {
     private final GroupPostService groupPostService;
     private final RecruitApplyService recruitApplyService;
     private final GroupMemberService groupMemberService;
-    private final TaskService taskService;
-
 
     @Operation(summary = "모집글 작성")
     @PostMapping
@@ -123,38 +121,5 @@ public class GroupPostController {
         return ApiResult.ok(null);
     }
 
-    @Operation(summary = "할일 등록")
-    @PostMapping("/{groupId}/task")
-    public ApiResult<Long> addTask(
-            @PathVariable Long groupId,
-            @RequestBody TaskRequest request,
-            @AuthenticationPrincipal AuthenticatedUser user){
-        Long taskId = taskService.addTask(groupId, request, user.getUserId());
-        return ApiResult.ok(taskId);
-    }
 
-    @Operation(summary = "할일 조회 / status : NOT_STARTED, IN_PROGRESS, COMPLETED")
-    @GetMapping("/{groupId}/task")
-    public ApiResult<List<TaskResponse>> getTask(
-            @PathVariable Long groupId){
-        List<TaskResponse> responses = taskService.getTask(groupId);
-        return ApiResult.ok(responses);
-    }
-
-    @Operation(summary = "할일 수정")
-    @PutMapping("/task/{taskId}")
-    public ApiResult<Void> updateTask(
-            @PathVariable Long taskId,
-            @RequestBody TaskRequest request){
-        taskService.editTask(taskId, request);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "할일 삭제")
-    @DeleteMapping("/task/{taskId}")
-    public ApiResult<Void> deleteTask(
-            @PathVariable Long taskId){
-        taskService.deleteTask(taskId);
-        return ApiResult.ok(null);
-    }
 }
