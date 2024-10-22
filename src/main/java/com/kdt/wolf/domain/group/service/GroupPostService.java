@@ -32,7 +32,14 @@ public class GroupPostService {
 
     public  GroupPostResponse getGroupPostById(Long groupPostId) {
         GroupPostEntity groupPostEntity = groupPostDao.findById(groupPostId);
-        return new GroupPostResponse(groupPostEntity);
+        List<RecruitmentsEntity> recruitments = recruitmentsDao.findByGroupPost(groupPostEntity);
+        return new GroupPostResponse(
+                groupPostEntity,
+                recruitments.stream().map(recruitment -> new Recruitments(
+                        recruitment.getRecruitRole(),
+                        recruitment.getRecruitRoleCnt()
+                )).toList()
+        );
     }
 
     public GroupPostPageResponse getPostsByType(String type, Pageable pageable) {
@@ -43,7 +50,14 @@ public class GroupPostService {
         }
 
         return new GroupPostPageResponse(
-                posts.getContent().stream().map(GroupPostResponse::new).toList(),
+                posts.getContent().stream().map( post -> new GroupPostResponse(
+                                post,
+                                recruitmentsDao.findByGroupPost(post).stream()
+                                        .map(recruitment -> new Recruitments(
+                                                recruitment.getRecruitRole(),
+                                                recruitment.getRecruitRoleCnt()
+                                        )).toList()
+                )).toList(),
                 new PageResponse(posts)
         );
     }
@@ -81,8 +95,14 @@ public class GroupPostService {
     public List<GroupPostResponse> searchPosts(String keyword) {
         List<GroupPostEntity> posts = groupPostDao.findByKeyword(keyword);
         return posts.stream()
-                .map(GroupPostResponse::new)
-                .toList();
+                .map(post -> new GroupPostResponse(
+                        post,
+                        recruitmentsDao.findByGroupPost(post).stream()
+                                .map(recruitment -> new Recruitments(
+                                        recruitment.getRecruitRole(),
+                                        recruitment.getRecruitRoleCnt()
+                                )).toList()
+                )).toList();
     }
     @Transactional
     public void editGroupPost(Long postId, GroupPostRequest request, Long userId) {
