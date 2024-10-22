@@ -1,5 +1,7 @@
 package com.kdt.wolf.domain.challenge.dto;
 
+import com.kdt.wolf.global.dto.PageResponse;
+
 import java.util.List;
 
 public class ChallengeAdminDto {
@@ -10,6 +12,11 @@ public class ChallengeAdminDto {
             String groupTitle,
             String createdAt,
             String isVerified
+    ) { }
+
+    public record VerificationPageResponse(
+            List<VerificationPreview> verifications,
+            PageResponse page
     ) { }
 
     public record VerificationDetail(

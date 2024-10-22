@@ -6,6 +6,7 @@ import com.kdt.wolf.domain.group.service.GroupAdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +22,11 @@ public class GroupAdminController {
 
 
     @GetMapping("")
-    public String getPosts(@RequestParam(defaultValue = "0") int page,
-                           @RequestParam(defaultValue = "15") int size,
+    public String getPosts(@PageableDefault(page = 0, size = 20) Pageable pageable,
                            Model model) {
-        Pageable pageable = PageRequest.of(page, size);
         GroupPreviewPageResponse response = groupAdminService.getPosts(pageable);
         model.addAttribute("groups", response.groups());
-        model.addAttribute("currentPage", response.page());           // 현재 페이지
-        model.addAttribute("totalPages", response.totalPage());  // 전체 페이지 수
+        model.addAttribute("page", response.page());
         return "group"; // group.jsp를 반환
     }
 

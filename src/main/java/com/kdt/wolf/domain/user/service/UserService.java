@@ -7,14 +7,16 @@ import com.kdt.wolf.domain.link.entity.ExternalLinksEntity;
 import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
-import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPreviewResponse;
+import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
+import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPageResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserLinkUpdateRequest;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserUpdateRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.entity.common.Status;
+import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import jakarta.transaction.Transactional;
@@ -24,6 +26,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -144,8 +148,18 @@ public class UserService {
         linkDao.saveAll(newLinks);
     }
 
-    public List<UserPreviewResponse> getUserList() {
-        return userDao.findAllUserPreview();
+    public UserPageResponse getUserList(Pageable pageable) {
+        Page<UserEntity> users = userDao.findAllUserPreview(pageable);
+
+        if (users.isEmpty()){
+            return new UserPageResponse(List.of(), new PageResponse(Page.empty()));
+        }
+        return new UserPageResponse(
+                users.getContent().stream()
+                        .map(userEntity -> new UserPreviewResponse(userEntity.getUserId(), userEntity.getNickname(), userEntity.getJobTitle(), userEntity.getOrganization(), userEntity.getExperience(), userEntity.getCreatedTime().toLocalDate().toString()))
+                        .toList(),
+                new PageResponse(users)
+        );
     }
 
     public UserDetailResponse getUserDetail(Long userId) {

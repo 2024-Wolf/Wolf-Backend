@@ -1,12 +1,14 @@
 package com.kdt.wolf.domain.report.controller;
 
+import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPageResponse;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportDetailDto;
-import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPreviewDto;
 import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.report.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +25,10 @@ public class ReportAdminController {
 
     @Operation(summary = "신고 전체 조회")
     @GetMapping("")
-    public String findAllReports(Model model) {
-        List<ReportPreviewDto> response = reportService.findAllReports();
-        model.addAttribute("reports", response);
+    public String findAllReports(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+        ReportPageResponse response = reportService.findAllReports(pageable);
+        model.addAttribute("reports", response.reports());
+        model.addAttribute("page", response.page());
         return "report"; //report.jsp
     }
 

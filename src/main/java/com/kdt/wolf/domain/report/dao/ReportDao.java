@@ -8,6 +8,8 @@ import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -25,8 +27,9 @@ public class ReportDao {
                 .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_REPORT_CATEGORY));
     }
 
-    public List<ReportEntity> findAll() {
-        return reportRepository.findAll();
+    public Page<ReportEntity> findAll(Pageable pageable) {
+
+        return reportRepository.findAll(pageable);
     }
 
     public ReportEntity findById(Long reportId) {
