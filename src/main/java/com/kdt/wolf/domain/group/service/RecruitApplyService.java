@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.service;
 
+import com.kdt.wolf.domain.group.dao.GroupMemberDao;
 import com.kdt.wolf.domain.group.dao.RecruitApplyDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
 import com.kdt.wolf.domain.group.dto.RecruitApplyDto.ApplicationsMember;
@@ -10,8 +11,12 @@ import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
+import com.kdt.wolf.domain.group.entity.common.ApplyStatus;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.global.dto.PageResponse;
+import com.kdt.wolf.global.exception.BusinessException;
+import com.kdt.wolf.global.exception.code.ExceptionCode;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +28,7 @@ import org.springframework.stereotype.Service;
 public class RecruitApplyService {
     private final RecruitApplyDao recruitApplyDao;
     private final RecruitmentsDao recruitmentsDao;
+    private final GroupMemberDao groupMemberDao;
 
     public RecruitApplyDetail getApplicationsById(Long recruitApplyId) {
         RecruitApplyEntity recruitApply =  recruitApplyDao.getById(recruitApplyId);
@@ -77,5 +83,18 @@ public class RecruitApplyService {
                                 recruitApply.getCreatedTime().toLocalDate().toString()
                         )
         ).toList();
+    }
+
+    @Transactional
+    public void changeApplicationStatus(Long recruitApplyId, ApplyStatus status) {
+        RecruitApplyEntity recruitApply = recruitApplyDao.getById(recruitApplyId);
+        if(status.equals(ApplyStatus.ACCEPTED)) {
+            //참가지 테이블에 넣기
+            Long groupMemberId = groupMemberDao.addGroupMember(recruitApply.getGroupPost(), recruitApply.getUser(), recruitApply.getPosition());
+            if(groupMemberId == null) {
+                throw new BusinessException(ExceptionCode.ALREADY_APPLIED);
+            }
+        }
+        recruitApply.changeStatus(status);
     }
 }

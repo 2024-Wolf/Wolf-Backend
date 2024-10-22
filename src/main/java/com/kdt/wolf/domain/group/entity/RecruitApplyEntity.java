@@ -71,4 +71,8 @@ public class RecruitApplyEntity extends BaseTimeEntity {
         this.additionalNotes = additionalNotes;
         this.applyStatus = ApplyStatus.PENDING;
     }
+
+    public void changeStatus(ApplyStatus status) {
+        this.applyStatus = status;
+    }
 }
