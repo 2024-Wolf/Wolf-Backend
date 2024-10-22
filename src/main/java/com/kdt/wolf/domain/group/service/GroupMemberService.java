@@ -2,6 +2,8 @@ package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dao.GroupMemberDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
+import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUser;
+import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUserPageResponse;
 import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.EvaluateRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
@@ -38,47 +40,49 @@ public class GroupMemberService {
         }
     }
 
-    public GroupPostPageResponse getOngoingPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
+    public GroupPreviewUserPageResponse getOngoingPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
 
-        Page<GroupPostEntity> posts = groupMemberDao.findOngoingPostsByUserIdAndType(userId, type, pageable);
+        Page<GroupMemberEntity> posts = groupMemberDao.findOngoingPostsByUserIdAndType(userId, type, pageable);
 
         if(posts.isEmpty()) {
-            return new GroupPostPageResponse(List.of(), new PageResponse(Page.empty()));
+            return new GroupPreviewUserPageResponse(List.of(), new PageResponse(Page.empty()));
         }
 
-        return new GroupPostPageResponse(
+        return new GroupPreviewUserPageResponse(
                 posts.getContent().stream().map(
-                        post -> new GroupPostResponse(
-                                post,
-                                recruitmentsDao.findByGroupPost(post).stream()
-                                        .map(recruitment -> new Recruitments(
-                                                recruitment.getRecruitRole(),
-                                                recruitment.getRecruitRoleCnt()
-                                        ))
-                                        .toList()
+                        member-> new GroupPreviewUser(
+                                member.getGroupPost().getGroupPostId(),
+                                member.getGroupPost().getThumbnail(),
+                                member.getGroupPost().getName(),
+                                member.getGroupPost().getTag(),
+                                member.getGroupPost().getType().name(),
+                                member.getGroupPost().getEndDate().toString(),
+                                member.getGroupPost().getChallengeStatus(),
+                                member.getCreatedTime().toLocalDate().toString()
                         )
                 ).toList(),
                 new PageResponse(posts)
         );
     }
 
-    public GroupPostPageResponse getCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
-        Page<GroupPostEntity> posts = groupMemberDao.findCompletedPostsByUserIdAndType(userId, type, pageable);
+    public GroupPreviewUserPageResponse getCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
+        Page<GroupMemberEntity> posts = groupMemberDao.findCompletedPostsByUserIdAndType(userId, type, pageable);
 
         if(posts.isEmpty()) {
-            return new GroupPostPageResponse(List.of(), new PageResponse(Page.empty()));
+            return new GroupPreviewUserPageResponse(List.of(), new PageResponse(Page.empty()));
         }
 
-        return new GroupPostPageResponse(
+        return new GroupPreviewUserPageResponse(
                 posts.getContent().stream().map(
-                        post -> new GroupPostResponse(
-                                post,
-                                recruitmentsDao.findByGroupPost(post).stream()
-                                        .map(recruitment -> new Recruitments(
-                                                recruitment.getRecruitRole(),
-                                                recruitment.getRecruitRoleCnt()
-                                        ))
-                                        .toList()
+                        member-> new GroupPreviewUser(
+                                member.getGroupPost().getGroupPostId(),
+                                member.getGroupPost().getThumbnail(),
+                                member.getGroupPost().getName(),
+                                member.getGroupPost().getTag(),
+                                member.getGroupPost().getType().name(),
+                                member.getGroupPost().getEndDate().toString(),
+                                member.getGroupPost().getChallengeStatus(),
+                                member.getCreatedTime().toLocalDate().toString()
                         )
                 ).toList(),
                 new PageResponse(posts)

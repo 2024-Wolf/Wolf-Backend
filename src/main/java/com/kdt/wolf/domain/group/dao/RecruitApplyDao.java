@@ -53,7 +53,7 @@ public class RecruitApplyDao {
         recruitApplyRepository.save(recruitApply);
     }
 
-    public Page<GroupPostEntity> findGroupPostByUserIdAndType(Long userId, Pageable pageable, GroupType type) {
+    public Page<RecruitApplyEntity> findGroupPostByUserIdAndType(Long userId, Pageable pageable, GroupType type) {
         return recruitApplyRepository.findGroupPostByUserIdAndType(userId, pageable, type);
     }
 

@@ -54,11 +54,11 @@ public class GroupMemberDao {
 
     }
 
-    public Page<GroupPostEntity> findOngoingPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
+    public Page<GroupMemberEntity> findOngoingPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
         return groupMemberRepository.findOngoingPostsByUserIdAndType(userId, type, pageable);
     }
 
-    public Page<GroupPostEntity> findCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
+    public Page<GroupMemberEntity> findCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
         return groupMemberRepository.findCompletedPostsByUserIdAndType(userId, type, pageable);
     }
 

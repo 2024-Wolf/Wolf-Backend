@@ -3,6 +3,8 @@ package com.kdt.wolf.domain.group.service;
 import com.kdt.wolf.domain.group.dao.GroupMemberDao;
 import com.kdt.wolf.domain.group.dao.RecruitApplyDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
+import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUser;
+import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUserPageResponse;
 import com.kdt.wolf.domain.group.dto.RecruitApplyDto.ApplicationsMember;
 import com.kdt.wolf.domain.group.dto.RecruitApplyDto.RecruitApplyDetail;
 import com.kdt.wolf.domain.group.dto.Recruitments;
@@ -52,25 +54,31 @@ public class RecruitApplyService {
         recruitApplyDao.applyToGroup(postId, userId, request);
     }
 
-    public GroupPostPageResponse getAppliedGroupsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
-        Page<GroupPostEntity> posts = recruitApplyDao.findGroupPostByUserIdAndType(userId, pageable, type);
+    public GroupPreviewUserPageResponse getAppliedGroupsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
+        Page<RecruitApplyEntity> posts = recruitApplyDao.findGroupPostByUserIdAndType(userId, pageable, type);
 
         if(posts.isEmpty()) {
-            return new GroupPostPageResponse(List.of(), new PageResponse(Page.empty()));
+            return new GroupPreviewUserPageResponse(List.of(), new PageResponse(Page.empty()));
         }
 
-        return new GroupPostPageResponse(
+
+        // 지원 날짜
+        return new GroupPreviewUserPageResponse(
                 posts.getContent().stream().map(
-                        post -> new GroupPostResponse(
-                                post,
-                                recruitmentsDao.findByGroupPost(post).stream()
-                                        .map(recruitment -> new Recruitments(
-                                                recruitment.getRecruitRole(),
-                                                recruitment.getRecruitRoleCnt()
-                                        )).toList()
-                        )).toList(),
+                        apply -> new GroupPreviewUser(
+                                apply.getGroupPost().getGroupPostId(),
+                                apply.getGroupPost().getThumbnail(),
+                                apply.getGroupPost().getName(),
+                                apply.getGroupPost().getTag(),
+                                apply.getGroupPost().getType().name(),
+                                apply.getGroupPost().getEndDate().toString(),
+                                apply.getGroupPost().getChallengeStatus(),
+                                apply.getCreatedTime().toLocalDate().toString()
+                        )
+                ).toList(),
                 new PageResponse(posts)
         );
+        // 합류 날짜
     }
 
     public List<ApplicationsMember> getPendingApplicationsByGroupId(Long groupId) {

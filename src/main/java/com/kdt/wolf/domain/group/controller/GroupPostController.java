@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.controller;
 
+import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUserPageResponse;
 import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.*;
 import com.kdt.wolf.domain.group.entity.common.GroupStatus;
@@ -49,24 +50,24 @@ public class GroupPostController {
 
     @Operation(summary = "유저별 그룹 검색")
     @GetMapping("/{type}/{status}")
-    public ApiResult<GroupPostPageResponse> getPostsByUser( @AuthenticationPrincipal AuthenticatedUser user,
-                                                            @PathVariable GroupType type,
-                                                            @PathVariable GroupStatus status,
-                                                            @PageableDefault(size = 20) Pageable pageable) {
+    public ApiResult<GroupPreviewUserPageResponse> getPostsByUser(@AuthenticationPrincipal AuthenticatedUser user,
+                                                                  @PathVariable GroupType type,
+                                                                  @PathVariable GroupStatus status,
+                                                                  @PageableDefault(size = 20) Pageable pageable) {
 
         if(status.equals(GroupStatus.APPLYING)) {
             //RecruitApplyDao
-            GroupPostPageResponse response = recruitApplyService.getAppliedGroupsByUserIdAndType(user.getUserId(), type, pageable);
+            GroupPreviewUserPageResponse response = recruitApplyService.getAppliedGroupsByUserIdAndType(user.getUserId(), type, pageable);
             return ApiResult.ok(response);
         }
         if(status.equals(GroupStatus.ONGOING)) {
             //GroupMemberDao
-            GroupPostPageResponse response = groupMemberService.getOngoingPostsByUserIdAndType(user.getUserId(), type, pageable);
+            GroupPreviewUserPageResponse response = groupMemberService.getOngoingPostsByUserIdAndType(user.getUserId(), type, pageable);
             return ApiResult.ok(response);
         }
         if(status.equals(GroupStatus.COMPLETED)) {
             //GroupMemberDao
-            GroupPostPageResponse response = groupMemberService.getCompletedPostsByUserIdAndType(user.getUserId(), type, pageable);
+            GroupPreviewUserPageResponse response = groupMemberService.getCompletedPostsByUserIdAndType(user.getUserId(), type, pageable);
             return ApiResult.ok(response);
         }
         throw new IllegalArgumentException("잘못된 status 값입니다.");
