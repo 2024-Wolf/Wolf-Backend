@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class QuestionResponse {
     private final Long questionId;
-    //private final QuestionAuthor user;
+    private final QuestionAuthor user;
     private final String boardType;
     private final String questionDetails;
     private final String questionImageUrl;
@@ -20,7 +20,7 @@ public class QuestionResponse {
 
     public QuestionResponse(QuestionBoardEntity question, List<QuestionCommentEntity> comments) {
         this.questionId = question.getQuestionId();
-        //this.user = new QuestionAuthor(question.getUser());
+        this.user = new QuestionAuthor(question.getUser());
         this.boardType = BoardType.QUESTION.equals(question.getBoardType()) ? "question" : "communication";
         this.questionDetails = question.getQuestionDetails();
         this.questionImageUrl = question.getQuestionImageUrl();
@@ -29,14 +29,14 @@ public class QuestionResponse {
                 .map(QuestionCommentResponse::new)
                 .toList();
     }
-
-    public class QuestionAuthor {
-       // private final Long userId;
+    @Getter
+    public static class QuestionAuthor {
+        private final Long userId;
         private final String userNickname;
         private final String userProfileImg;
 
         public QuestionAuthor(UserEntity user) {
-            //this.userId = user.getUserId();
+            this.userId = user.getUserId();
             this.userNickname = user.getNickname();
             this.userProfileImg = user.getProfilePicture();
         }
