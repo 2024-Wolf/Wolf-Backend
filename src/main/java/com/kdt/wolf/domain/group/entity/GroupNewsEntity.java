@@ -1,11 +1,13 @@
 package com.kdt.wolf.domain.group.entity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
+@Table(name = "group_news")
 public class GroupNewsEntity {
 
     @Id
