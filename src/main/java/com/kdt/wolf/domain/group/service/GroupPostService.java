@@ -57,6 +57,7 @@ public class GroupPostService {
 
         GroupPostEntity post = groupPostDao.createPost(request, user);
 
+
         //프로젝트면 Recruitments 저장
         if (request.getType().equals("project")) {
             List<Recruitments> recruitmentsList = request.getRecruitments();
