@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.group.service;
 
 import com.kdt.wolf.domain.group.dao.RecruitApplyDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
+import com.kdt.wolf.domain.group.dto.RecruitApplyDto.ApplicationsMember;
 import com.kdt.wolf.domain.group.dto.RecruitApplyDto.RecruitApplyDetail;
 import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
@@ -64,5 +65,17 @@ public class RecruitApplyService {
                         )).toList(),
                 new PageResponse(posts)
         );
+    }
+
+    public List<ApplicationsMember> getPendingApplicationsByGroupId(Long groupId) {
+        return recruitApplyDao.getPendingApplicationsByGroupId(groupId).stream().map(
+                        recruitApply -> new ApplicationsMember(
+                                recruitApply.getRecruitApplyId(),
+                                recruitApply.getUser().getProfilePicture(),
+                                recruitApply.getUser().getName(),
+                                recruitApply.getPosition().name(),
+                                recruitApply.getCreatedTime().toLocalDate().toString()
+                        )
+        ).toList();
     }
 }

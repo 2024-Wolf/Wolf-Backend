@@ -13,4 +13,12 @@ public class RecruitApplyDto {
             String availableDays,
             String additionalNotes
     ) { }
+
+    public record ApplicationsMember(
+            Long recruitApplyId,
+            String profileImage,
+            String name,
+            String position,
+            String applyDate
+    ) { }
 }
