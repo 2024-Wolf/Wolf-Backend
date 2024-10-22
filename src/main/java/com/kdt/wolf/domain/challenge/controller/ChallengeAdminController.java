@@ -52,7 +52,7 @@ public class ChallengeAdminController {
     @Operation(summary = "챌린지 생성")
     @PostMapping
     public String registerChallenge(@ModelAttribute ChallengeCreateRequest request, @AuthenticationPrincipal AuthenticatedUser user){
-        Long challengeId = challengeService.registerChallenge(request, adminRepository.findAll().get(0).getAdminId());
+        Long challengeId = challengeService.registerChallenge(request, user.getUserId());
         return "redirect:/admin/challenges/" + challengeId;
     }
 
