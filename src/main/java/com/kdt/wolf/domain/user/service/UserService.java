@@ -197,7 +197,7 @@ public class UserService {
         return  userDao.panaltyUser(user, reportAction);
     }
 
-    public boolean isNicknameAvailable(String nickname) {
-        return userDao.isNicknameAvailable(nickname);
+    public String isNicknameAvailable(String nickname) {
+        return Boolean.toString(userDao.isNicknameAvailable(nickname));
     }
 }
