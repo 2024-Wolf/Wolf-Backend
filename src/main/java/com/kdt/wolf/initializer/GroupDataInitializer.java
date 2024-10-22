@@ -2,19 +2,25 @@ package com.kdt.wolf.initializer;
 
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
+import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
+import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
 import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
 import com.kdt.wolf.domain.group.entity.RecruitmentsEntity;
+import com.kdt.wolf.domain.group.entity.common.BoardType;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.entity.common.MemberRole;
 import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import com.kdt.wolf.domain.group.repository.GroupMemberRepository;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
+import com.kdt.wolf.domain.group.repository.QuestionBoardRepository;
+import com.kdt.wolf.domain.group.repository.QuestionCommentRepository;
 import com.kdt.wolf.domain.group.repository.RecruitApplyRepository;
 import com.kdt.wolf.domain.group.repository.RecruitmentsRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -31,6 +37,8 @@ public class GroupDataInitializer implements CommandLineRunner {
     private final RecruitmentsRepository recruitmentsRepository;
     private final GroupMemberRepository groupMemberRepository;
     private final RecruitApplyRepository recruitApplyRepository;
+    private final QuestionBoardRepository questionBoardRepository;
+    private final QuestionCommentRepository questionCommentRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -54,6 +62,7 @@ public class GroupDataInitializer implements CommandLineRunner {
         insertProjectRecruitmentData(groupPosts);  // 프로젝트 모집 데이터 삽입
         List<RecruitApplyEntity> recruitApplies = insertRecruitApplyData(groupPosts, users);  // 지원서 데이터 삽입
         insertGroupMembers(recruitApplies);  // 그룹 멤버 데이터 삽입
+        insertQuestionBoardData(groupPosts, users);  // 질문 데이터 삽입
         System.out.println("Group 더미 데이터가 성공적으로 삽입되었습니다.");
     }
 
@@ -130,14 +139,10 @@ public class GroupDataInitializer implements CommandLineRunner {
 
     @Transactional
     public List<RecruitApplyEntity> insertRecruitApplyData(List<GroupPostEntity> groupPosts, List<UserEntity> users) {
-        // 각 그룹 포스트마다 유저들이 지원서를 제출한 것으로 가정
         List<RecruitApplyEntity> recruitApplies = groupPosts.stream()
-                .flatMap(post -> users.stream().limit(3).map(user ->  // 각 그룹 포스트에 최대 3명씩 지원서를 제출
+                .flatMap(post -> users.stream().limit(3).map(user ->
                         new RecruitApplyEntity(
-                                post,
-                                user,
-                                RecruitRole.BACKEND,  // 기본적으로 BACKEND로 지원
-                                user.getEmail(),
+                                post, user, RecruitRole.BACKEND, user.getEmail(),
                                 "이 프로젝트에 참여하고 싶은 이유는 성장 기회입니다.",
                                 "개발 경력 3년, 다양한 프로젝트 경험",
                                 "Java, Spring, React",
@@ -153,16 +158,49 @@ public class GroupDataInitializer implements CommandLineRunner {
 
     @Transactional
     public void insertGroupMembers(List<RecruitApplyEntity> recruitApplies) {
-        // 각 지원서를 기반으로 그룹 멤버로 등록
         List<GroupMemberEntity> groupMembers = recruitApplies.stream()
                 .map(recruitApply -> new GroupMemberEntity(
-                        recruitApply.getGroupPost(),
-                        recruitApply.getUser(),
-                        MemberRole.MEMBER,  // 기본적으로 MEMBER 역할
-                        recruitApply.getPosition().name()  // 지원한 포지션
-                ))
+                        recruitApply.getGroupPost(), recruitApply.getUser(),
+                        MemberRole.MEMBER, recruitApply.getPosition().name()))
                 .toList();
 
         groupMemberRepository.saveAll(groupMembers);  // 그룹 멤버 데이터를 데이터베이스에 저장
+    }
+
+    @Transactional
+    public void insertQuestionBoardData(List<GroupPostEntity> groupPosts, List<UserEntity> users) {
+        List<QuestionBoardEntity> questionBoards = groupPosts.stream()
+                .flatMap(post -> Stream.of(
+                        new QuestionBoardEntity(
+                                post, users.get(0), BoardType.QUESTION, LocalDateTime.now(),
+                                "이 스터디의 목적은 무엇인가요?", null
+                        ),
+                        new QuestionBoardEntity(
+                                post, users.get(1), BoardType.QUESTION, LocalDateTime.now(),
+                                "과제 제출일은 언제인가요?", null
+                        )
+                )).toList();
+
+        questionBoardRepository.saveAll(questionBoards);  // 질문 데이터를 데이터베이스에 저장
+
+        // 질문에 대한 댓글 추가
+        insertQuestionComments(questionBoards, users);
+    }
+
+    @Transactional
+    public void insertQuestionComments(List<QuestionBoardEntity> questionBoards, List<UserEntity> users) {
+        List<QuestionCommentEntity> questionComments = questionBoards.stream()
+                .flatMap(question -> Stream.of(
+                        new QuestionCommentEntity(
+                                question, null, users.get(2), LocalDateTime.now(),
+                                "스터디 시작일입니다.", null
+                        ),
+                        new QuestionCommentEntity(
+                                question, null, users.get(3), LocalDateTime.now(),
+                                "과제 마감일은 다음 주입니다.", null
+                        )
+                )).toList();
+
+        questionCommentRepository.saveAll(questionComments);  // 댓글 데이터를 데이터베이스에 저장
     }
 }

@@ -24,7 +24,8 @@ public class QuestionCommentResponse {
         this.createTime = comment.getCreateTime();
     }
 
-    public class CommentAuthor {
+    @Getter
+    public static class CommentAuthor {
         private final Long userId;
         private final String userNickname;
         private final String userProfileImg;
