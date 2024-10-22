@@ -1,5 +1,9 @@
 package com.kdt.wolf.domain.challenge.dto;
 
+import com.kdt.wolf.global.dto.PageResponse;
+
+import java.util.List;
+
 public class ChallengeAdminDto {
     public record VerificationPreview(
             Long id,
@@ -8,6 +12,11 @@ public class ChallengeAdminDto {
             String groupTitle,
             String createdAt,
             String isVerified
+    ) { }
+
+    public record VerificationPageResponse(
+            List<VerificationPreview> verifications,
+            PageResponse page
     ) { }
 
     public record VerificationDetail(
@@ -21,5 +30,17 @@ public class ChallengeAdminDto {
             String verificationContent,
             String createdAt,
             String isVerified
+    ) { }
+    public record ChallengePreviewByGroup(
+            Long challengePostId,
+            String challengeName,
+            List<ChallengeParticipantMember> members
+    ) {}
+
+    public record ChallengeParticipantMember(
+            Long userId,
+            String nickname,
+            char status,
+            char isPayment
     ) { }
 }

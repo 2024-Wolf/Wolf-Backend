@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.dao;
 
+import com.kdt.wolf.domain.group.dto.RecruitApplyDto.ApplicationsMember;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
@@ -11,6 +12,7 @@ import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.UserNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,7 +53,11 @@ public class RecruitApplyDao {
         recruitApplyRepository.save(recruitApply);
     }
 
-    public Page<GroupPostEntity> findGroupPostByUserIdAndType(Long userId, Pageable pageable, GroupType type) {
+    public Page<RecruitApplyEntity> findGroupPostByUserIdAndType(Long userId, Pageable pageable, GroupType type) {
         return recruitApplyRepository.findGroupPostByUserIdAndType(userId, pageable, type);
+    }
+
+    public List<RecruitApplyEntity> getPendingApplicationsByGroupId(Long groupId) {
+        return recruitApplyRepository.findPendingApplicationsByGroupId(groupId);
     }
 }

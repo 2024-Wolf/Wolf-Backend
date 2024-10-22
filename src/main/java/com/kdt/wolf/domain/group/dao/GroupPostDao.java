@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.dao;
 
+import com.kdt.wolf.domain.group.dto.GroupAdminDto.GroupPreviewResponse;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
@@ -73,5 +74,9 @@ public class GroupPostDao {
 
     public void delete(GroupPostEntity reportedGroupPost) {
         groupPostRepository.delete(reportedGroupPost);
+    }
+
+    public Page<GroupPostEntity> findAll(Pageable pageable) {
+        return groupPostRepository.findAll(pageable);
     }
 }

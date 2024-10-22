@@ -3,8 +3,8 @@ package com.kdt.wolf.domain.challenge.controller;
 
 import com.kdt.wolf.domain.admin.repository.AdminRepository;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
-import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
-import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPageResponse;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPageResponse;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeDetail;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest.VerificationRequest;
@@ -14,6 +14,8 @@ import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,9 +35,10 @@ public class ChallengeAdminController {
     // 챌린지 목록 조회
     @Operation(summary = "챌린지 목록 조회")
     @GetMapping
-    public String getAllChallenges(Model model) {
-        List<ChallengeAdminPreview> challenges = challengeService.getAllChallenges();
-        model.addAttribute("challenges", challenges);
+    public String getAllChallenges(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+        ChallengeAdminPageResponse challenges = challengeService.getAllChallenges(pageable);
+        model.addAttribute("challenges", challenges.challenges());
+        model.addAttribute("page", challenges.page());
         return "challenge";
     }
 
@@ -95,9 +98,10 @@ public class ChallengeAdminController {
     // 인증 전체 조회
     @Operation(summary = "인증 전체 조회")
     @GetMapping("/verifications")
-    public String getAllVerifications(Model model){
-        List<VerificationPreview> response = challengeService.getAllVerifications();
-        model.addAttribute("verifications", response);
+    public String getAllVerifications(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable){
+        VerificationPageResponse response = challengeService.getAllVerifications(pageable);
+        model.addAttribute("verifications", response.verifications());
+        model.addAttribute("page", response.page());
         return "auth";
     }
 

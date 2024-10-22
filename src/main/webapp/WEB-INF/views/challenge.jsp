@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="/resources/css/globalstyle.css">
 	<link rel="stylesheet" href="/resources/css/mainContents.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/table.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/pagination.css">
+
 </head>
 
 <body>
@@ -56,6 +58,14 @@
 							</div>
 							<!-- 스크롤 안내 문구 (스크린 width: 929.33px 일 때 나타남) -->
 							<%@ include file="components/scrollDescription.jsp" %>
+						    <!-- 페이지네이션 -->
+                                <jsp:include page="components/pagination.jsp">
+                                    <jsp:param name="totalPages" value="${page.totalPages()}" />
+                                    <jsp:param name="currentPage" value="${page.currentPage()}" />
+                                    <jsp:param name="size" value="${page.size()}" />
+                                    <jsp:param name="isPageFirst" value="${page.isPageFirst()}" />
+                                    <jsp:param name="isPageLast" value="${page.isPageLast()}" />
+                                </jsp:include>
 					</div>
 				</main>
 		</div>

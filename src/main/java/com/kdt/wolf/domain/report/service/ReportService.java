@@ -7,21 +7,26 @@ import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
 import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
 import com.kdt.wolf.domain.report.dao.ReportProcessDao;
+import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPageResponse;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportDetailDto;
 import com.kdt.wolf.domain.report.dto.ReportAdminDto.ReportPreviewDto;
 import com.kdt.wolf.domain.report.dao.ReportDao;
+import com.kdt.wolf.domain.report.dto.ReportCategoryDto.ReportCategory;
 import com.kdt.wolf.domain.report.dto.ReportDto.CreateReportRequest;
 import com.kdt.wolf.domain.report.entity.ReportCategoryEntity;
 import com.kdt.wolf.domain.report.entity.ReportEntity;
 import com.kdt.wolf.domain.report.entity.ReportProcessEntity;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.fcm.service.FcmService;
 import com.kdt.wolf.global.fcm.service.dto.FCMNotificationRequestDto;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -210,17 +215,23 @@ public class ReportService {
         );
     }
 
-    public List<ReportPreviewDto> findAllReports() {
-        List<ReportEntity> reports = reportDao.findAll();
-        return reports.stream()
-                .map(report -> new ReportPreviewDto(
-                        report.getReportId(),
-                        report.getReporter().getNickname(),
-                        report.getReportReason(),
-                        report.getTopic().name(),
-                        report.getCreatedTime().toLocalDate().toString(),
-                        report.isSolved()
-                ))
+    public ReportPageResponse findAllReports(Pageable pageable) {
+        Page<ReportEntity> reports = reportDao.findAll(pageable);
+
+        if (reports.isEmpty()) {
+            return new ReportPageResponse(List.of(), new PageResponse(Page.empty()));
+        }
+        return new ReportPageResponse(
+                reports.getContent().stream()
+                        .map(reportEntity -> new ReportPreviewDto(reportEntity.getReportId(), reportEntity.getReporter().getNickname(), reportEntity.getReportReason(), reportEntity.getTopic().name(), reportEntity.getCreatedTime().toLocalDate().toString(), reportEntity.isSolved()))
+                        .toList(),
+                new PageResponse(reports)
+        );
+    }
+
+    public List<ReportCategory> getReportCategories() {
+        return reportDao.findAllReportCategories().stream()
+                .map(category -> new ReportCategory(category.getReportCategoryId(), category.getReportCategoryContent()))
                 .toList();
     }
 }

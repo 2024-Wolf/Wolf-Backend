@@ -2,6 +2,7 @@ package com.kdt.wolf.domain.notice.controller;
 
 import com.kdt.wolf.domain.admin.repository.AdminRepository;
 import com.kdt.wolf.domain.faq.dto.FaqDto;
+import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewPageResponse;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeCreateDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
 import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
@@ -10,6 +11,8 @@ import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,9 +35,10 @@ public class NoticeAdminController {
 
     @Operation(summary = "공지사항 전체 목록 조회")
     @GetMapping
-    public String getNotices(Model model) {
-        List<NoticePreviewDto> notices = noticeService.getNoticePreviews();
-        model.addAttribute("notices", notices);
+    public String getNotices(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+        NoticePreviewPageResponse notices = noticeService.getNoticePreviews(pageable);
+        model.addAttribute("notices", notices.notices());
+        model.addAttribute("page", notices.page());
         return "notice";
     }
 

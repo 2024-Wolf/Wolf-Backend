@@ -75,4 +75,8 @@ public class ChallengeDto {
             List<ChallengePreview> challenges,
             PageResponse page
     ) { }
+    public record ChallengeAdminPageResponse(
+            List<ChallengeAdminPreview> challenges,
+            PageResponse page
+    ) { }
 }

@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.controller;
 
+import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUserPageResponse;
 import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.*;
 import com.kdt.wolf.domain.group.entity.common.GroupStatus;
@@ -23,8 +24,6 @@ public class GroupPostController {
     private final GroupPostService groupPostService;
     private final RecruitApplyService recruitApplyService;
     private final GroupMemberService groupMemberService;
-    private final TaskService taskService;
-
 
     @Operation(summary = "모집글 작성")
     @PostMapping
@@ -51,24 +50,24 @@ public class GroupPostController {
 
     @Operation(summary = "유저별 그룹 검색")
     @GetMapping("/{type}/{status}")
-    public ApiResult<GroupPostPageResponse> getPostsByUser( @AuthenticationPrincipal AuthenticatedUser user,
-                                                            @PathVariable GroupType type,
-                                                            @PathVariable GroupStatus status,
-                                                            @PageableDefault(size = 20) Pageable pageable) {
+    public ApiResult<GroupPreviewUserPageResponse> getPostsByUser(@AuthenticationPrincipal AuthenticatedUser user,
+                                                                  @PathVariable GroupType type,
+                                                                  @PathVariable GroupStatus status,
+                                                                  @PageableDefault(size = 20) Pageable pageable) {
 
         if(status.equals(GroupStatus.APPLYING)) {
             //RecruitApplyDao
-            GroupPostPageResponse response = recruitApplyService.getAppliedGroupsByUserIdAndType(user.getUserId(), type, pageable);
+            GroupPreviewUserPageResponse response = recruitApplyService.getAppliedGroupsByUserIdAndType(user.getUserId(), type, pageable);
             return ApiResult.ok(response);
         }
         if(status.equals(GroupStatus.ONGOING)) {
             //GroupMemberDao
-            GroupPostPageResponse response = groupMemberService.getOngoingPostsByUserIdAndType(user.getUserId(), type, pageable);
+            GroupPreviewUserPageResponse response = groupMemberService.getOngoingPostsByUserIdAndType(user.getUserId(), type, pageable);
             return ApiResult.ok(response);
         }
         if(status.equals(GroupStatus.COMPLETED)) {
             //GroupMemberDao
-            GroupPostPageResponse response = groupMemberService.getCompletedPostsByUserIdAndType(user.getUserId(), type, pageable);
+            GroupPreviewUserPageResponse response = groupMemberService.getCompletedPostsByUserIdAndType(user.getUserId(), type, pageable);
             return ApiResult.ok(response);
         }
         throw new IllegalArgumentException("잘못된 status 값입니다.");
@@ -123,38 +122,5 @@ public class GroupPostController {
         return ApiResult.ok(null);
     }
 
-    @Operation(summary = "할일 등록")
-    @PostMapping("/{groupId}/task")
-    public ApiResult<Long> addTask(
-            @PathVariable Long groupId,
-            @RequestBody TaskRequest request,
-            @AuthenticationPrincipal AuthenticatedUser user){
-        Long taskId = taskService.addTask(groupId, request, user.getUserId());
-        return ApiResult.ok(taskId);
-    }
 
-    @Operation(summary = "할일 조회 / status : NOT_STARTED, IN_PROGRESS, COMPLETED")
-    @GetMapping("/{groupId}/task")
-    public ApiResult<List<TaskResponse>> getTask(
-            @PathVariable Long groupId){
-        List<TaskResponse> responses = taskService.getTask(groupId);
-        return ApiResult.ok(responses);
-    }
-
-    @Operation(summary = "할일 수정")
-    @PutMapping("/task/{taskId}")
-    public ApiResult<Void> updateTask(
-            @PathVariable Long taskId,
-            @RequestBody TaskRequest request){
-        taskService.editTask(taskId, request);
-        return ApiResult.ok(null);
-    }
-
-    @Operation(summary = "할일 삭제")
-    @DeleteMapping("/task/{taskId}")
-    public ApiResult<Void> deleteTask(
-            @PathVariable Long taskId){
-        taskService.deleteTask(taskId);
-        return ApiResult.ok(null);
-    }
 }

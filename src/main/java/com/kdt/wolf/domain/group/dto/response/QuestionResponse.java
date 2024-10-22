@@ -10,6 +10,7 @@ import java.util.List;
 
 @Getter
 public class QuestionResponse {
+    private final Long questionId;
     //private final QuestionAuthor user;
     private final String boardType;
     private final String questionDetails;
@@ -18,6 +19,7 @@ public class QuestionResponse {
     private final List<QuestionCommentResponse> comments;
 
     public QuestionResponse(QuestionBoardEntity question, List<QuestionCommentEntity> comments) {
+        this.questionId = question.getQuestionId();
         //this.user = new QuestionAuthor(question.getUser());
         this.boardType = BoardType.QUESTION.equals(question.getBoardType()) ? "question" : "communication";
         this.questionDetails = question.getQuestionDetails();

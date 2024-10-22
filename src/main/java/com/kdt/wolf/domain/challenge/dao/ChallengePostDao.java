@@ -2,7 +2,6 @@ package com.kdt.wolf.domain.challenge.dao;
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
-import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengePaymentRequest;
@@ -10,6 +9,7 @@ import com.kdt.wolf.domain.challenge.dto.request.ChallengeRegistrationRequest;
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest.VerificationRequest;
 import com.kdt.wolf.domain.challenge.entity.*;
 import com.kdt.wolf.domain.challenge.repository.*;
+import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
@@ -42,30 +42,11 @@ public class ChallengePostDao {
     }
 
     // 챌린지 목록 불러오기(관리자)
-    public List<ChallengePostEntity> findAll(){
-        return challengePostRepository.findAll();
-    }
+    public Page<ChallengePostEntity> findAll(Pageable pageable){
 
-    // 챌린지 목록 불러오기(회원)
-//    public List<ChallengeRegistrationEntity> findCertifiableChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findCertifiableChallenges(groupId, userId);
-//    }
-//
-//    public List<ChallengeRegistrationEntity> findCertifiedChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findCertifiedChallenges(groupId, userId);
-//    }
-//
-//    public List<ChallengeRegistrationEntity> findCompletedChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findCompletedChallenges(groupId, userId);
-//    }
-//
-//    public List<ChallengeRegistrationEntity> findPayableChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findPayableChallenge(groupId, userId);
-//    }
-//
-//    public List<ChallengeRegistrationEntity> findJoinableChallenges(Long groupId, Long userId) {
-//        return challengeRegistrationQueryRepository.findJoinableChallenges(groupId, userId);
-//    }
+        return challengePostRepository.findAll(pageable);
+
+    }
 
     public Page<ChallengeRegistrationEntity> findChallengesByStatus(Long groupId, Long userId, ChallengeStatus status, Pageable pageable) {
         return switch (status) {
@@ -126,9 +107,9 @@ public class ChallengePostDao {
 //                request.getVerificationContent()
 //        );
         boolean status = request.status().equals("success");
-        GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
-        entity.updateParticipationStatus();
-        groupChallengeParticipantRepository.save(entity);
+//        GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
+//        entity.updateParticipationStatus();
+//        groupChallengeParticipantRepository.save(entity);
         verificationEntity.updateVerification(status);
 //        if(request.status().equals("success")) {
 //            verificationEntity.updateVerification();
@@ -184,18 +165,11 @@ public class ChallengePostDao {
         return challengePaymentRepository.findById(paymentId).orElseThrow(NotFoundException::new);
     }
 
-    public List<VerificationPreview> getAllVerifications() {
-        return verificationRepository.findAll()
-                .stream().map(
-                        verification -> new VerificationPreview(
-                                verification.getVerificationId(),
-                                verification.getUser().getNickname(),
-                                verification.getChallengePost().getTitle(),
-                                verification.getRegistration().getGroupPost().getName(),
-                                verification.getCreatedTime().toLocalDate().toString(),
-                                verification.isVerification() ? "인증 성공" : "인증 실패"
-                        )
-                ).toList();
+    public Page<VerificationEntity> getAllVerifications(Pageable pageable) {
+        Page<VerificationEntity> verifications = verificationRepository.findAll(pageable);
+
+        return verifications;
+
     }
 
     public VerificationDetail getVerification(Long verificationId) {
@@ -212,5 +186,18 @@ public class ChallengePostDao {
                 verification.getCreatedTime().toLocalDate().toString(),
                 verification.isVerification() ? "인증 성공" : "인증 실패"
         );
+    }
+
+    public Long countByGroupPostId(Long groupId) {
+        return challengeRegistrationQueryRepository.countByGroupPostId(groupId);
+    }
+
+    public List<ChallengePostEntity> findByGroupPost(GroupPostEntity groupPost) {
+        return challengeRegistrationQueryRepository.findByGroupPost(groupPost);
+    }
+
+
+    public List<GroupChallengeParticipantEntity> findParticipants(GroupMemberEntity user, ChallengePostEntity challenge, GroupPostEntity groupPost) {
+        return groupChallengeParticipantRepository.findMemberByGroupPost(user, challenge, groupPost);
     }
 }

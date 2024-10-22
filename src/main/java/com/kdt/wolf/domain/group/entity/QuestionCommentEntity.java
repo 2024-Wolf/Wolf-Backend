@@ -22,15 +22,15 @@ public class QuestionCommentEntity extends BaseTimeEntity {
     @SequenceGenerator(name = "seq_comment_comment_id", sequenceName = "comment_sequence", allocationSize = 1)
     private Long commentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "question_id", nullable = false)
     private QuestionBoardEntity question;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "parent_comment_id")
     private QuestionCommentEntity parentComment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity author;
 

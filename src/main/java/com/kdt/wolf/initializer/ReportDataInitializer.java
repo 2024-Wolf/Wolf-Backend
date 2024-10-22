@@ -19,6 +19,7 @@ import com.kdt.wolf.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -92,18 +93,27 @@ public class ReportDataInitializer implements CommandLineRunner {
         questionCommentRepository.flush();
 
         // 5. ReportCategoryEntity 더미 데이터 생성 (생성자 사용)
-        ReportCategoryEntity category = new ReportCategoryEntity("Inappropriate content");
-        reportCategoryRepository.save(category);
+        List<ReportCategoryEntity> reportCategories = Arrays.asList(
+                new ReportCategoryEntity("부적절한 이름입니다."),
+                new ReportCategoryEntity("부적절한 언행입니다."),
+                new ReportCategoryEntity("음란물입니다."),
+                new ReportCategoryEntity("괴롭힘 또는 폭력적인 표현입니다."),
+                new ReportCategoryEntity("사기 행위입니다."),
+                new ReportCategoryEntity("스터디의 목적에 부합하지 않는 내용입니다."),
+                new ReportCategoryEntity("혼란을 조장하는 내용입니다."),
+                new ReportCategoryEntity("도배 행위가 포함되어 있습니다.")
+        );
+        reportCategoryRepository.saveAll(reportCategories);
         reportCategoryRepository.flush();
 
         // 6. 다양한 리포트 유형에 대한 더미 데이터 생성 (생성자 사용)
-        ReportEntity reportForUser = new ReportEntity(reporter, reportedUser, category, "User violated community guidelines.");
+        ReportEntity reportForUser = new ReportEntity(reporter, reportedUser, reportCategories.get(0), "User violated community guidelines.");
 
-        ReportEntity reportForGroupPost = new ReportEntity(reporter, groupPost, category, "This post contains inappropriate content.");
+        ReportEntity reportForGroupPost = new ReportEntity(reporter, groupPost, reportCategories.get(2), "This post contains inappropriate content.");
 
-        ReportEntity reportForReply = new ReportEntity(reporter, comment, category, "This reply is offensive.");
+        ReportEntity reportForReply = new ReportEntity(reporter, comment, reportCategories.get(3), "This reply is offensive.");
 
-        ReportEntity reportForQuestion = new ReportEntity(reporter, question, category, "This question violates the rules.");
+        ReportEntity reportForQuestion = new ReportEntity(reporter, question, reportCategories.get(4), "This question violates the rules.");
 
         // 더미 데이터 리스트 반환
         return List.of(reportForUser, reportForGroupPost, reportForReply, reportForQuestion);

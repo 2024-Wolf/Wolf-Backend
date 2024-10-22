@@ -12,11 +12,15 @@ import com.kdt.wolf.domain.user.info.OAuth2UserInfo;
 import com.kdt.wolf.domain.user.info.impl.GoogleOAuth2UserInfo;
 import com.kdt.wolf.domain.user.repository.ActivityMetricsRepository;
 import com.kdt.wolf.domain.user.repository.UserRepository;
+import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -71,10 +75,9 @@ public class UserDao {
         return userRepository.save(user);
     }
 
-    public List<UserPreviewResponse> findAllUserPreview() {
-        return userRepository.findAll().stream()
-                .map(UserEntity::toUserPreviewResponse)
-                .toList();
+    public Page<UserEntity> findAllUserPreview(Pageable pageable) {
+
+        return userRepository.findAll(pageable);
     }
 
     public UserDetailResponse findUserDetail(Long userId) {
