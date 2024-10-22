@@ -1,6 +1,8 @@
 package com.kdt.wolf.domain.group.dto;
 
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.ChallengePreviewByGroup;
+import com.kdt.wolf.global.dto.PageResponse;
+
 import java.util.List;
 
 public class GroupAdminDto {
@@ -15,9 +17,7 @@ public class GroupAdminDto {
     ) { }
     public record GroupPreviewPageResponse(
             List<GroupPreviewResponse> groups,
-            int page,
-            int size,
-            int totalPage
+            PageResponse page
     ) { }
     public record GroupDetailResponse(
             Long id,

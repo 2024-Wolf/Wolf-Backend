@@ -14,6 +14,8 @@ import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.kdt.wolf.global.dto.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +33,7 @@ public class GroupAdminService {
         Page<GroupPostEntity> posts = groupPostDao.findAll(pageable);
 
         if(posts.isEmpty()) {
-            return new GroupPreviewPageResponse(List.of(), 0, 0, 0);
+            return new GroupPreviewPageResponse(List.of(), new PageResponse(Page.empty()));
         }
 
         return new GroupPreviewPageResponse(
@@ -45,9 +47,7 @@ public class GroupAdminService {
                                 groupMemberDao.countByGroupPostId(post.getGroupPostId()).intValue(),
                                 post.getChallengeStatus()
                         )).toList(),
-                posts.getNumber(),
-                posts.getTotalPages(),
-                posts.getNumber()
+                new PageResponse(posts)
         );
     }
 

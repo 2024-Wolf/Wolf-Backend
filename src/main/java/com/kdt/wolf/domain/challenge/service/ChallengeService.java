@@ -1,12 +1,14 @@
 package com.kdt.wolf.domain.challenge.service;
 
 import com.kdt.wolf.domain.challenge.dao.ChallengePostDao;
-import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationDetail;
+import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.VerificationPageResponse;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPreview;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeDetail;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePageResponse;
 import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengePreview;
-import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPreview;
+import com.kdt.wolf.domain.challenge.dto.ChallengeDto.ChallengeAdminPageResponse;
 import com.kdt.wolf.domain.challenge.dto.ChallengeStatus;
 
 import com.kdt.wolf.domain.challenge.dto.request.ChallengeCreationRequest.ChallengeCreateRequest;
@@ -16,6 +18,7 @@ import com.kdt.wolf.domain.challenge.dto.request.ChallengeVerificationRequest.Ve
 import com.kdt.wolf.domain.challenge.dto.response.PaymentResponse;
 import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
 import com.kdt.wolf.domain.challenge.entity.PaymentEntity;
+import com.kdt.wolf.domain.challenge.entity.VerificationEntity;
 import com.kdt.wolf.domain.challenge.repository.ChallengePaymentRepository;
 import com.kdt.wolf.global.dto.PageResponse;
 import lombok.RequiredArgsConstructor;
@@ -81,17 +84,19 @@ public class ChallengeService {
     }
 
     // 챌린지 목록 불러오기
-    public List<ChallengeAdminPreview> getAllChallenges(){
-        List<ChallengePostEntity> dataList = challengePostDao.findAll();
+    public ChallengeAdminPageResponse getAllChallenges(Pageable pageable){
+        Page<ChallengePostEntity> challenges = challengePostDao.findAll(pageable);
 
-        return dataList.stream().map(data -> new ChallengeAdminPreview(
-           data.getChallengePostId(),
-           data.getImg(),
-           data.getTitle(),
-           data.getCreatedTime().toLocalDate(),
-           data.getDeadline(),
-           CheckStatus(data)
-        )).toList();
+        if(challenges.isEmpty()){
+            return new ChallengeAdminPageResponse(List.of(), new PageResponse(Page.empty()));
+        }
+
+        return new ChallengeAdminPageResponse(
+                challenges.getContent().stream()
+                        .map(challengeEntity -> new ChallengeAdminPreview(challengeEntity.getChallengePostId(), challengeEntity.getImg(), challengeEntity.getTitle(), challengeEntity.getCreatedTime().toLocalDate(), challengeEntity.getDeadline(), CheckStatus(challengeEntity)))
+                        .toList(),
+                new PageResponse(challenges)
+        );
     }
 
     // 챌린지 목록 불러오기(그룹)
@@ -180,8 +185,18 @@ public class ChallengeService {
     }
 
 
-    public List<VerificationPreview> getAllVerifications() {
-        return challengePostDao.getAllVerifications();
+    public VerificationPageResponse getAllVerifications(Pageable pageable) {
+        Page<VerificationEntity> verifications = challengePostDao.getAllVerifications(pageable);
+
+        if(verifications.isEmpty()){
+            return new VerificationPageResponse(List.of(), new PageResponse(Page.empty()));
+        }
+        return new VerificationPageResponse(
+                verifications.getContent().stream()
+                        .map(verificationEntity -> new VerificationPreview(verificationEntity.getVerificationId(), verificationEntity.getUser().getNickname(), verificationEntity.getChallengePost().getTitle(), verificationEntity.getRegistration().getGroupPost().getName(), verificationEntity.getCreatedTime().toLocalDate().toString(), verificationEntity.isVerification() ? "인증 성공" : "인증 실패"))
+                        .toList(),
+                new PageResponse(verifications)
+        );
     }
 
     public VerificationDetail getVerification(Long verificationId) {

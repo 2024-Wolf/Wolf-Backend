@@ -2,7 +2,7 @@ package com.kdt.wolf.domain.user.controller;
 
 import com.kdt.wolf.domain.report.service.ReportAction;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
-import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPreviewResponse;
+import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPageResponse;
 import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +10,8 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,10 +37,11 @@ public class UserAdminController {
 
     @Operation(summary = "회원 전체 목록 조회")
     @GetMapping
-    public String getUsers(Model model) {
-        List<UserPreviewResponse> users = userService.getUserList();
+    public String getUsers(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+        UserPageResponse users = userService.getUserList(pageable);
         log.debug("Fetched users: {}", users);
-        model.addAttribute("users", users);
+        model.addAttribute("users", users.userPreviewResponses());
+        model.addAttribute("page", users.page());
         return "user";  // user.jsp를 반환
     }
 

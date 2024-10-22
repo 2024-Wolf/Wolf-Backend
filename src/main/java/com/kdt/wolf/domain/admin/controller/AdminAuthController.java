@@ -35,7 +35,7 @@ public class AdminAuthController {
         System.out.println("REFRESH_TOKEN: " + tokenResponse.refreshToken());
 
 
-        return "redirect:/admin/users";
+        return "redirect:/admin/notices";
     }
 
     @PostMapping("/logout")

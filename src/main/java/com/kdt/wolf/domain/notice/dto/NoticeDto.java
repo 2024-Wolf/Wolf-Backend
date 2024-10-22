@@ -1,7 +1,11 @@
 package com.kdt.wolf.domain.notice.dto;
 
+import com.kdt.wolf.domain.notice.dao.NoticeAdminDto;
 import com.kdt.wolf.domain.notice.entity.NoticeEntity;
+import com.kdt.wolf.global.dto.PageResponse;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class NoticeDto {
     public record NoticeResponseDto (
@@ -23,4 +27,8 @@ public class NoticeDto {
             );
         }
     }
+    public record NoticePageResponseDto (
+            List<NoticeResponseDto> notices,
+            PageResponse page
+    ) {}
 }

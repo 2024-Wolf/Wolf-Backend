@@ -1,6 +1,9 @@
 package com.kdt.wolf.domain.report.dto;
 
 import com.kdt.wolf.domain.report.service.ReportAction;
+import com.kdt.wolf.global.dto.PageResponse;
+
+import java.util.List;
 
 public class ReportAdminDto {
     public record ReportPreviewDto(
@@ -11,6 +14,10 @@ public class ReportAdminDto {
             String target,
             String createdAt,
             boolean isProcessed
+    ) { }
+    public record ReportPageResponse(
+            List<ReportPreviewDto> reports,
+            PageResponse page
     ) { }
 
     public record ReportDetailDto(

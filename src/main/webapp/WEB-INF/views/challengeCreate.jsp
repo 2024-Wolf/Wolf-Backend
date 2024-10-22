@@ -30,8 +30,8 @@
 
 						<!-- 챌린지 기간 입력 필드 -->
 						<jsp:include page="components/inputDate/startEndDate.jsp">
-							<jsp:param name="registrationDate" value="" />
-							<jsp:param name="deadline" value="" />
+							<jsp:param name="startDate" value="<%= now %>" />
+							<jsp:param name="endDate" value="" />
 						</jsp:include>
 
 						<!-- 챌린지 이름 입력 필드 -->
