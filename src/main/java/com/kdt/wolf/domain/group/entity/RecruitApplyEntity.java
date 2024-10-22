@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.entity.common.ApplyStatus;
 import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
@@ -51,6 +52,9 @@ public class RecruitApplyEntity extends BaseTimeEntity {
     @Column(length = 1000)
     private String additionalNotes;
 
+    @Enumerated(EnumType.STRING)
+    private ApplyStatus applyStatus;
+
     @Builder
     public RecruitApplyEntity(GroupPostEntity groupPost, UserEntity user, RecruitRole position, String email, String applicationReason,
                               String introduction, String techStack, String portfolioLink, String availableDays,
@@ -65,5 +69,10 @@ public class RecruitApplyEntity extends BaseTimeEntity {
         this.portfolioLink = portfolioLink;
         this.availableDays = availableDays;
         this.additionalNotes = additionalNotes;
+        this.applyStatus = ApplyStatus.PENDING;
+    }
+
+    public void changeStatus(ApplyStatus status) {
+        this.applyStatus = status;
     }
 }

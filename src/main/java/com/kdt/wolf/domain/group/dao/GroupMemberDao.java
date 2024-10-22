@@ -5,6 +5,8 @@ import com.kdt.wolf.domain.group.dto.request.EvaluateRequest;
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.domain.group.entity.common.MemberRole;
+import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import com.kdt.wolf.domain.group.repository.GroupMemberRepository;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.ActivityMetricsEntity;
@@ -52,11 +54,11 @@ public class GroupMemberDao {
 
     }
 
-    public Page<GroupPostEntity> findOngoingPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
+    public Page<GroupMemberEntity> findOngoingPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
         return groupMemberRepository.findOngoingPostsByUserIdAndType(userId, type, pageable);
     }
 
-    public Page<GroupPostEntity> findCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
+    public Page<GroupMemberEntity> findCompletedPostsByUserIdAndType(Long userId, GroupType type, Pageable pageable) {
         return groupMemberRepository.findCompletedPostsByUserIdAndType(userId, type, pageable);
     }
 
@@ -74,5 +76,15 @@ public class GroupMemberDao {
 
     public List<GroupMemberEntity> findGroupMembers(GroupPostEntity groupPost) {
         return groupMemberRepository.findGroupMembers(groupPost);
+    }
+
+    public Long addGroupMember(GroupPostEntity groupPost, UserEntity user, RecruitRole position) {
+        GroupMemberEntity member = GroupMemberEntity.builder()
+                .groupPost(groupPost)
+                .user(user)
+                .role(MemberRole.MEMBER)
+                .position(position.name())
+                .build();
+        return groupMemberRepository.save(member).getGroupMemberId();
     }
 }
