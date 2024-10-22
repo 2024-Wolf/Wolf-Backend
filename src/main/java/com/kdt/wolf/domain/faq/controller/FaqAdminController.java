@@ -57,7 +57,7 @@ public class FaqAdminController {
     @Operation(summary = "FAQ 등록")
     @PostMapping
     public String createFaq(@AuthenticationPrincipal AuthenticatedUser author, @ModelAttribute FaqCreateRequest request) {
-        Long id = faqService.createFaq(adminRepository.findAll().get(0).getAdminId(), request);
+        Long id = faqService.createFaq(author.getUserId(), request);
         return "redirect:/admin/faqs/" + id;
     }
 

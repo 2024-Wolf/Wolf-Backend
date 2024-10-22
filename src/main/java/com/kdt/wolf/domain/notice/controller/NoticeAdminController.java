@@ -59,7 +59,7 @@ public class NoticeAdminController {
     public String createNotice(@AuthenticationPrincipal AuthenticatedUser author,
                                @ModelAttribute NoticeCreateDto request) {
         //TODO : 로그인된 토큰 정보로 어드민 가져와야하는데...... 이부분 어캐 함 ? -> ..글쎄,,,
-        Long noticeId = noticeService.createNotice(request, adminRepository.findAll().get(0).getAdminId());
+        Long noticeId = noticeService.createNotice(request, author.getUserId());
         return "redirect:/admin/notices/" + noticeId;
     }
 
