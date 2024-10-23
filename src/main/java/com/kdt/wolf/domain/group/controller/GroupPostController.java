@@ -9,14 +9,17 @@ import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.service.*;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
+import com.kdt.wolf.global.util.FileValidationUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +34,15 @@ public class GroupPostController {
     public ApiResult<Void> createPost(@RequestBody GroupPostRequest request,
                                       @AuthenticationPrincipal AuthenticatedUser user) {
         groupPostService.createPost(request, user.getUserId());
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "모집글 프로필사진 등록")
+    @PostMapping(value ="/{postId}/thumbnail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResult<String> uploadThumbnail(@PathVariable Long postId,
+                                             @RequestParam("thumbnailImage") MultipartFile thumbnailImage) {
+        FileValidationUtil.validateImageFile(thumbnailImage);
+//        String thumbnailUrl = groupPostService.uploadThumbnail(postId, thumbnailImage);
         return ApiResult.ok(null);
     }
 
