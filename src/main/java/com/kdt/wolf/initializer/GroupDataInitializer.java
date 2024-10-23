@@ -1,6 +1,7 @@
 package com.kdt.wolf.initializer;
 
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
+import com.kdt.wolf.domain.group.entity.GroupNewsEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.QuestionBoardEntity;
 import com.kdt.wolf.domain.group.entity.QuestionCommentEntity;
@@ -11,6 +12,7 @@ import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.entity.common.MemberRole;
 import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import com.kdt.wolf.domain.group.repository.GroupMemberRepository;
+import com.kdt.wolf.domain.group.repository.GroupNewsRepository;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.group.repository.QuestionBoardRepository;
 import com.kdt.wolf.domain.group.repository.QuestionCommentRepository;
@@ -34,6 +36,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GroupDataInitializer implements CommandLineRunner {
     private final GroupPostRepository groupPostRepository;
+    private final GroupNewsRepository groupNewsRepository;
     private final RecruitmentsRepository recruitmentsRepository;
     private final GroupMemberRepository groupMemberRepository;
     private final RecruitApplyRepository recruitApplyRepository;
@@ -62,6 +65,7 @@ public class GroupDataInitializer implements CommandLineRunner {
         insertProjectRecruitmentData(groupPosts);  // 프로젝트 모집 데이터 삽입
         List<RecruitApplyEntity> recruitApplies = insertRecruitApplyData(groupPosts, users);  // 지원서 데이터 삽입
         insertGroupMembers(recruitApplies);  // 그룹 멤버 데이터 삽입
+        insertGroupNewsData(groupPosts);  // 그룹 소식 데이터 삽입
         insertQuestionBoardData(groupPosts, users);  // 질문 데이터 삽입
         System.out.println("Group 더미 데이터가 성공적으로 삽입되었습니다.");
     }
@@ -165,6 +169,18 @@ public class GroupDataInitializer implements CommandLineRunner {
                 .toList();
 
         groupMemberRepository.saveAll(groupMembers);  // 그룹 멤버 데이터를 데이터베이스에 저장
+    }
+
+    @Transactional
+    public void insertGroupNewsData(List<GroupPostEntity> groupPosts) {
+        List<GroupNewsEntity> groupNewsList = groupPosts.stream()
+                .map(post -> new GroupNewsEntity(
+                        post.getName() + "에 새로운 일정이 추가되었습니다.",
+                        post
+                ))
+                .toList();
+
+        groupNewsRepository.saveAll(groupNewsList);
     }
 
     @Transactional
