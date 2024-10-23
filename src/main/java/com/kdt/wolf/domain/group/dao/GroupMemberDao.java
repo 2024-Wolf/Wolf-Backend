@@ -30,8 +30,7 @@ public class GroupMemberDao {
     private final ActivityMetricsRepository activityMetricsRepository;
 
     public List<GroupMemberEntity> findAllByGroupId(Long groupId) {
-        GroupPostEntity post = groupPostRepository.findById(groupId).orElseThrow(NotFoundException::new);
-        return groupMemberRepository.findAllByGroupPost(post);
+        return groupMemberRepository.findAllByGroupId(groupId);
     }
 
     public GroupMemberEntity findByGroupIdAndMemberId(Long groupId, Long memberId) {

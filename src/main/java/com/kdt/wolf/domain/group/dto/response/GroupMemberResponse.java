@@ -17,7 +17,8 @@ public class GroupMemberResponse {
         this.position = groupMember.getPosition();
     }
 
-    public class GroupUser{
+    @Getter
+    public static class GroupUser{
         private final Long userId;
         private final String userNickname;
         private final String userProfileImg;
