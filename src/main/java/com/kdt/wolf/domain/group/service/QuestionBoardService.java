@@ -27,9 +27,9 @@ public class QuestionBoardService {
 
     public QuestionPageResponse getQuestions(Long groupPostId, String option, Pageable pageable) {
         Page<QuestionBoardEntity> questions = Page.empty();
-        if(option.equals("question")) {
+        if(option.trim().equalsIgnoreCase("question")) {
             questions = questionBoardDao.getQuestions(groupPostId, BoardType.QUESTION, pageable);
-        } else if (option.equals("communication")) {
+        } else if (option.trim().equalsIgnoreCase("communication")) {
             questions =  questionBoardDao.getQuestions(groupPostId, BoardType.COMMUNICATION, pageable);
         }
         

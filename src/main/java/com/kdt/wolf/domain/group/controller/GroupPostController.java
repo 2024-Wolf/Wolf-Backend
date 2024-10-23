@@ -122,5 +122,4 @@ public class GroupPostController {
         return ApiResult.ok(null);
     }
 
-
 }
