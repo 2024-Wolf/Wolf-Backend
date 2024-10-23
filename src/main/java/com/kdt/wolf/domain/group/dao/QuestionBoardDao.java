@@ -35,7 +35,7 @@ public class QuestionBoardDao {
         return questionCommentRepository.findByQuestionQuestionId(questionId);
     }
 
-    public void createQuestion(Long groupId,String option, QuestionRequest request, UserEntity user) {
+    public QuestionBoardEntity createQuestion(Long groupId,String option, QuestionRequest request, UserEntity user) {
         QuestionBoardEntity question = QuestionBoardEntity.builder()
                 .groupPost(groupPostDao.findById(groupId))
                 .user(user)
@@ -45,7 +45,7 @@ public class QuestionBoardDao {
                 .questionImageUrl(request.getQuestionImageUrl())
                 .build();
 
-        questionBoardRepository.save(question);
+        return questionBoardRepository.save(question);
     }
     @Transactional
     public void updateQuestion(Long questionId, QuestionRequest request, Long userId) {

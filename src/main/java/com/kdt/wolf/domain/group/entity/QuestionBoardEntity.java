@@ -69,4 +69,8 @@ public class QuestionBoardEntity extends BaseTimeEntity {
             this.questionImageUrl = null;
         }
     }
+
+    public void updateQuestionImage(String responseUrl) {
+        this.questionImageUrl = responseUrl;
+    }
 }

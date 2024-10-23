@@ -140,14 +140,17 @@ public class GroupPostService {
         );
     }
 
+    @Transactional
     public String uploadThumbnail(Long postId, MultipartFile thumbnailImage) {
         GroupPostEntity groupPost = groupPostDao.findById(postId);
         String responseUrl = uploadProfileImage(postId, thumbnailImage);
         groupPost.updateThumbnail(responseUrl);
+
         String deleteImageUrl = groupPost.getThumbnail();
         if(deleteImageUrl != null && deleteImageUrl.contains("s3.amazonaws.com")) {
             s3FileService.delete(deleteImageUrl);
         }
+
         return responseUrl;
     }
 
