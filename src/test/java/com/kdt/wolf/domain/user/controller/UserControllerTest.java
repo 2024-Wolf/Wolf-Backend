@@ -65,7 +65,7 @@ class UserControllerTest {
     @Test
     @WithMockUser // 인증된 유저로 동작
     void testCompleteSignUpProcess() throws Exception {
-        SignUpRequest request = new SignUpRequest("nickname", "jobTitle", 5, "organization", "interests");
+        SignUpRequest request = new SignUpRequest("jobTitle","organization", 5, "currentStatus", "interests", "nickname");
         AuthenticatedUser authenticatedUser = new AuthenticatedUser(userEntity, UserRoleType.ROLE_USER);
 
         Mockito.doNothing().when(userService).completeSignUpProcess(eq(authenticatedUser.getUserId()), any(SignUpRequest.class));
