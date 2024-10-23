@@ -16,6 +16,7 @@ public class GroupNewsService {
         groupNewsDao.save(new GroupNewsEntity(message, group));
     }
 
+
     // 메시지를 동적으로 생성하는 메서드
     public String generateMessage(String username, GroupNewsActionType action) {
         return String.format("%s님이 %s", username, action.getMessage());

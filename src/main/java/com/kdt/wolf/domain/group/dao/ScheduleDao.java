@@ -21,11 +21,9 @@ public class ScheduleDao {
     private final UserRepository userRepository;
     private final GroupPostRepository groupPostRepository;
 
-    public Long createSchedule(Long groupId, ScheduleRequest request, Long userId) {
+    public Long createSchedule(GroupPostEntity group, ScheduleRequest request, Long userId) {
         UserEntity author = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
-        GroupPostEntity group = groupPostRepository.findById(groupId)
-                .orElseThrow(NotFoundException::new);
 
         ScheduleEntity schedule = ScheduleEntity.builder()
                 .groupPost(group)
