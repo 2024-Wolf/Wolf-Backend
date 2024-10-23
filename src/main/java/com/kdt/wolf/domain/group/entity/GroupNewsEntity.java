@@ -1,4 +1,5 @@
 package com.kdt.wolf.domain.group.entity;
+import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "group_news")
-public class GroupNewsEntity {
+public class GroupNewsEntity extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_news_seq_gen")
