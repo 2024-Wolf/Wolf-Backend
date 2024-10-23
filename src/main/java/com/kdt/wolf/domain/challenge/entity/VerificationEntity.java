@@ -33,7 +33,7 @@ public class VerificationEntity extends BaseTimeEntity {
 
     private String certificationNo;
     private String institutionName;
-    private String verificationContent;
+    private String content;
 
     // 기본값 'N' 설정
     @Column(columnDefinition = "NUMBER(1) DEFAULT 0", nullable = false)
@@ -41,13 +41,13 @@ public class VerificationEntity extends BaseTimeEntity {
 
 
     @Builder
-    public VerificationEntity(ChallengeRegistrationEntity registration, ChallengePostEntity challengePost, UserEntity user, String certificationNo, String institutionName, String verificationContent) {
+    public VerificationEntity(ChallengeRegistrationEntity registration, ChallengePostEntity challengePost, UserEntity user, String certificationNo, String institutionName, String content) {
         this.registration = registration;
         this.challengePost = challengePost;
         this.user = user;
         this.certificationNo = certificationNo;
         this.institutionName = institutionName;
-        this.verificationContent = verificationContent;
+        this.content = content;
     }
 
     public void updateVerification(boolean status) {

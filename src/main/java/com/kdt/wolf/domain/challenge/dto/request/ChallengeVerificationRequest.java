@@ -1,6 +1,8 @@
 package com.kdt.wolf.domain.challenge.dto.request;
 
 
+import lombok.Getter;
+
 public class ChallengeVerificationRequest {
     public record VerificationRequest(
             Long challengePostId,
@@ -11,6 +13,4 @@ public class ChallengeVerificationRequest {
             String institutionName,
             String content
     ) {}
-
-
 }

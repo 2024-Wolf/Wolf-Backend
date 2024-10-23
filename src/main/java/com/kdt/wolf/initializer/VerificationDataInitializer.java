@@ -50,7 +50,7 @@ public class VerificationDataInitializer implements CommandLineRunner {
                         .registration(registration.get(0))
                         .certificationNo("CERT12345")
                         .institutionName("Certification Org")
-                        .verificationContent("Verification for challenge 1")
+                        .content("Verification for challenge 1")
                         .build(),
                 VerificationEntity.builder()
                         .challengePost(challengePosts.get(1))
@@ -58,7 +58,7 @@ public class VerificationDataInitializer implements CommandLineRunner {
                         .registration(registration.get(1))
                         .certificationNo("CERT23456")
                         .institutionName("Certification Authority")
-                        .verificationContent("Verification for challenge 2")
+                        .content("Verification for challenge 2")
                         .build(),
                 VerificationEntity.builder()
                         .challengePost(challengePosts.get(2))
@@ -66,7 +66,7 @@ public class VerificationDataInitializer implements CommandLineRunner {
                         .registration(registration.get(2))
                         .certificationNo("CERT34567")
                         .institutionName("Verifier Corp")
-                        .verificationContent("Verification for challenge 3")
+                        .content("Verification for challenge 3")
                         .build()
                 // 필요에 따라 더 추가 가능
         );
