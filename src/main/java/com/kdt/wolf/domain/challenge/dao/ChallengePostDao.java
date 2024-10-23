@@ -66,14 +66,13 @@ public class ChallengePostDao {
 
 
     // 챌린지 신청(그룹장)
-    public void createChallengeRegistration(ChallengeRegistrationRequest request, Long userId) {
-        GroupPostEntity group = groupPostRepository.findById(request.getGroupPostId()).orElseThrow(NotFoundException::new);
-        ChallengePostEntity challengePost = challengePostRepository.findById(request.getChallengePostId()).orElseThrow(NotFoundException::new);
+
+    public void createChallengeRegistration(GroupPostEntity group, ChallengePostEntity challengePost, String challengeAmount) {
 
         ChallengeRegistrationEntity registration = new ChallengeRegistrationEntity(
                 challengePost,
                 group,
-                Long.parseLong(request.getChallengeAmount() == null ? "0" :request.getChallengeAmount())
+                Long.parseLong(challengeAmount == null ? "0" :challengeAmount)
         );
 
         challengeRegistrationQueryRepository.save(registration);

@@ -20,6 +20,10 @@ import com.kdt.wolf.domain.challenge.entity.ChallengePostEntity;
 import com.kdt.wolf.domain.challenge.entity.PaymentEntity;
 import com.kdt.wolf.domain.challenge.entity.VerificationEntity;
 import com.kdt.wolf.domain.challenge.repository.ChallengePaymentRepository;
+import com.kdt.wolf.domain.group.dao.GroupPostDao;
+import com.kdt.wolf.domain.group.entity.GroupPostEntity;
+import com.kdt.wolf.domain.group.entity.common.GroupNewsActionType;
+import com.kdt.wolf.domain.group.service.GroupNewsService;
 import com.kdt.wolf.global.dto.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -36,6 +40,8 @@ public class ChallengeService {
 
     private final ChallengePostDao challengePostDao;
     private final ChallengePaymentRepository challengePaymentRepository;
+    private final GroupNewsService  groupNewsService;
+    private final GroupPostDao  groupPostDao;
 
     public String CheckStatus(ChallengePostEntity post){
         LocalDateTime now = LocalDateTime.now();
@@ -137,7 +143,13 @@ public class ChallengeService {
 
     // 챌린지 신청
     public void createChallengeRegistration(ChallengeRegistrationRequest request, Long userId){
-        challengePostDao.createChallengeRegistration(request, userId);
+        GroupPostEntity group = groupPostDao.findById(request.getGroupPostId());
+        ChallengePostEntity challengePost = challengePostDao.findById(request.getChallengePostId());
+        challengePostDao.createChallengeRegistration(group, challengePost, request.getChallengeAmount());
+        groupNewsService.createGroupNews(
+                group,
+                challengePost.getTitle() + GroupNewsActionType.APPLY_CHALLENGE
+        );
     }
 
     // 챌린지 참여
