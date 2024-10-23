@@ -3,7 +3,6 @@ package com.kdt.wolf.domain.group.service;
 import com.kdt.wolf.domain.group.dao.GroupNewsDao;
 import com.kdt.wolf.domain.group.dao.GroupPostDao;
 import com.kdt.wolf.domain.group.dao.RecruitmentsDao;
-import com.kdt.wolf.domain.group.dto.GroupAdminDto.GroupPreviewPageResponse;
 import com.kdt.wolf.domain.group.dto.GroupNewsDto.GroupNews;
 import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
@@ -11,6 +10,7 @@ import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitmentsEntity;
+import com.kdt.wolf.domain.group.entity.common.GroupNewsActionType;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.dto.PageResponse;
@@ -27,7 +27,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GroupPostService {
-
+    private final GroupNewsService groupNewsService;
     private final GroupPostDao groupPostDao;
     private final RecruitmentsDao recruitmentsDao;
     private final UserDao userDao;
@@ -115,6 +115,8 @@ public class GroupPostService {
             throw new BusinessException(ExceptionCode.ACCESS_DENIED);
         }
         groupPost.updateGroupPost(request);
+
+        groupNewsService.createGroupNews(groupPost, GroupNewsActionType.UPDATE_GROUP_INFO.getMessage());
     }
 
     public void deleteGroupPost(Long postId) {

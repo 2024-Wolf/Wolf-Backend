@@ -15,4 +15,8 @@ public class GroupNewsDao {
     public List<GroupNewsEntity> getGroupNews(Long groupId) {
         return groupNewsRepository.findByGroupId(groupId);
     }
+
+    public void save(GroupNewsEntity groupNewsEntity) {
+        groupNewsRepository.save(groupNewsEntity);
+    }
 }
