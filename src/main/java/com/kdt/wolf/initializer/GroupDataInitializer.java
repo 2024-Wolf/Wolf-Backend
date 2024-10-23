@@ -64,50 +64,50 @@ public class GroupDataInitializer implements CommandLineRunner {
                 new GroupPostEntity(
                         "Spring Boot 스터디", users.get(0), GroupType.STUDY, LocalDate.now().plusDays(5), LocalDate.now().plusMonths(2),
                         LocalDate.now(), LocalDate.now().plusDays(10), "Spring Boot의 기본 개념과 실습",
-                        "개발", "기본 자바 지식", 10, "spring-boot-thumbnail.png", "Backend",
+                        "개발", "이메일,지원직군,지원사유,다룰 수 있는 언어", 10, "spring-boot-thumbnail.png", "Backend",
                         "Spring Boot에 대한 심화 학습을 진행합니다.", "학습 태도에 문제가 있을 시 제외됩니다.", 'Y'),
 
                 new GroupPostEntity(
                         "알고리즘 스터디", users.get(1), GroupType.STUDY, LocalDate.now().plusDays(3), LocalDate.now().plusMonths(1),
                         LocalDate.now().minusDays(2), LocalDate.now().plusDays(5), "코딩 문제를 통한 알고리즘 학습",
-                        "알고리즘", "자료구조와 기본 알고리즘", 8, "algo-thumbnail.png", "Problem Solving",
+                        "알고리즘", "이메일,지원직군,지원사유,참여가능 요일", 8, "algo-thumbnail.png", "Problem Solving",
                         "주 2회 알고리즘 문제풀이를 진행합니다.", "문제풀이에 소홀할 시 제외됩니다.", 'N'),
 
                 new GroupPostEntity(
                         "데이터베이스 스터디", users.get(2), GroupType.STUDY, LocalDate.now().plusDays(7), LocalDate.now().plusMonths(3),
                         LocalDate.now().minusDays(1), LocalDate.now().plusDays(9), "SQL, NoSQL 데이터베이스 학습",
-                        "데이터베이스", "기본 DB 지식", 12, "db-thumbnail.png", "Data Science",
+                        "데이터베이스", "이메일,지원직군,지원사유,자기소개", 12, "db-thumbnail.png", "Data Science",
                         "데이터베이스 모델링 및 실습을 진행합니다.", "수업을 무단으로 빠질 시 제외됩니다.", 'Y'),
 
                 new GroupPostEntity(
                         "리액트 스터디", users.get(3), GroupType.STUDY, LocalDate.now().plusDays(2), LocalDate.now().plusMonths(1),
                         LocalDate.now(), LocalDate.now().plusDays(6), "리액트를 통한 웹 프론트엔드 개발 학습",
-                        "프론트엔드", "자바스크립트 기본", 15, "react-thumbnail.png", "Frontend",
+                        "프론트엔드", "이메일,지원직군,지원사유,포트폴리오 링크", 15, "react-thumbnail.png", "Frontend",
                         "React 기본과 실습을 병행합니다.", "소통이 부족할 시 제외됩니다.", 'N'),
 
                 // PROJECT Type Group Posts
                 new GroupPostEntity(
                         "AI 기반 추천 시스템 프로젝트", users.get(4), GroupType.PROJECT, LocalDate.now().plusDays(10), LocalDate.now().plusMonths(4),
                         LocalDate.now(), LocalDate.now().plusDays(15), "AI 모델을 활용한 추천 시스템 구축",
-                        "AI", "Python, AI 지식", 5, "ai-project-thumbnail.png", "Artificial Intelligence",
+                        "AI", "이메일,지원직군,지원사유,자유기재", 5, "ai-project-thumbnail.png", "Artificial Intelligence",
                         "추천 시스템을 설계하고 구현하는 프로젝트입니다.", "프로젝트에 소홀할 시 제외됩니다.", 'N'),
 
                 new GroupPostEntity(
                         "Java 웹 개발 프로젝트", users.get(5), GroupType.PROJECT, LocalDate.now().plusDays(8), LocalDate.now().plusMonths(3),
                         LocalDate.now(), LocalDate.now().plusDays(12), "Java 기반의 웹 애플리케이션 개발",
-                        "Java", "Java 및 웹 프레임워크", 6, "java-web-thumbnail.png", "Backend",
+                        "Java", "이메일,지원직군,지원사유,다룰 수 있는 언어,자기소개,자유기재", 6, "java-web-thumbnail.png", "Backend",
                         "Java와 Spring을 사용한 웹 애플리케이션 개발 프로젝트입니다.", "지속적인 참여가 필요합니다.", 'N'),
 
                 new GroupPostEntity(
                         "모바일 앱 개발 프로젝트", users.get(6), GroupType.PROJECT, LocalDate.now().plusDays(9), LocalDate.now().plusMonths(4),
                         LocalDate.now(), LocalDate.now().plusDays(14), "안드로이드 앱 개발 프로젝트",
-                        "모바일", "Android, Kotlin", 7, "mobile-app-thumbnail.png", "Mobile",
+                        "모바일", "이메일,지원직군,지원사유,참여가능 요일,포트폴리오 링크", 7, "mobile-app-thumbnail.png", "Mobile",
                         "Android 스튜디오를 사용하여 앱을 개발합니다.", "코드 품질을 유지해야 합니다.", 'N'),
 
                 new GroupPostEntity(
                         "클라우드 인프라 구축 프로젝트", users.get(7), GroupType.PROJECT, LocalDate.now().plusDays(7), LocalDate.now().plusMonths(5),
                         LocalDate.now(), LocalDate.now().plusDays(10), "AWS 클라우드 인프라 구축 및 운영",
-                        "클라우드", "AWS 및 클라우드 개념", 4, "cloud-infra-thumbnail.png", "Cloud",
+                        "클라우드", "이메일,지원직군,지원사유,다룰 수 있는 언어,참여가능 요일,자기소개,포트폴리오 링크,자유기재", 4, "cloud-infra-thumbnail.png", "Cloud",
                         "AWS 기반의 인프라를 설계하고 구축하는 프로젝트입니다.", "안전한 시스템 설계가 요구됩니다.", 'N')
         );
 
