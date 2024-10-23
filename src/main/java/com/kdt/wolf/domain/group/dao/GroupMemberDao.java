@@ -68,6 +68,7 @@ public class GroupMemberDao {
     public String findGroupMembersNickName(GroupPostEntity group) {
         List<GroupMemberEntity> members = groupMemberRepository.findAllByGroupPost(group);
         return members.stream()
+                .filter(member -> member.getRole() == MemberRole.MEMBER)
                 .map(member -> member.getUser().getName())
                 .reduce((a, b) -> a + ", " + b)
                 .orElse("");
@@ -77,13 +78,15 @@ public class GroupMemberDao {
         return groupMemberRepository.findGroupMembers(groupPost);
     }
 
-    public Long addGroupMember(GroupPostEntity groupPost, UserEntity user, RecruitRole position) {
+    public Long addGroupMember(GroupPostEntity groupPost, UserEntity user, RecruitRole position, MemberRole memberRole) {
+        System.out.println("잘 되는중");
         GroupMemberEntity member = GroupMemberEntity.builder()
                 .groupPost(groupPost)
                 .user(user)
-                .role(MemberRole.MEMBER)
+                .role(memberRole)
                 .position(position.name())
                 .build();
+        System.out.println("잘 되는중2222");
         return groupMemberRepository.save(member).getGroupMemberId();
     }
 }
