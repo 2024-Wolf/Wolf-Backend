@@ -13,7 +13,15 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 
 public interface GroupMemberRepository extends JpaRepository<GroupMemberEntity, Long> {
-    List<GroupMemberEntity> findAllByGroupPost(GroupPostEntity groupId); // 그룹 ID로 모임원 조회
+
+    @Query("SELECT m "
+            + "FROM GroupMemberEntity m "
+            + "WHERE m.groupPost.groupPostId=:groupId"
+    )
+    List<GroupMemberEntity> findAllByGroupId(Long groupId); // 그룹 ID로 모임원 조회
+
+    List<GroupMemberEntity> findAllByGroupPost(GroupPostEntity groupPost);
+
     Optional<GroupMemberEntity> findByGroupPostAndGroupMemberId(GroupPostEntity group, Long memberId);
 
     @Query("SELECT m "
