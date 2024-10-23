@@ -60,10 +60,12 @@ public class GroupDataInitializer implements CommandLineRunner {
             System.out.println("충분한 유저 데이터가 필요합니다.");
             return;
         }
+        List<UserEntity> subset = users.subList(8, users.size());
 
         List<GroupPostEntity> groupPosts = insertGroupPostData(users);  // 그룹 포스트 데이터 삽입
         insertProjectRecruitmentData(groupPosts);  // 프로젝트 모집 데이터 삽입
-        List<RecruitApplyEntity> recruitApplies = insertRecruitApplyData(groupPosts, users);  // 지원서 데이터 삽입
+        insertGroupLeaders(groupPosts);//리더 데이터 삽입
+        List<RecruitApplyEntity> recruitApplies = insertRecruitApplyData(groupPosts, subset);  // 지원서 데이터 삽입
         insertGroupMembers(recruitApplies);  // 그룹 멤버 데이터 삽입
         insertGroupNewsData(groupPosts);  // 그룹 소식 데이터 삽입
         insertQuestionBoardData(groupPosts, users);  // 질문 데이터 삽입
@@ -169,6 +171,18 @@ public class GroupDataInitializer implements CommandLineRunner {
                 .toList();
 
         groupMemberRepository.saveAll(groupMembers);  // 그룹 멤버 데이터를 데이터베이스에 저장
+    }
+
+    @Transactional
+    public void insertGroupLeaders(List<GroupPostEntity> groupPosts) {
+        List<GroupMemberEntity> groupMemberEntities = groupPosts.stream()
+                .map(groupPost -> new GroupMemberEntity(
+                        groupPost, groupPost.getLeaderUser(),
+                        MemberRole.LEADER, null))
+                .toList();
+
+        groupMemberRepository.saveAll(groupMemberEntities);
+
     }
 
     @Transactional
