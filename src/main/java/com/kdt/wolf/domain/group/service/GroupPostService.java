@@ -127,7 +127,8 @@ public class GroupPostService {
         return groupNewsDao.getGroupNews(groupId).stream().map(
                 groupNewsEntity -> new GroupNews(
                         groupNewsEntity.getGroupNewsId(),
-                        groupNewsEntity.getNewsContent()
+                        groupNewsEntity.getNewsContent(),
+                        groupNewsEntity.getCreatedTime().toLocalDate().toString()
                 )
         ).toList(
         );
