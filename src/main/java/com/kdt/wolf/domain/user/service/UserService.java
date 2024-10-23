@@ -19,7 +19,9 @@ import com.kdt.wolf.domain.user.entity.common.Status;
 import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
+import com.kdt.wolf.global.service.S3FileService;
 import jakarta.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,12 +31,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserDao userDao;
     private final LinkDao linkDao;
+    private final S3FileService s3FileService;
 
     public UserProfileDetailResponse getUserProfileDetail(Long userId) {
         UserEntity user = userDao.findById(userId);
@@ -199,5 +203,31 @@ public class UserService {
 
     public String isNicknameAvailable(String nickname) {
         return Boolean.toString(userDao.isNicknameAvailable(nickname));
+    }
+
+    @Transactional
+    public String updateProfileImage(Long userId, MultipartFile profileImage) {
+        UserEntity user = userDao.findById(userId);
+
+        String deleteImageUrl = userDao.findProfileImageUrl(userId);
+
+        String responseUrl = uploadProfileImage(user.getEmail(), profileImage);
+
+        if(deleteImageUrl != null && deleteImageUrl.contains("s3.amazonaws.com")) {
+            s3FileService.delete(deleteImageUrl);
+        }
+        user.updateProfileImg(responseUrl);
+        return responseUrl;
+    }
+
+    private String uploadProfileImage(String email, MultipartFile profileImg) {
+        String responseUrl;
+        try {
+            String path = "profileImg"  + "/" + email;
+            responseUrl = s3FileService.upload(profileImg,  path);
+        } catch (IOException e) {
+            throw new BusinessException(ExceptionCode.PROFILE_IMAGE_UPLOAD_FAIL);
+        }
+        return responseUrl;
     }
 }

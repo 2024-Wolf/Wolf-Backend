@@ -145,4 +145,8 @@ public class UserEntity extends BaseTimeEntity {
     public void ban() {
         this.status = Status.BANNED;
     }
+
+    public void updateProfileImg(String responseUrl) {
+        this.profilePicture = responseUrl;
+    }
 }
