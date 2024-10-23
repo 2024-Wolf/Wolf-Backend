@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.kdt.wolf.domain.user.dao.UserDao;
 import com.kdt.wolf.domain.user.dto.SignUpDto.SignUpRequest;
 import com.kdt.wolf.domain.user.dto.UserAdminDto.UserDetailResponse;
+import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPageResponse;
+import com.kdt.wolf.domain.user.dto.UserAdminDto.UserPreviewResponse;
+import com.kdt.wolf.domain.user.dto.UserDto.UserLinkUpdateRequest;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileDetailResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserProfileResponse;
 import com.kdt.wolf.domain.user.dto.UserDto.UserUpdateRequest;
@@ -21,6 +24,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -74,6 +78,7 @@ class UserServiceTest {
                 "jobTitle",
                 "organization",
                 1,
+                "currentStatus",
                 "interests",
                 "Nickname"
         );
@@ -93,9 +98,11 @@ class UserServiceTest {
                 "newJobTitle",
                 "newOrganization",
                 1,
+                "currentStatus",
                 "newInterests",
                 "newRefundAccount",
-                "newIntroduction"
+                "newIntroduction",
+                List.of(new UserLinkUpdateRequest(null, "linkType", "linkUrl"))
         );
         UserProfileDetailResponse response = userService.updateMyProfile(userEntity.getUserId(), request);
 
@@ -113,9 +120,11 @@ class UserServiceTest {
                 "newJobTitle",
                 "newOrganization",
                 1,
+                "currentStatus",
                 "newInterests",
                 "newRefundAccount",
-                "newIntroduction"
+                "newIntroduction",
+                List.of(new UserLinkUpdateRequest(null, "linkType", "linkUrl"))
         );
 
         BusinessException exception = assertThrows(BusinessException.class, () -> {
@@ -127,7 +136,9 @@ class UserServiceTest {
 
     @Test
     void getUserList() {
-        List<?> userList = userService.getUserList();
+        Pageable pageable = Pageable.ofSize(20);
+
+        List<UserPreviewResponse> userList = userService.getUserList(pageable).userPreviewResponses();
         assertNotNull(userList);
         assertFalse(userList.isEmpty());
     }

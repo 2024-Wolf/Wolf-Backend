@@ -3,13 +3,12 @@ package com.kdt.wolf.domain.notice.service;
 
 import com.kdt.wolf.domain.admin.dao.AdminDao;
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewPageResponse;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeCreateDto;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeDetailDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticePreviewPageResponse;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeCreateDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeDetailDtoByAdmin;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.dao.NoticeDao;
-import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticePageResponseDto;
-import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeResponseDto;
 import com.kdt.wolf.domain.notice.entity.NoticeEntity;
 import com.kdt.wolf.global.dto.PageResponse;
 import jakarta.transaction.Transactional;
@@ -27,20 +26,6 @@ public class NoticeService {
     private final NoticeDao noticeDao;
     private final AdminDao adminDao;
 
-    public NoticePageResponseDto getNotices(Pageable pageable) {
-        Page<NoticeEntity> notices = noticeDao.findAll(pageable);
-
-        if(notices.isEmpty()) {
-            return new NoticePageResponseDto(List.of(), new PageResponse(Page.empty()));
-        }
-        return new NoticePageResponseDto(
-                notices.getContent().stream()
-                        .map(NoticeResponseDto::new)
-                        .toList(),
-                new PageResponse(notices)
-        );
-    }
-
     public NoticePreviewPageResponse getNoticePreviews(Pageable pageable) {
         Page<NoticeEntity> notices = noticeDao.findAll(pageable);
 
@@ -55,9 +40,9 @@ public class NoticeService {
         );
     }
 
-    public NoticeDetailDto getNotice(Long noticeId) {
+    public NoticeDetailDtoByAdmin getNoticeByAdmin(Long noticeId) {
         NoticeEntity notice = noticeDao.findById(noticeId);
-        return new NoticeDetailDto(notice);
+        return new NoticeDetailDtoByAdmin(notice);
     }
 
     public Long createNotice(NoticeCreateDto notice, Long adminId) {
@@ -84,5 +69,9 @@ public class NoticeService {
         noticeDao.delete(notice);
     }
 
+    public NoticeDetailDto getNotice(Long noticeId) {
+        NoticeEntity notice = noticeDao.findById(noticeId);
+        return new NoticeDetailDto(notice);
+    }
 }
 

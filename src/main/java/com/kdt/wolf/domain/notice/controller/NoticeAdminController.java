@@ -1,15 +1,12 @@
 package com.kdt.wolf.domain.notice.controller;
 
 import com.kdt.wolf.domain.admin.repository.AdminRepository;
-import com.kdt.wolf.domain.faq.dto.FaqDto;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewPageResponse;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeCreateDto;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticePreviewPageResponse;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeCreateDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeDetailDtoByAdmin;
 import com.kdt.wolf.domain.notice.service.NoticeService;
 import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import io.swagger.v3.oas.annotations.Operation;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -45,7 +42,7 @@ public class NoticeAdminController {
     @Operation(summary = "공지사항 단일 정보 조회")
     @GetMapping("/{noticeId}")
     public String getNotice(@PathVariable Long noticeId, Model model) {
-        NoticeDetailDto notice = noticeService.getNotice(noticeId);
+        NoticeDetailDtoByAdmin notice = noticeService.getNoticeByAdmin(noticeId);
         model.addAttribute("notice", notice);
         return "noticeDetail";
     }
@@ -53,7 +50,7 @@ public class NoticeAdminController {
     @Operation(summary = "공지사항 수정 화면")
     @GetMapping("/noticeEdit/{noticeId}")
     public String editNoticeView(@PathVariable Long noticeId, Model model) {
-        NoticeDetailDto notice = noticeService.getNotice(noticeId);
+        NoticeDetailDtoByAdmin notice = noticeService.getNoticeByAdmin(noticeId);
         model.addAttribute("notice", notice);
         return "noticeEdit";
     }
@@ -72,7 +69,7 @@ public class NoticeAdminController {
     public String updateNotice(@PathVariable Long noticeId,
                                @ModelAttribute NoticeCreateDto request, Model model) {
         Long updatedNoticeId = noticeService.updateNotice(noticeId, request);
-        NoticeDetailDto notice = noticeService.getNotice(updatedNoticeId);
+        NoticeDetailDtoByAdmin notice = noticeService.getNoticeByAdmin(updatedNoticeId);
         model.addAttribute("notice", notice);
         return "redirect:/admin/notices/{noticeId}";
     }
