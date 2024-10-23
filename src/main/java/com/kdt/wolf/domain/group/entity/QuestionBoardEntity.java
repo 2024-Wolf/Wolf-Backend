@@ -22,7 +22,7 @@ public class QuestionBoardEntity extends BaseTimeEntity {
     @SequenceGenerator(name = "seq_question_question_id", sequenceName = "question_sequence", allocationSize = 1)
     private Long questionId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_post_id", nullable = false)
     private GroupPostEntity groupPost;
 

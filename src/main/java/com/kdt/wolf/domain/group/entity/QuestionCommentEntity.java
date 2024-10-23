@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,10 +26,12 @@ public class QuestionCommentEntity extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "question_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE) // 부모 엔티티 삭제 시 자식 엔티티 삭제
     private QuestionBoardEntity question;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "parent_comment_id")
+    @OnDelete(action = OnDeleteAction.CASCADE) // 부모 엔티티 삭제 시 자식 엔티티 삭제
     private QuestionCommentEntity parentComment;
 
     @ManyToOne(fetch = FetchType.LAZY)
