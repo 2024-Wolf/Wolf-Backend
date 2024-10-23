@@ -30,17 +30,17 @@ public class FileValidationUtil {
         }
     }
     // 파일 확장자 추출
-    private String getFileExtension(String filename) {
+    private static String getFileExtension(String filename) {
         return filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
     }
 
     // 지원하는 파일 확장자 검사
-    private boolean isSupportedFileExtension(String fileExtension) {
+    private static boolean isSupportedFileExtension(String fileExtension) {
         return fileExtension.equals("jpg") || fileExtension.equals("jpeg") || fileExtension.equals("png");
     }
 
     // 지원하는 MIME 타입 검사
-    private boolean isSupportedContentType(String contentType) {
+    private static boolean isSupportedContentType(String contentType) {
         return contentType.equals("image/jpeg") || contentType.equals("image/png");
     }
 }
