@@ -35,7 +35,7 @@ public class RecruitApplyDao {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(UserNotFoundException::new);
 
-        RecruitRole position = "frontend".equals(request.getPosition()) ? RecruitRole.FRONTEND : RecruitRole.BACKEND;;
+        RecruitRole position = RecruitRole.valueOf(request.getPosition().toUpperCase());
 
         RecruitApplyEntity recruitApply = RecruitApplyEntity.builder()
                 .groupPost(groupPost)
