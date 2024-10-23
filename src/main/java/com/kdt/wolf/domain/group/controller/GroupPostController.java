@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.controller;
 
+import com.kdt.wolf.domain.group.dto.GroupNewsDto.GroupNews;
 import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUserPageResponse;
 import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.*;
@@ -115,11 +116,16 @@ public class GroupPostController {
 
     @Operation(summary = "팀원 평가 작성")
     @PostMapping("/{groupId}/evaluate")
-    public ApiResult<Void> postEvaluation(
-            @PathVariable Long groupId,
-            @RequestBody List<EvaluateRequest> request){
+    public ApiResult<Void> postEvaluation(@PathVariable Long groupId,
+                                          @RequestBody List<EvaluateRequest> request){
         groupMemberService.addEvaluation(groupId, request);
         return ApiResult.ok(null);
     }
 
+    @Operation(summary = "최신 소식 조회")
+    @GetMapping("/{groupId}/news")
+    public ApiResult<List<GroupNews>> getGroupNews(@PathVariable Long groupId) {
+        List<GroupNews> responses = groupPostService.getGroupNews(groupId);
+        return ApiResult.ok(responses);
+    }
 }

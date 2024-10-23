@@ -116,4 +116,8 @@ public class UserDao {
         //이미 존재하면 ? userRepository.existsByNickname(nickname) -> true
         return !userRepository.existsByNickname(nickname);
     }
+
+    public String findProfileImageUrl(Long userId) {
+        return findById(userId).getProfilePicture();
+    }
 }

@@ -4,6 +4,8 @@ import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Entity
@@ -19,11 +21,13 @@ public class VerificationEntity extends BaseTimeEntity {
     // ChallengePostEntity와 다대일 관계 설정
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challenge_post_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ChallengePostEntity challengePost;
 
     // ChallengeRegistrationEntity와 다대일 관계 설정
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "registration_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ChallengeRegistrationEntity registration;
 
     // UserEntity와 다대일 관계 설정
