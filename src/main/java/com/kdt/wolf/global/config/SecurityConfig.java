@@ -40,7 +40,7 @@ public class SecurityConfig {
                         authz ->
                                 authz.requestMatchers("/api/v1/auth/google", "/api/v1/auth/login", "/api/v1/auth/test-login",
                                                 "/api/v1/auth/reissue", "/api/v1/post/search/{keyword}", "/api/v1/post/{postId}",
-                                                "/api/v1/faqs/{category}", "/api/v1/post/{groupId}/question/{option}").permitAll()
+                                                "/api/v1/faqs/{category}", "/api/v1/post/{groupId}/question/{option}", "/api/v1/post/{groupId}/news").permitAll()
                                         .requestMatchers("/api/v1/**").authenticated()
                                         .requestMatchers(HttpMethod.GET, "/api/v1/post/{options}").permitAll()
                                         .requestMatchers(HttpMethod.POST, "/admin/auth/login").permitAll()
