@@ -56,8 +56,19 @@ public class GroupQuestionBoardController {
                                                  @PathVariable Long questionId,
                                                  @RequestBody MultipartFile questionImage) {
         FileValidationUtil.validateImageFile(questionImage);
-        String questionImageUrl = questionBoardService.uploadQuestionImage(questionId, questionImage);
+        String questionImageUrl = questionBoardService.uploadQuestionImage(groupId, questionId, questionImage);
         return ApiResult.ok(questionImageUrl);
+    }
+
+    @Operation(summary = "질문 답글 사진 등록")
+    @PostMapping(value = "/{groupId}/question/{questionId}/comment/{commentId}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResult<String> uploadCommentImage(@PathVariable Long groupId,
+                                                @PathVariable Long questionId,
+                                                @PathVariable Long commentId,
+                                                @RequestBody MultipartFile commentImage) {
+        FileValidationUtil.validateImageFile(commentImage);
+        String commentImageUrl = questionBoardService.uploadCommentImage(groupId, questionId, commentId, commentImage);
+        return ApiResult.ok(commentImageUrl);
     }
 
     @Operation(summary = "질문 수정")
