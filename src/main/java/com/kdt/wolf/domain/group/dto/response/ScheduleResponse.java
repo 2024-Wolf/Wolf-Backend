@@ -7,12 +7,12 @@ import lombok.Getter;
 public class ScheduleResponse {
     private final Long id;
     private final String details;
-    private final String startTime;
-    private final String endTime;
+    private final String startDate;
+    private final String endDate;
     public ScheduleResponse(ScheduleEntity scheduleEntity) {
         this.id = scheduleEntity.getScheduleId();
         this.details = scheduleEntity.getDetails();
-        this.startTime = scheduleEntity.getStartTime().toString();
-        this.endTime = scheduleEntity.getEndTime().toString();
+        this.startDate = scheduleEntity.getStartTime().toString();
+        this.endDate = scheduleEntity.getEndTime().toString();
     }
 }
