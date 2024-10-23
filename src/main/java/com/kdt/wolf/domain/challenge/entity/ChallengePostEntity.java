@@ -40,8 +40,8 @@ public class ChallengePostEntity extends BaseTimeEntity {
         this.deadline = deadline;
     }
 
-    public void updateChallengePost(ChallengeCreateRequest request) {
-        this.img = request.img();
+    public void updateChallengePost(ChallengeCreateRequest request, String imageUrl) {
+        this.img = imageUrl;
         this.title = request.title();
         this.content = request.content();
         this.manner = request.manner();

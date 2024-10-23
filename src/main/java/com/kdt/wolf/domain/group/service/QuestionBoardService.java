@@ -93,27 +93,44 @@ public class QuestionBoardService {
     }
 
     @Transactional
-    public String uploadQuestionImage(Long questionId, MultipartFile questionImage) {
+    public String uploadQuestionImage(Long groupId, Long questionId, MultipartFile questionImage) {
         QuestionBoardEntity question = questionBoardDao.findQuestionById(questionId);
-        String responseUrl = uploadProfileImage(questionId, questionImage);
+        String path = "group" + "/" + groupId + "question"  + "/" + questionId;
+        String responseUrl = uploadProfileImage(path, questionImage);
         question.updateQuestionImage(responseUrl);
 
         String deleteImageUrl = question.getQuestionImageUrl();
-        if(deleteImageUrl != null && deleteImageUrl.contains("s3.amazonaws.com")) {
-            s3FileService.delete(deleteImageUrl);
-        }
+        deleteImage(deleteImageUrl);
 
         return responseUrl;
     }
-    private String uploadProfileImage(Long questionId, MultipartFile profileImg) {
+    private String uploadProfileImage(String path, MultipartFile profileImg) {
         String responseUrl;
         try {
-            String path = "question"  + "/" + questionId;
             responseUrl = s3FileService.upload(profileImg, path);
         } catch (IOException e) {
             throw new BusinessException(ExceptionCode.PROFILE_IMAGE_UPLOAD_FAIL);
         }
         return responseUrl;
+    }
+
+    @Transactional
+    public String uploadCommentImage(Long groupId, Long questionId, Long commentId, MultipartFile commentImage) {
+        QuestionCommentEntity comment = questionBoardDao.findCommentById(commentId);
+        String path = "group" + "/" + groupId + "question"  + "/" + questionId + "/comment" + "/" + commentId;
+        String responseUrl = uploadProfileImage(path, commentImage);
+        comment.updateCommentImage(responseUrl);
+
+        String deleteImageUrl = comment.getCommentImageUrl();
+        deleteImage(deleteImageUrl);
+
+        return responseUrl;
+    }
+
+    private void deleteImage(String imageUrl) {
+        if(imageUrl != null && imageUrl.contains("s3.amazonaws.com")) {
+            s3FileService.delete(imageUrl);
+        }
     }
 }
 

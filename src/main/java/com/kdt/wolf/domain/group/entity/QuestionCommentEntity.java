@@ -64,4 +64,8 @@ public class QuestionCommentEntity extends BaseTimeEntity {
     public void updateCommentDetail(String commentDetails) {
         this.commentDetails = commentDetails;
     }
+
+    public void updateCommentImage(String responseUrl) {
+        this.commentImageUrl = responseUrl;
+    }
 }
