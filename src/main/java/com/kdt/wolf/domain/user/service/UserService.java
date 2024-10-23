@@ -213,7 +213,7 @@ public class UserService {
 
         String responseUrl = uploadProfileImage(user.getEmail(), profileImage);
 
-        if(deleteImageUrl != null) {
+        if(deleteImageUrl != null && deleteImageUrl.contains("s3.amazonaws.com")) {
             s3FileService.delete(deleteImageUrl);
         }
         user.updateProfileImg(responseUrl);
