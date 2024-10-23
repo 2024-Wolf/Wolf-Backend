@@ -23,6 +23,7 @@ public enum ExceptionCode implements ResultCodeProvider {
     INVALID_PASSWORD("비밀번호가 일치하지 않습니다."),
     NOT_FOUND_REPORT_CATEGORY("존재하지 않는 신고 카테고리입니다."),
     NOT_FOUND_REPORT("존재하지 않는 신고입니다."),
-    ALREADY_APPLIED("이미 신청한 스터디입니다.");
+    ALREADY_APPLIED("이미 신청한 스터디입니다."),
+    PROFILE_IMAGE_UPLOAD_FAIL("프로필 이미지 업로드에 실패하였습니다."),;
     private final String message;
 }
