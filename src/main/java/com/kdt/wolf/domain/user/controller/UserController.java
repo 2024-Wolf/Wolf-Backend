@@ -11,6 +11,8 @@ import com.kdt.wolf.global.auth.dto.AuthenticatedUser;
 import com.kdt.wolf.global.base.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
+import java.util.Objects;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,8 +54,8 @@ public class UserController {
 
     @Operation(summary = "사용 가능한 닉네임 조회 / true : 사용 가능")
     @GetMapping("/nickname")
-    public ApiResult<Boolean> isNicknameAvailable (@RequestParam String nickname) {
-        boolean isAvailable = userService.isNicknameAvailable(nickname);
+    public ApiResult<String> isNicknameAvailable (@RequestParam String nickname, @AuthenticationPrincipal AuthenticatedUser user) {
+        String isAvailable = nickname.equals(user.getNickname()) ? "equal" : userService.isNicknameAvailable(nickname);
         return ApiResult.ok(isAvailable);
     }
 

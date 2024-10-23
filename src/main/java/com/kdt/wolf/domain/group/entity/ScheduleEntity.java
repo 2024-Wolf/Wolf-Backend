@@ -1,5 +1,6 @@
 package com.kdt.wolf.domain.group.entity;
 
+import com.kdt.wolf.domain.group.dto.request.ScheduleRequest;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -31,20 +33,26 @@ public class ScheduleEntity {
     @Column(length = 100)
     private String details;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column
-    private Date startTime;
+    private LocalDate startTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column
-    private Date endTime;
+    private LocalDate endTime;
 
     @Builder
-    public ScheduleEntity(GroupPostEntity groupPost, UserEntity user, String details, Date startTime, Date endTime) {
+    public ScheduleEntity(GroupPostEntity groupPost, UserEntity user, String details, LocalDate startTime, LocalDate endTime) {
         this.groupPost = groupPost;
         this.user = user;
         this.details = details;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    public void updateSchedule(ScheduleRequest request) {
+        this.details = request.getDetails();
+        this.startTime = request.getStartDate();
+        this.endTime = request.getEndDate();
     }
 }
