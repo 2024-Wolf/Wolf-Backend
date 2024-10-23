@@ -171,7 +171,7 @@ public class ChallengeService {
 
     // 챌린지 생성
     public Long  registerChallenge(ChallengeCreateRequest request, Long userId){
-        String responseUrl;
+        String responseUrl = null;
         if(request.img() != null) {
             FileValidationUtil.validateImageFile(request.img());
             try {
@@ -186,7 +186,17 @@ public class ChallengeService {
 
     // 챌린지 수정
     public Long updateChallenge(ChallengeCreateRequest request, Long challengePostId){
-        return challengePostDao.updateChallenge(request, challengePostId);
+        String responseUrl = null;
+        if(request.img() != null) {
+            FileValidationUtil.validateImageFile(request.img());
+            try {
+                String path = "challenge" + "/";
+                responseUrl = s3FileService.upload(request.img(), path);
+            } catch (IOException e) {
+                throw new BusinessException(ExceptionCode.PROFILE_IMAGE_UPLOAD_FAIL);
+            }
+        }
+        return challengePostDao.updateChallenge(request, responseUrl, challengePostId);
     }
 
     // 챌린지 삭제

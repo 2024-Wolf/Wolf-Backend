@@ -128,9 +128,9 @@ public class ChallengePostDao {
     }
 
     // 챌린지 수정
-    public Long updateChallenge(ChallengeCreateRequest request,Long challengePostId){
+    public Long updateChallenge(ChallengeCreateRequest request,String imageUrl,Long challengePostId){
         ChallengePostEntity entity = challengePostRepository.findById(challengePostId).orElseThrow(NotFoundException::new);
-        entity.updateChallengePost(request);
+        entity.updateChallengePost(request, imageUrl);
         return challengePostRepository.save(entity).getChallengePostId();
     }
 
