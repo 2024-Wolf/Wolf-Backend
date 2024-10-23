@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Date;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,6 +26,7 @@ public class ScheduleEntity {
 
     @ManyToOne
     @JoinColumn(name = "group_post_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private GroupPostEntity groupPost;
 
     @ManyToOne

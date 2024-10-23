@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Entity
@@ -20,6 +22,7 @@ public class PaymentEntity {
     // ChallengeRegistrationEntity와 다대일 관계 설정
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "registration_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ChallengeRegistrationEntity registration;
 
     // UserEntity와 다대일 관계 설정
