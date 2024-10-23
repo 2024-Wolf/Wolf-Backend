@@ -114,10 +114,10 @@ public class ChallengePostDao {
     }
 
     // 챌린지 생성
-    public Long createChallenge(ChallengeCreateRequest request,Long userId){
+    public Long createChallenge(ChallengeCreateRequest request,String imageUrl, Long userId){
         ChallengePostEntity entity = ChallengePostEntity.builder()
                 .userId(userId)
-                .img(request.img())
+                .img(imageUrl)
                 .title(request.title())
                 .content(request.content())
                 .manner(request.manner())
@@ -128,9 +128,9 @@ public class ChallengePostDao {
     }
 
     // 챌린지 수정
-    public Long updateChallenge(ChallengeCreateRequest request,Long challengePostId){
+    public Long updateChallenge(ChallengeCreateRequest request,String imageUrl,Long challengePostId){
         ChallengePostEntity entity = challengePostRepository.findById(challengePostId).orElseThrow(NotFoundException::new);
-        entity.updateChallengePost(request);
+        entity.updateChallengePost(request, imageUrl);
         return challengePostRepository.save(entity).getChallengePostId();
     }
 

@@ -25,6 +25,11 @@ import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupNewsActionType;
 import com.kdt.wolf.domain.group.service.GroupNewsService;
 import com.kdt.wolf.global.dto.PageResponse;
+import com.kdt.wolf.global.exception.BusinessException;
+import com.kdt.wolf.global.exception.code.ExceptionCode;
+import com.kdt.wolf.global.service.S3FileService;
+import com.kdt.wolf.global.util.FileValidationUtil;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -42,6 +47,7 @@ public class ChallengeService {
     private final ChallengePaymentRepository challengePaymentRepository;
     private final GroupNewsService  groupNewsService;
     private final GroupPostDao  groupPostDao;
+    private final S3FileService s3FileService;
 
     public String CheckStatus(ChallengePostEntity post){
         LocalDateTime now = LocalDateTime.now();
@@ -165,12 +171,32 @@ public class ChallengeService {
 
     // 챌린지 생성
     public Long  registerChallenge(ChallengeCreateRequest request, Long userId){
-        return challengePostDao.createChallenge(request, userId);
+        String responseUrl = null;
+        if(request.img() != null) {
+            FileValidationUtil.validateImageFile(request.img());
+            try {
+                String path = "challenge" + "/";
+                responseUrl = s3FileService.upload(request.img(), path);
+            } catch (IOException e) {
+                throw new BusinessException(ExceptionCode.PROFILE_IMAGE_UPLOAD_FAIL);
+            }
+        }
+        return challengePostDao.createChallenge(request, responseUrl, userId);
     }
 
     // 챌린지 수정
     public Long updateChallenge(ChallengeCreateRequest request, Long challengePostId){
-        return challengePostDao.updateChallenge(request, challengePostId);
+        String responseUrl = null;
+        if(request.img() != null) {
+            FileValidationUtil.validateImageFile(request.img());
+            try {
+                String path = "challenge" + "/";
+                responseUrl = s3FileService.upload(request.img(), path);
+            } catch (IOException e) {
+                throw new BusinessException(ExceptionCode.PROFILE_IMAGE_UPLOAD_FAIL);
+            }
+        }
+        return challengePostDao.updateChallenge(request, responseUrl, challengePostId);
     }
 
     // 챌린지 삭제

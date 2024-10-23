@@ -2,8 +2,10 @@ package com.kdt.wolf.domain.group.dao;
 
 import com.kdt.wolf.domain.group.dto.GroupAdminDto.GroupPreviewResponse;
 import com.kdt.wolf.domain.group.dto.request.GroupPostRequest;
+import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.domain.group.entity.common.MemberRole;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.exception.BusinessException;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GroupPostDao {
     private final GroupPostRepository groupPostRepository;
+    private final GroupMemberDao groupMemberDao;
 
     public GroupPostEntity findById(Long groupPostId) {
         return groupPostRepository.findById(groupPostId)
@@ -62,7 +65,11 @@ public class GroupPostDao {
                 .leaderUser(user)
                 .build();
 
-        return groupPostRepository.save(groupPost); // DB에 저장
+         GroupPostEntity groupPostEntity = groupPostRepository.save(groupPost);
+        //leader 멤버로 저장
+        groupMemberDao.addGroupMember(groupPostEntity, user, null, MemberRole.LEADER);
+
+        return groupPostEntity; // DB에 저장
     }
 
     public void deleteById(Long groupPostId) {

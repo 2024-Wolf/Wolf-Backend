@@ -24,7 +24,7 @@
 			<%@ include file="components/sidebar.jsp" %>
 				<div class="infoCard">
 					<h2 class="title">챌린지 작성</h2>
-					<form method="POST" action="/admin/challenges" onsubmit="alert('작성완료');" class="inputSection scrollArea">
+					<form method="POST" action="/admin/challenges" enctype="multipart/form-data" onsubmit="alert('작성완료');" class="inputSection scrollArea">
 						<!-- 인증 주체 입력 필드 -->
 						<jsp:include page="components/inputRadio/verificationAgent.jsp" />
 

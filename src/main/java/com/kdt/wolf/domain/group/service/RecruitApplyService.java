@@ -16,6 +16,7 @@ import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
 import com.kdt.wolf.domain.group.entity.common.ApplyStatus;
 import com.kdt.wolf.domain.group.entity.common.GroupNewsActionType;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.domain.group.entity.common.MemberRole;
 import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
@@ -100,7 +101,7 @@ public class RecruitApplyService {
         RecruitApplyEntity recruitApply = recruitApplyDao.getById(recruitApplyId);
         if(status.equals(ApplyStatus.ACCEPTED)) {
             //참가지 테이블에 넣기
-            Long groupMemberId = groupMemberDao.addGroupMember(recruitApply.getGroupPost(), recruitApply.getUser(), recruitApply.getPosition());
+            Long groupMemberId = groupMemberDao.addGroupMember(recruitApply.getGroupPost(), recruitApply.getUser(), recruitApply.getPosition(), MemberRole.MEMBER);
             if(groupMemberId == null) {
                 throw new BusinessException(ExceptionCode.ALREADY_APPLIED);
             }

@@ -8,10 +8,11 @@ import static org.mockito.Mockito.when;
 
 import com.kdt.wolf.domain.admin.dao.AdminDao;
 import com.kdt.wolf.domain.admin.entity.AdminEntity;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeCreateDto;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticeDetailDto;
-import com.kdt.wolf.domain.notice.dao.NoticeAdminDto.NoticePreviewDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeCreateDto;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticeDetailDtoByAdmin;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticePreviewDto;
 import com.kdt.wolf.domain.notice.dao.NoticeDao;
+import com.kdt.wolf.domain.notice.dto.NoticeDto.NoticePreviewPageResponse;
 import com.kdt.wolf.domain.notice.entity.NoticeEntity;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
@@ -21,6 +22,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 
 class NoticeServiceTest {
@@ -57,20 +60,21 @@ class NoticeServiceTest {
     @Test
     void getNoticePreviews_Success() {
         // given
-        when(noticeDao.findAll()).thenReturn(List.of(noticeEntity));
+        Pageable pageable = Pageable.ofSize(20);
+        when(noticeDao.findAll(pageable)).thenReturn(new PageImpl<>(List.of(noticeEntity)));
 
         // when
-        List<NoticePreviewDto> result = noticeService.getNoticePreviews();
+        NoticePreviewPageResponse result = noticeService.getNoticePreviews(pageable);
 
         // then
         assertNotNull(result);
-        assertEquals(1, result.size());
+        assertEquals(1, result.notices().size());
 
-        NoticePreviewDto noticePreviewDto = result.get(0);
+        NoticePreviewDto noticePreviewDto = result.notices().get(0);
         assertEquals("Test Notice Title", noticePreviewDto.title());
         assertEquals("adminNick", noticePreviewDto.author());
 
-        verify(noticeDao, times(1)).findAll();
+        verify(noticeDao, times(1)).findAll(pageable);
     }
 
     @Test
@@ -79,7 +83,7 @@ class NoticeServiceTest {
         when(noticeDao.findById(1L)).thenReturn(noticeEntity);
 
         // when
-        NoticeDetailDto result = noticeService.getNotice(1L);
+        NoticeDetailDtoByAdmin result = noticeService.getNoticeByAdmin(1L);
 
         // then
         assertNotNull(result);
@@ -95,7 +99,7 @@ class NoticeServiceTest {
         // given
         when(noticeDao.findById(999L)).thenThrow(new NotFoundException(ExceptionCode.NOT_FOUND_NOTICE));
         // then
-        assertThrows(NotFoundException.class, () -> noticeService.getNotice(999L));
+        assertThrows(NotFoundException.class, () -> noticeService.getNoticeByAdmin(999L));
 
         verify(noticeDao, times(1)).findById(999L);
     }
