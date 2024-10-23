@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,6 +22,7 @@ public class RecruitmentsEntity {
 
     @ManyToOne
     @JoinColumn(name = "group_post_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private GroupPostEntity groupPost;
 
     @Column

@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Entity
@@ -26,6 +28,7 @@ public class GroupChallengeParticipantEntity extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("registrationId") // GroupChallengeParticipantId에 있는 필드와 매핑
     @JoinColumn(name = "registration_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ChallengeRegistrationEntity challengeRegistration;
 
     @ManyToOne(fetch = FetchType.LAZY)

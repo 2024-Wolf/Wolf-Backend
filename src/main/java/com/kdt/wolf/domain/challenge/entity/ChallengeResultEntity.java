@@ -6,6 +6,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Entity
@@ -22,11 +24,13 @@ public class ChallengeResultEntity {
   // GroupPostEntity와 다대일 관계 설정
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "group_post_id")
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private GroupPostEntity groupPost;
 
   // ChallengePostEntity와 다대일 관계 설정
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "challenge_post_id")
+  @OnDelete(action = OnDeleteAction.CASCADE)
   private ChallengePostEntity challengePost;
 
   private int totalChallengeAmount;
