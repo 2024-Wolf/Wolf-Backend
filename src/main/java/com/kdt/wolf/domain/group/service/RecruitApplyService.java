@@ -14,6 +14,7 @@ import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
 import com.kdt.wolf.domain.group.entity.common.ApplyStatus;
+import com.kdt.wolf.domain.group.entity.common.GroupNewsActionType;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.global.dto.PageResponse;
 import com.kdt.wolf.global.exception.BusinessException;
@@ -31,6 +32,7 @@ public class RecruitApplyService {
     private final RecruitApplyDao recruitApplyDao;
     private final RecruitmentsDao recruitmentsDao;
     private final GroupMemberDao groupMemberDao;
+    private final GroupNewsService groupNewsService;
 
     public RecruitApplyDetail getApplicationsById(Long recruitApplyId) {
         RecruitApplyEntity recruitApply =  recruitApplyDao.getById(recruitApplyId);
@@ -102,6 +104,10 @@ public class RecruitApplyService {
             if(groupMemberId == null) {
                 throw new BusinessException(ExceptionCode.ALREADY_APPLIED);
             }
+            groupNewsService.createGroupNews(
+                    recruitApply.getGroupPost(),
+                    groupNewsService.generateMessage(recruitApply.getUser().getNickname(), GroupNewsActionType.JOIN_GROUP)
+            );
         }
         recruitApply.changeStatus(status);
     }
