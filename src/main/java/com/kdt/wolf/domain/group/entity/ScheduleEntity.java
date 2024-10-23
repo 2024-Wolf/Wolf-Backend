@@ -33,11 +33,11 @@ public class ScheduleEntity {
     @Column(length = 100)
     private String details;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column
     private LocalDate startTime;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column
     private LocalDate endTime;
 
