@@ -92,4 +92,7 @@ public class GroupPostEntity{
         this.warning = request.getWarning();
     }
 
+    public void updateThumbnail(String responseUrl) {
+        this.thumbnail = responseUrl;
+    }
 }

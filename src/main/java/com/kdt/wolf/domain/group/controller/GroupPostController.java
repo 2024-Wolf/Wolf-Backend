@@ -31,19 +31,19 @@ public class GroupPostController {
 
     @Operation(summary = "모집글 작성")
     @PostMapping
-    public ApiResult<Void> createPost(@RequestBody GroupPostRequest request,
+    public ApiResult<Long> createPost(@RequestBody GroupPostRequest request,
                                       @AuthenticationPrincipal AuthenticatedUser user) {
-        groupPostService.createPost(request, user.getUserId());
-        return ApiResult.ok(null);
+        Long groupPostId = groupPostService.createPost(request, user.getUserId());
+        return ApiResult.ok(groupPostId);
     }
 
-    @Operation(summary = "모집글 프로필사진 등록")
+    @Operation(summary = "모집글 썸네일 등록 및 수정")
     @PostMapping(value ="/{postId}/thumbnail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResult<String> uploadThumbnail(@PathVariable Long postId,
                                              @RequestParam("thumbnailImage") MultipartFile thumbnailImage) {
         FileValidationUtil.validateImageFile(thumbnailImage);
-//        String thumbnailUrl = groupPostService.uploadThumbnail(postId, thumbnailImage);
-        return ApiResult.ok(null);
+        String thumbnailUrl = groupPostService.uploadThumbnail(postId, thumbnailImage);
+        return ApiResult.ok(thumbnailUrl);
     }
 
     @Operation(summary = "모집글 Type별 View")
