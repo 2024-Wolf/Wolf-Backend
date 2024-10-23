@@ -11,7 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/notices")
+@RequestMapping("/api/v1/notices")
 @RequiredArgsConstructor
 @RestController
 public class NoticeController {
