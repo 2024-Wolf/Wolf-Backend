@@ -95,26 +95,22 @@ public class ChallengePostDao {
     public Long updateVerification(VerificationRequest request, long id) {
         ChallengeRegistrationEntity registration = challengeRegistrationQueryRepository
                 .findChallengeRegistration(request.groupPostId(), request.challengePostId());
-        VerificationEntity verificationEntity = verificationRepository.findById(id).orElseThrow(NotFoundException::new);
-        UserEntity user = userRepository.findByNickname(request.nickname()).orElseThrow(UserNotFoundException::new);
+        UserEntity user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
-//        VerificationEntity verificationEntity = new VerificationEntity(
-//                registration,
-//                registration.getChallengePost(),
-//                user,
-//                request.getCertificationNo(),
-//                request.getInstitutionName(),
-//                request.getVerificationContent()
-//        );
-        boolean status = request.status().equals("success");
-//        GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
-//        entity.updateParticipationStatus();
-//        groupChallengeParticipantRepository.save(entity);
+        VerificationEntity verificationEntity = new VerificationEntity(
+                registration,
+                registration.getChallengePost(),
+                user,
+                request.certificationNo(),
+                request.institutionName(),
+                request.content()
+        );
+
+        boolean status = request.status().equals("Y");
+        GroupChallengeParticipantEntity entity = groupChallengeParticipantRepository.findGroupChallengeParticipantEntity(registration, user);
+        entity.updateParticipationStatus();
+        groupChallengeParticipantRepository.save(entity);
         verificationEntity.updateVerification(status);
-//        if(request.status().equals("success")) {
-//            verificationEntity.updateVerification();
-//        };
-
         return verificationRepository.save(verificationEntity).getVerificationId();
     }
 
@@ -182,7 +178,7 @@ public class ChallengePostDao {
                 verification.getChallengePost().getTitle(),
                 verification.getCertificationNo(),
                 verification.getInstitutionName(),
-                verification.getVerificationContent(),
+                verification.getContent(),
                 verification.getCreatedTime().toLocalDate().toString(),
                 verification.isVerification() ? "인증 성공" : "인증 실패"
         );
