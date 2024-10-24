@@ -1,6 +1,7 @@
 package com.kdt.wolf.domain.group.dao;
 
 import com.kdt.wolf.domain.group.dto.request.EvaluateRequest;
+import com.kdt.wolf.domain.group.dto.request.GroupMemberRequest;
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
@@ -131,5 +132,10 @@ public class GroupMemberDao {
         groupPostRepository.save(groupPost);
         groupMemberRepository.save(newLeader);
         groupMemberRepository.save(oldLeader);
+    }
+
+    public void updatePositions(GroupMemberEntity member, GroupMemberRequest requests) {
+        member.updatePosition(requests.getPosition());
+        groupMemberRepository.save(member);
     }
 }

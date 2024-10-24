@@ -6,6 +6,7 @@ import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUser;
 import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUserPageResponse;
 import com.kdt.wolf.domain.group.dto.Recruitments;
 import com.kdt.wolf.domain.group.dto.request.EvaluateRequest;
+import com.kdt.wolf.domain.group.dto.request.GroupMemberRequest;
 import com.kdt.wolf.domain.group.dto.response.GroupMemberResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostPageResponse;
 import com.kdt.wolf.domain.group.dto.response.GroupPostResponse;
@@ -95,5 +96,12 @@ public class GroupMemberService {
 
     public void updateGroupMembers(Long groupId, Long memberId) {
         groupMemberDao.updateRole(groupId, memberId);
+    }
+
+    public void updateGroupPositions(Long groupId, List<GroupMemberRequest> request) {
+        for(GroupMemberRequest requestItem : request) {
+            GroupMemberEntity groupMembers = groupMemberDao.findByGroupIdAndMemberId(groupId, requestItem.getId());
+            groupMemberDao.updatePositions(groupMembers, requestItem);
+        }
     }
 }

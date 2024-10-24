@@ -140,6 +140,13 @@ public class GroupPostController {
         return ApiResult.ok(null);
     }
 
+    @Operation(summary = "포지션 변경")
+    @PutMapping("/{groupId}/members")
+    public ApiResult<Void> updateGroupMembersPosition(@PathVariable Long groupId, @RequestBody List<GroupMemberRequest> request) {
+        groupMemberService.updateGroupPositions(groupId, request);
+        return ApiResult.ok(null);
+    }
+
     @Operation(summary = "팀원 평가 작성")
     @PostMapping("/{groupId}/evaluate")
     public ApiResult<Void> postEvaluation(@PathVariable Long groupId,
