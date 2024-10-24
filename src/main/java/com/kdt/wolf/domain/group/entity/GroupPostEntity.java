@@ -95,4 +95,8 @@ public class GroupPostEntity{
     public void updateThumbnail(String responseUrl) {
         this.thumbnail = responseUrl;
     }
+
+    public void updateLeader(UserEntity user) {
+        this.leaderUser = user;
+    }
 }
