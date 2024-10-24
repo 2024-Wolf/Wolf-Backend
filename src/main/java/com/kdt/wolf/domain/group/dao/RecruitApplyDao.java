@@ -4,15 +4,19 @@ import com.kdt.wolf.domain.group.dto.RecruitApplyDto.ApplicationsMember;
 import com.kdt.wolf.domain.group.dto.request.RecruitApplyRequest;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
+import com.kdt.wolf.domain.group.entity.common.ApplyStatus;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.group.repository.RecruitApplyRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.UserRepository;
+import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.NotFoundException;
 import com.kdt.wolf.global.exception.UserNotFoundException;
 import java.util.List;
+
+import com.kdt.wolf.global.exception.code.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,4 +64,14 @@ public class RecruitApplyDao {
     public List<RecruitApplyEntity> getPendingApplicationsByGroupId(Long groupId) {
         return recruitApplyRepository.findPendingApplicationsByGroupId(groupId);
     }
+
+    public void deleteByGroupIdAndUserId(Long groupId, Long userId) {
+        RecruitApplyEntity recruitApply = recruitApplyRepository.findByGroupIdAndUserId(groupId, userId)
+                        .orElseThrow(NotFoundException::new);
+        if (recruitApply.getApplyStatus() != ApplyStatus.PENDING) {
+            throw new BusinessException(ExceptionCode.ALREADY_PROCESSED);
+        }
+        recruitApplyRepository.delete(recruitApply);
+    }
+
 }
