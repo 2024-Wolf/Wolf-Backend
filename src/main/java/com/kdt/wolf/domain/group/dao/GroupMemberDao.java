@@ -53,6 +53,7 @@ public class GroupMemberDao {
             case "bad" -> activityMetrics.addBad();
             default -> throw new BusinessException(ExceptionCode.BAD_REQUEST);
         }
+        activityMetricsRepository.save(activityMetrics);
 
     }
 
