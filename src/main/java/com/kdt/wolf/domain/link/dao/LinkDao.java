@@ -6,7 +6,9 @@ import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.LinkType;
 import com.kdt.wolf.domain.link.repository.ExternalLinksRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
+import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.NotFoundException;
+import com.kdt.wolf.global.exception.code.ExceptionCode;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,9 @@ public class LinkDao {
     }
 
     public void createLink(GroupPostEntity group, LinkRequest request) {
+        if(externalLinksRepository.existsByGroupPostAndLinkType(group, LinkType.valueOf(request.getLinkType().toUpperCase()))) {
+            throw new BusinessException(ExceptionCode.BAD_REQUEST);
+        }
 
         ExternalLinksEntity link = ExternalLinksEntity.groupBuilder()
                 .groupPost(group)
