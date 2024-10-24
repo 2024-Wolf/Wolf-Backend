@@ -126,6 +126,20 @@ public class GroupPostController {
         return ApiResult.ok(members);
     }
 
+    @Operation(summary = "모임 탈퇴")
+    @GetMapping("/{groupId}/members/{userId}")
+    public ApiResult<Void> deleteGroupMembers(@PathVariable Long groupId, @PathVariable Long userId) {
+        groupMemberService.removeGroupMembers(groupId, userId);
+        return ApiResult.ok(null);
+    }
+
+    @Operation(summary = "모임장 변경")
+    @PutMapping("/{groupId}/members/role/{memberId}")
+    public ApiResult<Void> updateGroupMembers(@PathVariable Long groupId, @PathVariable Long memberId) {
+        groupMemberService.updateGroupMembers(groupId, memberId);
+        return ApiResult.ok(null);
+    }
+
     @Operation(summary = "팀원 평가 작성")
     @PostMapping("/{groupId}/evaluate")
     public ApiResult<Void> postEvaluation(@PathVariable Long groupId,

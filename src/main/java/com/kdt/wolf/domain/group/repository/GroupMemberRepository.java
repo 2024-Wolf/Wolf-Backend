@@ -4,6 +4,7 @@ import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.ChallengeParticipantM
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
+import com.kdt.wolf.domain.user.entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -48,4 +49,8 @@ public interface GroupMemberRepository extends JpaRepository<GroupMemberEntity, 
             + "WHERE m.groupPost = :groupPost"
     )
     List<GroupMemberEntity> findGroupMembers(GroupPostEntity groupPost);
+
+    void deleteByGroupPostAndUser(GroupPostEntity groupPost, UserEntity user);
+
+    Optional<GroupMemberEntity> findByGroupPostAndUser(GroupPostEntity groupPost, UserEntity user);
 }

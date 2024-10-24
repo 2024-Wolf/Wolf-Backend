@@ -7,11 +7,13 @@ import lombok.Getter;
 
 @Getter
 public class GroupMemberResponse {
+    private final Long id;
     private final GroupUser groupUser;
     private final MemberRole role;
     private final String position;
 
     public GroupMemberResponse(GroupMemberEntity groupMember) {
+        this.id = groupMember.getGroupMemberId();
         this.groupUser = new GroupUser(groupMember.getUser());
         this.role = groupMember.getRole();
         this.position = groupMember.getPosition();

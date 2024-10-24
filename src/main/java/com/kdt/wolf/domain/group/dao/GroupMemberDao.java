@@ -1,6 +1,5 @@
 package com.kdt.wolf.domain.group.dao;
 
-import com.kdt.wolf.domain.challenge.dto.ChallengeAdminDto.ChallengeParticipantMember;
 import com.kdt.wolf.domain.group.dto.request.EvaluateRequest;
 import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
@@ -12,8 +11,10 @@ import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.ActivityMetricsEntity;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.domain.user.repository.ActivityMetricsRepository;
+import com.kdt.wolf.domain.user.repository.UserRepository;
 import com.kdt.wolf.global.exception.BusinessException;
 import com.kdt.wolf.global.exception.NotFoundException;
+import com.kdt.wolf.global.exception.UserNotFoundException;
 import com.kdt.wolf.global.exception.code.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,7 @@ public class GroupMemberDao {
     private final GroupMemberRepository groupMemberRepository;
     private final GroupPostRepository groupPostRepository;
     private final ActivityMetricsRepository activityMetricsRepository;
+    private final UserRepository userRepository;
 
     public List<GroupMemberEntity> findAllByGroupId(Long groupId) {
         return groupMemberRepository.findAllByGroupId(groupId);
@@ -79,14 +81,55 @@ public class GroupMemberDao {
     }
 
     public Long addGroupMember(GroupPostEntity groupPost, UserEntity user, RecruitRole position, MemberRole memberRole) {
-        System.out.println("잘 되는중");
         GroupMemberEntity member = GroupMemberEntity.builder()
                 .groupPost(groupPost)
                 .user(user)
                 .role(memberRole)
                 .position(position.name())
                 .build();
-        System.out.println("잘 되는중2222");
         return groupMemberRepository.save(member).getGroupMemberId();
+    }
+
+    public void deleteByGroupPostAndUserId(Long groupId, Long userId) {
+        GroupPostEntity groupPost = groupPostRepository.findById(groupId)
+                .orElseThrow(NotFoundException::new);
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(UserNotFoundException::new);
+        GroupMemberEntity groupMember = groupMemberRepository.findByGroupPostAndUser(groupPost, user)
+                .orElseThrow(NotFoundException::new);
+
+        if (groupMember.getRole() == MemberRole.LEADER) {
+            if (groupMemberRepository.countByGroupPostId(groupId) == 1) {
+                groupPostRepository.delete(groupPost);
+            }
+            else{
+                throw new BusinessException(ExceptionCode.LEADER_CAN_NOT_DELETE);
+            }
+        }
+        else{
+            groupMemberRepository.delete(groupMember);
+        }
+    }
+
+    public void updateRole(Long groupId, Long memberId) {
+        GroupPostEntity groupPost = groupPostRepository.findById(groupId)
+                .orElseThrow(NotFoundException::new);
+        GroupMemberEntity newLeader = groupMemberRepository.findById(memberId)
+                .orElseThrow(NotFoundException::new);
+        GroupMemberEntity oldLeader = groupMemberRepository.findByGroupPostAndUser(groupPost, groupPost.getLeaderUser())
+                .orElseThrow(NotFoundException::new);
+
+        if (oldLeader == newLeader) {
+            return;
+        }
+        UserEntity user = newLeader.getUser();
+        groupPost.updateLeader(user);
+
+        oldLeader.updateRole(MemberRole.MEMBER, newLeader.getPosition());
+        newLeader.updateRole(MemberRole.LEADER, null);
+
+        groupPostRepository.save(groupPost);
+        groupMemberRepository.save(newLeader);
+        groupMemberRepository.save(oldLeader);
     }
 }

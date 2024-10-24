@@ -88,4 +88,12 @@ public class GroupMemberService {
                 new PageResponse(posts)
         );
     }
+
+    public void removeGroupMembers(Long groupId, Long userId) {
+        groupMemberDao.deleteByGroupPostAndUserId(groupId, userId);
+    }
+
+    public void updateGroupMembers(Long groupId, Long memberId) {
+        groupMemberDao.updateRole(groupId, memberId);
+    }
 }
