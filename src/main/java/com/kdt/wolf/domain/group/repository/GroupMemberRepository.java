@@ -50,7 +50,5 @@ public interface GroupMemberRepository extends JpaRepository<GroupMemberEntity, 
     )
     List<GroupMemberEntity> findGroupMembers(GroupPostEntity groupPost);
 
-    void deleteByGroupPostAndUser(GroupPostEntity groupPost, UserEntity user);
-
     Optional<GroupMemberEntity> findByGroupPostAndUser(GroupPostEntity groupPost, UserEntity user);
 }

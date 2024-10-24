@@ -52,4 +52,7 @@ public class GroupMemberEntity extends BaseTimeEntity {
         this.position = position;
     }
 
+    public void updatePosition(String position) {
+        this.position = position;
+    }
 }
