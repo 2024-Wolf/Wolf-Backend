@@ -127,7 +127,7 @@ public class GroupPostController {
     }
 
     @Operation(summary = "모임 탈퇴")
-    @GetMapping("/{groupId}/members/{userId}")
+    @DeleteMapping("/{groupId}/members/{userId}")
     public ApiResult<Void> deleteGroupMembers(@PathVariable Long groupId, @PathVariable Long userId) {
         groupMemberService.removeGroupMembers(groupId, userId);
         return ApiResult.ok(null);
