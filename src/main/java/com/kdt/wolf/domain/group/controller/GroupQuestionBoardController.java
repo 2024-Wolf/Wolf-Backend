@@ -95,14 +95,14 @@ public class GroupQuestionBoardController {
 
     @Operation(summary = "댓글 작성")
     @PostMapping("/{groupId}/question/{questionId}/comment")
-    public ApiResult<Void> addComment(
+    public ApiResult<Long> addComment(
             @PathVariable Long groupId,
             @PathVariable Long questionId,
             @RequestBody QuestionCommentRequest request,
             @AuthenticationPrincipal AuthenticatedUser user) {
 
-        questionBoardService.createComment(questionId, request, user.getUserId());
-        return ApiResult.ok(null);
+        Long response = questionBoardService.createComment(questionId, request, user.getUserId());
+        return ApiResult.ok(response);
     }
 
     @Operation(summary = "대댓글 작성")

@@ -69,9 +69,10 @@ public class QuestionBoardService {
     }
 
 
-    public void createComment(Long questionId, QuestionCommentRequest request, Long userId) {
+    public Long createComment(Long questionId, QuestionCommentRequest request, Long userId) {
         UserEntity user = findUserById(userId);
-        questionBoardDao.createComment(questionId, request, user);
+        Long id = questionBoardDao.createComment(questionId, request, user).getCommentId();
+        return id;
     }
 
     public void createComment(Long questionId, Long commentId, QuestionCommentRequest request, Long userId) {
