@@ -120,7 +120,25 @@ public class GroupPostService {
         if(!groupPost.getLeaderUser().getUserId().equals(userId)) {
             throw new BusinessException(ExceptionCode.ACCESS_DENIED);
         }
+
         groupPost.updateGroupPost(request);
+
+        recruitmentsDao.deleteAllByGroupPost(groupPost);
+
+        //프로젝트면 Recruitments 저장
+        if (request.getType().equals("project")) {
+            List<Recruitments> recruitmentsList = request.getRecruitments();
+
+            recruitmentsList.forEach(recruitment -> {
+                RecruitmentsEntity recruitmentsEntity = RecruitmentsEntity.builder()
+                        .groupPost(groupPost)
+                        .recruitRole(recruitment.getRecruitRole())
+                        .recruitRoleCnt(recruitment.getRecruitRoleCnt())
+                        .build();
+
+                recruitmentsDao.save(recruitmentsEntity);
+            });
+        }
 
         groupNewsService.createGroupNews(groupPost, GroupNewsActionType.UPDATE_GROUP_INFO.getMessage());
     }

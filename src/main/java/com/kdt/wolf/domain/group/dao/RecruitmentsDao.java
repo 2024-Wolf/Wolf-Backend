@@ -20,4 +20,8 @@ public class RecruitmentsDao {
     public List<RecruitmentsEntity> findByGroupPost(GroupPostEntity groupPost) {
         return recruitmentsRepository.findByGroupPost(groupPost);
     }
+
+    public void deleteAllByGroupPost(GroupPostEntity groupPost) {
+        recruitmentsRepository.findByGroupPost(groupPost).forEach(recruitment -> recruitmentsRepository.delete(recruitment));
+    }
 }

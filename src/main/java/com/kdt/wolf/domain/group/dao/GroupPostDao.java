@@ -6,6 +6,7 @@ import com.kdt.wolf.domain.group.entity.GroupMemberEntity;
 import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.entity.common.MemberRole;
+import com.kdt.wolf.domain.group.entity.common.RecruitRole;
 import com.kdt.wolf.domain.group.repository.GroupPostRepository;
 import com.kdt.wolf.domain.user.entity.UserEntity;
 import com.kdt.wolf.global.exception.BusinessException;
@@ -67,7 +68,7 @@ public class GroupPostDao {
 
          GroupPostEntity groupPostEntity = groupPostRepository.save(groupPost);
         //leader 멤버로 저장
-        groupMemberDao.addGroupMember(groupPostEntity, user, null, MemberRole.LEADER);
+        groupMemberDao.addGroupMember(groupPostEntity, user, RecruitRole.PLANNER, MemberRole.LEADER);
 
         return groupPostEntity; // DB에 저장
     }
