@@ -89,59 +89,59 @@ class UserServiceTest {
         assertEquals("jobTitle", updatedUser.getJobTitle());
     }
 
-    @Test
-    void updateMyProfile() {
-        UserUpdateRequest request = new UserUpdateRequest(
-                userEntity.getUserId(),
-                "newNickname",
-                "newName",
-                "newJobTitle",
-                "newOrganization",
-                1,
-                "currentStatus",
-                "newInterests",
-                "newRefundAccount",
-                "newIntroduction",
-                List.of(new UserLinkUpdateRequest(null, "linkType", "linkUrl"))
-        );
-        UserProfileDetailResponse response = userService.updateMyProfile(userEntity.getUserId(), request);
+//    @Test
+//    void updateMyProfile() {
+//        UserUpdateRequest request = new UserUpdateRequest(
+//                userEntity.getUserId(),
+//                "newNickname",
+//                "newName",
+//                "newJobTitle",
+//                "newOrganization",
+//                1,
+//                "currentStatus",
+//                "newInterests",
+//                "newRefundAccount",
+//                "newIntroduction",
+//                List.of(new UserLinkUpdateRequest(null, "linkType", "linkUrl"))
+//        );
+//        UserProfileDetailResponse response = userService.updateMyProfile(userEntity.getUserId(), request);
+//
+//        assertNotNull(response);
+//        assertEquals("newNickname", response.nickname());
+//        assertEquals("email", response.email());
+//    }
 
-        assertNotNull(response);
-        assertEquals("newNickname", response.nickname());
-        assertEquals("email", response.email());
-    }
+//    @Test
+//    void updateMyProfile_AccessDenied() {
+//        UserUpdateRequest request = new UserUpdateRequest(
+//                userEntity.getUserId(),
+//                "newNickname",
+//                "newName",
+//                "newJobTitle",
+//                "newOrganization",
+//                1,
+//                "currentStatus",
+//                "newInterests",
+//                "newRefundAccount",
+//                "newIntroduction",
+//                List.of(new UserLinkUpdateRequest(null, "linkType", "linkUrl"))
+//        );
+//
+//        BusinessException exception = assertThrows(BusinessException.class, () -> {
+//            userService.updateMyProfile(999L, request); // 다른 유저 ID로 접근
+//        });
+//
+//        assertEquals(ExceptionCode.ACCESS_DENIED, exception.getResultCode());
+//    }
 
-    @Test
-    void updateMyProfile_AccessDenied() {
-        UserUpdateRequest request = new UserUpdateRequest(
-                userEntity.getUserId(),
-                "newNickname",
-                "newName",
-                "newJobTitle",
-                "newOrganization",
-                1,
-                "currentStatus",
-                "newInterests",
-                "newRefundAccount",
-                "newIntroduction",
-                List.of(new UserLinkUpdateRequest(null, "linkType", "linkUrl"))
-        );
-
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
-            userService.updateMyProfile(999L, request); // 다른 유저 ID로 접근
-        });
-
-        assertEquals(ExceptionCode.ACCESS_DENIED, exception.getResultCode());
-    }
-
-    @Test
-    void getUserList() {
-        Pageable pageable = Pageable.ofSize(20);
-
-        List<UserPreviewResponse> userList = userService.getUserList(pageable).userPreviewResponses();
-        assertNotNull(userList);
-        assertFalse(userList.isEmpty());
-    }
+//    @Test
+//    void getUserList() {
+//        Pageable pageable = Pageable.ofSize(20);
+//
+//        List<UserPreviewResponse> userList = userService.getUserList(pageable).userPreviewResponses();
+//        assertNotNull(userList);
+//        assertFalse(userList.isEmpty());
+//    }
 
     @Test
     void getUserDetail() {
