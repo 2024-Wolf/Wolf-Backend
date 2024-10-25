@@ -24,6 +24,7 @@ public enum ExceptionCode implements ResultCodeProvider {
     NOT_FOUND_REPORT_CATEGORY("존재하지 않는 신고 카테고리입니다."),
     NOT_FOUND_REPORT("존재하지 않는 신고입니다."),
     ALREADY_APPLIED("이미 신청한 스터디입니다."),
+    ALREADY_PROCESSED("이미 처리된 지원서 입니다."),
     ALREADY_CREATE_LINK("이미 등록한 링크입니다."),
     PROFILE_IMAGE_UPLOAD_FAIL("프로필 이미지 업로드에 실패하였습니다."),
     LEADER_CAN_NOT_DELETE("모임장은 탈퇴할 수 없습니다.");

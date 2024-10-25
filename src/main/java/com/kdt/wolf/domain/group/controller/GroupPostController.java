@@ -4,6 +4,7 @@ import com.kdt.wolf.domain.group.dto.GroupNewsDto.GroupNews;
 import com.kdt.wolf.domain.group.dto.GroupPreviewUserDto.GroupPreviewUserPageResponse;
 import com.kdt.wolf.domain.group.dto.request.*;
 import com.kdt.wolf.domain.group.dto.response.*;
+import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupStatus;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import com.kdt.wolf.domain.group.service.*;
@@ -160,5 +161,14 @@ public class GroupPostController {
     public ApiResult<List<GroupNews>> getGroupNews(@PathVariable Long groupId) {
         List<GroupNews> responses = groupPostService.getGroupNews(groupId);
         return ApiResult.ok(responses);
+    }
+
+    @Operation(summary = "모집 지원 취소")
+    @DeleteMapping("/apply/{groupId}")
+    public ApiResult<Void> cancelRecruitApplication(
+            @PathVariable Long groupId,
+            @AuthenticationPrincipal AuthenticatedUser user) {
+        recruitApplyService.cancelRecruitApplication(groupId, user.getUserId());
+        return ApiResult.ok(null);
     }
 }

@@ -1,9 +1,10 @@
 package com.kdt.wolf.domain.group.repository;
 
-import com.kdt.wolf.domain.group.entity.GroupPostEntity;
 import com.kdt.wolf.domain.group.entity.RecruitApplyEntity;
 import com.kdt.wolf.domain.group.entity.common.GroupType;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,9 @@ public interface RecruitApplyRepository extends JpaRepository<RecruitApplyEntity
             + "FROM RecruitApplyEntity r "
             + "WHERE r.groupPost.groupPostId = :groupId AND r.applyStatus = 'PENDING'")
     List<RecruitApplyEntity> findPendingApplicationsByGroupId(Long groupId);
+
+    @Query("SELECT r "
+            + "FROM RecruitApplyEntity r "
+            + "WHERE r.groupPost.groupPostId = :groupId AND r.user.userId = :userId")
+    Optional<RecruitApplyEntity> findByGroupIdAndUserId(Long groupId, Long userId);
 }

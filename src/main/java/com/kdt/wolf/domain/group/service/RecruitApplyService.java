@@ -51,8 +51,6 @@ public class RecruitApplyService {
         );
     }
 
-
-
     public void recruitApply(Long postId, Long userId, RecruitApplyRequest request){
         recruitApplyDao.applyToGroup(postId, userId, request);
     }
@@ -112,4 +110,10 @@ public class RecruitApplyService {
         }
         recruitApply.changeStatus(status);
     }
+
+    @Transactional
+    public void cancelRecruitApplication(Long groupId, Long userId) {
+        recruitApplyDao.deleteByGroupIdAndUserId(groupId, userId);
+    }
+
 }
