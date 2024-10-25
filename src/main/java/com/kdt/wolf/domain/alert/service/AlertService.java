@@ -52,7 +52,8 @@ public class AlertService {
     }
 
     public String sendAlert(AlertRequest request) {
-        return fcmService.sendNotificationByToken(request.toFCMNotificationRequestDto());
+//        return fcmService.sendNotificationByToken(request.toFCMNotificationRequestDto());
+        return "success";
     }
 
     public Long readAlarm(Long alertId) {

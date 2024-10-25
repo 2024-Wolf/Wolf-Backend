@@ -126,13 +126,13 @@ public class ReportService {
     @Transactional
     protected void sendNotification(Long userId, String body) {
         try {
-            fcmService.sendNotificationByToken(
-                    FCMNotificationRequestDto.builder()
-                            .targetUserId(userId)
-                            .title("신고")
-                            .body(body)
-                            .build()
-            );
+//            fcmService.sendNotificationByToken(
+//                    FCMNotificationRequestDto.builder()
+//                            .targetUserId(userId)
+//                            .title("신고")
+//                            .body(body)
+//                            .build()
+//            );
         } catch (Exception e) {
         }
     }

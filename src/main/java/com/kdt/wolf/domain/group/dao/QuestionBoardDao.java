@@ -67,7 +67,7 @@ public class QuestionBoardDao {
         questionBoardRepository.deleteById(questionId);
     }
 
-    public void createComment(Long questionId, QuestionCommentRequest request, UserEntity user) {
+    public QuestionCommentEntity createComment(Long questionId, QuestionCommentRequest request, UserEntity user) {
         QuestionBoardEntity questionBoard = questionBoardRepository.findById(questionId)
                 .orElseThrow(NotFoundException::new);
 
@@ -79,7 +79,7 @@ public class QuestionBoardDao {
                 .createTime(request.getCommentTime())
                 .build();
 
-        questionCommentRepository.save(comment);
+        return questionCommentRepository.save(comment);
     }
 
     public void createComment(Long questionId, Long commentId, QuestionCommentRequest request, UserEntity user) {
