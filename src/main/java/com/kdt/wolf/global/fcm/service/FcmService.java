@@ -18,24 +18,24 @@ import org.springframework.stereotype.Service;
 public class FcmService {
     private final FcmRepository fcmRepository;
 
-    public String sendNotificationByToken(FCMNotificationRequestDto requestDto) {
-        List<String> tokens = fcmRepository.findTokensByUserId(requestDto.getTargetUserId());
-        if (tokens.isEmpty()) {
-//            throw new BusinessException(ExceptionCode.NOT_FOUND);
-        }
-        Message message = Message.builder()
-                .putData("title", requestDto.getTitle())
-                .putData("body", requestDto.getBody())
-                .putData("link", requestDto.getLink())
-                .setToken(tokens.get(0))
-                .build();
-
-        try {
-            return FirebaseMessaging.getInstance().send(message);
-        } catch (Exception e) {
-            throw new BusinessException(ExceptionCode.FCM_SEND_FAIL);
-        }
-    }
+//    public String sendNotificationByToken(FCMNotificationRequestDto requestDto) {
+//        List<String> tokens = fcmRepository.findTokensByUserId(requestDto.getTargetUserId());
+//        if (tokens.isEmpty()) {
+////            throw new BusinessException(ExceptionCode.NOT_FOUND);
+//        }
+//        Message message = Message.builder()
+//                .putData("title", requestDto.getTitle())
+//                .putData("body", requestDto.getBody())
+//                .putData("link", requestDto.getLink())
+//                .setToken(tokens.get(0))
+//                .build();
+//
+//        try {
+//            return FirebaseMessaging.getInstance().send(message);
+//        } catch (Exception e) {
+//            throw new BusinessException(ExceptionCode.FCM_SEND_FAIL);
+//        }
+//    }
 
     public String saveFcmToken(UserEntity user, String fcmToken) {
         return fcmRepository.save(FcmEntity.builder()
