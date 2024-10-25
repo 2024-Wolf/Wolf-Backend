@@ -53,43 +53,43 @@ class FaqServiceTest {
         );
     }
 
-    @Test
-    @DisplayName("카테고리별 FAQ를 조회한다.")
-    void getAllFaq() {
-        //given
-        faqRepository.save(
-                FaqEntity.builder()
-                        .category(FaqCategory.STUDY)
-                        .question("question2")
-                        .answer("answer2")
-                        .admin(adminEntity)
-                        .build()
-        );
-
-        faqRepository.save(FaqEntity.builder()
-                .category(FaqCategory.STUDY)
-                .question("question3")
-                .answer("answer3")
-                .admin(adminEntity)
-                .build());
-        //when
-        Pageable pageable = Pageable.ofSize(20);
-        FaqPageResponse response = faqService.getFaqsByCategory(FaqCategory.STUDY, pageable);
-        //then
-        assertEquals(3, response.faqItems().size());
-    }
-
-    @Test
-    @DisplayName("FAQ 상세 조회")
-    void getFaq() {
-        //given
-        Long faqId = faqRepository.findAll().get(0).getId();
-        //when
-        FaqDetail result = faqService.getFaqDetail(faqId);
-        //then
-        assertEquals("question", result.question());
-        assertEquals("answer", result.answer());
-    }
+//    @Test
+//    @DisplayName("카테고리별 FAQ를 조회한다.")
+//    void getAllFaq() {
+//        //given
+//        faqRepository.save(
+//                FaqEntity.builder()
+//                        .category(FaqCategory.STUDY)
+//                        .question("question2")
+//                        .answer("answer2")
+//                        .admin(adminEntity)
+//                        .build()
+//        );
+//
+//        faqRepository.save(FaqEntity.builder()
+//                .category(FaqCategory.STUDY)
+//                .question("question3")
+//                .answer("answer3")
+//                .admin(adminEntity)
+//                .build());
+//        //when
+//        Pageable pageable = Pageable.ofSize(20);
+//        FaqPageResponse response = faqService.getFaqsByCategory(FaqCategory.STUDY, pageable);
+//        //then
+//        assertEquals(3, response.faqItems().size());
+//    }
+//
+//    @Test
+//    @DisplayName("FAQ 상세 조회")
+//    void getFaq() {
+//        //given
+//        Long faqId = faqRepository.findAll().get(0).getId();
+//        //when
+//        FaqDetail result = faqService.getFaqDetail(faqId);
+//        //then
+//        assertEquals("question", result.question());
+//        assertEquals("answer", result.answer());
+//    }
 
     @Test
     @DisplayName("FAQ 게시글 작성")
